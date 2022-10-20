@@ -1,4 +1,4 @@
-package models;
+package models.cinema;
 import java.util.*;
 
 class Cineplex {

@@ -1,4 +1,4 @@
-package models;
+package models.cinema;
 
 public class Seat {
     private int rowID;

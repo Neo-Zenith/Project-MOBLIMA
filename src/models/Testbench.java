@@ -1,5 +1,10 @@
 package models;
 import java.util.*;
+
+import models.cinema.Cinema;
+import models.cinema.CinemaType;
+import models.cinema.Cineplex;
+import models.cinema.SeatType;
 /*
  * Testbench file. Feel free to test your models here.
  */

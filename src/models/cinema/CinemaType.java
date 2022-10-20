@@ -1,10 +1,10 @@
-package models;
+package models.cinema;
 
 public enum CinemaType {
     PLATINUM,
     STANDARD;
 
     public static int getNumCinemaType() {
-        return 2;
+        return CinemaType.values().length;
     }
 }
