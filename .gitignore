@@ -30,4 +30,5 @@ hs_err_pid*
 *.lock
 *.tmp.nlogo
 *.vpp.bak_*
+*.vpp.lck*
 tmp/*
