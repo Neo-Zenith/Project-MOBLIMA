@@ -1,7 +1,7 @@
 package models.cinema;
 import java.util.*;
 
-class Cineplex {
+public class Cineplex {
     private String name;
     private int numOfCinema;
     private Cinema cinema[];

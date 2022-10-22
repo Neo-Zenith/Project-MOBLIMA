@@ -2,6 +2,7 @@ package models.movie;
 
 import models.cinema.Cinema;
 import java.util.*;
+// movie is to query 
 
 public class Movie {
 	public static List <Movie> movies = new ArrayList<>();
@@ -43,14 +44,26 @@ public class Movie {
 	public String getMovieTitle() {
 		return this.movieTitle;
 	}
+
+	public void setMovieTitle(String movieTitle){
+		this.movieTitle = movieTitle;
+	}
 	
 	public MovieType getMovieType() {
 		return this.movieType;
+	}
+
+	public void setMovieType(MovieType movieType){
+		this.movieType = movieType;
 	}
 	
 	public AgeRating getMovieAgeRating() {
 		return this.movieAgeRating;
 	}
+
+	public void setMovieAgeRating(AgeRating movieAgeRating){
+		this.movieAgeRating = movieAgeRating;
+	} 
 	
 	public float getMovieOverallReviewRating() {
 		return this.movieOverallReviewRating;
@@ -59,25 +72,49 @@ public class Movie {
 	public ShowingStatus getShowingStatus() {
 		return this.showingStatus;
 	}
+
+	public void setShowingStatus(ShowingStatus showingStatus){
+		this.showingStatus = showingStatus;
+	}
 	
 	public String[] getMovieCast() {
 		return this.movieCast;
+	}
+
+	public void setMovieCast(String movieCast, int castNumber){
+		this.movieCast[castNumber] = movieCast;
 	}
 	
 	public String getMovieDirector() {
 		return this.movieDirector;
 	}
 	
+	public void setMovieDirector(String movieDirector){
+		this.movieDirector = movieDirector;
+	}
+
 	public String getMovieSynopsis() {
 		return this.movieSynopsis;
 	}
 	
+	public void setMovieSynopsis(String movieSynopsis){
+		this.movieSynopsis = movieSynopsis;
+	}
+
 	public float getMovieDuration() {
 		return this.movieDuration;
 	}
 
+	public void setMovieDuration(float movieDuration){
+		this.movieDuration = movieDuration;
+	}
+
 	public DateTime[] getShowingTime() {
 		return this.showingTime;
+	}
+
+	public void setShowingTime(DateTime showTime, int showingTimeID ){
+		this.showingTime[showingTimeID] = showTime;
 	}
 
 	public Cinema[] getShowingVenue() {
@@ -105,5 +142,13 @@ public class Movie {
 
 	public List <MovieReview> getListOfMovieReviews() {
 		return this.movieReviews;
+	}
+
+	public void printMovies(List <Movie> movies){
+		for (int i = 0; i < movies.size(); i++){
+			
+
+		}
+
 	}
 }

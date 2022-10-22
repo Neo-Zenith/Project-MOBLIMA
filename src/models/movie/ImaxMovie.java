@@ -1,9 +1,9 @@
 package models.movie;
 
-public class ImaxMovie {
+public class ImaxMovie extends MovieType{
     private float moviePrice;
 
     public ImaxMovie(float moviePrice) {
-        this.moviePrice = moviePrice;
+        super(moviePrice);
     }
 }

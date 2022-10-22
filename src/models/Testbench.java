@@ -5,6 +5,8 @@ import models.cinema.Cinema;
 import models.cinema.CinemaType;
 import models.cinema.Cineplex;
 import models.cinema.SeatType;
+
+import models.user.CinemaStaff;
 /*
  * Testbench file. Feel free to test your models here.
  */
@@ -13,7 +15,8 @@ public class Testbench {
         /*
          * Modify the code here to test your models
          */
-        TestCinemaCineplexSeat();
+        // TestCinemaCineplexSeat();
+        TestCinemaStaffQuery();
     }
 
 
@@ -80,4 +83,13 @@ public class Testbench {
         cinema.populateSeat(numOfRowsPerSeatType, pricePerSeatType, seatTypes);
         cinema.printFloorMap();
     }
+
+    public static void TestCinemaStaffQuery(){
+        CinemaStaff testStaff = new CinemaStaff("Jonathan", 001, "Password123");
+        testStaff.queryAndSetNewMovie();
+        testStaff.updateMovieDetails();
+    }
+    
+    
+
 }

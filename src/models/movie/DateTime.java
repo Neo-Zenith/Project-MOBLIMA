@@ -17,6 +17,7 @@ public class DateTime {
         this.year = year;
     }
 
+
     public int getMinute() {
         return this.minute;
     }
