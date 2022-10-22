@@ -54,7 +54,7 @@ public class CinemaStaff extends HumanUser {
      * Queries the CinemaStaff to set a new movie into the list of movies
      * Method that is only accessible to valid cinema staffs
      * Movie Type and Cinema Type not completed yet
-     * MovieID starts from 0 and increments (because easier to use it is used to access the movies arraylist rather than searching through the arraylist every time to update.)
+     * MovieID starts from 0 and increments (not sure about this tho) (because easier to use it is used to access the movies arraylist rather than searching through the arraylist every time to update.)
      */
     public void queryAndSetNewMovie(){
         Scanner sc = new Scanner(System.in);
@@ -63,8 +63,6 @@ public class CinemaStaff extends HumanUser {
         //     System.out.println("Invalid User, Exiting MOBLIMA");    
         //     return;
         // }       
-
-        
 
         System.out.println("Adding New Movies - Enter any number to start adding and -1 to stop adding");
         int choice = sc.nextInt();
@@ -82,7 +80,7 @@ public class CinemaStaff extends HumanUser {
             System.out.println("Enter the age rating of " + movieTitle + "(G, PG, PG13, NC16, M18, R21)");
             AgeRating movieAgeRating = AgeRating.valueOf(sc.nextLine().toUpperCase());
 
-            System.out.println("Enter the showing status of " + movieTitle + " (COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING)");
+            System.out.println("Enter the showing status of " + movieTitle + " (COMING_SOON, PREVIEW, NOW_SHOWING)");
             ShowingStatus showingStatus = ShowingStatus.valueOf(sc.nextLine().toUpperCase());
 
 
@@ -221,6 +219,12 @@ public class CinemaStaff extends HumanUser {
                     case 4:
                     System.out.println("Enter the new showing status for " + Movie.movies.get(movieID).getMovieTitle()+ "(COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING)");
                     ShowingStatus newShowingStatus = ShowingStatus.valueOf(sc.nextLine().toUpperCase());
+                    // work in progress
+                    if (newShowingStatus == ShowingStatus.END_OF_SHOWING){
+                        System.out.println("Deleting " + Movie.movies.get(movieID).getMovieTitle() + " from movie list...");
+                        Movie.movies.remove(movieID);
+                        System.exit(0);
+                    }
                     Movie.movies.get(movieID).setShowingStatus(newShowingStatus);
                     System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie showing status changed to " + Movie.movies.get(movieID).getShowingStatus());
                     break;
