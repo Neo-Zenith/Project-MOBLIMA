@@ -60,18 +60,18 @@ public class MovieGoer extends HumanUser {
                                 boolean isHoliday) {
 
         MovieTicket movieTicket = new MovieTicket(seat, showingCinema, movie, showingTime);
-        movieTicket.calculateTicketPrice(discount, byPercentage, isHoliday);
+        double finalPrice = movieTicket.calculateTicketPrice(discount, byPercentage, isHoliday);
         
-        String cinemaCode = String.format("%03d", showingCinema.getCinemaID());
+        /*String cinemaCode = String.format("%03d", showingCinema.getCinemaID());
         String year = String.format("04d", Calendar.getInstance().get(Calendar.YEAR));
         String month = String.format("02d", Calendar.getInstance().get(Calendar.MONTH));
         String date = String.format("02d", Calendar.getInstance().get(Calendar.DATE));
         String hour = String.format("02d", Calendar.getInstance().get(Calendar.HOUR));
         String minute = String.format("02d", Calendar.getInstance().get(Calendar.MINUTE));
 
-        String transactionID = cinemaCode + year + month + date + hour + minute;
-        Payment payment = new Payment(  transactionID, movie.getMovieTitle(), 
-                                        seat.getRowID(), seat.getColumnID());
+        String transactionID = cinemaCode + year + month + date + hour + minute; */
+        String cinemaCode = String.format("%03d", showingCinema.getCinemaID());
+        Payment payment = new Payment(cinemaCode, movie.getMovieTitle(), seat.getRowID(), seat.getColumnID(), finalPrice);
         bookingHistory.add(payment);
     }
 }
