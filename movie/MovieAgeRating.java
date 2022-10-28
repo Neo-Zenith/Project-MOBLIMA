@@ -1,6 +1,4 @@
-package models.movie;
-
-public enum AgeRating{
+public enum MovieAgeRating{
     G, 
     PG, 
     PG13, 

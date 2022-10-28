@@ -1,0 +1,3 @@
+public BlockbusterMovie extends Movie{
+
+}

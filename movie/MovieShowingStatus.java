@@ -1,6 +1,4 @@
-package models.movie;
-
-public enum ShowingStatus{
+public enum MovieShowingStatus{
     COMING_SOON, 
     PREVIEW, 
     NOW_SHOWING, 

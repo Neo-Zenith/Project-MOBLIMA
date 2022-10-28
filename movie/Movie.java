@@ -1,36 +1,30 @@
-package models.movie;
-
-import models.cinema.Cinema;
-import java.util.*;
-// movie is to query 
-
-public class Movie {
+public abstract class Movie {
 	public static List <Movie> movies = new ArrayList<>();
 
 	private int movieID;
 	private String movieTitle;
-	private ShowingStatus showingStatus;
+	private MovieShowingStatus movieShowingStatus;
 	private String movieSynopsis;
 	private String movieDirector;
-	private String movieCast[];
-	private float movieOverallReviewRating;
+	private ArrayList<String> movieCast;
+	private double movieOverallReviewRating;
 	private List <MovieReview> movieReviews;
-	private AgeRating movieAgeRating;
+	private MovieAgeRating movieAgeRating;
 	private MovieType movieType;
-	private Cinema showingVenue[];
-	private DateTime showingTime[];
-	private float movieDuration;
+	private ArrayList<Cinema> showingVenue;
+	private ArrayList<DateTime> showingTime;
+	private double movieDuration;
 	
 	public Movie(	int movieID, String movieTitle, MovieType movieType, 
-					AgeRating movieAgeRating, ShowingStatus showingStatus, String movieCast[], 
-					String movieDirector, String movieSynopsis, float movieDuration, 
-					Cinema showingVenue[], DateTime showingTime[]) {
+					AgeRating movieAgeRating, ShowingStatus showingStatus, ArrayList<String> movieCast, 
+					String movieDirector, String movieSynopsis, double movieDuration, 
+					ArrayList<Cinema> showingVenue, ArrayList<DateTime> showingTime) {
 
 		this.movieID = movieID;
 		this.movieTitle = movieTitle;
 		this.movieType = movieType;
 		this.movieAgeRating = movieAgeRating;
-		this.showingStatus = showingStatus;
+		this.movieShowingStatus = showingStatus;
 		this.movieCast = movieCast;
 		this.movieDirector = movieDirector;
 		this.movieSynopsis = movieSynopsis;
@@ -74,15 +68,15 @@ public class Movie {
 	}
 
 	public void setShowingStatus(ShowingStatus showingStatus){
-		this.showingStatus = showingStatus;
+		this.movieShowingStatus = showingStatus;
 	}
 	
-	public String[] getMovieCast() {
+	public ArrayList<String> getMovieCast() {
 		return this.movieCast;
 	}
 
 	public void setMovieCast(String movieCast, int castNumber){
-		this.movieCast[castNumber] = movieCast;
+		this.movieCast.set(castNumber-1, movieCast);
 	}
 	
 	public String getMovieDirector() {
@@ -109,16 +103,19 @@ public class Movie {
 		this.movieDuration = movieDuration;
 	}
 
-	public DateTime[] getShowingTime() {
+	public ArrayList<DateTime> getShowingTime() {
 		return this.showingTime;
 	}
 
 	public void setShowingTime(DateTime showTime, int showingTimeID ){
-		this.showingTime[showingTimeID] = showTime;
+		this.showingTime.set(showingTimeID-1, showTime);
 	}
 
-	public Cinema[] getShowingVenue() {
+	public ArrayList<Cinema> getShowingVenue() {
 		return this.showingVenue;
+	}
+	public void setShowingVenue(Cinema venue, int cinemaID) {
+		this.showingVenue.set(cinemaID-1, venue);
 	}
 	
 	public float calculateOverallReviewRating() {
@@ -134,10 +131,13 @@ public class Movie {
 		return overallRating / this.movieReviews.size();
 	}
 
-	public void writeMovieReview(int movieReviewRating, String movieReview, int movieGoerID) {
-		int reviewID = this.movieReviews.size() + 1;
-		this.movieReviews.add(new MovieReview(	reviewID, movieReviewRating, 
-												movieReview, movieGoerID));
+	public void writeMovieReview(MovieReview newReview) {
+        String movieName = newReview.getMovieTitle();
+        for (int i=0; i<movies.size(); i++){
+            if(movieName == movies.get(i).getMovieTitle()){
+                movies.get(i).movieReviews.add(newReview);
+            }
+        }
 	}
 
 	public List <MovieReview> getListOfMovieReviews() {
@@ -145,10 +145,34 @@ public class Movie {
 	}
 
 	public void printMovies(List <Movie> movies){
+		Movie m;
 		for (int i = 0; i < movies.size(); i++){
-			
+			m = movies.get(i);
+			System.out.println("ID: " + m.movieID + " - " + m.movieTitle + " (" + m.showingStatus + ")");
+			System.out.println("Movie Type: " + m.movieType.getMovieType() + " Rated: " + m.movieAgeRating);
+			System.out.println("Duration: " + m.movieDuration + " Review rating: " + m.movieOverallReviewRating);
+			System.out.println("Director: " + m.movieDirector);
+			System.out.print("Cast: ");
+			for(int j=0; j<m.movieCast.size(); j++){
+				System.out.print(m.movieCast.get(j) + " ");
+			}
+			System.out.println("");
+			System.out.println("Synopsis: " + m.movieSynopsis);
+			System.out.print("Showing venues: ");
+			for(int j=0; j<m.showingVenue.size(); j++){
+				System.out.print(m.showingVenue.get(j).getCinemaID() + " ");
+			}
+			System.out.println("");
+			System.out.print("Showing time: ");
+			for(int j=0; j<m.showingTime.size(); j++){
+				System.out.print(m.showingTime.get(j).getMinute() + " min ");
+				System.out.print(m.showingTime.get(j).getHour() + " hr ");
+				System.out.print(m.showingTime.get(j).getDay() + " day ");
+				System.out.print(m.showingTime.get(j).getDate() + "/");
+				System.out.print(m.showingTime.get(j).getMonth() + "/");
+				System.out.println(m.showingTime.get(j).getYear());
+			}
 
 		}
-
 	}
 }
