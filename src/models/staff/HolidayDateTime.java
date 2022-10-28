@@ -1,3 +1,4 @@
+package models.staff;
 import java.util.*;
 
 public class HolidayDateTime extends DateTime{
@@ -8,6 +9,7 @@ public class HolidayDateTime extends DateTime{
     public HolidayDateTime(int minute, int hour, int day, int date, int month, int year){
         super(minute, hour, day, date, month, year);
         isHoliday = true;
+        HolidayDateTime.holidays.add(this);
     }
 
 }

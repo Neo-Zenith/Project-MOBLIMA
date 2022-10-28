@@ -1,5 +1,17 @@
+package models.staff;
+
+import models.staff.HolidayDateTime;
+
+import models.movie.Movie;
+import models.movie.MovieType;
+import models.movie.AgeRating;
+import models.movie.ShowingStatus;
+import models.movie.DateTime;
+
+import models.cinema.Cinema;
+
 import java.util.*;
-import org.w3c.dom.NameList;
+
 
 public class Staff implements IStaffAccess {
     private String name;
@@ -62,10 +74,9 @@ public class Staff implements IStaffAccess {
     public void enterNewMovies(	int movieID, String movieTitle, MovieType movieType, 
     AgeRating movieAgeRating, ShowingStatus showingStatus, String movieCast[], 
     String movieDirector, String movieSynopsis, float movieDuration, 
-    Cinema showingVenue[], DateTime showingTimes[])
+    Cinema showingVenue[], DateTime showingTimes[]){
     
         Movie newMovie = new Movie(movieID, movieTitle, movieType, movieAgeRating, showingStatus, movieCast, movieDirector, movieSynopsis, movieDuration, showingVenue, showingTimes);
-        Movie.movies.add(newMovie);
     
     }
 
@@ -74,6 +85,7 @@ public class Staff implements IStaffAccess {
      * Updates certain details for existing movies
      */
     public void updateExistingMovieDetails(int choice, int movieID){
+        Scanner sc = new Scanner(System.in);
         switch(choice){
             case 1:
             System.out.println("Enter the new name of the Movie");
@@ -189,15 +201,14 @@ public class Staff implements IStaffAccess {
      * return 0 if holiday added
      * return 1 if holiday is already in holidays list
      */
-    public int addHoliday(int year, int month, int date, int hour, int minute, int day, A){
-        for (int i = 0; i < holidays.size(); i++)
+    public int addHoliday(int year, int month, int date, int hour, int minute, int day){
+        for (int i = 0; i < HolidayDateTime.holidays.size(); i++)
         {
-            if (holidays.get(i).getYear() == year && holidays.get(i).getMonth() == month && holiday.get(i).getDate() == date && holiday.get(i).getHour() == hour && holiday.get(i).getMinute() == minute && holiday.get(i).getDay() == day){
+            if (HolidayDateTime.holidays.get(i).getYear() == year && HolidayDateTime.holidays.get(i).getMonth() == month && HolidayDateTime.holidays.get(i).getDate() == date && HolidayDateTime.holidays.get(i).getHour() == hour && HolidayDateTime.holidays.get(i).getMinute() == minute && HolidayDateTime.holidays.get(i).getDay() == day){
                 return 1;
             }
         }
-        DateTime holiday = new DateTime(minute, hour, day, date, month, year);
-        holidays.add(holiday);
+        HolidayDateTime holiday = new HolidayDateTime(minute, hour, day, date, month, year);
         return 0;
     }
 
@@ -207,13 +218,13 @@ public class Staff implements IStaffAccess {
      */
 
     public int deleteHoliday(int year, int month, int date, int hour, int minute, int day){
-        if (holidays.size() == 0){
+        if (HolidayDateTime.holidays.size() == 0){
             return 2;
         }
-        for (int i = 0; i < holidays.size(); i++)
+        for (int i = 0; i < HolidayDateTime.holidays.size(); i++)
         {
-            if (holidays.get(i).getYear() == year && holidays.get(i).getMonth() == month && holiday.get(i).getDate() == date && holiday.get(i).getHour() == hour && holiday.get(i).getMinute() == minute && holiday.get(i).getDay() == day){
-                holidays.remove(i);
+            if (HolidayDateTime.holidays.get(i).getYear() == year && HolidayDateTime.holidays.get(i).getMonth() == month && HolidayDateTime.holidays.get(i).getDate() == date && HolidayDateTime.holidays.get(i).getHour() == hour && HolidayDateTime.holidays.get(i).getMinute() == minute && HolidayDateTime.holidays.get(i).getDay() == day){
+                HolidayDateTime.holidays.remove(i);
                 return 0;
             }
         }
@@ -259,8 +270,8 @@ class SortByOverallRating implements Comparator<Movie>{
      */
 
     public int compare(Movie movie1, Movie movie2){
-        int rating1 = movie1.getOverallRating();
-        int rating2 = movie2.getOverallRating();
+        double rating1 = movie1.getMovieOverallReviewRating();
+        double rating2 = movie2.getMovieOverallReviewRating();
 
         if (rating1 == rating2){
             return 0;

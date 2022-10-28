@@ -1,3 +1,3 @@
-public interface IStaffConfig {
+public interface IStaffConfig extends IStaffAccess{
     
 }
