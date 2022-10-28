@@ -1,12 +1,13 @@
 package models;
 import java.util.*;
 
-import models.cinema.Cinema;
-import models.cinema.CinemaType;
-import models.cinema.Cineplex;
-import models.cinema.SeatType;
+import models.cinema.*;
+import models.cinema.cinema_type.IMaxCinema;
+import models.cinema.printer.CinemaFloorMapPrinter;
+import models.cinema.seat_type.CoupleSeat;
+import models.cinema.seat_type.Seat;
+import models.cinema.seat_type.StandardSeat;
 
-import models.user.CinemaStaff;
 /*
  * Testbench file. Feel free to test your models here.
  */
@@ -16,7 +17,7 @@ public class Testbench {
          * Modify the code here to test your models
          */
         // TestCinemaCineplexSeat();
-        TestCinemaStaffQuery();
+        TestCinemaCineplexSeat();
     }
 
 
@@ -24,72 +25,38 @@ public class Testbench {
      * Create your own testbench function and run on main()
      */
     public static void TestCinemaCineplexSeat() {
-        Cineplex cathay = new Cineplex("Cathay", 1);
-        System.out.println(cathay.getCineplexName()); 
+        Cineplex cathay = new Cineplex("Cathay", 3);
+        Cinema cinema[] = new Cinema[3];
 
-        Scanner sc = new Scanner(System.in);
-        List <CinemaType> cinemaType = new ArrayList<>();
-        int totalNumOfSeats[] = new int[cathay.getNumOfCinema()];
-        float cinemaPrice[] = new float[cathay.getNumOfCinema()];
-        int numOfRows[] = new int[cathay.getNumOfCinema()];
-        int numOfSeatsPerRow[][] = new int[cathay.getNumOfCinema()][];
-
-        for (int i = 0; i < cathay.getNumOfCinema(); i ++) {
-            System.out.println("What is the cinema type for cinema ID " + i + " ?");
-            System.out.println("========================================");
-            System.out.println("1. Platinum Movie Suites");
-            System.out.println("2. Standard Cinema");
-            System.out.println("========================================");
-            int choice = sc.nextInt();
-            cinemaType.add((choice == 1) ? CinemaType.PLATINUM: CinemaType.STANDARD);
-
-            System.out.println("What is the total number of seats for cinema ID " + i + " ?");
-            totalNumOfSeats[i] = sc.nextInt();
-
-            System.out.println("What is the price of cinema ID " + i + " ?");
-            cinemaPrice[i] = sc.nextFloat();
-
-            System.out.println("How many rows of seats are there for cinema ID " + i + " ?");
-            numOfRows[i] = sc.nextInt();
-            numOfSeatsPerRow[i] = new int[numOfRows[i]];
-
-            System.out.println("How many seats are there per row for cinema ID " + i + " ?");
-            for (int j = 0; j < numOfRows[i]; j ++) {
-                System.out.println("Number of seats for row " + j);
-                numOfSeatsPerRow[i][j] = sc.nextInt();
-            }
+        for (int i = 0; i < cathay.numOfCinema; i ++) {
+            cinema[i] = new IMaxCinema(i, 5, 20);
         }
 
-        cathay.populateCinema(  cinemaType, totalNumOfSeats, 
-                                cinemaPrice, numOfRows, numOfSeatsPerRow);
+        cathay.populateCineplex(cinema);
+        System.out.println(cathay.getListofCinema()[0].getTotalNumOfSeats());
         
-        Cinema cinema = cathay.getCinema(0);
-        System.out.println("How many rows for each seat type for cinema ID " + 0 + " ?");
+        
+        for (int i = 0; i < cathay.numOfCinema; i ++) {
+            int totalNumOfSeats = cathay.getListofCinema()[i].getTotalNumOfSeats();
+            int totalRows = cathay.getListofCinema()[i].getTotalRows();
+            Seat seat[] = new Seat[totalNumOfSeats];
+            int numOfRowPerSeatType[] = new int[2];
+            numOfRowPerSeatType[0] = 2;
+            numOfRowPerSeatType[1] = 3;
+            
+            for (int j = 0; j < totalNumOfSeats; j ++) {
+                if (j < totalNumOfSeats / totalRows * numOfRowPerSeatType[0]) {
+                    seat[j] = new CoupleSeat(j);
+                }
+                else {
+                    seat[j] = new StandardSeat(j);
+                }
+            }
 
-
-        int numOfRowsPerSeatType[] = new int[SeatType.getNumSeatType()];
-        float pricePerSeatType[] = new float[SeatType.getNumSeatType()];
-        List <SeatType> seatTypes = new ArrayList<>();
-
-        for (int i = 0; i < SeatType.getNumSeatType(); i ++) {
-            seatTypes.add(SeatType.class.getEnumConstants()[i]);
-            System.out.println("Number of rows for seat type " + SeatType.class.getEnumConstants()[i]);
-            numOfRowsPerSeatType[i] = sc.nextInt();
-
-            System.out.println("Price for seat type " + SeatType.class.getEnumConstants()[i]);
-            pricePerSeatType[i] = sc.nextFloat();
+            cathay.getListofCinema()[i].populateCinema(seat, numOfRowPerSeatType);
         }
 
-        cinema.populateSeat(numOfRowsPerSeatType, pricePerSeatType, seatTypes);
-        cinema.printFloorMap();
+        CinemaFloorMapPrinter floorMapPrinter = new CinemaFloorMapPrinter(cathay.getListofCinema()[0]);
+        floorMapPrinter.print(cathay.getListofCinema()[0]);
     }
-
-    public static void TestCinemaStaffQuery(){
-        CinemaStaff testStaff = new CinemaStaff("Jonathan", 001, "Password123");
-        testStaff.queryAndSetNewMovie();
-        testStaff.updateMovieDetails();
-    }
-    
-    
-
 }

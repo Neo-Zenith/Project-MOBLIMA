@@ -1,47 +1,58 @@
 package models.cinema;
-import java.util.*;
 
 public class Cineplex {
-    private String name;
-    private int numOfCinema;
-    private Cinema cinema[];
+    public Cinema cinema[];
+    public String cineplexName;
+    public int numOfCinema;
 
-    public Cineplex(String name, int numOfCinema) {
-        this.name = name;
+    /*
+     * Constructor
+     */
+    public Cineplex(String cineplexName, int numOfCinema) {
+        this.cineplexName = cineplexName;
         this.numOfCinema = numOfCinema;
-        this.cinema = new Cinema[numOfCinema];
+        this.cinema = new Cinema[this.numOfCinema];
     }
 
+    /*
+     * Returns the cineplex name
+     */
     public String getCineplexName() {
-        return this.name;
+        return this.cineplexName;
     }
 
+    /*
+     * Returns the number of cinema in the cineplex
+     */
     public int getNumOfCinema() {
         return this.numOfCinema;
     }
 
-    public void setCineplexName(String name) {
-        this.name = name;
+    /*
+     * Returns a list of cinema objects instantiated in the cineplex
+     */
+    public Cinema[] getListofCinema() {
+        return this.cinema;
     }
 
+    /*
+     * Sets the cineplex name
+     */
+    public void setCineplexName(String cineplexName) {
+        this.cineplexName = cineplexName;
+    }
+
+    /*
+     * Sets the number of cinemas in the cineplex
+     */
     public void setNumOfCinema(int numOfCinema) {
         this.numOfCinema = numOfCinema;
+        this.cinema = new Cinema[this.numOfCinema];
     }
 
-    public void populateCinema( List <CinemaType> cinemaType,
-                                int totalNumOfSeats[],
-                                float cinemaPrice[],
-                                int numOfRows[],
-                                int numOfSeatsPerRow[][] ) {
-        
+    public void populateCineplex(Cinema cinema[]) {
         for (int i = 0; i < this.numOfCinema; i ++) {
-            this.cinema[i] = new Cinema(i, totalNumOfSeats[i], cinemaType.get(i), 
-                                        cinemaPrice[i], numOfRows[i], numOfSeatsPerRow[i]);
+            this.cinema[i] = cinema[i];
         }
     }
-
-    public Cinema getCinema(int cinemaID) {
-        return this.cinema[cinemaID];
-    }
 }
-
