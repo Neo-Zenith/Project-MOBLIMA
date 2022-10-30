@@ -1,8 +1,6 @@
-package models.cinema.cinema_type;
+package models.cinema;
 
-import models.cinema.Cinema;
-
-public class StandardCinema extends Cinema{
+public class PlatinumCinema extends Cinema {
     public int cinemaID;
     public int totalRows;
     public int totalNumOfSeats;
@@ -11,7 +9,7 @@ public class StandardCinema extends Cinema{
     /*
      * Constructor
      */
-    public StandardCinema(int cinemaID, int totalRows, int totalNumOfSeats) {
+    public PlatinumCinema(int cinemaID, int totalRows, int totalNumOfSeats) {
         super(cinemaID, totalNumOfSeats, totalRows);
     }
 

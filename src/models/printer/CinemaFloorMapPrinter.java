@@ -1,4 +1,4 @@
-package models.cinema.printer;
+package models.printer;
 
 import models.cinema.Cinema;
 

@@ -1,6 +1,6 @@
-package models.cinema.printer.seat_printer;
+package models.printer.seat_printer;
 
-import models.cinema.seat_type.Seat;
+import models.seat.Seat;
 
 public class StandardSeatPrinter implements ISeatPrinter{
     public void printSeatFigure(Seat seat) {

@@ -1,8 +1,8 @@
-package models.cinema.seat_type;
+package models.seat;
 
-import models.cinema.printer.seat_printer.CoupleSeatPrinter;
+import models.printer.seat_printer.StandardSeatPrinter;
 
-public class CoupleSeat extends Seat{
+public class StandardSeat extends Seat{
     public int seatID;
     public boolean isAssigned;
     public double seatPrice;
@@ -10,7 +10,7 @@ public class CoupleSeat extends Seat{
     /*
      * Constructor
      */
-    public CoupleSeat(int seatID) {
+    public StandardSeat(int seatID) {
         super(seatID);
     }
 
@@ -27,8 +27,8 @@ public class CoupleSeat extends Seat{
     }
 
     public int printSeatFigure() {
-        CoupleSeatPrinter printer = new CoupleSeatPrinter();
+        StandardSeatPrinter printer = new StandardSeatPrinter();
         printer.printSeatFigure(this);
-        return 1;
+        return 0;
     }
 }

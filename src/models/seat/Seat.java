@@ -1,4 +1,4 @@
-package models.cinema.seat_type;
+package models.seat;
 
 public abstract class Seat {
     public int seatID;
