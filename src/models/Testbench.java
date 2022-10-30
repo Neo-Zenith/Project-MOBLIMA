@@ -1,12 +1,16 @@
 package models;
 import java.util.*;
 
-import models.cinema.Cinema;
-import models.cinema.CinemaType;
-import models.cinema.Cineplex;
-import models.cinema.SeatType;
+import models.movie.*;
+import models.movie.MovieGoerFactory;
+import models.movie.MovieAgeRating;
+import models.movie.MovieShowingStatus;
+import models.movie.DateTime;
 
-import models.user.CinemaStaff;
+
+
+import models.staff.*;
+
 /*
  * Testbench file. Feel free to test your models here.
  */
@@ -16,80 +20,77 @@ public class Testbench {
          * Modify the code here to test your models
          */
         // TestCinemaCineplexSeat();
-        TestCinemaStaffQuery();
+        TestStaff();
     }
 
 
     /*
      * Create your own testbench function and run on main()
      */
-    public static void TestCinemaCineplexSeat() {
-        Cineplex cathay = new Cineplex("Cathay", 1);
-        System.out.println(cathay.getCineplexName()); 
-
-        Scanner sc = new Scanner(System.in);
-        List <CinemaType> cinemaType = new ArrayList<>();
-        int totalNumOfSeats[] = new int[cathay.getNumOfCinema()];
-        float cinemaPrice[] = new float[cathay.getNumOfCinema()];
-        int numOfRows[] = new int[cathay.getNumOfCinema()];
-        int numOfSeatsPerRow[][] = new int[cathay.getNumOfCinema()][];
-
-        for (int i = 0; i < cathay.getNumOfCinema(); i ++) {
-            System.out.println("What is the cinema type for cinema ID " + i + " ?");
-            System.out.println("========================================");
-            System.out.println("1. Platinum Movie Suites");
-            System.out.println("2. Standard Cinema");
-            System.out.println("========================================");
-            int choice = sc.nextInt();
-            cinemaType.add((choice == 1) ? CinemaType.PLATINUM: CinemaType.STANDARD);
-
-            System.out.println("What is the total number of seats for cinema ID " + i + " ?");
-            totalNumOfSeats[i] = sc.nextInt();
-
-            System.out.println("What is the price of cinema ID " + i + " ?");
-            cinemaPrice[i] = sc.nextFloat();
-
-            System.out.println("How many rows of seats are there for cinema ID " + i + " ?");
-            numOfRows[i] = sc.nextInt();
-            numOfSeatsPerRow[i] = new int[numOfRows[i]];
-
-            System.out.println("How many seats are there per row for cinema ID " + i + " ?");
-            for (int j = 0; j < numOfRows[i]; j ++) {
-                System.out.println("Number of seats for row " + j);
-                numOfSeatsPerRow[i][j] = sc.nextInt();
-            }
-        }
-
-        cathay.populateCinema(  cinemaType, totalNumOfSeats, 
-                                cinemaPrice, numOfRows, numOfSeatsPerRow);
+    
+    public static void TestStaff(){
         
-        Cinema cinema = cathay.getCinema(0);
-        System.out.println("How many rows for each seat type for cinema ID " + 0 + " ?");
+        Staff newStaff = new Staff("Jonathan", "testpass1", 1);
+        Scanner sc = new Scanner(System.in);
+        
+        HolidayDateTime holiday1 = new HolidayDateTime(20, 17, 5, 21, 7, 2022);
+        HolidayDateTime holiday2 = new HolidayDateTime(20, 17, 5, 21, 7, 2022);
+            
+        newStaff.addHoliday(HolidayDateTime.holidays, holiday1);
+        newStaff.addHoliday(HolidayDateTime.holidays, holiday2);
+        newStaff.deleteHoliday(HolidayDateTime.holidays, holiday2);
 
+        System.out.println("");
+        MovieFactory movieFactory = new MovieFactory();
 
-        int numOfRowsPerSeatType[] = new int[SeatType.getNumSeatType()];
-        float pricePerSeatType[] = new float[SeatType.getNumSeatType()];
-        List <SeatType> seatTypes = new ArrayList<>();
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add("cat");
+        cast.add("dog");
 
-        for (int i = 0; i < SeatType.getNumSeatType(); i ++) {
-            seatTypes.add(SeatType.class.getEnumConstants()[i]);
-            System.out.println("Number of rows for seat type " + SeatType.class.getEnumConstants()[i]);
-            numOfRowsPerSeatType[i] = sc.nextInt();
+        DateTime date1 = new DateTime(20, 17, 5, 21, 7, 2022);
+        DateTime date2 = new DateTime(20, 17, 5, 23, 9, 2022);
+        ArrayList<DateTime> dateList = new ArrayList<DateTime>();
+        dateList.add(date1);
+        dateList.add(date2);
 
-            System.out.println("Price for seat type " + SeatType.class.getEnumConstants()[i]);
-            pricePerSeatType[i] = sc.nextFloat();
+        Movie movie1 = movieFactory.createMovie("Zootopia", "Blockbuster",
+                MovieAgeRating.G, MovieShowingStatus.NOW_SHOWING,
+                cast, "Rabbit", "So good", 50.6, dateList);
+        
+        movie1.setMovieTitle("Zootopia");
+
+        Movie movie2 = movieFactory.createMovie("Avenger", "Blockbuster",
+                MovieAgeRating.G, MovieShowingStatus.NOW_SHOWING,
+                cast, "Rabbit", "So good", 50.6, dateList);
+        // movie2.setMovieTitle("Avenger");
+
+        Movie movie3 = movieFactory.createMovie("Avenger", "ThreeD",
+                MovieAgeRating.G, MovieShowingStatus.NOW_SHOWING,
+                cast, "Rabbit", "So good", 50.6, dateList);
+        movie1.printMovies(Movie.movies);
+
+        MovieGoerFactory factory = new MovieGoerFactory();
+        MovieGoer customer = factory.createMovieGoer("Adult", 1, "Yeek Sheng", "yeek123@gmail.com", "89200447", 20);
+        // customer.buyTicket();
+        customer.setUserMovieReview("Zootopia", "Blockbuster", "This is such a good movie!", 10);
+        customer.setUserMovieReview("Zootopia", "Blockbuster", "Disney movie is the best!", 9);
+
+        customer.setUserMovieReview("Avenger", "Blockbuster","This is such a good movie!", 7);
+        customer.setUserMovieReview("Avenger", "ThreeD","This is such a good movie!", 9);
+        
+
+        ArrayList<MovieReview> reviews = new ArrayList<MovieReview>();
+        reviews = movie1.getMovieReviews();
+        MovieReview review;
+        for (int i = 0; i < reviews.size(); i++) {
+            review = reviews.get(i);
+            System.out.println(review.getReview());
         }
+        System.out.println(movie1.getMovieOverallReviewRating());
 
-        cinema.populateSeat(numOfRowsPerSeatType, pricePerSeatType, seatTypes);
-        cinema.printFloorMap();
-    }
 
-    public static void TestCinemaStaffQuery(){
-        CinemaStaff testStaff = new CinemaStaff("Jonathan", 001, "Password123");
-        testStaff.queryAndSetNewMovie();
-        testStaff.updateMovieDetails();
+        newStaff.printTopFiveOverallRatings(Movie.movies);
+
     }
-    
-    
 
 }
