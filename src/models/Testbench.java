@@ -87,8 +87,12 @@ public class Testbench {
             System.out.println(review.getReview());
         }
         System.out.println(movie1.getMovieOverallReviewRating());
-
-
+        
+        
+        for (int i = 1; i <= 10; i++){
+            newStaff.updateExistingMovieDetails(Movie.movies, "Avenger", "ThreeD", i);
+        }    
+        
         newStaff.printTopFiveOverallRatings(Movie.movies);
 
     }

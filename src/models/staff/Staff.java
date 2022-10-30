@@ -86,107 +86,132 @@ public class Staff implements IStaffAccess {
 
 
 
-    // public void updateExistingMovieDetails(int choice, int movieID){
-    //     Scanner sc = new Scanner(System.in);
-    //     switch(choice){
-    //         case 1:
-    //         System.out.println("Enter the new name of the Movie");
-    //         String newMovieName = sc.nextLine();
-    //         Movie.movies.get(movieID).setMovieTitle(newMovieName);
-    //         System.out.println("MovieID: "+ movieID + " - Movie name changed to " + Movie.movies.get(movieID).getMovieTitle());
-    //         break;
-    //         case 2:
-    //         System.out.println("Enter the new Movie Type for " + Movie.movies.get(movieID).getMovieTitle());
-    //         String newMovieType = sc.nextLine();
-    //         Movie.movies.get(movieID).setMovieType(newMovieType);
-    //         System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie type changed to " + Movie.movies.get(movieID).getMovieType());
-    //         break;
+    public void updateExistingMovieDetails(List <Movie> movies, String movieTitle, String movieType, int choice){
+        Scanner sc = new Scanner(System.in);
+        int index = getIndex(Movie.movies, movieTitle, movieType);
+        if (index == -1){
+            System.out.println("Movie does not exist!");
+            return;
+        }
 
-    //         case 3:
-    //         System.out.println("Enter the new age rating for " + Movie.movies.get(movieID).getMovieTitle()+ "(G, PG, PG13, NC16, M18, R21)");
-    //         MovieAgeRating newMovieAgeRating = MovieAgeRating.valueOf(sc.nextLine().toUpperCase());
-    //         Movie.movies.get(movieID).setMovieAgeRating(newMovieAgeRating);
-    //         System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie age rating changed to " + Movie.movies.get(movieID).getMovieAgeRating());
-    //         break;
+        Movie m = Movie.movies.get(index);
+
+        switch(choice){
             
-    //         case 4:
-    //         System.out.println("Enter the new showing status for " + Movie.movies.get(movieID).getMovieTitle()+ "(COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING)");
-    //         MovieShowingStatus newShowingStatus = MovieShowingStatus.valueOf(sc.nextLine().toUpperCase());
-    //         // work in progress
-    //         if (newShowingStatus == MovieShowingStatus.END_OF_SHOWING){
-    //             System.out.println("Deleting " + Movie.movies.get(movieID).getMovieTitle() + " from movie list...");
-    //             Movie.movies.remove(movieID);
-    //             return;
-    //         }
-    //         Movie.movies.get(movieID).setShowingStatus(newShowingStatus);
-    //         System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie showing status changed to " + Movie.movies.get(movieID).getShowingStatus());
-    //         break;
+            case 1:
+            System.out.println("Enter the new name of the Movie");
+            String newMovieName = sc.nextLine();
+            m.setMovieTitle(newMovieName);
+            System.out.println("Movie name changed to " + m.getMovieTitle());
+            break;
+            case 2:
+            System.out.println("Enter the new Movie Type for " + m.getMovieTitle());
+            String newMovieType = sc.nextLine();
+            m.setMovieType(newMovieType);
+            System.out.println(m.getMovieTitle() + "'s Movie type changed to " + m.getMovieType());
+            break;
+
+            case 3:
+            System.out.println("Enter the new age rating for " + m.getMovieTitle()+ "(G, PG, PG13, NC16, M18, R21)");
+            MovieAgeRating newMovieAgeRating = MovieAgeRating.valueOf(sc.nextLine().toUpperCase());
+            m.setMovieAgeRating(newMovieAgeRating);
+            System.out.println(m.getMovieTitle() + "'s Movie age rating changed to " + m.getMovieAgeRating());
+            break;
             
-    //         case 5:
-    //         System.out.println("Enter which cast number is to be updated.");
-    //         int castNumber = sc.nextInt();
-    //         sc.nextLine();
-    //         System.out.println("Enter the updated name of cast " + castNumber + ".");
-    //         String newCastName = sc.nextLine();
-    //         Movie.movies.get(movieID).setMovieCast(newCastName, castNumber);
+            case 4:
+            System.out.println("Enter the new showing status for " + m.getMovieTitle()+ "(COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING)");
+            MovieShowingStatus newShowingStatus = MovieShowingStatus.valueOf(sc.nextLine().toUpperCase());
+            // work in progress
+            if (newShowingStatus == MovieShowingStatus.END_OF_SHOWING){
+                System.out.println("Deleting " + m.getMovieTitle() + " from movie list...");
+                Movie.movies.remove(index);
+            }
+            m.setShowingStatus(newShowingStatus);
+            System.out.println(m.getMovieTitle() + "'s Movie showing status changed to " + m.getShowingStatus());
+            break;
             
-    //         System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s cast " + castNumber + "'s name changed to " + Movie.movies.get(movieID).getMovieCast()[castNumber]);
-    //         break;
+            case 5:
+            System.out.println("Enter which cast number is to be updated. (Enter Cast Number)");
+            for (int i = 0; i < m.getMovieCast().size(); i++){
+                System.out.println("Cast Number " + (i+1) + ": " + m.getMovieCast().get(i));
+            }
+            int castNumber = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Enter the updated name of cast " + castNumber + ".");
+            String newCastName = sc.nextLine();
+            m.setMovieCast(newCastName, castNumber);
             
-    //         case 6:
-    //         System.out.println("Enter the new name of the Movie Director");
-    //         String newDirectorName = sc.nextLine();
-    //         Movie.movies.get(movieID).setMovieDirector(newDirectorName);
-    //         System.out.println("MovieID: "+ movieID + " " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie director changed to "+ Movie.movies.get(movieID).getMovieDirector());
-    //         break;
-
-    //         case 7:
-    //         System.out.println("Enter the new synopsis of  " + Movie.movies.get(movieID).getMovieTitle() + ".");
-    //         String newSynopsis = sc.nextLine();
-    //         Movie.movies.get(movieID).setMovieSynopsis(newSynopsis);
-    //         System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie synopsis changed to " + Movie.movies.get(movieID).getMovieSynopsis());
-    //         break;
-
-    //         case 8:
-    //         System.out.println("Enter new duration of " + Movie.movies.get(movieID).getMovieTitle() + ".");
-    //         float newMovieDuration = sc.nextFloat();
-    //         Movie.movies.get(movieID).setMovieDuration(newMovieDuration);
-    //         System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie duration changed to " + Movie.movies.get(movieID).getMovieDuration());
-    //         break;
-
-    //         case 9:
-    //         System.out.println("Select the new showing venues");
-    //         break;
+            System.out.println(m.getMovieTitle() + "'s cast " + castNumber + "'s name changed to " + m.getMovieCast().get(castNumber));
+            break;
             
-    //         case 10:
-    //         System.out.println("Select a showing time to be updated. (Enter ID number)");
-    //         for (int i = 0; i < Movie.movies.get(movieID).getShowingTime().length; i++){
-    //             System.out.println(i + " : " + "Date: " + Movie.movies.get(movieID).getShowingTime()[i].getYear() + Movie.movies.get(movieID).getShowingTime()[i].getMonth() + Movie.movies.get(movieID).getShowingTime()[i].getDate() + " Time: " + Movie.movies.get(movieID).getShowingTime()[i].getHour() + Movie.movies.get(movieID).getShowingTime()[i].getMinute());
-    //         }
-    //         int showingTimeID = sc.nextInt();
+            case 6:
+            System.out.println("Enter the new name of the Movie Director");
+            String newDirectorName = sc.nextLine();
+            m.setMovieDirector(newDirectorName);
+            System.out.println(m.getMovieTitle() + "'s Movie director changed to "+ m.getMovieDirector());
+            break;
 
-    //         System.out.println("Enter the new showing time");
-    //         System.out.println("year:");
-    //         int year = sc.nextInt();
-    //         System.out.println("month:");
-    //         int month = sc.nextInt();
-    //         System.out.println("date:");
-    //         int date = sc.nextInt();
-    //         System.out.println("hour:");
-    //         int hour = sc.nextInt();
-    //         System.out.println("minute:");
-    //         int minute = sc.nextInt();
-    //         System.out.println("day:");
-    //         int day = sc.nextInt();
+            case 7:
+            System.out.println("Enter the new synopsis of " + m.getMovieTitle() + ".");
+            String newSynopsis = sc.nextLine();
+            m.setMovieSynopsis(newSynopsis);
+            System.out.println(m.getMovieTitle() + "'s Movie synopsis changed to " + m.getMovieSynopsis());
+            break;
 
-    //         DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
+            case 8:
+            System.out.println("Enter new duration of " + m.getMovieTitle() + ".");
+            float newMovieDuration = sc.nextFloat();
+            m.setMovieDuration(newMovieDuration);
+            System.out.println(m.getMovieTitle() + "'s Movie duration changed to " + m.getMovieDuration());
+            break;
+
+            // need to add showing venues
+            // case 9:
+            // System.out.println("Select the new showing venues");
+            // break;
             
-    //         Movie.movies.get(movieID).setShowingTime(newShowingTime, showingTimeID);
-    //         System.out.println("MovieID: "+ movieID + " - " +  Movie.movies.get(movieID).getMovieTitle() + "'s Movie showing time "+ showingTimeID + " changed to " + Movie.movies.get(movieID).getShowingTime()[showingTimeID].getYear() + Movie.movies.get(movieID).getShowingTime()[showingTimeID].getMonth() + Movie.movies.get(movieID).getShowingTime()[showingTimeID].getDate() + " Time: " + Movie.movies.get(movieID).getShowingTime()[showingTimeID].getHour() + Movie.movies.get(movieID).getShowingTime()[showingTimeID].getMinute());
-    //         break;    
-    //     }
-    // }
+            case 10:
+            System.out.println("Select a showing time to be updated. (Enter ID number)");
+            for (int i = 0; i < m.getShowingTime().size(); i++){
+                System.out.println((i+1) + " : " + "Date: " + m.getShowingTime().get(i).getYear() + m.getShowingTime().get(i).getMonth() + m.getShowingTime().get(i).getDate() + " Time: " + m.getShowingTime().get(i).getHour() + m.getShowingTime().get(i).getMinute());
+            }
+            int showingTimeID = sc.nextInt();
 
+            System.out.println("Enter the new showing time");
+            System.out.println("year:");
+            int year = sc.nextInt();
+            System.out.println("month:");
+            int month = sc.nextInt();
+            System.out.println("date:");
+            int date = sc.nextInt();
+            System.out.println("hour:");
+            int hour = sc.nextInt();
+            System.out.println("minute:");
+            int minute = sc.nextInt();
+            System.out.println("day:");
+            int day = sc.nextInt();
+
+            DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
+            
+            m.setShowingTime(newShowingTime, showingTimeID);
+            System.out.println(m.getMovieTitle() + "'s Movie showing time "+ showingTimeID + " changed to " + m.getShowingTime().get(showingTimeID).getYear() + m.getShowingTime().get(showingTimeID).getMonth() + m.getShowingTime().get(showingTimeID).getDate() + " Time: " + m.getShowingTime().get(showingTimeID).getHour() + m.getShowingTime().get(showingTimeID).getMinute());
+            break;  
+            
+            default:
+            break;
+        }
+    }
+
+    public int getIndex(List <Movie> movies, String movieTitle, String movieType){
+        for (int i = 0; i < movies.size(); i++){
+            Movie m;
+            m = movies.get(i);
+            if (m.getMovieTitle().equals(movieTitle) && m.getMovieType().equals(movieType)){
+                return i;
+            }
+        }
+        return -1;
+    }
 
     /* 
      * method to change ticket prices 
@@ -302,6 +327,7 @@ public class Staff implements IStaffAccess {
 		}
 
     }
+
 
 
     /*
