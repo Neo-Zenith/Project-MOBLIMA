@@ -86,7 +86,7 @@ public class Staff implements IStaffAccess {
 
 
 
-    public void updateExistingMovieDetails(List <Movie> movies, String movieTitle, String movieType, int choice){
+    public void updateExistingMovieDetails(String movieTitle, String movieType, int choice){
         Scanner sc = new Scanner(System.in);
         int index = getIndex(Movie.movies, movieTitle, movieType);
         if (index == -1){
@@ -282,13 +282,13 @@ public class Staff implements IStaffAccess {
      * sorts and prints the top five movies based on overallRating
      */
 
-    public void printTopFiveOverallRatings(List<Movie> movies){
-        Collections.sort(movies, new SortByOverallRating());
+    public void printTopFiveOverallRatings(){
+        Collections.sort(Movie.movies, new SortByOverallRating());
         Movie m;
 
         int top = 5;
-        if (movies.size() < 5){
-            top = movies.size();
+        if (Movie.movies.size() < 5){
+            top = Movie.movies.size();
             System.out.println("There are only " + top + " movies. Printing top " + top + " movies based on overall ratings:");
         }
         else {
@@ -296,7 +296,7 @@ public class Staff implements IStaffAccess {
         }
 
         for (int i = 0; i < top; i++) {
-			m = movies.get(i);
+			m = Movie.movies.get(i);
             System.out.println("Rank " + (i+1) + ":");
 			System.out.println("Movie Title: " + m.getMovieTitle() + " (" + m.getShowingStatus() + ")");
 			System.out.println("Movie Type: " + m.getMovieType());

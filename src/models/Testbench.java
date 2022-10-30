@@ -36,9 +36,9 @@ public class Testbench {
         HolidayDateTime holiday1 = new HolidayDateTime(20, 17, 5, 21, 7, 2022);
         HolidayDateTime holiday2 = new HolidayDateTime(20, 17, 5, 21, 7, 2022);
             
-        newStaff.addHoliday(HolidayDateTime.holidays, holiday1);
-        newStaff.addHoliday(HolidayDateTime.holidays, holiday2);
-        newStaff.deleteHoliday(HolidayDateTime.holidays, holiday2);
+        newStaff.addHoliday(holiday1);
+        newStaff.addHoliday(holiday2);
+        newStaff.deleteHoliday(holiday2);
 
         System.out.println("");
         MovieFactory movieFactory = new MovieFactory();
@@ -90,10 +90,10 @@ public class Testbench {
         
         
         for (int i = 1; i <= 10; i++){
-            newStaff.updateExistingMovieDetails(Movie.movies, "Avenger", "ThreeD", i);
+            newStaff.updateExistingMovieDetails("Avenger", "ThreeD", i);
         }    
         
-        newStaff.printTopFiveOverallRatings(Movie.movies);
+        newStaff.printTopFiveOverallRatings();
 
     }
 
