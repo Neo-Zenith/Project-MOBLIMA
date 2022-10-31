@@ -1,18 +1,18 @@
 package database;
 
 public enum ModelType {
-
+    
     CINEPLEX("Cineplex"),
-
     CINEMA("Cinema"),
+    SEAT("Seat");
 
-    MOVIE("Movie"),
+    private final String fileName;
 
-    MOVIEGOER("MovieGoer");
+    private ModelType(String fileName) {
+        this.fileName = fileName;
+    }
 
-    public final String modelName;
-
-    private ModelType(String modelName) {
-        this.modelName = modelName;
+    public String getFileName() {
+        return this.fileName;
     }
 }

@@ -2,7 +2,13 @@ package view;
 
 public abstract class MainView {
     
-    protected abstract void printMenuScreen();
+    public abstract void printMenu();
+    
+    public abstract void appContent();
 
-    protected abstract void appView();
+    public static void printBoilerPlate(String content) {
+        System.out.println("------------------------------------");
+        System.out.println(content);
+        System.out.println("------------------------------------");
+    }
 }

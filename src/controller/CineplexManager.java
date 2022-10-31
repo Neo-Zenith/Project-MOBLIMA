@@ -1,64 +1,25 @@
 package controller;
 
-import models.cinema.*;
-import database.*;
-import middleware.ExceptionHandler;
+import model.Cineplex;
+import model.Cinema;
+import database.Database;
+import handler.DatabaseHandler;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class CineplexManager {
     
     public CineplexManager() {}
 
-    public static boolean createCineplex(String cineplexName, int numOfCinema) {
-        Cineplex cineplex = new Cineplex(cineplexName, numOfCinema);
-        Database.cineplex.put(cineplexName, cineplex);
-        Database.saveToDatabase(ModelType.CINEPLEX);
-        return true;
-    }
-
-
-    public static boolean updateCineplex(String oldName, String newName) {
-        ArrayList <Cineplex> queryResult = new ArrayList<>();
-
-        for (Cineplex cineplex : Database.cineplex.values()) {
-            if (cineplex.cineplexName == oldName) {
-                queryResult.add(cineplex);
-            }
-        }
-
-        if (queryResult.size() == 0) {
-            ExceptionHandler.noQueryException();
-            return false;
-        }
-
-        else if (queryResult.size() > 1) {
-            ExceptionHandler.enforcedSingleQueryException(queryResult.size());
-            return false;
-        }
-
-        else {
-            queryResult.get(0).setCineplexName(newName);
-            return true;
-        }
-    }
-
-
-    public static ArrayList <Cineplex> queryCineplexByName(String cineplexName) {
-        ArrayList <Cineplex> queryList = new ArrayList<>();
-
-        for (Cineplex cineplex: Database.cineplex.values()) {
-            if (cineplex.cineplexName == cineplexName) {
-                queryList.add(cineplex);
-            }
-        }
-        return queryList;
-    }
-
-
-    public static void initializeCineplexData() {
-        CineplexManager.createCineplex("Cathay Cineplex", 5);
-        CineplexManager.createCineplex("Golden Village Cineplex", 12);
-        CineplexManager.createCineplex("Shaw Theatre", 8);
+    /**
+     * Method to instantiate a cineplex instance and save to database
+     * @param cineplexName  name of the cineplex
+     * @param numOfCinemas  number of cinemas for a cineplex
+     * @param cinemas   ArrayList of {@link Cinema} objects
+     */
+    public static void createCineplex(String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas) {
+        String UUID = String.format("CP%03d", DatabaseHandler.generateUUID(Database.CINEPLEX));
+        Cineplex cineplex = new Cineplex(UUID, cineplexName, numOfCinemas, cinemas);
+        DatabaseManager.saveUpdateToDatabase(UUID, cineplex, Database.CINEPLEX);
     }
 }

@@ -1,41 +1,37 @@
 package view;
 
-import middleware.*;
+import handler.InputHandler;
 
-public class MovieAppView extends MainView{
-    
-    private DatabaseView dView;
+public class MovieAppView extends MainView {
+
+    private DatabaseView dbView;
 
     public MovieAppView() {
-        super();
-        this.dView = new DatabaseView();
+        this.dbView = new DatabaseView();
+    }
+    
+    public void printMenu() {
+        System.out.println("====================================");
+        System.out.println("Welcome to MOBLIMA!");
+        MainView.printBoilerPlate("""
+                1. Manage Database.
+                2. Exit the program.
+                """);
     }
 
-    public void printMenuScreen() {
-        System.out.println("======================");
-        System.out.println("Welcome to MOBILIMA!");
-        System.out.println("What would you like to do?");
-        System.out.println("1. Manage Database");
-        System.out.println("======================");
-    }
-
-    public void appView() {
-        int choice;
-
+    public void appContent() {
+        int choice = -1;
         do {
-            printMenuScreen();
-            choice = InputHandler.readInt();
+            this.printMenu();
+            choice = InputHandler.intHandler();
 
             switch (choice) {
                 case 1:
-                    UIHandler.clearScreen();
-                    dView.appView();
-                    UIHandler.clearScreen();
+                    this.dbView.appContent();
                     break;
-                
-                default:
+                case 2:
                     break;
             }
-        }   while (choice != 4);
+        }   while (choice != 2);
     }
 }

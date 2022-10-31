@@ -1,42 +1,39 @@
 package view;
 
-import middleware.*;
-import database.*;
+import controller.DatabaseManager;
+import handler.InputHandler;
 
 public class DatabaseView extends MainView{
     
-    public void printMenuScreen() {
-        System.out.println("======================");
-        System.out.println("Welcome to the Database. What would you want to do?");
-        System.out.println("1. Load Initial Data into Database");
-        System.out.println("2. Reset Database.");
-        System.out.println("3. Return back.");
-        System.out.println("======================");
+    public DatabaseView() {}
+    
+    public void printMenu() {
+        System.out.println("====================================");
+        System.out.println("Welcome to the Database!");
+        MainView.printBoilerPlate("""
+                1. Load Cineplex and Cinema data into database.
+                2. Reset database.
+                3. Return back.
+                """);
+        System.out.println("====================================");
     }
 
-    public void appView() {
+    public void appContent() {
         int choice = -1;
-
         do {
-            printMenuScreen();
-            choice = InputHandler.readInt();
+            this.printMenu();
+            choice = InputHandler.intHandler();
 
             switch (choice) {
-                case 1:  
-                    UIHandler.clearScreen();   
-                    if (Database.loadInitialCineplexData()) {
-                        System.out.println("Initial data loaded successfully!");
-                    }
+                case 1:
+                    DatabaseManager.initializeCineplexData();
                     break;
-                case 2: 
-                    UIHandler.clearScreen();            
-                    if (Database.resetDatabase()) {
-                        System.out.println("Database resetted successfully!");
-                    }
+                case 2:
+                    DatabaseManager.resetDatabase();
                     break;
-                default:
+                case 3:
                     break;
-            }
+            }  
         }   while (choice != 3);
     }
 }

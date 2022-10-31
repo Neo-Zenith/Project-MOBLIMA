@@ -1,40 +1,63 @@
 package database;
 
-import java.util.HashMap;
-
-import controller.CineplexManager;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
-import middleware.ExceptionHandler;
-import middleware.UIHandler;
-import models.cinema.Cinema;
-import models.cinema.Cineplex;
-
+import model.Cineplex;
+import model.Cinema;
+import model.Seat;
 
 public class Database {
-    
-    public static HashMap <String, Cineplex> cineplex = new HashMap <String, Cineplex> ();
-    public static HashMap <String, Cinema> cinema = new HashMap <String, Cinema> ();
-    
-    public static final String extension = ".dat";
-    public static final String path = System.getProperty("user.dir") + "/database/data";
-    
-    public Database() {
-        if (! readData(ModelType.CINEPLEX)) {
-            System.out.println("Reading Cineplex data failed!");
-        }
-        else if (! readData(ModelType.CINEMA)) {
-            System.out.println("Reading Cinema data failed!");
-        }
-    }
+    /**
+     * Cineplex Model in database
+     */
+    public static HashMap <String, Cineplex> CINEPLEX = new HashMap <String, Cineplex>();
 
+    /**
+     * Cinema Model in database
+     */
+    public static HashMap <String, Cinema> CINEMA = new HashMap <String, Cinema>();
 
-    private static boolean readData(ModelType modelType) {
-        String filePath = path + "/" + modelType.modelName + extension;
+    /**
+     * Seat Model in database
+     */
+    public static HashMap <String, Seat> SEAT = new HashMap <String, Seat>();
+
+    /**
+     * Total number of seats for every cinema
+     */
+    public static int totalNumOfSeats = 480;
+
+    /**
+     * Total number of rows in a cinema
+     */
+    public static int numOfRows = 24;
+
+    /**
+     * Total number of couple rows in a cinema
+     */
+    public static int numOfCoupleRows = 4;
+
+    /**
+     * Root path to the database
+     */
+    private static String path = "../src/database/data";
+
+    /**
+     * Database extension
+     */
+    private static String extension = ".dat";
+
+    /**
+     * Method to read serialized data from database file
+     * @param modelType 
+     * @return {@code true} if read is successful; {@code false} otherwise
+     */
+    public static boolean readData(ModelType modelType) {
+        String filePath = Database.path + "/" + modelType.getFileName() + extension;
 
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
@@ -42,76 +65,90 @@ public class Database {
             Object object = objectInputStream.readObject();
 
             if (! (object instanceof HashMap)) {
-                ExceptionHandler.modelException();
-                fileInputStream.close();
                 objectInputStream.close();
                 return false;
             }
 
             if (modelType == ModelType.CINEPLEX) {
-                Database.cineplex = (HashMap <String, Cineplex>) object;
+                Database.CINEPLEX = (HashMap <String, Cineplex>) object;
             }
-            else if (modelType == ModelType.CINEMA){
-                Database.cinema = (HashMap <String, Cinema>) object;
+            else if (modelType == ModelType.CINEMA) {
+                Database.CINEMA = (HashMap <String, Cinema>) object;
             }
-            
-            fileInputStream.close();
+            else if (modelType == ModelType.SEAT) {
+                Database.SEAT = (HashMap <String, Seat>) object;
+            }
+
             objectInputStream.close();
+            fileInputStream.close();
             return true;
         }
-
         catch (Exception e) {
-            ExceptionHandler.multiExceptions(e);
+            System.out.println("Error! Reading of data " + modelType.getFileName() + " failed!");
             return false;
         }
     }
 
-    private static boolean writeData(ModelType modelType) {
-        String filePath = path + "/" + modelType.modelName + extension;
+    /**
+     * Method to write serialized data into database file
+     * @param modelType
+     * @return {@code true} if write is successful; {@code false} otherwise
+     */
+    public static boolean writeData(ModelType modelType) {
+        String filePath = Database.path + "/" + modelType.getFileName() + extension;
 
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
             if (modelType == ModelType.CINEPLEX) {
-                objectOutputStream.writeObject(Database.cineplex);
+                objectOutputStream.writeObject(Database.CINEPLEX);
             }
             else if (modelType == ModelType.CINEMA) {
-                objectOutputStream.writeObject(Database.cinema); 
+                objectOutputStream.writeObject(Database.CINEMA);
+            }
+            else if (modelType == ModelType.SEAT) {
+                objectOutputStream.writeObject(Database.SEAT);
             }
 
             fileOutputStream.close();
-            objectOutputStream.close();     
+            objectOutputStream.close();
             return true;
         }
         catch (Exception e) {
-            ExceptionHandler.multiExceptions(e);
+            System.out.println("Error! Failed to write to file " + modelType + "!");
             return false;
         }
     }
 
-    public static void saveToDatabase(ModelType modelType) {
-        writeData(modelType);
-        UIHandler.clearScreen();
-    }
-
-    public static boolean resetDatabase() {
-        Database.cineplex = new HashMap<String, Cineplex>();
-        Database.cinema = new HashMap<String, Cinema>();
-
-        writeData(ModelType.CINEPLEX);
-        writeData(ModelType.CINEMA);
-
-        return true;
-    }
-
-    public static boolean loadInitialCineplexData() {
-        if (Database.cineplex.size() != 0) {
-            System.out.println("Database already has active entries. Clear the database before initial load!");
+    /**
+     * Method to reload the database. Useful when a change was recently made and user requires
+     * immediate reflected changes.
+     * @return {@code true} when reload is successful; {@code false} otherwise
+     */
+    public static boolean remountDatabase() {
+        try {
+            Database.readData(ModelType.CINEPLEX);
+            Database.readData(ModelType.CINEMA);
+            Database.readData(ModelType.SEAT);
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("Error! " + e.getMessage());
             return false;
         }
+    }
 
-        CineplexManager.initializeCineplexData();
-        return true;
+    /**
+     * Method to reset the database
+     */
+    public static void resetDatabase() {
+        Database.CINEPLEX = new HashMap <String, Cineplex>();
+        Database.CINEMA = new HashMap <String, Cinema>();
+        Database.SEAT = new HashMap <String, Seat>();
+
+        Database.writeData(ModelType.CINEPLEX);
+        Database.writeData(ModelType.CINEMA);
+        Database.writeData(ModelType.SEAT);
     }
 }
