@@ -140,10 +140,31 @@ public class DatabaseManager {
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
         
-        
         // Data 2
+        movieOnShow = new Movie("Thor: Ragnarok");
+        cinemaClass = CinemaClass.STANDARD;
+        cineplex = cineplexes.get(2);
+        showingTime = new DateTime(00, 13, 4, 22, 12, 2022);
+        showingVenue = new ArrayList<>();
+        showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
+        for (int i = 0; i < showingVenue.size(); i ++) {
+            seatingPlan.add(showingVenue.get(i).duplicateSeats());
+        }
+
+        MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
 
         // Data 3  
+        movieOnShow = new Movie("The Conjuring");
+        cinemaClass = CinemaClass.IMAX;
+        cineplex = cineplexes.get(1);
+        showingTime = new DateTime(30, 12, 4, 25, 1, 2023);
+        showingVenue = new ArrayList<>();
+        showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
+        for (int i = 0; i < showingVenue.size(); i ++) {
+            seatingPlan.add(showingVenue.get(i).duplicateSeats());
+        }
+
+        MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
     }
 
     

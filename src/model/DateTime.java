@@ -55,11 +55,36 @@ public class DateTime implements Serializable {
     }
 
     public void printTime() {
-        System.out.print(this.getMinute() + " min ");
-        System.out.print(this.getHour() + " hr ");
-        System.out.print(this.getDay() + " day ");
         System.out.print(this.getDate() + "/");
         System.out.print(this.getMonth() + "/");
-        System.out.println(this.getYear());
+        System.out.print(this.getYear() + "  ");
+
+        switch (this.day) {
+            case 1:
+                System.out.print("Sunday  ");
+                break;
+            case 2:
+                System.out.print("Monday  ");
+                break;
+            case 3:
+                System.out.print("Tuesday  ");
+                break;
+            case 4:
+                System.out.print("Wednesday  ");
+                break;
+            case 5:
+                System.out.print("Thursday  ");
+                break;
+            case 6:
+                System.out.print("Friday  ");
+                break;
+            case 7:
+                System.out.print("Saturday  ");
+                break;
+            default:
+                break;
+        }
+
+        System.out.println(String.format("%02d", this.getHour()) + String.format("%02d", this.getMinute()));
     }
 }

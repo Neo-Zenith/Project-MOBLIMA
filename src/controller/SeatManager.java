@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 
 import database.Database;
 import handler.DatabaseHandler;
@@ -36,5 +37,48 @@ public class SeatManager {
         Seat seat = new StandardSeat(UUID, seatType, false, seatPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
         return seat;
+    }
+
+
+    public static void printCinemaFloorMap(ArrayList <Seat> seatingPlan) {
+        int totalNumOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
+
+        int index = 0;
+        for (int i = 0; i < Database.numOfCoupleRows; i ++) {
+            for (int j = 0; j < totalNumOfSeatsPerRow; j += 2) {
+                Seat seat = seatingPlan.get(index);
+                if (j == totalNumOfSeatsPerRow / 2) {
+                    System.out.print("      ");
+                }
+
+                if (seat.getAssignStatus()) {
+                    System.out.print("[ XX ]");
+                }
+                else {
+                    System.out.print("[    ]");
+                }
+                index += 2;
+            }
+            System.out.println("");
+        }
+
+        index = 0;
+        for (int i = 0; i < Database.numOfRows - Database.numOfCoupleRows; i ++) {
+            for (int j = 0; j < totalNumOfSeatsPerRow; j ++) {
+                Seat seat = seatingPlan.get(index);
+                if (j == totalNumOfSeatsPerRow / 2) {
+                    System.out.print("      ");
+                }
+
+                if (seat.getAssignStatus()) {
+                    System.out.print("[X]");
+                }
+                else {
+                    System.out.print("[ ]");
+                }
+                index ++;
+            }
+            System.out.println("");
+        }
     }
 }
