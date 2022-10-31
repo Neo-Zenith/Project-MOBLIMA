@@ -1,12 +1,15 @@
 package model;
 
+import java.io.Serializable;
+
 import model.enums.SeatType;
 
-public abstract class Seat {
+public abstract class Seat implements Serializable{
     private String UUID;
     private SeatType seatType;
     private boolean isAssigned;
     private double seatPrice;
+    private static final long serialVersionUID = 3L;
     
     public Seat(String UUID, SeatType seatType, boolean isAssigned, double seatPrice) {
         this.setUUID(UUID);

@@ -3,12 +3,16 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Collections;
 
 import database.Database;
 import model.Seat;
 import model.enums.CinemaClass;
 import model.Cinema;
+import model.Cineplex;
 import model.enums.SeatType;
+import model.Movie;
+import model.DateTime;
 
 public class DatabaseManager {
 
@@ -64,14 +68,14 @@ public class DatabaseManager {
         switch (choice) {
             case 0:
                 // Data 1
-                cinemaClass = CinemaClass.PLATINUM;
+                cinemaClass = CinemaClass.STANDARD;
                 cinemaPrice = 8;
-                return CinemaManager.createPlatinumCinema(cinemaClass, cinemaPrice, seats);
+                return CinemaManager.createStandardCinema(cinemaClass, cinemaPrice, seats);
             case 1:
                 // Data 2
-                cinemaClass = CinemaClass.PLATINUM;
+                cinemaClass = CinemaClass.IMAX;
                 cinemaPrice = 8;
-                return CinemaManager.createPlatinumCinema(cinemaClass, cinemaPrice, seats);
+                return CinemaManager.createIMaxCinema(cinemaClass, cinemaPrice, seats);
                 
             case 2:
                 // Data 3
@@ -114,7 +118,32 @@ public class DatabaseManager {
 
 
     public static void initializeMovieScheduleData() {
+        Movie movieOnShow;
+        ArrayList <Cinema> showingVenue;
+        ArrayList <ArrayList <Seat>> seatingPlan = new ArrayList<ArrayList<Seat>>();
+        DateTime showingTime;
+        CinemaClass cinemaClass;
+        Cineplex cineplex;
+        ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
+        Collections.sort(cineplexes);
 
+        // Data 1
+        movieOnShow = new Movie("Black Adam");
+        cinemaClass = CinemaClass.PLATINUM;
+        cineplex = cineplexes.get(0);
+        showingTime = new DateTime(00, 14, 6, 21, 11, 2022);
+        showingVenue = new ArrayList<>();
+        showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
+        for (int i = 0; i < showingVenue.size(); i ++) {
+            seatingPlan.add(showingVenue.get(i).duplicateSeats());
+        }
+
+        MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
+        
+        
+        // Data 2
+
+        // Data 3  
     }
 
     

@@ -1,5 +1,6 @@
 package view;
 
+import database.Database;
 import handler.InputHandler;
 
 public class MovieAppView extends MainView {
@@ -18,12 +19,14 @@ public class MovieAppView extends MainView {
         MainView.printBoilerPlate("""
                 1. Manage Database.
                 2. View Cineplexes.
-                2. Exit the program.
+                3. Exit the program.
                 """);
     }
 
     public void appContent() {
         int choice = -1;
+        Database db = new Database();
+
         do {
             this.printMenu();
             choice = InputHandler.intHandler();

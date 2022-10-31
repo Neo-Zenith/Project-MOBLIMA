@@ -36,11 +36,12 @@ public class CineplexManager {
         Collections.sort(cineplexKeyList);
         Collections.sort(cineplexValueList);
 
-        int index = 0;
+        int index = 1;
         for (int i = 0; i < cineplexValueList.size(); i ++) {
             cineplexes.add(cineplexValueList.get(i));
-            String key = cineplexKeyList.get(index);
-            System.out.print(key + ".  ");
+            String key = cineplexKeyList.get(i);
+            System.out.println(index + ".  ");
+            System.out.print("Reference ID: " + key + "   Name: ");
             System.out.println(cineplexValueList.get(i).getCineplexName());
             System.out.println("Standard Cinema: " + 
                             CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.STANDARD));

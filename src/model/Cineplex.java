@@ -1,12 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cineplex implements Comparable{
+public class Cineplex implements Comparable, Serializable{
     private String UUID;
     private String cineplexName;
     private int numOfCinemas;
     private ArrayList <Cinema> cinemas;
+    private static final long serialVersionUID = 2L;
 
     public Cineplex(String UUID, String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas) {
         this.setUUID(UUID);
@@ -54,9 +56,6 @@ public class Cineplex implements Comparable{
 
     @Override public int compareTo(Object object) {
         Cineplex cineplex = (Cineplex) object;
-        System.out.println(this.getUUID());
-        System.out.println(cineplex.getUUID());
-        System.out.println(this.getUUID().compareTo(cineplex.getUUID()));
         return this.getUUID().compareTo(cineplex.getUUID());
     }
 }

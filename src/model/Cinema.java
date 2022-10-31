@@ -1,10 +1,11 @@
 package model;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
 import model.enums.CinemaClass;
 
-public abstract class Cinema {
+public abstract class Cinema implements Comparable, Serializable{
     
     private String UUID;
     private CinemaClass cinemaClass;
@@ -12,6 +13,7 @@ public abstract class Cinema {
     private double cinemaPrice;
     private int numOfRows;
     private int totalNumOfSeats;
+    private static final long serialVersionUID = 1L;
 
     public Cinema(  String UUID, CinemaClass cinemaClass, 
                     ArrayList <Seat> seats, double cinemaPrice,
@@ -44,6 +46,12 @@ public abstract class Cinema {
         return this.seats;
     }
 
+    public ArrayList <Seat> duplicateSeats() {
+        ArrayList <Seat> seats = new ArrayList<>();
+        seats = this.seats;
+        return seats;
+    }
+
     public void setSeats(ArrayList <Seat> seats) {
         this.seats = seats;
     }
@@ -73,5 +81,10 @@ public abstract class Cinema {
 
     public void setTotalNumOfSeats(int totalNumOfSeats) {
         this.totalNumOfSeats = totalNumOfSeats;
+    }
+
+    @Override public int compareTo(Object object) {
+        Cinema cinema = (Cinema) object;
+        return this.getUUID().compareTo(cinema.getUUID());
     }
 }

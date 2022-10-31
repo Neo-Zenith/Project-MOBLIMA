@@ -1,16 +1,16 @@
 package view;
 
-import handler.InputHandler;
-
 import java.util.ArrayList;
 
 import controller.CineplexManager;
 import controller.DatabaseManager;
 import model.Cineplex;
+import handler.InputHandler;
 
 public class CineplexView extends MainView {
     
     private ArrayList <Cineplex> cineplexes;
+    private CinemaView cinemaView;
 
     public CineplexView() {}
     
@@ -18,6 +18,7 @@ public class CineplexView extends MainView {
         System.out.println("====================================");
         System.out.println("You may view all the cineplexes supported by our App here:");
         this.cineplexes = CineplexManager.printCineplexesInfo();
+        System.out.println(this.cineplexes.size() + 1 + ". Return back.");
         MainView.printBoilerPlate("""
                 Select one of the cineplexes to view further informations.
                 """);
@@ -29,17 +30,12 @@ public class CineplexView extends MainView {
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-
-            switch (choice) {
-                case 1:
-                    DatabaseManager.initializeCineplexData();
-                    break;
-                case 2:
-                    DatabaseManager.resetDatabase();
-                    break;
-                case 3:
-                    break;
-            }  
-        }   while (choice != 3);
+            if (choice > this.cineplexes.size() || choice < 0) {
+                break;
+            }
+            this.cinemaView = new CinemaView(cineplexes.get(choice - 1));
+            this.cinemaView.appContent();
+            
+        }   while (choice <= this.cineplexes.size() && choice > 0);
     }
 }

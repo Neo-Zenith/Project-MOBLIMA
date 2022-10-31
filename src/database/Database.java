@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import model.Cineplex;
+import model.MovieSchedule;
 import model.Cinema;
 import model.Seat;
 
@@ -28,6 +29,11 @@ public class Database {
      * Seat Model in database
      */
     public static HashMap <String, Seat> SEAT = new HashMap <String, Seat>();
+
+    /**
+     * Movie Schedule Model in database
+     */
+    public static HashMap <String, MovieSchedule> MOVIE_SCHEDULE = new HashMap <String, MovieSchedule>();
 
     /**
      * Total number of seats for every cinema
@@ -53,6 +59,21 @@ public class Database {
      * Database extension
      */
     private static String extension = ".dat";
+
+    public Database() {
+        if (! readData(ModelType.CINEPLEX)) {
+            System.out.println("Error! Reading of data " + ModelType.CINEPLEX + " failed!");
+        }
+        else if (! readData(ModelType.CINEMA)) {
+            System.out.println("Error! Reading of data " + ModelType.CINEMA + " failed!");
+        }
+        else if (! readData(ModelType.SEAT)) {
+            System.out.println("Error! Reading of data " + ModelType.SEAT + " failed!");
+        }
+        else if (! readData(ModelType.MOVIE_SCHEDULE)) {
+            System.out.println("Error! Reading of data " + ModelType.MOVIE_SCHEDULE + " failed!");
+        }
+    }
 
     /**
      * Method to read serialized data from database file
@@ -80,6 +101,9 @@ public class Database {
             }
             else if (modelType == ModelType.SEAT) {
                 Database.SEAT = (HashMap <String, Seat>) object;
+            }
+            else if (modelType == ModelType.MOVIE_SCHEDULE) {
+                Database.MOVIE_SCHEDULE = (HashMap <String, MovieSchedule>) object;
             }
 
             objectInputStream.close();
@@ -113,6 +137,9 @@ public class Database {
             else if (modelType == ModelType.SEAT) {
                 objectOutputStream.writeObject(Database.SEAT);
             }
+            else if (modelType == ModelType.MOVIE_SCHEDULE) {
+                objectOutputStream.writeObject(Database.MOVIE_SCHEDULE);
+            }
 
             fileOutputStream.close();
             objectOutputStream.close();
@@ -134,6 +161,26 @@ public class Database {
             Database.readData(ModelType.CINEPLEX);
             Database.readData(ModelType.CINEMA);
             Database.readData(ModelType.SEAT);
+            Database.readData(ModelType.MOVIE_SCHEDULE);
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("Error! " + e.getMessage());
+            return false;
+        }
+    }
+
+
+    /**
+     * Method to save all changes to database. Useful on first load to save dummy data.
+     * @return {code true} if write is successful; {@code false} otherwise
+     */
+    public static boolean writeToDatabase() {
+        try {
+            Database.writeData(ModelType.CINEPLEX);
+            Database.writeData(ModelType.CINEMA);
+            Database.writeData(ModelType.SEAT);
+            Database.writeData(ModelType.MOVIE_SCHEDULE);
             return true;
         }
         catch (Exception e) {
@@ -149,10 +196,12 @@ public class Database {
         Database.CINEPLEX = new HashMap <String, Cineplex>();
         Database.CINEMA = new HashMap <String, Cinema>();
         Database.SEAT = new HashMap <String, Seat>();
+        Database.MOVIE_SCHEDULE = new HashMap <String, MovieSchedule>();
 
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);
         Database.writeData(ModelType.SEAT);
+        Database.writeData(ModelType.MOVIE_SCHEDULE);
     }
 
     /**
@@ -173,5 +222,35 @@ public class Database {
     public static <V> ArrayList <V> getValueList(Collection valueSet) {
         ArrayList <V> valueList = new ArrayList<>(valueSet);
         return valueList;
+    }
+
+    /**
+     * Method to retrieve the value of a key in the HashMap database
+     * @param <K> generic form for Key
+     * @param <V> generic form for value
+     * @param key the key we wish to search the value for
+     * @param data the database
+     * @return {@code V} that is the value of the key {@code key}
+     */
+    public static <K, V> V getValueByKey(K key, HashMap <K, V> data) {
+        ArrayList <String> dataList = Database.getKeyList(data.keySet());
+        ArrayList <V> valueList = Database.getValueList(data.values());
+        int index = dataList.indexOf(key);
+        return valueList.get(index);
+    }
+
+    /**
+     * Method to retrieve the key of a value in the HashMap database
+     * @param <K> generic form for Key
+     * @param <V> generic form for value
+     * @param value the value we wish to search the key for
+     * @param data the database
+     * @return {@code String} that is the key of the value {@code value}
+     */
+    public static <K, V> String getKeyByValue(V value, HashMap <K, V> data) {
+        ArrayList <String> dataList = Database.getKeyList(data.keySet());
+        ArrayList <V> valueList = Database.getValueList(data.values());
+        int index = valueList.indexOf(value);
+        return dataList.get(index);
     }
 }
