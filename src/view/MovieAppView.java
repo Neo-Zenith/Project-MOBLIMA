@@ -5,9 +5,11 @@ import handler.InputHandler;
 public class MovieAppView extends MainView {
 
     private DatabaseView dbView;
+    private CineplexView cpView;
 
     public MovieAppView() {
         this.dbView = new DatabaseView();
+        this.cpView = new CineplexView();
     }
     
     public void printMenu() {
@@ -15,6 +17,7 @@ public class MovieAppView extends MainView {
         System.out.println("Welcome to MOBLIMA!");
         MainView.printBoilerPlate("""
                 1. Manage Database.
+                2. View Cineplexes.
                 2. Exit the program.
                 """);
     }
@@ -30,8 +33,9 @@ public class MovieAppView extends MainView {
                     this.dbView.appContent();
                     break;
                 case 2:
+                    this.cpView.appContent();
                     break;
             }
-        }   while (choice != 2);
+        }   while (choice != 3);
     }
 }

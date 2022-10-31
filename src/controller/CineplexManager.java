@@ -2,10 +2,12 @@ package controller;
 
 import model.Cineplex;
 import model.Cinema;
+import model.enums.CinemaClass;
 import database.Database;
 import handler.DatabaseHandler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CineplexManager {
     
@@ -21,5 +23,53 @@ public class CineplexManager {
         String UUID = String.format("CP%03d", DatabaseHandler.generateUUID(Database.CINEPLEX));
         Cineplex cineplex = new Cineplex(UUID, cineplexName, numOfCinemas, cinemas);
         DatabaseManager.saveUpdateToDatabase(UUID, cineplex, Database.CINEPLEX);
+    }
+
+    /**
+     * Method to print out information of all the cineplexes in the database
+     * @return ArrayList of {@link Cineplex} objects
+     */
+    public static ArrayList <Cineplex> printCineplexesInfo() {
+        ArrayList <Cineplex> cineplexes = new ArrayList<>();
+        ArrayList <String> cineplexKeyList = Database.getKeyList(Database.CINEPLEX.keySet());
+        ArrayList <Cineplex> cineplexValueList = Database.getValueList(Database.CINEPLEX.values());
+        Collections.sort(cineplexKeyList);
+        Collections.sort(cineplexValueList);
+
+        int index = 0;
+        for (int i = 0; i < cineplexValueList.size(); i ++) {
+            cineplexes.add(cineplexValueList.get(i));
+            String key = cineplexKeyList.get(index);
+            System.out.print(key + ".  ");
+            System.out.println(cineplexValueList.get(i).getCineplexName());
+            System.out.println("Standard Cinema: " + 
+                            CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.STANDARD));
+            System.out.println("Platinum Cinema: " + 
+                            CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.PLATINUM));
+            System.out.println("IMAX Cinema: " + 
+                            CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.IMAX));
+            System.out.println("");
+            index ++;
+        }
+
+        return cineplexes;
+    }
+
+    /**
+     * Method that counts the number of different cinema classes for a cineplex
+     * @param cineplex the target {@link Cineplex}
+     * @param cinemaCLass the target {@link CinemaClass}
+     * @return the number of cinemas of which belong to {@param cinemaClass}
+     */
+    public static int countCinemaClass(Cineplex cineplex, CinemaClass cinemaClass) {
+        int count = 0;
+        ArrayList <Cinema> cinemas = cineplex.getCinemas();
+
+        for (int i = 0; i < cinemas.size(); i ++) {
+            if (cinemas.get(i).getCinemaClass() == cinemaClass) {
+                count ++;
+            }
+        }
+        return count;
     }
 }

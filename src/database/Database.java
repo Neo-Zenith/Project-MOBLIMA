@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 import model.Cineplex;
@@ -150,5 +153,25 @@ public class Database {
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);
         Database.writeData(ModelType.SEAT);
+    }
+
+    /**
+     * Method to return an ArrayList of HashMap keys for the collection {@code keySet}
+     * @param keySet a HashMap keys collection
+     * @return ArrayList of {@code String} containing HashMap keys
+     */
+    public static ArrayList <String> getKeyList(Collection keySet) {
+        ArrayList <String> keyList = new ArrayList<>(keySet);
+        return keyList;
+    }
+
+    /**
+     * Method to return an ArrayList of HashMap values for the collection {@code valueSet}
+     * @param valueSet a HashMap values collection
+     * @return ArrayList of {@code Value} containing HashMap values
+     */
+    public static <V> ArrayList <V> getValueList(Collection valueSet) {
+        ArrayList <V> valueList = new ArrayList<>(valueSet);
+        return valueList;
     }
 }

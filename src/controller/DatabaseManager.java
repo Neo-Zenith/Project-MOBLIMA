@@ -33,6 +33,7 @@ public class DatabaseManager {
         // Data 2
         cineplexName = "Shaw Theatre";
         numOfCinemas = 3;
+        cinemas = new ArrayList<>();
         for (int i = 0; i < numOfCinemas; i ++) {
             cinemas.add(initializeCinemaData());
         }
@@ -41,6 +42,7 @@ public class DatabaseManager {
         // Data 3
         cineplexName = "Golden Village";
         numOfCinemas = 7;
+        cinemas = new ArrayList<>();
         for (int i = 0; i < numOfCinemas; i ++) {
             cinemas.add(initializeCinemaData());
         }

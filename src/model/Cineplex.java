@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Cineplex {
+public class Cineplex implements Comparable{
     private String UUID;
     private String cineplexName;
     private int numOfCinemas;
@@ -50,5 +50,13 @@ public class Cineplex {
     public void addCinema(Cinema cinema) {
         this.cinemas.add(cinema);
         this.numOfCinemas ++;
+    }
+
+    @Override public int compareTo(Object object) {
+        Cineplex cineplex = (Cineplex) object;
+        System.out.println(this.getUUID());
+        System.out.println(cineplex.getUUID());
+        System.out.println(this.getUUID().compareTo(cineplex.getUUID()));
+        return this.getUUID().compareTo(cineplex.getUUID());
     }
 }
