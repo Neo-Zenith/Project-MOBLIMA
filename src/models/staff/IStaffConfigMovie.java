@@ -1,5 +1,5 @@
 package models.staff;
 public interface IStaffConfigMovie extends IStaffConfig{
-    public void enterNewMovies();
-    public void updateExistingMovieDetails();
+    public void updateExistingMovieDetails(String movieTitle, String movieType, int choice);
+    
 }

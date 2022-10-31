@@ -96,7 +96,7 @@ public class Testbench {
             newStaff.updateExistingMovieDetails("Avenger", "ThreeD", i);
         }    
         movie1.printMovies(Movie.movies);
-        newStaff.printTopFiveOverallRatings();
+        
 
     }
 

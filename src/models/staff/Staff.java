@@ -12,7 +12,7 @@ import models.movie.DateTime;
 import java.util.*;
 
 
-public class Staff implements IStaffAccess {
+public class Staff implements IStaffConfigMovie, IStaffConfigSystem, IStaffLogin  {
     private String name;
     private String password;
     private int staffID;
@@ -66,19 +66,7 @@ public class Staff implements IStaffAccess {
 
     }
 
-    /*
-     * Allows Staff to add new movies
-     */
-
-    // public void enterNewMovies(String movieTitle, String movieType, MovieAgeRating movieAgeRating,
-    // MovieShowingStatus showingStatus,
-    // ArrayList<String> movieCast,
-    // String movieDirector, String movieSynopsis, double movieDuration,
-    // ArrayList<DateTime> showingTime){
     
-    //     Movie newMovie = new Movie(movieTitle, movieType, movieAgeRating, showingStatus, movieCast, movieDirector, movieSynopsis, movieDuration, showingTime);
-    
-    // }
 
 
     /*
@@ -296,26 +284,24 @@ public class Staff implements IStaffAccess {
     /* 
      * method to change ticket prices 
      */
-    // public void changeTicketPrice(String movieName, String movieType){
-    //         Scanner sc = new Scanner(System.in);
-    //         System.out.println("1. SeatPrice");
-    //         double newSeatPrice = sc.nextDouble();
-    //         System.out.println("2. Cinema Price");
-    //         double newCinemaPrice = sc.nextDouble();
-    //         System.out.println("3. MovieType Price");
-    //         System.out.println("Standard Movie Price");
-    //         double newStandardPrice = sc.nextDouble();
-    //         System.out.println("ThreeD Movie Price");
-    //         double newThreeDPrice = sc.nextDouble();
-    //         System.out.println("Blockbuster Movie Price");
-    //         double newBlockBusterPrice = sc.nextDouble();
-    //         ThreeDMovie.setPrice(newBlockBusterPrice);
-
-            
-    //         double newMoviePrice = sc.nextDouble();
+    public void changeTicketPrice(String movieName, String movieType){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("1. SeatPrice");
+            double newSeatPrice = sc.nextDouble();
+            System.out.println("2. Cinema Price");
+            double newCinemaPrice = sc.nextDouble();
+            System.out.println("3. MovieType Price");
+            System.out.println("Standard Movie Price");
+            double newStandardPrice = sc.nextDouble();
+            System.out.println("ThreeD Movie Price");
+            double newThreeDPrice = sc.nextDouble();
+            System.out.println("Blockbuster Movie Price");
+            double newBlockBusterPrice = sc.nextDouble();
+           
+            double newMoviePrice = sc.nextDouble();
 
 
-    //     }
+        }
         
     // }
 
@@ -376,94 +362,4 @@ public class Staff implements IStaffAccess {
         System.out.println("");
     }
 
-    /*
-     * sorts and prints the top five movies based on overallRating
-     */
-
-    public void printTopFiveOverallRatings(){
-        Collections.sort(Movie.movies, new SortByOverallRating());
-        Movie m;
-
-        int top = 5;
-        if (Movie.movies.size() < 5){
-            top = Movie.movies.size();
-            System.out.println("There are only " + top + " movies. Printing top " + top + " movies based on overall ratings:");
-        }
-        else {
-            System.out.println("Printing top 5 movies based on overall ratings:");
-        }
-
-        for (int i = 0; i < top; i++) {
-			m = Movie.movies.get(i);
-            System.out.println("Rank " + (i+1) + ":");
-			System.out.println("Movie Title: " + m.getMovieTitle() + " (" + m.getShowingStatus() + ")");
-			System.out.println("Overall Review Rating: " + m.getMovieOverallReviewRating());
-			}
-			System.out.println("");
-		}
-
 }
-
-
-
-    /*
-     * sorts and prints the top five movies based on ticketSales
-     */
-
-    // public void printTopFiveTicketSales(ArrayList <Movie> movies){
-    //     Collections.sort(movies, new SortByTicketSales());
-    //     for (int i = 0; i < 5; i++){
-    //         System.out.println(movies.get(i));
-    //     }
-    // }
-
-
-
-
-/*
- * creates custom comparator class to compare overallRatings
- * sorts the movies array list in descending order
- */
-
-class SortByOverallRating implements Comparator<Movie>{
-    
-    /*
-     * overrides the compare method
-     */
-
-    public int compare(Movie movie1, Movie movie2){
-        double rating1 = movie1.getMovieOverallReviewRating();
-        double rating2 = movie2.getMovieOverallReviewRating();
-
-        if (rating1 == rating2){
-            return 0;
-        }
-        else if (rating1 < rating2){
-            return 1;
-        }
-        else return -1;
-    } 
-}
-
-/*
- * creates custom comparator class to compare movieTicketSales
- * sorts the movies array list in descending order 
- */
-
-// class SortByTicketSales implements Comparator<Movie>{
-//     /*
-//      * overrides the compare method
-//      */
-//     public int compare(Movie movie1, Movie movie2){
-//         int ticketSales1 = movie1.getMovieTicketSales();
-//         int ticketSales2 = movie2.getMovieTicketSales();
-
-//         if (ticketSales1 == ticketSales2){
-//             return 0;
-//         }
-//         else if (ticketSales1 < ticketSales2){
-//             return 1;
-//         }
-//         else return -1;
-//     }
-// }
