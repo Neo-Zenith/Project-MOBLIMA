@@ -79,6 +79,8 @@ public class Testbench {
         customer.setUserMovieReview("Avenger", "ThreeD","This is such a good movie!", 9);
         
 
+        movie1.printMovies(Movie.movies);
+
         ArrayList<MovieReview> reviews = new ArrayList<MovieReview>();
         reviews = movie1.getMovieReviews();
         MovieReview review;
@@ -88,11 +90,12 @@ public class Testbench {
         }
         System.out.println(movie1.getMovieOverallReviewRating());
         
-        
+        newStaff.updateExistingMovieDetails("Avenger", "ThreeD", 2);
+        newStaff.updateExistingMovieDetails("Avenger", "StandardMovie", 2);
         for (int i = 1; i <= 10; i++){
             newStaff.updateExistingMovieDetails("Avenger", "ThreeD", i);
         }    
-        
+        movie1.printMovies(Movie.movies);
         newStaff.printTopFiveOverallRatings();
 
     }

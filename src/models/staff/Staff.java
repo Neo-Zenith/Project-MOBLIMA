@@ -3,6 +3,7 @@ package models.staff;
 import models.staff.HolidayDateTime;
 
 import models.movie.Movie;
+import models.movie.MovieFactory;
 import models.movie.MovieAgeRating;
 import models.movie.MovieShowingStatus;
 import models.movie.DateTime;
@@ -84,8 +85,6 @@ public class Staff implements IStaffAccess {
      * Updates certain details for existing movies
      */
 
-
-
     public void updateExistingMovieDetails(String movieTitle, String movieType, int choice){
         Scanner sc = new Scanner(System.in);
         int index = getIndex(Movie.movies, movieTitle, movieType);
@@ -104,11 +103,26 @@ public class Staff implements IStaffAccess {
             m.setMovieTitle(newMovieName);
             System.out.println("Movie name changed to " + m.getMovieTitle());
             break;
+
             case 2:
             System.out.println("Enter the new Movie Type for " + m.getMovieTitle());
             String newMovieType = sc.nextLine();
-            m.setMovieType(newMovieType);
-            System.out.println(m.getMovieTitle() + "'s Movie type changed to " + m.getMovieType());
+
+            String oldMovieTitle = m.getMovieTitle();
+            MovieAgeRating oldMovieAgeRating = m.getMovieAgeRating();
+            MovieShowingStatus oldShowingStatus = m.getShowingStatus();
+            ArrayList<String> oldMovieCast = m.getMovieCast(); 
+            String oldMovieDirector = m.getMovieDirector();
+            String oldMovieSynopsis = m.getMovieSynopsis();
+            double oldMovieDuration = m.getMovieDuration();
+            ArrayList<DateTime> oldShowingTime = m.getShowingTime();
+            Movie.movies.remove(m);
+
+            Movie newMovie;
+            MovieFactory movieFactory = new MovieFactory();
+            newMovie = movieFactory.createMovie(oldMovieTitle, newMovieType, oldMovieAgeRating, oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis, oldMovieDuration, oldShowingTime);
+            Movie.movies.add(newMovie);
+            System.out.println(m.getMovieTitle() + "'s Movie type changed to " + newMovie.getMovieType());
             break;
 
             case 3:
@@ -131,17 +145,43 @@ public class Staff implements IStaffAccess {
             break;
             
             case 5:
-            System.out.println("Enter which cast number is to be updated. (Enter Cast Number)");
-            for (int i = 0; i < m.getMovieCast().size(); i++){
-                System.out.println("Cast Number " + (i+1) + ": " + m.getMovieCast().get(i));
-            }
-            int castNumber = sc.nextInt();
+            System.out.println("Would you like to 1.edit, 2.remove or 3.add cast members:");
+            int innerchoice = sc.nextInt();
             sc.nextLine();
-            System.out.println("Enter the updated name of cast " + castNumber + ".");
-            String newCastName = sc.nextLine();
-            m.setMovieCast(newCastName, castNumber);
-            
-            System.out.println(m.getMovieTitle() + "'s cast " + castNumber + "'s name changed to " + m.getMovieCast().get(castNumber));
+                
+            switch(innerchoice){
+                case 1:
+                System.out.println("Enter which cast number is to be updated. (Enter Cast Number)");
+                for (int i = 0; i < m.getMovieCast().size(); i++){
+                    System.out.println("Cast Number " + (i+1) + ": " + m.getMovieCast().get(i));
+                }
+                int castNumber = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Enter the updated name of cast " + castNumber + ".");
+                String newCastName = sc.nextLine();
+                m.setMovieCast(newCastName, castNumber);
+                System.out.println(m.getMovieTitle() + "'s cast " + castNumber + "'s name changed to " + m.getMovieCast().get(castNumber));
+                break;
+
+                case 2: 
+                System.out.println("Enter which cast number is to be removed. (Enter Cast Number)");
+                for (int i = 0; i < m.getMovieCast().size(); i++){
+                    System.out.println("Cast Number " + (i+1) + ": " + m.getMovieCast().get(i));
+                }
+                castNumber = sc.nextInt();
+                sc.nextLine();
+                m.getMovieCast().remove(castNumber - 1);
+                System.out.println("Cast removed");
+                break;
+
+                case 3:
+                System.out.println("Enter the name of the cast to be added.");
+                String castName = sc.nextLine();
+                m.getMovieCast().add(castName);
+                System.out.println("Cast added");
+                break;
+            }
+
             break;
             
             case 6:
@@ -171,31 +211,71 @@ public class Staff implements IStaffAccess {
             // break;
             
             case 10:
-            System.out.println("Select a showing time to be updated. (Enter ID number)");
-            for (int i = 0; i < m.getShowingTime().size(); i++){
-                System.out.println((i+1) + " : " + "Date: " + m.getShowingTime().get(i).getYear() + m.getShowingTime().get(i).getMonth() + m.getShowingTime().get(i).getDate() + " Time: " + m.getShowingTime().get(i).getHour() + m.getShowingTime().get(i).getMinute());
+            System.out.println("Would you like to 1. edit, 2. remove or 3. add showing times:");
+            innerchoice = sc.nextInt();
+            sc.nextLine();
+            switch(innerchoice){
+                case 1:
+                System.out.println("Enter which showing time is to be updated. (Enter ID number)");
+                for (int i = 0; i < m.getShowingTime().size(); i++){
+                    System.out.println((i+1) + " : " + "Date: " + m.getShowingTime().get(i).getYear() + m.getShowingTime().get(i).getMonth() + m.getShowingTime().get(i).getDate() + " Time: " + m.getShowingTime().get(i).getHour() + m.getShowingTime().get(i).getMinute());
+                }
+                int showingTimeID = sc.nextInt();
+
+                System.out.println("Enter the new showing time");
+                System.out.println("year:");
+                int year = sc.nextInt();
+                System.out.println("month:");
+                int month = sc.nextInt();
+                System.out.println("date:");
+                int date = sc.nextInt();
+                System.out.println("hour:");
+                int hour = sc.nextInt();
+                System.out.println("minute:");
+                int minute = sc.nextInt();
+                System.out.println("day:");
+                int day = sc.nextInt();
+
+                DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
+                
+                m.setShowingTime(newShowingTime, showingTimeID);
+                System.out.println(m.getMovieTitle() + "'s Movie showing time "+ showingTimeID + " changed to " + m.getShowingTime().get(showingTimeID).getYear() + m.getShowingTime().get(showingTimeID).getMonth() + m.getShowingTime().get(showingTimeID).getDate() + " Time: " + m.getShowingTime().get(showingTimeID).getHour() + m.getShowingTime().get(showingTimeID).getMinute());
+                break;
+
+                case 2:
+                System.out.println("Enter which showing time is to be removed. (Enter ID number)");
+                for (int i = 0; i < m.getShowingTime().size(); i++){
+                    System.out.println((i+1) + " : " + "Date: " + m.getShowingTime().get(i).getYear() + m.getShowingTime().get(i).getMonth() + m.getShowingTime().get(i).getDate() + " Time: " + m.getShowingTime().get(i).getHour() + m.getShowingTime().get(i).getMinute());
+                }
+                showingTimeID = sc.nextInt();
+                sc.nextLine();
+                m.getMovieCast().remove(showingTimeID- 1);
+                System.out.println("Showing time removed.");
+                break;
+
+                case 3:
+                System.out.println("Enter the time to be added.");
+
+                System.out.println("year:");
+                year = sc.nextInt();
+                System.out.println("month:");
+                month = sc.nextInt();
+                System.out.println("date:");
+                date = sc.nextInt();
+                System.out.println("hour:");
+                hour = sc.nextInt();
+                System.out.println("minute:");
+                minute = sc.nextInt();
+                System.out.println("day:");
+                day = sc.nextInt();
+
+                newShowingTime = new DateTime(minute, hour, day, date, month, year);
+                
+                m.getShowingTime().add(newShowingTime);
+                System.out.println("New showing time successfully added");
+                break;
             }
-            int showingTimeID = sc.nextInt();
-
-            System.out.println("Enter the new showing time");
-            System.out.println("year:");
-            int year = sc.nextInt();
-            System.out.println("month:");
-            int month = sc.nextInt();
-            System.out.println("date:");
-            int date = sc.nextInt();
-            System.out.println("hour:");
-            int hour = sc.nextInt();
-            System.out.println("minute:");
-            int minute = sc.nextInt();
-            System.out.println("day:");
-            int day = sc.nextInt();
-
-            DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
-            
-            m.setShowingTime(newShowingTime, showingTimeID);
-            System.out.println(m.getMovieTitle() + "'s Movie showing time "+ showingTimeID + " changed to " + m.getShowingTime().get(showingTimeID).getYear() + m.getShowingTime().get(showingTimeID).getMonth() + m.getShowingTime().get(showingTimeID).getDate() + " Time: " + m.getShowingTime().get(showingTimeID).getHour() + m.getShowingTime().get(showingTimeID).getMinute());
-            break;  
+            break;
             
             default:
             break;
@@ -216,10 +296,28 @@ public class Staff implements IStaffAccess {
     /* 
      * method to change ticket prices 
      */
-    public void changeTicketPrice(){
+    // public void changeTicketPrice(String movieName, String movieType){
+    //         Scanner sc = new Scanner(System.in);
+    //         System.out.println("1. SeatPrice");
+    //         double newSeatPrice = sc.nextDouble();
+    //         System.out.println("2. Cinema Price");
+    //         double newCinemaPrice = sc.nextDouble();
+    //         System.out.println("3. MovieType Price");
+    //         System.out.println("Standard Movie Price");
+    //         double newStandardPrice = sc.nextDouble();
+    //         System.out.println("ThreeD Movie Price");
+    //         double newThreeDPrice = sc.nextDouble();
+    //         System.out.println("Blockbuster Movie Price");
+    //         double newBlockBusterPrice = sc.nextDouble();
+    //         ThreeDMovie.setPrice(newBlockBusterPrice);
+
+            
+    //         double newMoviePrice = sc.nextDouble();
 
 
-    }
+    //     }
+        
+    // }
 
     /*
      * method to add holiday date
@@ -227,18 +325,18 @@ public class Staff implements IStaffAccess {
      * return 0 if holiday added
      * return 1 if holiday is already in holidays list
      */
-    public int addHoliday(ArrayList <HolidayDateTime> holidays, HolidayDateTime holiday){
-        for (int i = 0; i < holidays.size(); i++)
+    public int addHoliday(HolidayDateTime holiday){
+        for (int i = 0; i < HolidayDateTime.holidays.size(); i++)
         {
-            if (holidays.get(i).getYear() == holiday.getYear() && holidays.get(i).getMonth() == holiday.getMonth() && holidays.get(i).getDate() == holiday.getDate() && holidays.get(i).getHour() == holiday.getHour() && holidays.get(i).getMinute() == holiday.getMinute() && holidays.get(i).getDay() == holiday.getDay()){
+            if (HolidayDateTime.holidays.get(i).getYear() == holiday.getYear() && HolidayDateTime.holidays.get(i).getMonth() == holiday.getMonth() && HolidayDateTime.holidays.get(i).getDate() == holiday.getDate() && HolidayDateTime.holidays.get(i).getHour() == holiday.getHour() && HolidayDateTime.holidays.get(i).getMinute() == holiday.getMinute() && HolidayDateTime.holidays.get(i).getDay() == holiday.getDay()){
                 System.out.println("Holiday already exists!");
-                printHoliday(holidays);
+                printHolidayList();
                 return 1;
             }
         }
-        holidays.add(holiday);
+        HolidayDateTime.holidays.add(holiday);
         System.out.println("Holiday Added");
-        printHoliday(holidays);
+        printHolidayList();
         return 0;
     }
 
@@ -247,33 +345,33 @@ public class Staff implements IStaffAccess {
      * return 0 is successful, 1 if not found, 2 if the holiday arraylist is empty
      */
 
-    public int deleteHoliday(ArrayList <HolidayDateTime> holidays, HolidayDateTime holiday){
+    public int deleteHoliday(HolidayDateTime holiday){
         if (HolidayDateTime.holidays.size() == 0){
             System.out.println("Holiday list is empty!");
             return 2;
         }
         for (int i = 0; i < HolidayDateTime.holidays.size(); i++)
         {
-            if (holidays.get(i).getYear() == holiday.getYear() && holidays.get(i).getMonth() == holiday.getMonth() && holidays.get(i).getDate() == holiday.getDate() && holidays.get(i).getHour() == holiday.getHour() && holidays.get(i).getMinute() == holiday.getMinute() && holidays.get(i).getDay() == holiday.getDay()){
+            if (HolidayDateTime.holidays.get(i).getYear() == holiday.getYear() && HolidayDateTime.holidays.get(i).getMonth() == holiday.getMonth() && HolidayDateTime.holidays.get(i).getDate() == holiday.getDate() && HolidayDateTime.holidays.get(i).getHour() == holiday.getHour() && HolidayDateTime.holidays.get(i).getMinute() == holiday.getMinute() && HolidayDateTime.holidays.get(i).getDay() == holiday.getDay()){
                 HolidayDateTime.holidays.remove(i);
                 System.out.println("Holiday removed");
-                printHoliday(holidays);
+                printHolidayList();
                 return 0;
             }
         }
         System.out.println("Holiday cannot be found");
-        printHoliday(holidays);
+        printHolidayList();
         return 1;
     }
 
-    public void printHoliday(ArrayList <HolidayDateTime> holidays){
-        if (holidays.size() == 0){
+    public void printHolidayList(){
+        if (HolidayDateTime.holidays.size() == 0){
             System.out.println("Holiday list is empty!");
             return;
         }
         System.out.println("Here are the list of holidays:");
-        for (int i = 0; i < holidays.size(); i++){
-            holidays.get(i).printHolidayTime();
+        for (int i = 0; i < HolidayDateTime.holidays.size(); i++){
+            HolidayDateTime.holidays.get(i).printHolidayTime();
         }
         System.out.println("");
     }
@@ -299,34 +397,12 @@ public class Staff implements IStaffAccess {
 			m = Movie.movies.get(i);
             System.out.println("Rank " + (i+1) + ":");
 			System.out.println("Movie Title: " + m.getMovieTitle() + " (" + m.getShowingStatus() + ")");
-			System.out.println("Movie Type: " + m.getMovieType());
-			System.out.println("Rated: " + m.getMovieAgeRating());
-			System.out.println("Duration: " + m.getMovieDuration());
-			System.out.println("Review rating: " + m.getMovieOverallReviewRating());
-			System.out.println("Director: " + m.getMovieDirector());
-			System.out.print("Cast: ");
-			for (int j = 0; j < m.getMovieCast().size(); j++) {
-				System.out.print(m.getMovieCast().get(j) + " ");
-			}
-			System.out.println("");
-			System.out.println("Synopsis: " + m.getMovieSynopsis());
-			// System.out.print("Showing venues: ");
-			// for(int j=0; j<m.showingVenue.size(); j++){
-			// System.out.print(m.showingVenue.get(j).getCinemaID() + " ");
-			// }
-			System.out.println("Showing time: ");
-			for (int j = 0; j < m.getShowingTime().size(); j++) {
-				System.out.print(m.getShowingTime().get(j).getMinute() + " min ");
-				System.out.print(m.getShowingTime().get(j).getHour() + " hr ");
-				System.out.print(m.getShowingTime().get(j).getDay() + " day ");
-				System.out.print(m.getShowingTime().get(j).getDate() + "/");
-				System.out.print(m.getShowingTime().get(j).getMonth() + "/");
-				System.out.println(m.getShowingTime().get(j).getYear());
+			System.out.println("Overall Review Rating: " + m.getMovieOverallReviewRating());
 			}
 			System.out.println("");
 		}
 
-    }
+}
 
 
 
@@ -341,7 +417,7 @@ public class Staff implements IStaffAccess {
     //     }
     // }
 
-}
+
 
 
 /*
