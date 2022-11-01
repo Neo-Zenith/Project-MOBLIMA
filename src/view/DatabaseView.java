@@ -14,8 +14,11 @@ public class DatabaseView extends MainView{
         MainView.printBoilerPlate("""
                 1. Load Cineplex and Cinema data into database.
                 2. Load Movie Schedule data into database.
-                3. Reset database.
-                4. Return back.
+                3. Load Movie into database
+                4. Load MovieGoer into database
+                5. Load MovieReview into database
+                6. Reset database.
+                7. Return back.
                 """);
         System.out.println("====================================");
     }
@@ -40,7 +43,7 @@ public class DatabaseView extends MainView{
                     break;
                 case 4:
                     break;
-            }  
-        }   while (choice != 4);
+            }
+        } while (choice != 4);
     }
 }

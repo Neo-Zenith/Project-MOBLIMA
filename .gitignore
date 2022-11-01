@@ -33,5 +33,5 @@ hs_err_pid*
 *.vpp.lck*
 tmp/*
 
-# eclipse bin files
+.DS_STORE
 bin/
