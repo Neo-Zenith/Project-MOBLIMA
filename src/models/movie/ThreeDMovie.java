@@ -18,4 +18,14 @@ public class ThreeDMovie extends Movie {
 
     }
 
+    public void setMoviePrice(double defaultPrice, double discount, boolean onDiscount){
+        if(onDiscount){
+            super.moviePrice = defaultPrice - discount;
+        }
+
+        else{
+            super.moviePrice = defaultPrice;
+        }
+    }
+
 }

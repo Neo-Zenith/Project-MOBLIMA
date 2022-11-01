@@ -17,6 +17,8 @@ public abstract class Movie {
 	// private ArrayList<Cinema> showingVenue;
 	private ArrayList<DateTime> showingTime;
 	private double movieDuration;
+	private int movieTicketsSold;
+	protected double moviePrice;
 
 	public Movie() {
 		movies.add(this);
@@ -38,6 +40,7 @@ public abstract class Movie {
 		this.movieReviews = new ArrayList<>();
 		// this.showingVenue = showingVenue;
 		this.showingTime = showingTime;
+		this.movieTicketsSold = 0;
 		movies.add(this);
 	}
 
@@ -127,7 +130,8 @@ public abstract class Movie {
 
 	public void calculateOverallReviewRating() {
 		if (this.movieReviews.size() == 0) {
-			this.movieOverallReviewRating = 0;
+			this.movieOverallReviewRating = 0.0;
+			return;
 		}
 
 		double overallRating = 0;
@@ -155,7 +159,21 @@ public abstract class Movie {
 		}
 	}
 
-	public void printMovies(List<Movie> movies) {
+	public int getMovieTicketsSold(){
+		return this.movieTicketsSold;
+	}
+
+	public void movieTicketSold(){
+		this.movieTicketsSold++;
+	}
+
+	public abstract void setMoviePrice(double defaultPrice, double discount, boolean onDiscount);
+
+	public double getMoviePrice(){
+		return this.moviePrice;
+	}
+
+	public void printMovies() {
 		Movie m;
 		for (int i = 0; i < this.movies.size(); i++) {
 			m = movies.get(i);
@@ -163,7 +181,7 @@ public abstract class Movie {
 			System.out.println("Movie Type: " + m.movieType);
 			System.out.println("Rated: " + m.movieAgeRating);
 			System.out.println("Duration: " + m.movieDuration);
-			System.out.println("Review rating: " + m.movieOverallReviewRating);
+			System.out.println("Review rating: " + m.getMovieOverallReviewRating());
 			System.out.println("Director: " + m.movieDirector);
 			System.out.print("Cast: ");
 			for (int j = 0; j < m.movieCast.size(); j++) {
@@ -175,6 +193,7 @@ public abstract class Movie {
 			// for(int j=0; j<m.showingVenue.size(); j++){
 			// System.out.print(m.showingVenue.get(j).getCinemaID() + " ");
 			// }
+			System.out.println("Price: $" + m.getMoviePrice());
 			System.out.println("Showing time: ");
 			for (int j = 0; j < m.showingTime.size(); j++) {
 				System.out.print(m.showingTime.get(j).getMinute() + " min ");

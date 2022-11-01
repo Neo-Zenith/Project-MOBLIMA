@@ -3,7 +3,6 @@ package models.movie;
 import java.util.ArrayList;
 
 public class BlockbusterMovie extends Movie {
-
     public BlockbusterMovie() {
         super();
     }
@@ -14,5 +13,16 @@ public class BlockbusterMovie extends Movie {
         super(movieTitle, movieType, movieAgeRating, showingStatus, movieCast, movieDirector, movieSynopsis,
                 movieDuration, showingTime);
     }
+
+    public void setMoviePrice(double defaultPrice, double discount, boolean onDiscount){
+        if(onDiscount){
+            super.moviePrice = defaultPrice - discount;
+        }
+
+        else{
+            super.moviePrice = defaultPrice;
+        }
+    }
+
 
 }
