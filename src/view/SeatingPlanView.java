@@ -2,7 +2,6 @@ package view;
 
 import java.util.ArrayList;
 
-import controller.MovieScheduleManager;
 import controller.SeatManager;
 import model.Cinema;
 import model.MovieSchedule;
@@ -45,8 +44,14 @@ public class SeatingPlanView {
 
             switch (choice) {
                 case 1:
-                
+                    System.out.println("Enter the seatID to be booked: ");
+                    String seatID = InputHandler.StringHandler();
+                    if (SeatManager.bookSeat(seatID, movieSchedule, cinema)) {
+                        System.out.println("Booking has been made!");
+                    }
+                    break;
                 case 2:
+                    break;
             }
             
         }   while (choice != 2);

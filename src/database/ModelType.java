@@ -5,7 +5,9 @@ public enum ModelType {
     CINEPLEX("Cineplex"),
     CINEMA("Cinema"),
     SEAT("Seat"),
-    MOVIE_SCHEDULE("MovieSchedule");
+    MOVIE_SCHEDULE("MovieSchedule"),
+    BOOKING_HISTORY("BookingHistory"),
+    PAYMENT("Payment");
 
     private final String fileName;
 

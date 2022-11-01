@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import model.Cineplex;
 import model.MovieSchedule;
+import model.Payment;
+import model.BookingHistory;
 import model.Cinema;
 import model.Seat;
 
@@ -36,14 +38,24 @@ public class Database {
     public static HashMap <String, MovieSchedule> MOVIE_SCHEDULE = new HashMap <String, MovieSchedule>();
 
     /**
+     * Booking History Model in database
+     */
+    public static HashMap <String, BookingHistory> BOOKING_HISTORY = new HashMap <String, BookingHistory>();
+
+    /**
+     * Payment Model in database
+     */
+    public static HashMap <String, Payment> PAYMENT = new HashMap <String, Payment>();
+
+    /**
      * Total number of seats for every cinema
      */
-    public static int totalNumOfSeats = 480;
+    public static int totalNumOfSeats = 144;
 
     /**
      * Total number of rows in a cinema
      */
-    public static int numOfRows = 24;
+    public static int numOfRows = 12;
 
     /**
      * Total number of couple rows in a cinema
@@ -72,6 +84,12 @@ public class Database {
         }
         else if (! readData(ModelType.MOVIE_SCHEDULE)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE_SCHEDULE + " failed!");
+        }
+        else if (! readData(ModelType.BOOKING_HISTORY)) {
+            System.out.println("Error! Reading of data " + ModelType.MOVIE_SCHEDULE + " failed!");
+        }
+        else if (! readData(ModelType.PAYMENT)) {
+            System.out.println("Error! Reading of data " + ModelType.PAYMENT + " failed!");
         }
     }
 
@@ -104,6 +122,12 @@ public class Database {
             }
             else if (modelType == ModelType.MOVIE_SCHEDULE) {
                 Database.MOVIE_SCHEDULE = (HashMap <String, MovieSchedule>) object;
+            }
+            else if (modelType == ModelType.BOOKING_HISTORY) {
+                Database.BOOKING_HISTORY = (HashMap <String, BookingHistory>) object;
+            }
+            else if (modelType == ModelType.PAYMENT) {
+                Database.PAYMENT = (HashMap <String, Payment>) object;
             }
 
             objectInputStream.close();
@@ -140,6 +164,12 @@ public class Database {
             else if (modelType == ModelType.MOVIE_SCHEDULE) {
                 objectOutputStream.writeObject(Database.MOVIE_SCHEDULE);
             }
+            else if (modelType == ModelType.BOOKING_HISTORY) {
+                objectOutputStream.writeObject(Database.BOOKING_HISTORY);
+            }
+            else if (modelType == ModelType.PAYMENT) {
+                objectOutputStream.writeObject(Database.PAYMENT);
+            }
 
             fileOutputStream.close();
             objectOutputStream.close();
@@ -162,6 +192,8 @@ public class Database {
             Database.readData(ModelType.CINEMA);
             Database.readData(ModelType.SEAT);
             Database.readData(ModelType.MOVIE_SCHEDULE);
+            Database.readData(ModelType.BOOKING_HISTORY);
+            Database.readData(ModelType.PAYMENT);
             return true;
         }
         catch (Exception e) {
@@ -181,6 +213,8 @@ public class Database {
             Database.writeData(ModelType.CINEMA);
             Database.writeData(ModelType.SEAT);
             Database.writeData(ModelType.MOVIE_SCHEDULE);
+            Database.writeData(ModelType.BOOKING_HISTORY);
+            Database.writeData(ModelType.PAYMENT);
             return true;
         }
         catch (Exception e) {
@@ -197,11 +231,14 @@ public class Database {
         Database.CINEMA = new HashMap <String, Cinema>();
         Database.SEAT = new HashMap <String, Seat>();
         Database.MOVIE_SCHEDULE = new HashMap <String, MovieSchedule>();
+        Database.BOOKING_HISTORY = new HashMap <String, BookingHistory>();
 
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);
         Database.writeData(ModelType.SEAT);
         Database.writeData(ModelType.MOVIE_SCHEDULE);
+        Database.writeData(ModelType.BOOKING_HISTORY);
+        Database.writeData(ModelType.PAYMENT);
     }
 
     /**

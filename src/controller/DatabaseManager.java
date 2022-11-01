@@ -28,9 +28,10 @@ public class DatabaseManager {
 
         // Data 1
         cineplexName = "Cathay Cineplex";
-        numOfCinemas = 5;
+        numOfCinemas = 4;
         for (int i = 0; i < numOfCinemas; i ++) {
             cinemas.add(initializeCinemaData());
+            System.out.println("done");
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas);
 
@@ -45,7 +46,7 @@ public class DatabaseManager {
 
         // Data 3
         cineplexName = "Golden Village";
-        numOfCinemas = 7;
+        numOfCinemas = 4;
         cinemas = new ArrayList<>();
         for (int i = 0; i < numOfCinemas; i ++) {
             cinemas.add(initializeCinemaData());
@@ -170,6 +171,7 @@ public class DatabaseManager {
     
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
+        Database.writeToDatabase();
     }
 
     public static void resetDatabase() {

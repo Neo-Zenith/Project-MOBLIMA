@@ -79,7 +79,7 @@ public class DateTime implements Serializable {
                 System.out.print("Friday  ");
                 break;
             case 7:
-                System.out.print("Saturday  ");
+                System.out.print("Saturday");
                 break;
             default:
                 break;
