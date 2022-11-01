@@ -36,7 +36,7 @@ public class MovieGoerManager {
         return goer;
     }
 
-    public void viewBookingHistory() {
+    public static void viewBookingHistory() {
         // for(int i = 0; i<this.bookingHistory.size(); i++){
         // System.out.println( i+1 + ": " + this.bookingHistory.get(i).getMovieTitle());
         // System.out.println("Cinema code: " +
@@ -53,7 +53,7 @@ public class MovieGoerManager {
         // }
     }
 
-    public ArrayList<Movie> rankTop5(String choice) {
+    public static ArrayList<Movie> rankTop5(String choice) {
 
         if (Movie.movies.size() <= 1) {
             System.out.println(
@@ -84,7 +84,8 @@ public class MovieGoerManager {
 
     }
 
-    public void setUserMovieReview(Movie movie, MovieGoer goer, String movieTitle, String movieType, String review,
+    public static void setUserMovieReview(Movie movie, MovieGoer goer, String movieTitle, String movieType,
+            String review,
             double movieReviewRating) {
         MovieManager manager = new MovieManager();
         for (int i = 0; i < Movie.movies.size(); i++) {
@@ -103,7 +104,7 @@ public class MovieGoerManager {
         System.out.println("This movie is unavailable.");
     }
 
-    public MovieGoer getGoerDetails(String name) {
+    public static MovieGoer getGoerDetails(String name) {
         ArrayList<MovieGoer> goerlist = Database.getValueList(Database.MOVIE_GOER.values());
         for (int i = 0; i < goerlist.size(); i++) {
             if (goerlist.get(i).getName() == name) {

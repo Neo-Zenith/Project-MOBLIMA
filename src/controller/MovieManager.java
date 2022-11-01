@@ -42,13 +42,13 @@ public class MovieManager {
         return movie;
     }
 
-    public void updateMovieTicketSold(Movie movie) {
+    public static void updateMovieTicketSold(Movie movie) {
         int ticket = movie.getMovieTicketsSold();
         ticket++;
         movie.setMovieTicketsSold(ticket);
     }
 
-    public void calculateOverallReviewRating(Movie movie) {
+    public static void calculateOverallReviewRating(Movie movie) {
         if (movie.getMovieReviews().size() == 0) {
             movie.setMovieOverallReviewRating(0.0);
             return;
@@ -61,7 +61,7 @@ public class MovieManager {
         movie.setMovieOverallReviewRating(overallRating / movie.getMovieReviews().size());
     }
 
-    public void writeMovieReview(Movie movie, MovieReview newReview) {
+    public static void writeMovieReview(Movie movie, MovieReview newReview) {
         movie.getMovieReviews().add(newReview);
     }
 

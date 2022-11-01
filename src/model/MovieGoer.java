@@ -72,5 +72,5 @@ public abstract class MovieGoer implements Serializable {
         this.reviewHistory = reviewHistory;
     }
 
-    public abstract double getPrice();
+    public abstract double getGoerPrice();
 }

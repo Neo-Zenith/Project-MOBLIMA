@@ -18,7 +18,7 @@ public class Child extends MovieGoer {
         this.price = price;
     }
 
-    public double getPrice() {
+    public double getGoerPrice() {
         return this.price;
     }
 
