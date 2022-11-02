@@ -29,7 +29,7 @@ public class CinemaStaffLoginView {
         System.out.println("Please enter the password");
         String password = InputHandler.stringHandler();
 
-        if (CinemaStaffManager.login(staffID, password) == false){
+        if (CinemaStaffManager.login(username, password) == false){
             System.out.println("Invalid password or email. Try again.");
             System.out.println("Re-enter your staffID");
             staffID = InputHandler.intHandler();

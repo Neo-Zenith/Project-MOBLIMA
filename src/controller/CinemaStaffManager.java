@@ -1,6 +1,6 @@
 package controller;
-import model.CinemaStaff;
 
+import model.CinemaStaff;
 import model.Movie;
 import model.Cinema;
 import model.enums.CinemaClass;
@@ -9,7 +9,9 @@ import model.enums.MovieAgeRating;
 import model.enums.MovieShowingStatus;
 import model.MovieSchedule;
 import model.DateTime;
+
 import database.Database;
+
 import handler.DatabaseHandler;
 import handler.InputHandler;
 
@@ -24,24 +26,11 @@ public class CinemaStaffManager{
      * @param staffID   staff login id 
      */
     public CinemaStaffManager(){}
-    public static void createCinemaStaff(String name, String password, int staffID){
+    public static void createCinemaStaff(String name, String password, String username){
         String UUID = String.format("SF%03d", DatabaseHandler.generateUUID(Database.CINEMA_STAFF));
-        CinemaStaff cinemaStaff = new CinemaStaff(UUID, name, password, staffID);
+        CinemaStaff cinemaStaff = new CinemaStaff(UUID, name, password, username);
         DatabaseManager.saveUpdateToDatabase(UUID, cinemaStaff, Database.CINEMA_STAFF);
     }
-
-    public static boolean login(int staffID, String password){
-        ArrayList <CinemaStaff> cinemaStaffList = Database.getValueList(Database.CINEMA_STAFF.values());
-        for (int i = 0; i < cinemaStaffList.size(); i++){
-            CinemaStaff c = cinemaStaffList.get(i);
-            if (c.getStaffID() == staffID && c.getPassword() == password){
-                return true;
-            }
-        }
-        return false;
-        
-    }
-
 
 
     public static int updateExistingMovieDetails(int movieNumber, int detail){
@@ -59,16 +48,23 @@ public class CinemaStaffManager{
         Movie m = movies.get(movieNumber - 1);
         String movieUUID = movieKeyList.get(movieNumber - 1);
 
+        MovieSchedule ms; 
+        String scheduleUUID;
+
         int scheduleIndex = movieSchedules.indexOf(m);
-        MovieSchedule ms = movieSchedules.get(scheduleIndex);
-        String scheduleUUID = movieSchedulesKeyList.get(scheduleIndex);
-    
+        if (scheduleIndex != -1){
+            boolean editMovieSchedule = true;
+            ms = movieSchedules.get(scheduleIndex);
+            scheduleUUID = movieSchedulesKeyList.get(scheduleIndex);
+        }
+
         switch(detail){
             case 1:
             System.out.println("Enter the new name of the movie");
             String newMovieName = InputHandler.stringHandler();
             m.setMovieTitle(newMovieName);
             ms.setMovieOnShow(m);
+
             DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
             DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
             return 0;

@@ -6,14 +6,14 @@ public class CinemaStaff implements Serializable{
     private String UUID;
     private String name;
     private String password;
-    private int staffID;
+    private String username;
     private static final long serialVersionUID = 11L;
 
-    public CinemaStaff(String UUID, String name, String password, int staffID){
+    public CinemaStaff(String UUID, String name, String password, String username){
         this.UUID = UUID;
         this.name = name;
         this.password = password;
-        this.staffID = staffID;
+        this.username = username;
     }
     public String getUUID() {
         return this.UUID;
@@ -35,8 +35,8 @@ public class CinemaStaff implements Serializable{
         return this.password;
     }
 
-    public int getStaffID(){
-        return this.staffID;
+    public String getUsername(){
+        return this.username;
     }
 
     public void setName(String name){
@@ -47,9 +47,11 @@ public class CinemaStaff implements Serializable{
         this.password = password;
     }
 
-    public void setStaffID(int staffID){
-        this.staffID = staffID;
+    public void setUsername(String username){
+        this.username = username;
     }
+
+    
 
 
 }
