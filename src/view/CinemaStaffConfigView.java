@@ -39,6 +39,7 @@ public class CinemaStaffConfigView {
                 Select the movie to be configured    
                 """);
         this.movieSchedules = MovieScheduleManager.printMovieSchedule(this.cinema);
+        System.out.println()
         System.out.println("====================================");
     
     }
