@@ -1,14 +1,16 @@
 package database;
 
 public enum ModelType {
-
+    
     CINEPLEX("Cineplex"),
     CINEMA("Cinema"),
     SEAT("Seat"),
     MOVIE_SCHEDULE("MovieSchedule"),
+    BOOKING_HISTORY("BookingHistory"),
     MOVIE_GOER("MovieGoer"),
     MOVIE("Movie"),
-    MOVIE_REVIEW("MovieReview");
+    MOVIE_REVIEW("MovieReview"),
+    PAYMENT("Payment");
 
     private final String fileName;
 

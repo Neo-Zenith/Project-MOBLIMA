@@ -4,11 +4,10 @@ import controller.DatabaseManager;
 import database.Database;
 import handler.InputHandler;
 
-public class DatabaseView extends MainView {
-
-    public DatabaseView() {
-    }
-
+public class DatabaseView extends MainView{
+    
+    public DatabaseView() {}
+    
     public void printMenu() {
         System.out.println("====================================");
         System.out.println("Welcome to the Database!");
