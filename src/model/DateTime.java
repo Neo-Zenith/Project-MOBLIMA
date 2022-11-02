@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 public class DateTime implements Serializable {
     private int minute;
@@ -11,6 +12,8 @@ public class DateTime implements Serializable {
     private int month;
     private int year;
     private static final long serialVersionUID = 7L;
+
+    public static ArrayList <DateTime> holidays = new ArrayList<>();
 
     public DateTime(int minute, int hour, int day, int date, int month, int year) {
         this.minute = minute;

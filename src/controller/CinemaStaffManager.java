@@ -9,7 +9,6 @@ import model.enums.MovieAgeRating;
 import model.enums.MovieShowingStatus;
 import model.MovieSchedule;
 import model.DateTime;
-import model.HolidayDateTime;
 import database.Database;
 import handler.DatabaseHandler;
 import handler.InputHandler;
@@ -406,20 +405,20 @@ public class CinemaStaffManager{
     }
 
     public static int configureHoliday(int choice){
-        HolidayDateTime holiday;
+        DateTime holiday;
         switch(choice){
             case 1:
                 System.out.println("Enter holiday date time to be added");
                 holiday = queryHoliday();
                 
-                for (int i = 0; i < HolidayDateTime.holidays.size(); i++){
-                    if (HolidayDateTime.holidays.get(i).getYear() == holiday.getYear() && HolidayDateTime.holidays.get(i).getMonth() == holiday.getMonth() && HolidayDateTime.holidays.get(i).getDate() == holiday.getDate() && HolidayDateTime.holidays.get(i).getHour() == holiday.getHour() && HolidayDateTime.holidays.get(i).getMinute() == holiday.getMinute() && HolidayDateTime.holidays.get(i).getDay() == holiday.getDay()){
+                for (int i = 0; i < DateTime.holidays.size(); i++){
+                    if (DateTime.holidays.get(i).getYear() == holiday.getYear() && DateTime.holidays.get(i).getMonth() == holiday.getMonth() && DateTime.holidays.get(i).getDate() == holiday.getDate() && DateTime.holidays.get(i).getHour() == holiday.getHour() && DateTime.holidays.get(i).getMinute() == holiday.getMinute() && DateTime.holidays.get(i).getDay() == holiday.getDay()){
                     System.out.println("Holiday already exists!");
                     printHolidayList();
                     return 1;
                 }
                 }
-                HolidayDateTime.holidays.add(holiday);
+                DateTime.holidays.add(holiday);
                 System.out.println("Holiday Added");
                 printHolidayList();
                 return 0;
@@ -427,13 +426,13 @@ public class CinemaStaffManager{
             case 2:       
                 System.out.println("Enter holiday to be removed");
                 holiday = queryHoliday();
-                if (HolidayDateTime.holidays.size() == 0){
+                if (DateTime.holidays.size() == 0){
                     System.out.println("Holiday list is empty!");
                     return 2;
                 }
-                for (int i = 0; i < HolidayDateTime.holidays.size(); i++){
-                    if (HolidayDateTime.holidays.get(i).getYear() == holiday.getYear() && HolidayDateTime.holidays.get(i).getMonth() == holiday.getMonth() && HolidayDateTime.holidays.get(i).getDate() == holiday.getDate() && HolidayDateTime.holidays.get(i).getHour() == holiday.getHour() && HolidayDateTime.holidays.get(i).getMinute() == holiday.getMinute() && HolidayDateTime.holidays.get(i).getDay() == holiday.getDay()){
-                        HolidayDateTime.holidays.remove(i);
+                for (int i = 0; i < DateTime.holidays.size(); i++){
+                    if (DateTime.holidays.get(i).getYear() == holiday.getYear() && DateTime.holidays.get(i).getMonth() == holiday.getMonth() && DateTime.holidays.get(i).getDate() == holiday.getDate() && DateTime.holidays.get(i).getHour() == holiday.getHour() && DateTime.holidays.get(i).getMinute() == holiday.getMinute() && DateTime.holidays.get(i).getDay() == holiday.getDay()){
+                        DateTime.holidays.remove(i);
                         System.out.println("Holiday removed");
                         printHolidayList();
                         return 0;
@@ -450,18 +449,18 @@ public class CinemaStaffManager{
 
     
     public static void printHolidayList(){
-        if (HolidayDateTime.holidays.size() == 0){
+        if (DateTime.holidays.size() == 0){
             System.out.println("Holiday list is empty!");
             return;
         }
         System.out.println("Here are the list of holidays:");
-        for (int i = 0; i < HolidayDateTime.holidays.size(); i++){
-            HolidayDateTime.holidays.get(i).printHolidayTime();
+        for (int i = 0; i < DateTime.holidays.size(); i++){
+            DateTime.holidays.get(i).printTime();
         }
         System.out.println("");
     }
 
-    public static HolidayDateTime queryHoliday(){
+    public static DateTime queryHoliday(){
         System.out.println("Minute: ");
         int minute = InputHandler.intHandler();
         System.out.println("Hour: ");
@@ -474,7 +473,7 @@ public class CinemaStaffManager{
         int month = InputHandler.intHandler();
         System.out.println("Year: ");
         int year = InputHandler.intHandler();
-        HolidayDateTime holiday = new HolidayDateTime(minute, hour, day, date, month, year);
+        DateTime holiday = new DateTime(minute, hour, day, date, month, year);
         return holiday;
     }
 
