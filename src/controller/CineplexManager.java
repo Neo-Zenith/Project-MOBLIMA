@@ -74,4 +74,21 @@ public class CineplexManager {
         }
         return count;
     }
+
+
+    public static Cineplex getCineplexByCinema(Cinema targetCinema) {
+        ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
+
+        for (int i = 0; i < cineplexes.size(); i ++) {
+            Cineplex cineplex = cineplexes.get(i);
+            for (int j = 0; j < cineplex.getCinemas().size(); j ++) {
+                Cinema cinema = cineplex.getCinemas().get(j);
+                if (cinema.getUUID().equals(targetCinema.getUUID())) {
+                    return cineplex;
+                }
+            }
+        }
+
+        return null;
+    }
 }
