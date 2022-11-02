@@ -13,6 +13,7 @@ public enum ModelType {
     CINEMA_STAFF("CinemaStaff"),
     HOLIDAY("Holiday"),
     PRICES("Prices"),
+    MOVIE_TICKET("MovieTicket"),
     PAYMENT("Payment");
 
     private final String fileName;
