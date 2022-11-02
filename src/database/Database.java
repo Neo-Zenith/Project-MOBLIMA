@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
+import controller.DatabaseManager;
 import model.Cineplex;
 import model.MovieSchedule;
 import model.Payment;
@@ -20,6 +21,7 @@ import model.Movie;
 import model.MovieGoer;
 import model.MovieReview;
 import model.DateTime;
+import model.Prices;
 
 public class Database {
     /**
@@ -87,27 +89,8 @@ public class Database {
      */
     public static int numOfCoupleRows = 4;
 
-    public static int platinumNumOfSeatsPerRow = 6;
-    public static int platinumNumOfRow = 4;
-
-    public static double defaultStandardCinemaPrice = 2;
-    public static double defautltPlatinumCinemaPrice = 30;
-    public static double defaultIMaxCinemaPrice = 3;
-
-    public static double defaultSeatPrice = 4;
-
-    public static double defaultBlockbusterMoviePrice = 3;
-    public static double default3DMoviePrice = 5;
-    public static double defaultStandardMoviePrice = 2;
-
-    public static double defaultStudentPrice = 1.5;
-    public static double defaultAdultPrice = 2;
-    public static double defaultSeniorCitizenPrice = 1.5;
-
-    public static double holidayPrice = 1.5;
-    public static double weekendPrice = 1.5;
-
     public static ArrayList <DateTime> holidays = new ArrayList<>();
+    public static Prices PRICES;
 
     /**
      * Root path to the database
@@ -165,7 +148,7 @@ public class Database {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             Object object = objectInputStream.readObject();
 
-            if (! (object instanceof HashMap)) {
+            if (! (object instanceof HashMap) || ! (object instanceof Prices)) {
                 objectInputStream.close();
                 return false;
             }
@@ -199,6 +182,9 @@ public class Database {
             }
             else if (modelType == ModelType.CINEMA_STAFF){
                 Database.CINEMA_STAFF = (HashMap<String, CinemaStaff>) object;
+            }
+            else if (modelType == ModelType.PRICES) {
+                Database.PRICES = (Prices) object;
             }
 
             objectInputStream.close();
@@ -252,6 +238,10 @@ public class Database {
             }
             else if (modelType == ModelType.CINEMA_STAFF){
                 objectOutputStream.writeObject(Database.CINEMA_STAFF);
+            }
+            else if(modelType == ModelType.PRICES) {
+                objectOutputStream.writeObject(Database.PRICES);
+            }
 
             fileOutputStream.close();
             objectOutputStream.close();
@@ -280,6 +270,7 @@ public class Database {
             Database.readData(ModelType.MOVIE_GOER);
             Database.readData(ModelType.MOVIE_REVIEW);
             Database.readData(ModelType.CINEMA_STAFF);
+            Database.readData(ModelType.PRICES);
             return true;
         }
         catch (Exception e) {
@@ -305,6 +296,7 @@ public class Database {
             Database.writeData(ModelType.MOVIE_GOER);
             Database.writeData(ModelType.MOVIE_REVIEW);
             Database.writeData(ModelType.CINEMA_STAFF);
+            Database.writeData(ModelType.PRICES);
             return true;
         }
         catch (Exception e) {
@@ -327,6 +319,7 @@ public class Database {
         Database.MOVIE_GOER = new HashMap <String, MovieGoer>();
         Database.MOVIE_REVIEW = new HashMap <String, MovieReview>();
         Database.CINEMA_STAFF = new HashMap <String, CinemaStaff>();
+        Database.PRICES = DatabaseManager.initializePrices();
 
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);
@@ -338,6 +331,7 @@ public class Database {
         Database.writeData(ModelType.MOVIE_GOER);
         Database.writeData(ModelType.MOVIE_REVIEW);
         Database.writeData(ModelType.CINEMA_STAFF);
+        Database.writeData(ModelType.PRICES);
     }
 
     /**

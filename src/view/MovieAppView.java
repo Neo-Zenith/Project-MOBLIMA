@@ -3,6 +3,7 @@ package view;
 import database.Database;
 import handler.InputHandler;
 import model.MovieGoer;
+import controller.UserManager;
 
 public class MovieAppView extends MainView {
 
@@ -32,9 +33,9 @@ public class MovieAppView extends MainView {
             switch (choice) {
                 case 1:
                     System.out.println("Please enter your username: ");
-                    String username = InputHandler.StringHandler();
+                    String username = InputHandler.stringHandler();
                     System.out.println("Please enter your password: ");
-                    String password = InputHandler.StringHandler();
+                    String password = InputHandler.stringHandler();
                     Object user = UserManager.login(username, password);
                     if (user instanceof MovieGoer) {
                         this.movieGoerView = new MovieGoerView();

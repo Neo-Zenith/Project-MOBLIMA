@@ -15,6 +15,7 @@ import model.enums.MovieAgeRating;
 import model.enums.MovieShowingStatus;
 import model.Movie;
 import model.DateTime;
+import model.Prices;
 
 public class DatabaseManager {
 
@@ -249,6 +250,14 @@ public class DatabaseManager {
         manager.createMovie(title3, movieType3, ageRating3, status3, cast3, director3, synopsis3, duration3);
 
     }
+
+    public static Prices initializePrices() {
+        Prices prices = new Prices(2,30,3,
+        4,3,
+        5,2,1.5, 
+        1.5,2,1.5,1.5,1.5);
+        return prices;
+    }   
     
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
