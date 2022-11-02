@@ -278,17 +278,17 @@ public class CinemaStaffManager{
                 int showingTimeID = InputHandler.intHandler();
                 System.out.println("Enter the new showing time");
                 System.out.println("year:");
-                int year = sc.nextInt();
+                int year = InputHandler.intHandler();
                 System.out.println("month:");
-                int month = sc.nextInt();
+                int month = InputHandler.intHandler();
                 System.out.println("date:");
-                int date = sc.nextInt();
+                int date = InputHandler.intHandler();
                 System.out.println("hour:");
-                int hour = sc.nextInt();
+                int hour = InputHandler.intHandler();
                 System.out.println("minute:");
-                int minute = sc.nextInt();
+                int minute = InputHandler.intHandler();
                 System.out.println("day:");
-                int day = sc.nextInt();
+                int day = InputHandler.intHandler();
 
                 DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
                 
@@ -311,17 +311,17 @@ public class CinemaStaffManager{
                 System.out.println("Enter the time to be added.");
 
                 System.out.println("year:");
-                year = sc.nextInt();
+                year = InputHandler.intHandler();
                 System.out.println("month:");
-                month = sc.nextInt();
+                month = InputHandler.intHandler();
                 System.out.println("date:");
-                date = sc.nextInt();
+                date = InputHandler.intHandler();
                 System.out.println("hour:");
-                hour = sc.nextInt();
+                hour = InputHandler.intHandler();
                 System.out.println("minute:");
-                minute = sc.nextInt();
+                minute = InputHandler.intHandler();
                 System.out.println("day:");
-                day = sc.nextInt();
+                day = InputHandler.intHandler();
 
                 newShowingTime = new DateTime(minute, hour, day, date, month, year);
                 
