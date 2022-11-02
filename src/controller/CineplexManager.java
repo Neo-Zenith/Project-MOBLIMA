@@ -19,9 +19,9 @@ public class CineplexManager {
      * @param numOfCinemas  number of cinemas for a cineplex
      * @param cinemas   ArrayList of {@link Cinema} objects
      */
-    public static void createCineplex(String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas) {
-        String UUID = String.format("CP%03d", DatabaseHandler.generateUUID(Database.CINEPLEX));
-        Cineplex cineplex = new Cineplex(UUID, cineplexName, numOfCinemas, cinemas);
+    public static void createCineplex(String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas, String cineplexLocation) {
+        String UUID = String.format("CP%04d", DatabaseHandler.generateUUID(Database.CINEPLEX));
+        Cineplex cineplex = new Cineplex(UUID, cineplexName, numOfCinemas, cinemas, cineplexLocation);
         DatabaseManager.saveUpdateToDatabase(UUID, cineplex, Database.CINEPLEX);
     }
 
@@ -39,10 +39,11 @@ public class CineplexManager {
         int index = 1;
         for (int i = 0; i < cineplexValueList.size(); i ++) {
             cineplexes.add(cineplexValueList.get(i));
-            String key = cineplexKeyList.get(i);
-            System.out.println(index + ".  ");
-            System.out.print("Reference ID: " + key + "   Name: ");
+            System.out.println(index + ".");
+            System.out.print("Cineplex Branch:     ");
             System.out.println(cineplexValueList.get(i).getCineplexName());
+            System.out.println("Location: ");
+            System.out.println(cineplexValueList.get(i).getCineplexLocation());
             System.out.println("Standard Cinema: " + 
                             CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.STANDARD));
             System.out.println("Platinum Cinema: " + 

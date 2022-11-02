@@ -80,6 +80,26 @@ public class Database {
      */
     public static int numOfCoupleRows = 4;
 
+    public static int platinumNumOfSeatsPerRow = 6;
+    public static int platinumNumOfRow = 4;
+
+    public static double defaultStandardCinemaPrice = 2;
+    public static double defautltPlatinumCinemaPrice = 30;
+    public static double defaultIMaxCinemaPrice = 3;
+
+    public static double defaultSeatPrice = 4;
+
+    public static double defaultBlockbusterMoviePrice = 3;
+    public static double default3DMoviePrice = 5;
+    public static double defaultStandardMoviePrice = 2;
+
+    public static double defaultStudentPrice = 1.5;
+    public static double defaultAdultPrice = 2;
+    public static double defaultSeniorCitizenPrice = 1.5;
+
+    public static double holidayPrice = 1.5;
+    public static double weekendPrice = 1.5;
+
     /**
      * Root path to the database
      */
@@ -283,10 +303,9 @@ public class Database {
         Database.SEAT = new HashMap <String, Seat>();
         Database.MOVIE_SCHEDULE = new HashMap <String, MovieSchedule>();
         Database.BOOKING_HISTORY = new HashMap <String, BookingHistory>();
-        Database.CINEPLEX = new HashMap<String, Cineplex>();
-        Database.CINEMA = new HashMap<String, Cinema>();
-        Database.SEAT = new HashMap<String, Seat>();
-        Database.MOVIE_SCHEDULE = new HashMap<String, MovieSchedule>();
+        Database.MOVIE = new HashMap <String, Movie>();
+        Database.MOVIE_GOER = new HashMap <String, MovieGoer>();
+        Database.MOVIE_REVIEW = new HashMap <String, MovieReview>();
 
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);

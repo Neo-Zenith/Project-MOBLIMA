@@ -7,6 +7,7 @@ import handler.DatabaseHandler;
 import model.Movie;
 import model.BookingHistory;
 import model.MovieTicket;
+import model.MovieGoer;
 import model.Payment;
 
 public class BookingHistoryManager {

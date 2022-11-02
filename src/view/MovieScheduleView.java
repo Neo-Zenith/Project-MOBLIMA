@@ -37,7 +37,7 @@ public class MovieScheduleView {
                 break;
             }
             MovieSchedule movieSchedule = this.movieSchedules.get(choice - 1);
-            int index = MovieScheduleManager.getShowingVenueByIndex(movieSchedule, cinema);
+            int index = MovieScheduleManager.getShowingVenueIndex(movieSchedule, cinema);
             ArrayList <Seat> seatingPlan = this.movieSchedules.get(choice - 1).getSeatingPlan().get(index);
             this.seatingPlanView = new SeatingPlanView(movieSchedule, cinema, seatingPlan);
             this.seatingPlanView.appContent();

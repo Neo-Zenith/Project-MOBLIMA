@@ -24,8 +24,8 @@ public class CinemaManager {
      * @param seats     array list of {@link Seat} in the cinema
      */
     public static Cinema createPlatinumCinema(CinemaClass cinemaClass, double cinemaPrice, ArrayList <Seat> seats) {
-        String UUID = String.format("CN%03d", DatabaseHandler.generateUUID(Database.CINEMA));
-        Cinema cinema = new PlatinumCinema(UUID, cinemaClass, seats, cinemaPrice, Database.numOfRows, Database.totalNumOfSeats);
+        String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
+        Cinema cinema = new PlatinumCinema(UUID, cinemaClass, seats, cinemaPrice, Database.platinumNumOfRow, Database.platinumNumOfSeatsPerRow * Database.platinumNumOfRow);
         DatabaseManager.saveUpdateToDatabase(UUID, cinema, Database.CINEMA);
         return cinema;
     }
@@ -37,7 +37,7 @@ public class CinemaManager {
      * @param seats     array list of {@link Seat} in the cinema
      */
     public static Cinema createStandardCinema(CinemaClass cinemaClass, double cinemaPrice, ArrayList <Seat> seats) {
-        String UUID = String.format("CN%03d", DatabaseHandler.generateUUID(Database.CINEMA));
+        String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new StandardCinema(UUID, cinemaClass, seats, cinemaPrice, Database.numOfRows, Database.totalNumOfSeats);
         DatabaseManager.saveUpdateToDatabase(UUID, cinema, Database.CINEMA);
         return cinema;
@@ -50,7 +50,7 @@ public class CinemaManager {
      * @param seats     array list of {@link Seat} in the cinema
      */
     public static Cinema createIMaxCinema(CinemaClass cinemaClass, double cinemaPrice, ArrayList <Seat> seats) {
-        String UUID = String.format("CN%03d", DatabaseHandler.generateUUID(Database.CINEMA));
+        String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new IMaxCinema(UUID, cinemaClass, seats, cinemaPrice, Database.numOfRows, Database.totalNumOfSeats);
         DatabaseManager.saveUpdateToDatabase(UUID, cinema, Database.CINEMA);
         return cinema;
@@ -78,25 +78,20 @@ public class CinemaManager {
 
 
     public static ArrayList <Cinema> printCinemasInfo(Cineplex cineplex) {
-        ArrayList <Cinema> cinemas = new ArrayList<>();
-        ArrayList <String> cinemaKeyList = Database.getKeyList(Database.CINEMA.keySet());
-        ArrayList <Cinema> cinemaValueList = Database.getValueList(Database.CINEMA.values());
-        Collections.sort(cinemaKeyList);
-        Collections.sort(cinemaValueList);
+        ArrayList <Cinema> cinemas = cineplex.getCinemas();
+        Collections.sort(cinemas);
 
         int index = 1;
-        for (int i = 0; i < cinemaValueList.size(); i ++) {
-            for (int j = 0; j < cineplex.getNumOfCinemas(); j ++) {
-                if (cineplex.getCinemas().get(j).getUUID().contains(cinemaValueList.get(i).getUUID())) {
-                    cinemas.add(cinemaValueList.get(i));
-                    String key = cinemaKeyList.get(i);
-                    System.out.println(index + ".  ");
-                    System.out.print("Reference ID: " + key + "   Class: ");
-                    System.out.println(cinemaValueList.get(i).getCinemaClass());
-                    System.out.println("");
-                    index ++;
-                }
-            }   
+        for (int i = 0; i < cinemas.size(); i ++) {
+            String key = cinemas.get(i).getUUID();
+            System.out.println(index + ".  ");
+            System.out.print("Reference ID: " + key + "   Class: ");
+            System.out.println(cinemas.get(i).getCinemaClass());
+            System.out.println(cinemas.get(i).getTotalNumOfSeats());
+            System.out.println("");
+            index ++;
+            
+            
         }
 
         return cinemas;

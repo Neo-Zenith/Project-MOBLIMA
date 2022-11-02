@@ -11,6 +11,8 @@ import model.enums.CinemaClass;
 import model.Cinema;
 import model.Cineplex;
 import model.enums.SeatType;
+import model.enums.MovieAgeRating;
+import model.enums.MovieShowingStatus;
 import model.Movie;
 import model.DateTime;
 
@@ -23,35 +25,50 @@ public class DatabaseManager {
      */
     public static void initializeCineplexData() {
         String cineplexName;
+        String cineplexLocation;
         int numOfCinemas;
         ArrayList <Cinema> cinemas = new ArrayList<>();
 
         // Data 1
-        cineplexName = "Cathay Cineplex";
+        cineplexName = "CATHAY CINEPLEX CAUSEWAY POINT";
+        cineplexLocation = """
+            1 Woodlands Square
+            Level 7, Causeway Point
+            Singapore 738099
+                """;
         numOfCinemas = 4;
         for (int i = 0; i < numOfCinemas; i ++) {
             cinemas.add(initializeCinemaData());
-            System.out.println("done");
         }
-        CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas);
+        CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
 
         // Data 2
-        cineplexName = "Shaw Theatre";
+        cineplexName = "CATHAY CINEPLEX AMK HUB";
+        cineplexLocation = """
+            53 Ang Mo Kio Ave 3
+            Level 4, AMK Hub
+            Singapore 569933
+                """;
         numOfCinemas = 3;
         cinemas = new ArrayList<>();
         for (int i = 0; i < numOfCinemas; i ++) {
             cinemas.add(initializeCinemaData());
         }
-        CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas);
+        CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
 
         // Data 3
-        cineplexName = "Golden Village";
+        cineplexName = "CATHAY CINEPLEX JEM";
+        cineplexLocation = """
+            50 Jurong Gateway Road
+            Level 5, Jem
+            Singapore 608549
+                """;
         numOfCinemas = 4;
         cinemas = new ArrayList<>();
         for (int i = 0; i < numOfCinemas; i ++) {
             cinemas.add(initializeCinemaData());
         }
-        CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas);
+        CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
     }
 
     /**
@@ -61,7 +78,7 @@ public class DatabaseManager {
     public static Cinema initializeCinemaData() {
         CinemaClass cinemaClass;
         double cinemaPrice;
-        ArrayList <Seat> seats = initializeSeatData();
+        ArrayList <Seat> seats;
 
         Random rand = new Random();
         int choice = rand.nextInt(3);
@@ -70,18 +87,21 @@ public class DatabaseManager {
             case 0:
                 // Data 1
                 cinemaClass = CinemaClass.STANDARD;
-                cinemaPrice = 8;
+                cinemaPrice = Database.defaultStandardCinemaPrice;
+                seats = initializeSeatData(cinemaClass);
                 return CinemaManager.createStandardCinema(cinemaClass, cinemaPrice, seats);
             case 1:
                 // Data 2
                 cinemaClass = CinemaClass.IMAX;
-                cinemaPrice = 8;
+                cinemaPrice = Database.defaultIMaxCinemaPrice;
+                seats = initializeSeatData(cinemaClass);
                 return CinemaManager.createIMaxCinema(cinemaClass, cinemaPrice, seats);
                 
             case 2:
                 // Data 3
                 cinemaClass = CinemaClass.PLATINUM;
-                cinemaPrice = 8;
+                cinemaPrice = Database.defautltPlatinumCinemaPrice;
+                seats = initializeSeatData(cinemaClass);
                 return CinemaManager.createPlatinumCinema(cinemaClass, cinemaPrice, seats);
         }
         return null;
@@ -91,29 +111,41 @@ public class DatabaseManager {
      * Initializes dummy data for seats
      * @return ArrayList of {@link Seat} to be passed to {@link Cinema} for initialization
      */
-    public static ArrayList <Seat> initializeSeatData() {
+    public static ArrayList <Seat> initializeSeatData(CinemaClass cinemaClass) {
         SeatType seatType;
-        double seatPrice;
-        int numOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
-
+        double seatPrice = Database.defaultSeatPrice;;
+        int numOfSeatsPerRow;
         ArrayList <Seat> seats = new ArrayList<>();
 
-        for (int i = 0; i < Database.numOfCoupleRows; i ++) {
-            seatType = SeatType.COUPLE;
-            seatPrice = 5;
-            for (int j = 0; j < numOfSeatsPerRow; j ++) {
-                seats.add(SeatManager.createCoupleSeat(seatType, seatPrice));
+        if (cinemaClass != CinemaClass.PLATINUM) {
+            numOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
+
+            for (int i = 0; i < Database.numOfCoupleRows; i ++) {
+                seatType = SeatType.COUPLE;
+                for (int j = 0; j < numOfSeatsPerRow; j ++) {
+                    seats.add(SeatManager.createCoupleSeat(seatType, seatPrice));
+                }
+            }
+
+            for (int i = 0; i < Database.numOfRows - Database.numOfCoupleRows; i ++) {
+                seatType = SeatType.STANDARD;
+                for (int j = 0; j < numOfSeatsPerRow; j ++) {
+                    seats.add(SeatManager.createStandardSeat(seatType, seatPrice));
+                }
             }
         }
+        else {
+            numOfSeatsPerRow = Database.platinumNumOfSeatsPerRow;
+            int numofRows = Database.platinumNumOfRow;
 
-        for (int i = 0; i < Database.numOfRows - Database.numOfCoupleRows; i ++) {
-            seatType = SeatType.STANDARD;
-            seatPrice = 4;
-            for (int j = 0; j < numOfSeatsPerRow; j ++) {
-                seats.add(SeatManager.createStandardSeat(seatType, seatPrice));
+            for (int i = 0; i < numofRows; i ++) {
+                seatType = SeatType.STANDARD;
+                for (int j = 0; j < numOfSeatsPerRow; j ++) {
+                    seats.add(SeatManager.createStandardSeat(seatType, seatPrice));
+                }
             }
-        }
 
+        }
         return seats;
     }
 
@@ -122,47 +154,53 @@ public class DatabaseManager {
         Movie movieOnShow;
         ArrayList <Cinema> showingVenue;
         ArrayList <ArrayList <Seat>> seatingPlan = new ArrayList<ArrayList<Seat>>();
-        DateTime showingTime;
+        ArrayList <DateTime> showingTime = new ArrayList<DateTime>();
         CinemaClass cinemaClass;
         Cineplex cineplex;
         ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
+        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
         Collections.sort(cineplexes);
 
         // Data 1
-        movieOnShow = Movie.movies.get(0);
+        movieOnShow = movies.get(0);
         cinemaClass = CinemaClass.PLATINUM;
         cineplex = cineplexes.get(0);
-        showingTime = new DateTime(00, 14, 6, 21, 11, 2022);
         showingVenue = new ArrayList<>();
+        seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
         for (int i = 0; i < showingVenue.size(); i ++) {
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
+            showingTime.add(new DateTime(00, 14, 6, 21, 11, 2022));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
         
         // Data 2
-        movieOnShow = Movie.movies.get(1);
+        showingTime = new ArrayList<>();
+        movieOnShow = movies.get(1);
         cinemaClass = CinemaClass.STANDARD;
         cineplex = cineplexes.get(2);
-        showingTime = new DateTime(00, 13, 4, 22, 12, 2022);
         showingVenue = new ArrayList<>();
+        seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
         for (int i = 0; i < showingVenue.size(); i ++) {
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
+            showingTime.add(new DateTime(00, 13, 4, 22, 12, 2022));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
 
         // Data 3  
-        movieOnShow = Movie.movies.get(2);
+        showingTime = new ArrayList<>();
+        movieOnShow = movies.get(2);
         cinemaClass = CinemaClass.IMAX;
         cineplex = cineplexes.get(1);
-        showingTime = new DateTime(30, 12, 4, 25, 1, 2023);
         showingVenue = new ArrayList<>();
+        seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
         for (int i = 0; i < showingVenue.size(); i ++) {
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
+            showingTime.add(new DateTime(30, 12, 4, 25, 1, 2023));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
@@ -215,6 +253,7 @@ public class DatabaseManager {
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
         Database.writeToDatabase();
+        Database.remountDatabase();
     }
 
     public static void resetDatabase() {
