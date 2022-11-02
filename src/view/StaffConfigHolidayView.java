@@ -1,5 +1,9 @@
+package view;
 
-public class StaffConfigPriceView {
+import controller.CinemaStaffManager;
+import handler.InputHandler;
+
+public class StaffConfigHolidayView {
     public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
@@ -10,9 +14,8 @@ public class StaffConfigPriceView {
                 """);
         System.out.println("====================================");    
     }
-    public void appContent(int movieNumber){
+    public void appContent(){
         int choice = -1;
-        Database db = new Database();
 
         do {
             this.printMenu();

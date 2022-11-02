@@ -1,3 +1,7 @@
+package view;
+
+import handler.InputHandler;
+
 public class StaffConfigPriceView {
     public void printMenu() {
         System.out.println("====================================");
@@ -12,14 +16,12 @@ public class StaffConfigPriceView {
                 """);
         System.out.println("====================================");    
     }
-    public void appContent(int movieNumber){
+    public void appContent(){
         int choice = -1;
-        Database db = new Database();
 
         do {
             this.printMenu();
-            int choice = InputHandler.intHandler();
-            System.out.println()
+            choice = InputHandler.intHandler();
             switch (choice){
                 case 1:
                     break;

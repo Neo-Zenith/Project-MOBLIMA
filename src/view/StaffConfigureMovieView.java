@@ -1,3 +1,8 @@
+package view;
+
+import handler.InputHandler;
+import controller.CinemaStaffManager;
+
 public class StaffConfigureMovieView {
     public void printMenu() {
         System.out.println("====================================");
@@ -20,7 +25,6 @@ public class StaffConfigureMovieView {
     public void appContent(int movieNumber){
         int choice = -1;
         int failure = 0;
-        Database db = new Database();
 
         do {
             this.printMenu();

@@ -21,7 +21,6 @@ public class StaffSystemConfig extends MainView{
     
     public void appContent(){
         int choice = -1;
-        Database db = new Database();
 
         do {
             this.printMenu();
@@ -29,11 +28,11 @@ public class StaffSystemConfig extends MainView{
 
             switch(choice){
                 case 1:
-                    this.staffMovieDetailsView = new staffMovieDetailsView();
-                    this.staffMovieDetailsView = appContent();
+                    this.staffMovieDetailsView = new StaffMovieDetailsView();
+                    this.staffMovieDetailsView.appContent();
                 case 2:
-                    this.staffConfigSettingsView = new staffConfigSettingsView();
-                    this.staffConfigSettingsView = appContent();
+                    this.staffConfigSettingsView = new StaffConfigSettingsView();
+                    this.staffConfigSettingsView.appContent();
                 case 3:
                     /*
                      * List Top 5

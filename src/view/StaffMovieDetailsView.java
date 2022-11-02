@@ -1,4 +1,10 @@
+package view;
+
+import handler.InputHandler;
+
 public class StaffMovieDetailsView {
+    private StaffConfigureMovieView staffConfigureMovieView;
+
     public void printMenu() {
         System.out.println("====================================");
         System.out.println("Here are the list of movies");
@@ -9,14 +15,14 @@ public class StaffMovieDetailsView {
     }
     public void appContent(){
         int choice = -1;
-        Database db = new Database();
+        int movieNumber = -1;
 
         do {
             this.printMenu();
             movieNumber = InputHandler.intHandler();
-            this.staffMovieDetailsView = new staffMovieDetailsView();
-            this.staffMovieDetailsView = appContent(movieNumber);
+            this.staffConfigureMovieView = new StaffConfigureMovieView();
+            this.staffConfigureMovieView.appContent(movieNumber);
             
-        }   while (choice <= this.movieSchedules.size() && choice > 0);
+        }   while (movieNumber != 10);
     }
 }

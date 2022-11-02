@@ -1,4 +1,9 @@
-public class StaffConfigPriceView {
+package view;
+
+import handler.InputHandler;
+import controller.CinemaStaffManager;
+
+public class StaffConfigPermissionsView {
     public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
@@ -9,13 +14,12 @@ public class StaffConfigPriceView {
                 """);
         System.out.println("====================================");    
     }
-    public void appContent(int movieNumber){
+    public void appContent(){
         int choice = -1;
-        Database db = new Database();
 
         do {
             this.printMenu();
-            int choice = InputHandler.intHandler();
+            choice = InputHandler.intHandler();
             CinemaStaffManager.optOutOne(choice);
             if (choice == 1){
                 System.out.println("Movie goer can no longer view top 5 based on overall ratings.");       
