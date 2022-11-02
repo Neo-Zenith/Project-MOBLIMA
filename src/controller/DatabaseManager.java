@@ -129,7 +129,7 @@ public class DatabaseManager {
         Collections.sort(cineplexes);
 
         // Data 1
-        movieOnShow = new Movie("Black Adam");
+        movieOnShow = Movie.movies.get(0);
         cinemaClass = CinemaClass.PLATINUM;
         cineplex = cineplexes.get(0);
         showingTime = new DateTime(00, 14, 6, 21, 11, 2022);
@@ -142,7 +142,7 @@ public class DatabaseManager {
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
         
         // Data 2
-        movieOnShow = new Movie("Thor: Ragnarok");
+        movieOnShow = Movie.movies.get(1);
         cinemaClass = CinemaClass.STANDARD;
         cineplex = cineplexes.get(2);
         showingTime = new DateTime(00, 13, 4, 22, 12, 2022);
@@ -155,7 +155,7 @@ public class DatabaseManager {
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
 
         // Data 3  
-        movieOnShow = new Movie("The Conjuring");
+        movieOnShow = Movie.movies.get(2);
         cinemaClass = CinemaClass.IMAX;
         cineplex = cineplexes.get(1);
         showingTime = new DateTime(30, 12, 4, 25, 1, 2023);
@@ -167,7 +167,50 @@ public class DatabaseManager {
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
     }
+    
+    public static void initializeMovie() {
 
+        // Movie1
+        String title1 = "The Conjuring";
+        String movieType1 = "Blockbuster";
+        MovieAgeRating ageRating1 = MovieAgeRating.M18;
+        MovieShowingStatus status1 = MovieShowingStatus.NOW_SHOWING;
+        ArrayList<String> cast = new ArrayList<String>();
+        cast.add("Yeek");
+        cast.add("Jerick");
+        String director = "LeeJuin";
+        String synopsis = "Good";
+        Double duration = 123.0;
+        MovieManager manager = new MovieManager();
+        manager.createMovie(title1, movieType1, ageRating1, status1, cast, director, synopsis, duration);
+
+        // Movie2
+        String title2 = "Zootopia";
+        String movieType2 = "ThreeD";
+        MovieAgeRating ageRating2 = MovieAgeRating.G;
+        MovieShowingStatus status2 = MovieShowingStatus.NOW_SHOWING;
+        ArrayList<String> cast2 = new ArrayList<String>();
+        cast.add("Yeek");
+        cast.add("Jerick");
+        String director2 = "LeeJuin";
+        String synopsis2 = "Good";
+        Double duration2 = 155.0;
+        manager.createMovie(title2, movieType2, ageRating2, status2, cast2, director2, synopsis2, duration2);
+
+        // Movie3
+        String title3 = "Spiderman";
+        String movieType3 = "Standard";
+        MovieAgeRating ageRating3 = MovieAgeRating.G;
+        MovieShowingStatus status3 = MovieShowingStatus.NOW_SHOWING;
+        ArrayList<String> cast3 = new ArrayList<String>();
+        cast.add("Yeek");
+        cast.add("Jerick");
+        String director3 = "LeeJuin";
+        String synopsis3 = "Good";
+        Double duration3 = 155.0;
+        manager.createMovie(title3, movieType3, ageRating3, status3, cast3, director3, synopsis3, duration3);
+
+    }
     
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
