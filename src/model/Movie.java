@@ -42,6 +42,14 @@ public abstract class Movie implements Serializable {
 		movies.add(this);
 	}
 
+	public String getUUID() {
+		return UUID;
+	}
+
+	public void setUUID(String uUID) {
+		UUID = uUID;
+	}
+
 	public static ArrayList<Movie> getMovies() {
 		return movies;
 	}
@@ -132,7 +140,7 @@ public abstract class Movie implements Serializable {
 
 	public abstract double getMoviePrice();
 
-	public abstract void setMoviePrice();
+	public abstract void setMoviePrice(double price);
 
 	public abstract MovieType getMovieType();
 }

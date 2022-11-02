@@ -8,6 +8,7 @@ import model.enums.MovieShowingStatus;
 public class BlockbusterMovie extends Movie {
     private MovieType type;
     private double moviePrice;
+
     public BlockbusterMovie() {
         super();
     }
@@ -21,16 +22,18 @@ public class BlockbusterMovie extends Movie {
         this.moviePrice = moviePrice;
     }
 
-    public void setMoviePrice(double price){
-        this.moviePrice = price;
+    public MovieType getMovieType() {
+        return this.type;
     }
 
-    public double getMoviePrice(double price){
+    @Override
+    public double getMoviePrice() {
         return this.moviePrice;
     }
 
-    public MovieType getMovieType(){
-        return this.type;
+    @Override
+    public void setMoviePrice(double price) {
+        this.moviePrice = price;
     }
 
 }

@@ -1,20 +1,23 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import controller.MovieGoerManager;
+import controller.MovieManager;
+
 import model.MovieGoer;
 import model.Movie;
 import handler.InputHandler;
 
-public class MovieGoerView extends MainView{
+public class MovieGoerView extends MainView {
     private MovieScheduleView msview;
-    
-    public MovieGoerView(){
+
+    public MovieGoerView() {
         // this.msview = new MovieScheduleView(null)
     }
 
-    public void printMenu(){
+    public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
                 1. List Movies
@@ -26,7 +29,7 @@ public class MovieGoerView extends MainView{
         System.out.println("====================================");
     }
 
-    public void printMovieMenu(){
+    public void printMovieMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
                 1. Check Seat Availability / Selection of Seats
@@ -35,7 +38,7 @@ public class MovieGoerView extends MainView{
         System.out.println("====================================");
     }
 
-    public void printBookingMenu(){
+    public void printBookingMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
                 1. Book & Purchase Ticket
@@ -44,45 +47,55 @@ public class MovieGoerView extends MainView{
         System.out.println("====================================");
     }
 
-    public void appContent(){
+    public void appContent() {
         int choice = -1;
-        do{
+        do {
             Scanner sc = new Scanner(System.in);
             this.printMenu();
             choice = InputHandler.intHandler();
 
-            switch(choice){
+            switch (choice) {
                 case 1:
-                    // need to display the list of movies and have it print out the cineplex, cinema, schedules
-                    // based on the UUID of the movie that you use the cinema to get the movieOnShow and the UUID of the movie
+                    // need to display the list of movies and have it print out the cineplex,
+                    // cinema, schedules
+                    // based on the UUID of the movie that you use the cinema to get the movieOnShow
+                    // and the UUID of the movie
+                    ArrayList<Movie> movie = MovieManager.getMovieList();
+                    for (int i = 0; i < movie.size(); i++) {
+                        System.out.println("Movie TItle: " + movie.get(i).getMovieTitle());
+                        System.out.println("Showing Status: " + movie.get(i).getMovieShowingStatus());
+                        System.out.println("Rating: " + movie.get(i).getMovieOverallReviewRating());
+                        System.out.println("Duration: " + movie.get(i).getMovieDuration());
+                        System.out.println("Description: " + movie.get(i).getMovieSynopsis());
+                    }
+
                     break;
                 case 2:
                     // get the movie UUID and return all the cineplex, schedules that match the UUID
-                    //function here
-                    
+                    // function here
+
                     this.printMovieMenu();
                     int movieChoice = sc.nextInt();
-                    if(movieChoice == 1){
-                        //function here to display seats
+                    if (movieChoice == 1) {
+                        // function here to display seats
                         printBookingMenu();
                         int bookingChoice = sc.nextInt();
-                        if(bookingChoice == 1){
-                            //booking function
+                        if (bookingChoice == 1) {
+                            // booking function
                         }
                         break;
                     }
                     break;
                 case 3:
-                    //payment stuff
+                    // payment stuff
                     break;
                 case 4:
                     this.printTop5();
                     break;
 
             }
-        }while (choice != 5);
+        } while (choice != 5);
     }
-
 
     public void printDetails(String name) {
 

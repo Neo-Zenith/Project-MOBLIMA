@@ -9,6 +9,7 @@ import model.enums.MovieShowingStatus;
 public class StandardMovie extends Movie {
     private MovieType type;
     private double moviePrice;
+
     public StandardMovie() {
         super();
     }
@@ -22,15 +23,18 @@ public class StandardMovie extends Movie {
         this.moviePrice = moviePrice;
     }
 
-    public void setMoviePrice(double price){
+    @Override
+    public void setMoviePrice(double price) {
         this.moviePrice = price;
     }
 
-    public double getMoviePrice(double price){
+    @Override
+    public double getMoviePrice() {
         return this.moviePrice;
     }
 
-    public MovieType getMovieType(){
+    @Override
+    public MovieType getMovieType() {
         return this.type;
     }
 

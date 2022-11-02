@@ -15,62 +15,38 @@ import database.Database;
 
 public class MovieManager {
 
-    public Movie createMovie(String movieTitle, String movieType, MovieAgeRating movieAgeRating,
+    public static Movie createStandardMovie(String movieTitle, MovieAgeRating movieAgeRating,
             MovieShowingStatus showingStatus,
-            ArrayList<String> movieCast,
-            String movieDirector, String movieSynopsis, double movieDuration) {
-        String UUID = String.format("MV%03d", DatabaseHandler.generateUUID(Database.MOVIE));
-        Movie movie;
-        switch (movieType) {
-            case "BlockBuster":
-                movie = new BlockbusterMovie(UUID, movieTitle, movieType, movieAgeRating, showingStatus,
-                        movieCast, movieDirector, movieSynopsis, movieDuration);
-                break;
-            case "ThreeD":
-                movie = new ThreeDMovie(UUID, movieTitle, movieType, movieAgeRating, showingStatus,
-                        movieCast, movieDirector, movieSynopsis, movieDuration);
-                break;
-            case "Standard":
-                movie = new StandardMovie(UUID, movieTitle, movieType, movieAgeRating, showingStatus,
-                        movieCast, movieDirector, movieSynopsis, movieDuration);
-                break;
-            default:
-                movie = new StandardMovie(UUID, movieTitle, movieType, movieAgeRating, showingStatus,
-                        movieCast, movieDirector, movieSynopsis, movieDuration);
-        }
-        DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
-        return movie;
-    }
-
-    public static Movie createStandardMovie(String movieTitle, MovieAgeRating movieAgeRating,MovieShowingStatus showingStatus,
-    ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration, double moviePrice){
+            ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration,
+            double moviePrice) {
         String UUID = String.format("MV%03d", DatabaseHandler.generateUUID(Database.MOVIE));
         Movie movie = new StandardMovie(UUID, movieTitle, movieAgeRating, showingStatus,
-        movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
+                movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
         DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
         return movie;
     }
 
-    public static Movie createBlockbusterMovie(String movieTitle, MovieAgeRating movieAgeRating,MovieShowingStatus showingStatus,
-    ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration, double moviePrice){
+    public static Movie createBlockbusterMovie(String movieTitle, MovieAgeRating movieAgeRating,
+            MovieShowingStatus showingStatus,
+            ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration,
+            double moviePrice) {
         String UUID = String.format("MV%03d", DatabaseHandler.generateUUID(Database.MOVIE));
         Movie movie = new BlockbusterMovie(UUID, movieTitle, movieAgeRating, showingStatus,
-        movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
+                movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
         DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
         return movie;
     }
 
-    public static Movie createThreeDMovie(String movieTitle, MovieAgeRating movieAgeRating,MovieShowingStatus showingStatus,
-    ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration, double moviePrice){
+    public static Movie createThreeDMovie(String movieTitle, MovieAgeRating movieAgeRating,
+            MovieShowingStatus showingStatus,
+            ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration,
+            double moviePrice) {
         String UUID = String.format("MV%03d", DatabaseHandler.generateUUID(Database.MOVIE));
         Movie movie = new ThreeDMovie(UUID, movieTitle, movieAgeRating, showingStatus,
-        movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
+                movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
         DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
         return movie;
     }
-
-
-
 
     public static void updateMovieTicketSold(Movie movie) {
         int ticket = movie.getMovieTicketsSold();
@@ -93,6 +69,31 @@ public class MovieManager {
 
     public static void writeMovieReview(Movie movie, MovieReview newReview) {
         movie.getMovieReviews().add(newReview);
+    }
+
+    public static ArrayList<Movie> filterMovieByStatus(MovieShowingStatus status) {
+        ArrayList<Movie> filteredMovie = new ArrayList<Movie>();
+
+        for (int i = 0; i < Movie.movies.size(); i++) {
+            Movie movie = Movie.movies.get(i);
+            if (!(movie.getMovieShowingStatus() == status)) {
+                filteredMovie.add(movie);
+            }
+        }
+        return filteredMovie;
+    }
+
+    public static ArrayList<Movie> getMovieList() {
+        ArrayList<Movie> filteredMovie = filterMovieByStatus(MovieShowingStatus.END_OF_SHOWING);
+        ArrayList<String> existingMovie = new ArrayList<String>();
+        ArrayList<Movie> removedDuplicate = new ArrayList<Movie>();
+
+        for (int i = 0; i < filteredMovie.size(); i++) {
+            if (!existingMovie.contains(filteredMovie.get(i).getMovieTitle())) {
+                removedDuplicate.add(filteredMovie.get(i));
+            }
+        }
+        return removedDuplicate;
     }
 
 }

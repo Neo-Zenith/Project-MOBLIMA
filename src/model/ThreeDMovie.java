@@ -8,13 +8,15 @@ import java.util.ArrayList;
 public class ThreeDMovie extends Movie {
     private MovieType type;
     private double moviePrice;
+
     public ThreeDMovie() {
         super();
     }
 
     public ThreeDMovie(String UUID, String movieTitle, MovieAgeRating movieAgeRating,
             MovieShowingStatus showingStatus,
-            ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration, double moviePrice) {
+            ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration,
+            double moviePrice) {
         super(UUID, movieTitle, movieAgeRating, showingStatus, movieCast,
                 movieDirector, movieSynopsis, movieDuration);
         this.type = MovieType.ThreeD;
@@ -22,15 +24,18 @@ public class ThreeDMovie extends Movie {
 
     }
 
-    public void setMoviePrice(double price){
+    @Override
+    public void setMoviePrice(double price) {
         this.moviePrice = price;
     }
 
-    public double getMoviePrice(double price){
+    @Override
+    public double getMoviePrice() {
         return this.moviePrice;
     }
 
-    public MovieType getMovieType(){
+    @Override
+    public MovieType getMovieType() {
         return this.type;
     }
 

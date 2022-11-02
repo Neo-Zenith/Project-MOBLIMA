@@ -12,7 +12,7 @@ public abstract class MovieGoer implements Serializable {
     private String UUID;
     private String email;
     private String mobileNum;
-    private ArrayList <BookingHistory> bookingHistory;
+    private ArrayList<BookingHistory> bookingHistory;
     private List<MovieReview> reviewHistory;
     private final static long serialVersionUID = 9L;
 
@@ -76,4 +76,8 @@ public abstract class MovieGoer implements Serializable {
     public abstract MovieGoerAge getMovieGoerAge();
 
     public abstract double getGoerPrice();
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 }
