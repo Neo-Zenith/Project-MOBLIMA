@@ -6,12 +6,14 @@ public class MovieTicket {
     private Movie movieToWatch;
     private DateTime showTime;
     private Seat bookedSeat;
+    private Cinema showingVenue;
 
-    public MovieTicket(String UUID, Movie movieToWatch, DateTime showTime, Seat bookedSeat) {
+    public MovieTicket(String UUID, Movie movieToWatch, DateTime showTime, Seat bookedSeat, Cinema cinema) {
         this.setUUID(UUID);
         this.setMovieToWatch(movieToWatch);
         this.setShowTime(showTime);
         this.setBookedSeat(bookedSeat);
+        this.setShowingVenue(cinema);
     }
 
     public String getUUID() {
@@ -44,5 +46,13 @@ public class MovieTicket {
 
     public void setBookedSeat(Seat bookedSeat) {
         this.bookedSeat = bookedSeat;
+    }
+
+    public Cinema getShowingVenue() {
+        return this.showingVenue;
+    }
+
+    public void setShowingVenue(Cinema showingVenue) {
+        this.showingVenue = showingVenue;
     }
 }

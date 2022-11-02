@@ -11,7 +11,7 @@ public abstract class MovieGoer implements Serializable {
     private String UUID;
     private String email;
     private String mobileNum;
-    // private ArrayList <Payment> bookingHistory;
+    private ArrayList <BookingHistory> bookingHistory;
     private List<MovieReview> reviewHistory;
     private final static long serialVersionUID = 9L;
 
@@ -20,7 +20,7 @@ public abstract class MovieGoer implements Serializable {
         this.UUID = UUID;
         this.email = email;
         this.mobileNum = mobileNum;
-        // this.bookingHistory = new ArrayList<>();
+        this.bookingHistory = new ArrayList<>();
         this.reviewHistory = new ArrayList<>();
     }
 
@@ -56,13 +56,13 @@ public abstract class MovieGoer implements Serializable {
         this.mobileNum = mobileNum;
     }
 
-    // public ArrayList<Payment> getBookingHistory() {
-    // return bookingHistory;
-    // }
+    public ArrayList<BookingHistory> getBookingHistory() {
+        return bookingHistory;
+    }
 
-    // public void setBookingHistory(ArrayList<Payment> bookingHistory) {
-    // this.bookingHistory = bookingHistory;
-    // }
+    public void setBookingHistory(ArrayList<BookingHistory> bookingHistory) {
+        this.bookingHistory = bookingHistory;
+    }
 
     public List<MovieReview> getReviewHistory() {
         return reviewHistory;

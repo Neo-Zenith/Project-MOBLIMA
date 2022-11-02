@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import database.Database;
 import model.Adult;
+import model.BookingHistory;
 import model.Child;
 import model.MovieGoer;
 import model.MovieReview;
@@ -36,21 +37,22 @@ public class MovieGoerManager {
         return goer;
     }
 
-    public static void viewBookingHistory() {
-        // for(int i = 0; i<this.bookingHistory.size(); i++){
-        // System.out.println( i+1 + ": " + this.bookingHistory.get(i).getMovieTitle());
-        // System.out.println("Cinema code: " +
-        // this.bookingHistory.get(i).getCinemaCode());
-        // System.out.println("Row: " + this.bookingHistory.get(i).getSeatRowID() + "
-        // Column: " + this.bookingHistory.get(i).getSeatColumnID());
-        // System.out.println("Price: " + this.bookingHistory.get(i).getFinalPrice());
-        // if(this.bookingHistory.get(i).getPaymentStatus() == false){
-        // System.out.println("Not paid yet!");
-        // }
-        // else{
-        // System.out.println("Ticket paid");
-        // }
-        // }
+    public static void viewBookingHistory(MovieGoer movieGoer) {
+        for(int i = 0; i < movieGoer.getBookingHistory().size(); i++) {
+            BookingHistory bookingHistory = movieGoer.getBookingHistory().get(i);
+            System.out.println( i+1 + ": " + bookingHistory.getMovieTicket().getMovieToWatch());
+            System.out.println("Transaction ID: " +
+            bookingHistory.getPayment().getTransactionID());
+            System.out.println("Row: " + this.bookingHistory.get(i).getSeatRowID() + 
+            "Column: " + this.bookingHistory.get(i).getSeatColumnID());
+            System.out.println("Price: " + this.bookingHistory.get(i).getFinalPrice());
+        if (this.bookingHistory.get(i).getPaymentStatus() == false){
+        System.out.println("Not paid yet!");
+        }
+        else{
+        System.out.println("Ticket paid");
+        }
+        }
     }
 
     public static ArrayList<Movie> rankTop5(String choice) {
