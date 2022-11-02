@@ -412,83 +412,129 @@ public class CinemaStaffManager{
 
     public static int configurePrice(int choice){
         int price;
+        ArrayList <Prices> moviePrices = Database.getValueList(Database.PRICES.values());
+        ArrayList <String> moviePricesKeyList = Database.getKeyList(Database.PRICES.keySet());
+        
+        int index;
+        String UUID;
         switch(choice){
             case 1:
                 System.out.println("Enter new price for Standard Cinemas:");
                 price = InputHandler.intHandler();
-                Database.defaultStandardCinemaPrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultStandardCinemaPrice().setDefaultStandardCinemaPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 2:
                 System.out.println("Enter new price for Platinum cinemas:");
                 price = InputHandler.intHandler();
-                Database.defaultPlatinumCinemaPrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultPlatinumCinemaPrice().setDefaultPlatinumCinemaPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 3:
                 System.out.println("Enter new price for IMax cinemas:");
                 price = InputHandler.intHandler();
-                Database.defaultIMaxCinemaPrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultIMaxCinemaPrice().setDefaultIMaxCinemaPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 4:
                 System.out.println("Enter new price for seats:");
                 price = InputHandler.intHandler();
-                Database.defaultSeatPrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultSeatPrice().setDefaultSeatPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 5:
                 System.out.println("Enter new price for Blockbuster movies:");
                 price = InputHandler.intHandler();    
-                Database.defaultBlockBusterMoviePrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultBlockBusterMoviePrice().setDefaultBlockBusterMoviePrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 6:
                 System.out.println("Enter new price for 3D movies:");
                 price = InputHandler.intHandler();
-                Database.default3DMoviePrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefault3DMoviePrice().setDefault3DMoviePrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 7:
                 System.out.println("Enter new price for standard movies:");
                 price = InputHandler.intHandler();    
-                Database.defaultStandardMoviePrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultStandardMoviePrice().setDefaultStandardMoviePrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 8:
-                System.out.println("Enter new price weightage for students:");
+                System.out.println("Enter new price weightage for children:");
                 price = InputHandler.intHandler();
-                Database.defaultStudentPrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultChildPrice().setDefaultChildPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 9:
-                System.out.println("Enter new price weightage for adults:");
+                System.out.println("Enter new price weightage for students:");
                 price = InputHandler.intHandler();
-                Database.defaultAdultPrice = price;
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultStudentPrice().setDefaultStudentPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 10:
-                System.out.println("Enter new price weightage for senior citizens:");
-                price = InputHandler.intHandler();   
-                Database.defaultSeniorCitizenPrize = price;
+                System.out.println("Enter new price weightage for adults:");
+                price = InputHandler.intHandler();
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultAdultPrice().setDefaultChildPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 11:
-                System.out.println("Enter new price weightage for holidays:");
-                price = InputHandler.intHandler();
-                Database.holidayPrice = price;
+                System.out.println("Enter new price weightage for senior citizens:");
+                price = InputHandler.intHandler();   
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getDefaultSeniorCitizenPrice().setDefaultSeniorCitizenPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
             case 12:
-                System.out.println("Enter new price weightage for weekends:");
-                price = InputHandler.intHandler();    
-                Database.weekendPrice = price;
+                System.out.println("Enter new price weightage for holidays:");
+                price = InputHandler.intHandler();
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getHolidayPrice().setHolidayPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
                 return 0;
                 break;
-            default:
-                System.out.println("Invalid choice.");
-                return 1;    
-
+            case 13:
+                System.out.println("Enter new price weightage for weekends:");
+                price = InputHandler.intHandler();    
+                index = moviePrices.indexOf(price);
+                UUID = moviePricesKeyList.get(index);
+                Database.PRICES.getWeekendPrice().setWeekendPrice(price);
+                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                return 0;
+                break;
         }
     }
 
@@ -566,6 +612,16 @@ public class CinemaStaffManager{
         int year = InputHandler.intHandler();
         DateTime holiday = new DateTime(minute, hour, day, date, month, year);
         return holiday;
+    }
+
+    public static void optOutOne(int choice){
+        if (choice == 1){
+            MovieGoer.viewTop5OverallRatings = false; 
+        }
+        else{
+            MovieGoer.viewTop55MovieSales = false;
+        }
+
     }
 
 }
