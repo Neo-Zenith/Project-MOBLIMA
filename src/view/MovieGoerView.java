@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 import controller.MovieGoerManager;
 import controller.MovieManager;
-
+import database.Database;
 import model.MovieGoer;
+import model.MovieSchedule;
 import model.Movie;
 import handler.InputHandler;
 
@@ -60,14 +61,14 @@ public class MovieGoerView extends MainView {
                     // cinema, schedules
                     // based on the UUID of the movie that you use the cinema to get the movieOnShow
                     // and the UUID of the movie
-                    ArrayList<Movie> movie = MovieManager.getMovieList();
-                    for (int i = 0; i < movie.size(); i++) {
-                        System.out.println("Movie TItle: " + movie.get(i).getMovieTitle());
-                        System.out.println("Showing Status: " + movie.get(i).getMovieShowingStatus());
-                        System.out.println("Rating: " + movie.get(i).getMovieOverallReviewRating());
-                        System.out.println("Duration: " + movie.get(i).getMovieDuration());
-                        System.out.println("Description: " + movie.get(i).getMovieSynopsis());
+                    ArrayList<MovieSchedule> movieList = Database.getValueList(Database.MOVIE_SCHEDULE.keySet());
+
+                    System.out.println("Choose one of the movie to view more details:");
+                    for (int i = 0; i < movieList.size(); i++) {
+                        System.out.println((i + 1) + ". " + movieList.get(i).getMovieOnShow());
                     }
+                    int chosenMovie = sc.nextInt();
+                    MovieGoerView.printMovieDetails(movieList.get(chosenMovie - 1).getMovieOnShow().getMovieTitle());
 
                     break;
                 case 2:
@@ -147,6 +148,18 @@ public class MovieGoerView extends MainView {
                             + Movie.movies.get(j).getMovieType() + "] - Overall Rating: "
                             + Movie.movies.get(j).getMovieOverallReviewRating());
                 }
+            }
+        }
+    }
+
+    public static void printMovieDetails(String movieTitle) {
+        for (int i = 0; i < Movie.movies.size(); i++) {
+            if (movieTitle.equals(Movie.movies.get(i).getMovieTitle())) {
+                System.out.println("Movie Title: " + Movie.movies.get(i).getMovieTitle());
+                System.out.println("Movie Duration: " + Movie.movies.get(i).getMovieDuration());
+                System.out.println("Movie Age Rating: " + Movie.movies.get(i).getMovieAgeRating());
+                System.out.println("Movie Rating: " + Movie.movies.get(i).getMovieOverallReviewRating());
+                System.out.println("Movie Synopsis: " + Movie.movies.get(i).getMovieSynopsis());
             }
         }
     }

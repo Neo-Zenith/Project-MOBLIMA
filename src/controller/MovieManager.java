@@ -12,6 +12,7 @@ import model.MovieReview;
 import model.DateTime;
 import handler.DatabaseHandler;
 import database.Database;
+import model.MovieSchedule;
 
 public class MovieManager {
 
@@ -69,31 +70,6 @@ public class MovieManager {
 
     public static void writeMovieReview(Movie movie, MovieReview newReview) {
         movie.getMovieReviews().add(newReview);
-    }
-
-    public static ArrayList<Movie> filterMovieByStatus(MovieShowingStatus status) {
-        ArrayList<Movie> filteredMovie = new ArrayList<Movie>();
-
-        for (int i = 0; i < Movie.movies.size(); i++) {
-            Movie movie = Movie.movies.get(i);
-            if (!(movie.getMovieShowingStatus() == status)) {
-                filteredMovie.add(movie);
-            }
-        }
-        return filteredMovie;
-    }
-
-    public static ArrayList<Movie> getMovieList() {
-        ArrayList<Movie> filteredMovie = filterMovieByStatus(MovieShowingStatus.END_OF_SHOWING);
-        ArrayList<String> existingMovie = new ArrayList<String>();
-        ArrayList<Movie> removedDuplicate = new ArrayList<Movie>();
-
-        for (int i = 0; i < filteredMovie.size(); i++) {
-            if (!existingMovie.contains(filteredMovie.get(i).getMovieTitle())) {
-                removedDuplicate.add(filteredMovie.get(i));
-            }
-        }
-        return removedDuplicate;
     }
 
 }
