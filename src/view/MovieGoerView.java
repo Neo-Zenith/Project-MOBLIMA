@@ -8,6 +8,7 @@ import controller.MovieManager;
 import database.Database;
 import model.MovieGoer;
 import model.MovieSchedule;
+import model.Cineplex;
 import model.Movie;
 import handler.InputHandler;
 
@@ -68,7 +69,7 @@ public class MovieGoerView extends MainView {
                         System.out.println((i + 1) + ". " + movieList.get(i).getMovieOnShow());
                     }
                     int chosenMovie = sc.nextInt();
-                    MovieGoerView.printMovieDetails(movieList.get(chosenMovie - 1).getMovieOnShow().getMovieTitle());
+                    this.printMovieDetails(movieList.get(chosenMovie - 1).getMovieOnShow().getMovieTitle());
 
                     break;
                 case 2:
@@ -152,7 +153,7 @@ public class MovieGoerView extends MainView {
         }
     }
 
-    public static void printMovieDetails(String movieTitle) {
+    public void printMovieDetails(String movieTitle) {
         for (int i = 0; i < Movie.movies.size(); i++) {
             if (movieTitle.equals(Movie.movies.get(i).getMovieTitle())) {
                 System.out.println("Movie Title: " + Movie.movies.get(i).getMovieTitle());
@@ -161,6 +162,13 @@ public class MovieGoerView extends MainView {
                 System.out.println("Movie Rating: " + Movie.movies.get(i).getMovieOverallReviewRating());
                 System.out.println("Movie Synopsis: " + Movie.movies.get(i).getMovieSynopsis());
             }
+        }
+    }
+
+    public void printCinemas(Cineplex cineplex) {
+        System.out.println("Cinemas in " + cineplex.getCineplexName());
+        for (int i = 0; i < cineplex.getCinemas().size(); i++) {
+            System.out.println("Cinema " + (i + 1) + ": " + cineplex.getCinemas().get(i).getCinemaClass());
         }
     }
 
