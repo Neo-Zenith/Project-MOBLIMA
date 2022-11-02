@@ -103,20 +103,6 @@ public class MovieScheduleManager {
         return filteredSchedules;
     }
 
-    public static ArrayList<MovieSchedule> printMovieSchedule(Cinema cinema) {
-        ArrayList<MovieSchedule> filteredSchedules = MovieScheduleManager.filterMovieSchedules(cinema);
-
-        for (int i = 0; i < filteredSchedules.size(); i++) {
-            System.out.println(i + 1 + ". ");
-            System.out.println("Scheduled Movie: " + filteredSchedules.get(i).getMovieOnShow().getMovieTitle());
-            DateTime showingTime = filteredSchedules.get(i).getShowingTime();
-            System.out.print("Showing Time: ");
-            showingTime.printTime();
-        }
-
-        return filteredSchedules;
-    }
-
     public static int getShowingVenueByIndex(MovieSchedule movieSchedule, Cinema cinema) {
         for (int i = 0; i < movieSchedule.getShowingVenues().size(); i++) {
             if (movieSchedule.getShowingVenues().get(i).getUUID().contains(cinema.getUUID())) {
