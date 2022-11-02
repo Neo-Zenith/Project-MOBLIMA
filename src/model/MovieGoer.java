@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.enums.MovieGoerAge;
 import handler.DatabaseHandler;
 
 public abstract class MovieGoer implements Serializable {
@@ -76,5 +77,11 @@ public abstract class MovieGoer implements Serializable {
         this.reviewHistory = reviewHistory;
     }
 
+    public abstract MovieGoerAge getMovieGoerAge();
+
     public abstract double getGoerPrice();
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 }

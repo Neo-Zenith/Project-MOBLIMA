@@ -8,6 +8,8 @@ import java.util.Collections;
 import database.Database;
 import model.Seat;
 import model.enums.CinemaClass;
+import model.enums.MovieAgeRating;
+import model.enums.MovieShowingStatus;
 import model.Cinema;
 import model.Cineplex;
 import model.enums.SeatType;
@@ -19,8 +21,9 @@ import model.Prices;
 
 public class DatabaseManager {
 
-    public DatabaseManager() {}
-    
+    public DatabaseManager() {
+    }
+
     /**
      * Initializes dummy data for cinplexes.
      */
@@ -28,7 +31,7 @@ public class DatabaseManager {
         String cineplexName;
         String cineplexLocation;
         int numOfCinemas;
-        ArrayList <Cinema> cinemas = new ArrayList<>();
+        ArrayList<Cinema> cinemas = new ArrayList<>();
 
         // Data 1
         cineplexName = "CATHAY CINEPLEX CAUSEWAY POINT";
@@ -38,7 +41,7 @@ public class DatabaseManager {
             Singapore 738099
                 """;
         numOfCinemas = 4;
-        for (int i = 0; i < numOfCinemas; i ++) {
+        for (int i = 0; i < numOfCinemas; i++) {
             cinemas.add(initializeCinemaData());
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
@@ -52,7 +55,7 @@ public class DatabaseManager {
                 """;
         numOfCinemas = 3;
         cinemas = new ArrayList<>();
-        for (int i = 0; i < numOfCinemas; i ++) {
+        for (int i = 0; i < numOfCinemas; i++) {
             cinemas.add(initializeCinemaData());
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
@@ -66,7 +69,7 @@ public class DatabaseManager {
                 """;
         numOfCinemas = 4;
         cinemas = new ArrayList<>();
-        for (int i = 0; i < numOfCinemas; i ++) {
+        for (int i = 0; i < numOfCinemas; i++) {
             cinemas.add(initializeCinemaData());
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
@@ -74,6 +77,7 @@ public class DatabaseManager {
 
     /**
      * Initializes dummy data for cinemas.
+     * 
      * @return {@link Cinema} to be passed to Cineplex for initialization
      */
     public static Cinema initializeCinemaData() {
@@ -97,7 +101,7 @@ public class DatabaseManager {
                 cinemaPrice = Database.defaultIMaxCinemaPrice;
                 seats = initializeSeatData(cinemaClass);
                 return CinemaManager.createIMaxCinema(cinemaClass, cinemaPrice, seats);
-                
+
             case 2:
                 // Data 3
                 cinemaClass = CinemaClass.PLATINUM;
@@ -110,7 +114,9 @@ public class DatabaseManager {
 
     /**
      * Initializes dummy data for seats
-     * @return ArrayList of {@link Seat} to be passed to {@link Cinema} for initialization
+     * 
+     * @return ArrayList of {@link Seat} to be passed to {@link Cinema} for
+     *         initialization
      */
     public static ArrayList <Seat> initializeSeatData(CinemaClass cinemaClass) {
         SeatType seatType;
@@ -150,7 +156,6 @@ public class DatabaseManager {
         return seats;
     }
 
-
     public static void initializeMovieScheduleData() {
         Movie movieOnShow;
         ArrayList <Cinema> showingVenue;
@@ -169,13 +174,13 @@ public class DatabaseManager {
         showingVenue = new ArrayList<>();
         seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
-        for (int i = 0; i < showingVenue.size(); i ++) {
+        for (int i = 0; i < showingVenue.size(); i++) {
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
             showingTime.add(new DateTime(00, 14, 6, 21, 11, 2022));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
-        
+
         // Data 2
         showingTime = new ArrayList<>();
         movieOnShow = movies.get(1);
@@ -184,7 +189,7 @@ public class DatabaseManager {
         showingVenue = new ArrayList<>();
         seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
-        for (int i = 0; i < showingVenue.size(); i ++) {
+        for (int i = 0; i < showingVenue.size(); i++) {
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
             showingTime.add(new DateTime(00, 13, 4, 22, 12, 2022));
         }
@@ -199,19 +204,18 @@ public class DatabaseManager {
         showingVenue = new ArrayList<>();
         seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
-        for (int i = 0; i < showingVenue.size(); i ++) {
+        for (int i = 0; i < showingVenue.size(); i++) {
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
             showingTime.add(new DateTime(30, 12, 4, 25, 1, 2023));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
     }
-    
+
     public static void initializeMovie() {
 
         // Movie1
         String title1 = "The Conjuring";
-        String movieType1 = "Blockbuster";
         MovieAgeRating ageRating1 = MovieAgeRating.M18;
         MovieShowingStatus status1 = MovieShowingStatus.NOW_SHOWING;
         ArrayList<String> cast = new ArrayList<String>();
@@ -219,13 +223,14 @@ public class DatabaseManager {
         cast.add("Jerick");
         String director = "LeeJuin";
         String synopsis = "Good";
-        Double duration = 123.0;
+        double duration = 123.0;
         MovieManager manager = new MovieManager();
-        manager.createMovie(title1, movieType1, ageRating1, status1, cast, director, synopsis, duration);
+        double moviePrice1 = 7.0;
+        MovieManager.createBlockbusterMovie(title1, ageRating1, status1, cast, director, synopsis, duration,
+                moviePrice1);
 
         // Movie2
         String title2 = "Zootopia";
-        String movieType2 = "ThreeD";
         MovieAgeRating ageRating2 = MovieAgeRating.G;
         MovieShowingStatus status2 = MovieShowingStatus.NOW_SHOWING;
         ArrayList<String> cast2 = new ArrayList<String>();
@@ -233,8 +238,10 @@ public class DatabaseManager {
         cast.add("Jerick");
         String director2 = "LeeJuin";
         String synopsis2 = "Good";
-        Double duration2 = 155.0;
-        manager.createMovie(title2, movieType2, ageRating2, status2, cast2, director2, synopsis2, duration2);
+        double duration2 = 155.0;
+        double moviePrice2 = 6.0;
+        MovieManager.createThreeDMovie(title2, ageRating2, status2, cast2, director2, synopsis2, duration2,
+                moviePrice2);
 
         // Movie3
         String title3 = "Spiderman";
@@ -246,8 +253,10 @@ public class DatabaseManager {
         cast.add("Jerick");
         String director3 = "LeeJuin";
         String synopsis3 = "Good";
-        Double duration3 = 155.0;
-        manager.createMovie(title3, movieType3, ageRating3, status3, cast3, director3, synopsis3, duration3);
+        double duration3 = 155.0;
+        double moviePrice3 = 5.0;
+        MovieManager.createStandardMovie(title3, ageRating3, status3, cast3, director3, synopsis3, duration3,
+                moviePrice3);
 
     }
 
