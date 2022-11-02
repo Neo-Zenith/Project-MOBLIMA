@@ -24,7 +24,7 @@ public class CinemaManager {
      * @param seats     array list of {@link Seat} in the cinema
      */
     public static Cinema createPlatinumCinema(CinemaClass cinemaClass, double cinemaPrice, ArrayList <Seat> seats) {
-        String UUID = String.format("PC%03d", DatabaseHandler.generateUUID(Database.CINEMA));
+        String UUID = String.format("CN%03d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new PlatinumCinema(UUID, cinemaClass, seats, cinemaPrice, Database.numOfRows, Database.totalNumOfSeats);
         DatabaseManager.saveUpdateToDatabase(UUID, cinema, Database.CINEMA);
         return cinema;
@@ -37,7 +37,7 @@ public class CinemaManager {
      * @param seats     array list of {@link Seat} in the cinema
      */
     public static Cinema createStandardCinema(CinemaClass cinemaClass, double cinemaPrice, ArrayList <Seat> seats) {
-        String UUID = String.format("PC%03d", DatabaseHandler.generateUUID(Database.CINEMA));
+        String UUID = String.format("CN%03d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new StandardCinema(UUID, cinemaClass, seats, cinemaPrice, Database.numOfRows, Database.totalNumOfSeats);
         DatabaseManager.saveUpdateToDatabase(UUID, cinema, Database.CINEMA);
         return cinema;
@@ -50,7 +50,7 @@ public class CinemaManager {
      * @param seats     array list of {@link Seat} in the cinema
      */
     public static Cinema createIMaxCinema(CinemaClass cinemaClass, double cinemaPrice, ArrayList <Seat> seats) {
-        String UUID = String.format("PC%03d", DatabaseHandler.generateUUID(Database.CINEMA));
+        String UUID = String.format("CN%03d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new IMaxCinema(UUID, cinemaClass, seats, cinemaPrice, Database.numOfRows, Database.totalNumOfSeats);
         DatabaseManager.saveUpdateToDatabase(UUID, cinema, Database.CINEMA);
         return cinema;

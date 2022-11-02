@@ -23,7 +23,7 @@ public class SeatManager {
      * @return {@link Seat} object that was created
      */
     public static Seat createCoupleSeat(SeatType seatType, double seatPrice) {
-        String UUID = String.format("CS%04d", DatabaseHandler.generateUUID(Database.SEAT));
+        String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new CoupleSeat(UUID, seatType, false, seatPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
         return seat;
@@ -36,7 +36,7 @@ public class SeatManager {
      * @return {@link Seat} object that was created
      */
     public static Seat createStandardSeat(SeatType seatType, double seatPrice) {
-        String UUID = String.format("SS%04d", DatabaseHandler.generateUUID(Database.SEAT));
+        String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new StandardSeat(UUID, seatType, false, seatPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
         return seat;
