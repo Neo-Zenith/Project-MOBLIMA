@@ -8,6 +8,7 @@ public class InputHandler {
     public static int intHandler() {
         try {
             int input = InputHandler.scanner.nextInt();
+            scanner.nextLine();
             return input;
         }
         catch (Exception e) {

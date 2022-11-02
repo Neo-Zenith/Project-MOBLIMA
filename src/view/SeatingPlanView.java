@@ -7,6 +7,7 @@ import controller.SeatManager;
 import model.Cinema;
 import model.MovieSchedule;
 import model.Seat;
+import model.enums.CinemaClass;
 import handler.InputHandler;
 
 public class SeatingPlanView {
@@ -36,17 +37,30 @@ public class SeatingPlanView {
             System.out.println("Cinema ID: " + this.cinema.getUUID());
             System.out.println("Movie Showing: " + this.movieSchedule.getMovieOnShow().getMovieTitle());
             System.out.print("Showing Time: ");
-            this.movieSchedule.getShowingTime().printTime();
+            int index = MovieScheduleManager.getShowingVenueIndex(movieSchedule, cinema);
+            this.movieSchedule.getShowingTime().get(index).printTime();
             System.out.println("");
 
-            SeatManager.printCinemaFloorMap(seatingPlan);
+            if (cinema.getCinemaClass() == CinemaClass.PLATINUM) {
+                SeatManager.printPlatinumCinemaFloorMap(seatingPlan);
+            }
+            else {
+                SeatManager.printStandardCinemaFloorMap(seatingPlan);
+            }
+            
             this.printMenu();
             choice = InputHandler.intHandler();
 
             switch (choice) {
                 case 1:
-                
+                    System.out.println("Enter the seatID to be booked: ");
+                    String seatID = InputHandler.stringHandler();
+                    if (SeatManager.bookSeat(seatID, movieSchedule, cinema)) {
+                        System.out.println("Booking has been made!");
+                    }
+                    break;
                 case 2:
+                    break;
             }
             
         }   while (choice != 2);

@@ -15,13 +15,14 @@ public class DatabaseHandler {
         for (K key : data.keySet()) {
             if (key instanceof String) {
                 String currentKey = (String) key;
+                currentKey = currentKey.substring(2);
                 if (currentKey.compareTo(currentMaxKey) > 0) {
                     currentMaxKey = currentKey;
                 }
             }
         }
 
-        String UUID = currentMaxKey.substring(2);
+        String UUID = currentMaxKey;
         return Integer.parseInt(UUID) + 1;
     }
 }
