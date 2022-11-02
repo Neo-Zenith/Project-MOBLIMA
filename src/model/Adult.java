@@ -1,16 +1,18 @@
 package model;
 
+import model.enums.MovieGoerAge;
+
 public class Adult extends MovieGoer {
-    private int age;
+    private MovieGoerAge age;
     private double price;
 
-    public Adult(String UUID, String name, String email, String mobileNum, int age) {
-        super(UUID, name, email, mobileNum);
+    public Adult(String UUID, String name, String email, String mobileNum, MovieGoerAge age, String username, String password) {
+        super(UUID, name, email, mobileNum, username, password);
         this.age = age;
         this.price = 5.00;
     }
 
-    public int getAge() {
+    public MovieGoerAge getMovieGoerAge() {
         return this.age;
     }
 

@@ -6,15 +6,17 @@ import java.util.ArrayList;
 public class Cineplex implements Comparable, Serializable{
     private String UUID;
     private String cineplexName;
+    private String cineplexLocation;
     private int numOfCinemas;
     private ArrayList <Cinema> cinemas;
     private static final long serialVersionUID = 2L;
 
-    public Cineplex(String UUID, String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas) {
+    public Cineplex(String UUID, String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas, String cineplexLocation) {
         this.setUUID(UUID);
         this.setCineplexName(cineplexName);
         this.setNumOfCinemas(numOfCinemas);
         this.setCinemas(cinemas);
+        this.setCineplexLocation(cineplexLocation);
     }
 
     public String getUUID() {
@@ -57,5 +59,13 @@ public class Cineplex implements Comparable, Serializable{
     @Override public int compareTo(Object object) {
         Cineplex cineplex = (Cineplex) object;
         return this.getUUID().compareTo(cineplex.getUUID());
+    }
+
+    public String getCineplexLocation() {
+        return this.cineplexLocation;
+    }
+
+    public void setCineplexLocation(String cineplexLocation) {
+        this.cineplexLocation = cineplexLocation;
     }
 }

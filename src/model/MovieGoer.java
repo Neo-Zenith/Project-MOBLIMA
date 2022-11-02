@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.enums.MovieGoerAge;
 import handler.DatabaseHandler;
 
 public abstract class MovieGoer implements Serializable {
@@ -11,15 +12,19 @@ public abstract class MovieGoer implements Serializable {
     private String UUID;
     private String email;
     private String mobileNum;
+    private String username;
+    private String password;
     private ArrayList <BookingHistory> bookingHistory;
     private List<MovieReview> reviewHistory;
     private final static long serialVersionUID = 9L;
 
-    public MovieGoer(String UUID, String name, String email, String mobileNum) {
+    public MovieGoer(String UUID, String name, String email, String mobileNum, String username, String password) {
         this.name = name;
         this.UUID = UUID;
         this.email = email;
         this.mobileNum = mobileNum;
+        this.username = username;
+        this.password = password;
         this.bookingHistory = new ArrayList<>();
         this.reviewHistory = new ArrayList<>();
     }
@@ -57,7 +62,7 @@ public abstract class MovieGoer implements Serializable {
     }
 
     public ArrayList<BookingHistory> getBookingHistory() {
-        return bookingHistory;
+        return this.bookingHistory;
     }
 
     public void setBookingHistory(ArrayList<BookingHistory> bookingHistory) {
@@ -72,5 +77,11 @@ public abstract class MovieGoer implements Serializable {
         this.reviewHistory = reviewHistory;
     }
 
+    public abstract MovieGoerAge getMovieGoerAge();
+
     public abstract double getGoerPrice();
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 }

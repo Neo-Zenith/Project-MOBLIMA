@@ -5,6 +5,7 @@ import handler.DatabaseHandler;
 import model.BankTransactionPayment;
 import model.Cinema;
 import model.MovieSchedule;
+import model.MovieGoer;
 import model.Seat;
 import model.CardPayment;
 import model.Payment;
@@ -17,21 +18,21 @@ public class PaymentManager {
     public PaymentManager() {}
 
     public static Payment createQRCodePayment(String transactionID, double movieTicketPrice) {
-        String UUID = String.format("QR%04d", DatabaseHandler.generateUUID(Database.PAYMENT));
+        String UUID = String.format("PY%04d", DatabaseHandler.generateUUID(Database.PAYMENT));
         Payment payment = new QRCodePayment(UUID, PaymentType.QRCODE, transactionID, movieTicketPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, payment, Database.PAYMENT);
         return payment;
     }
 
     public static Payment createBankTransactioPayment(String transactionID, double movieTicketPrice) {
-        String UUID = String.format("BT%04d", DatabaseHandler.generateUUID(Database.PAYMENT));
+        String UUID = String.format("PY%04d", DatabaseHandler.generateUUID(Database.PAYMENT));
         Payment payment = new BankTransactionPayment(UUID, PaymentType.BANK_TRANSACTION, transactionID, movieTicketPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, payment, Database.PAYMENT);
         return payment;
     }
 
     public static Payment createCardPayment(String transactionID, double movieTicketPrice) {
-        String UUID = String.format("CD%04d", DatabaseHandler.generateUUID(Database.PAYMENT));
+        String UUID = String.format("PY%04d", DatabaseHandler.generateUUID(Database.PAYMENT));
         Payment payment = new CardPayment(UUID, PaymentType.CARD_PAYMENT, transactionID, movieTicketPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, payment, Database.PAYMENT);
         return payment;
