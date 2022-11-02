@@ -72,4 +72,28 @@ public class MovieManager {
         movie.getMovieReviews().add(newReview);
     }
 
+     public static ArrayList<Cineplex> getCineplexesByMovie(String movieTitle){
+        ArrayList<MovieSchedule> movieList = Database.getValueList(Database.MOVIE_SCHEDULE.keySet());
+        ArrayList<MovieSchedule> filteredSchedules = new ArrayList<>();
+        for(int i=0; i<movieList.size(); i++){
+            if(movieList.get(i).getMovieOnShow().getMovieTitle().equals(movieTitle)){
+                filteredSchedules.add(movieList.get(i));
+            }
+        }
+        ArrayList<Cineplex> filteredCineplex = new ArrayList<>();
+        ArrayList <Cineplex> cineplexList = Database.getValueList(Database.CINEPLEX.values());
+        for(int i=0; i<cineplexList.size(); i++){
+            ArrayList <Cinema> cinemaList = cineplexList.get(i).getCinemas();
+            for(int j = 0; j<cinemaList.size(); j++){
+                String UUID1 = cinemaList.get(j).getUUID();
+                for(int k = 0; k< filteredSchedules.size(); k++){
+                    if(UUID1.equals(filteredSchedules.get(k).getMovieOnShow().getUUID())){
+                        filteredCineplex.add(cineplexList.get(i));
+                    }
+                }
+            }
+        }
+        return filteredCineplex;
+    } 
+
 }

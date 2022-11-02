@@ -75,6 +75,9 @@ public class MovieGoerView extends MainView {
                 case 2:
                     // get the movie UUID and return all the cineplex, schedules that match the UUID
                     // function here
+		    System.out.println("What movie title are you searching for? ");
+                    String movieTitle = sc.nextLine();
+                    MovieGoerView.printMovieDetails(movieTitle);
 
                     this.printMovieMenu();
                     int movieChoice = sc.nextInt();
@@ -169,6 +172,15 @@ public class MovieGoerView extends MainView {
         System.out.println("Cinemas in " + cineplex.getCineplexName());
         for (int i = 0; i < cineplex.getCinemas().size(); i++) {
             System.out.println("Cinema " + (i + 1) + ": " + cineplex.getCinemas().get(i).getCinemaClass());
+        }
+    }
+
+    public void printCineplexes(String movieTitle){
+        
+        ArrayList <Cineplex> cineplexList =  MovieManager.getCineplexesByMovie(movieTitle);
+        System.out.println("Currently showing at: ");
+        for(int i =0; i< cineplexList.size(); i++ ){
+            System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
         }
     }
 
