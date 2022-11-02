@@ -26,8 +26,8 @@ public class CinemaStaffConfigView {
         System.out.println("System Configuration Module");
         MainView.printBoilerPlate("""
                 Select what is to be configured
-                1. Config movie details
-                2. Config system settings
+                1. Configure movie details
+                2. Configure system settings
                 3. Logout
                 """);
         System.out.println("====================================");
@@ -83,7 +83,6 @@ public class CinemaStaffConfigView {
                 5. Special Dates (Weekends/Holidays)     
                 """);
         System.out.println("====================================");    
-       
     }
 
     public void printHolidayConfigMenu(){
@@ -111,7 +110,9 @@ public class CinemaStaffConfigView {
                 int movieNumber = InputHandler.intHandler();
                 this.printMovieDetailMenu();
                 int detail = InputHandler.intHandler();
-                CinemaStaffManager.updateExistingMovieDetails(movieNumber, detail);
+                if (CinemaStaffManager.updateExistingMovieDetails(movieNumber, detail) == 1){
+                    break;
+                };
                 break;
 
                 case 2:
@@ -120,24 +121,26 @@ public class CinemaStaffConfigView {
                 if (setting == 1){ 
                     this.printPricingConfigMenu();
                     int pricingChoice = InputHandler.intHandler();
-                    CinemaStaffManager.configurePrice(choice);
+                    if(CinemaStaffManager.configurePrice(pricingChoice) == 1){
+                        break;
+                    };
                 }
                 else if (setting == 2){ 
                     this.printHolidayConfigMenu();
                     int holidayChoice = InputHandler.intHandler();
-                    CinemaStaffManager.configureHoliday(choice);
+                    if(CinemaStaffManager.configureHoliday(holidayChoice) == 1){
+                        break;
+                    };
                 }
                 break;
-
+   
                 default:
                 break;
-
-
 
             }
         }
         
-        while(choice == 1);
+        while(choice > 0  &&  choice < 2);
 
         // this.movieAppView = new MovieAppView();
         // this.movieAppView.appContent();
