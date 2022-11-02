@@ -1,11 +1,13 @@
 package model;
 
+import java.util.*;
+
 public class BookingHistory {
     private String UUID;
-    private MovieTicket movieTicket;
+    private ArrayList<MovieTicket> movieTicket;
     private Payment payment;
 
-    public BookingHistory(String UUID, MovieTicket movieTicket, Payment payment) {
+    public BookingHistory(String UUID, ArrayList<MovieTicket> movieTicket, Payment payment) {
         this.setMovieTicket(movieTicket);
         this.setPayment(payment);
         this.setUUID(UUID);
@@ -19,11 +21,11 @@ public class BookingHistory {
         this.UUID = UUID;
     }
 
-    public MovieTicket getMovieTicket() {
+    public ArrayList<MovieTicket> getMovieTicket() {
         return this.movieTicket;
     }
 
-    public void setMovieTicket(MovieTicket movieTicket) {
+    public void setMovieTicket(ArrayList<MovieTicket> movieTicket) {
         this.movieTicket = movieTicket;
     }
 

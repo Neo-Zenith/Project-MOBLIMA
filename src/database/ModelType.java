@@ -10,7 +10,8 @@ public enum ModelType {
     MOVIE_GOER("MovieGoer"),
     MOVIE("Movie"),
     MOVIE_REVIEW("MovieReview"),
-    PAYMENT("Payment");
+    PAYMENT("Payment"),
+    MOVIE_TICKET("MovieTicket");
 
     private final String fileName;
 

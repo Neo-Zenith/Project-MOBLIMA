@@ -51,7 +51,9 @@ public class SeatingPlanView {
                     }
                     break;
                 case 2:
+                    
                     break;
+                    
             }
             
         }   while (choice != 2);

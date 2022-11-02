@@ -10,6 +10,7 @@ import model.CardPayment;
 import model.Payment;
 import model.QRCodePayment;
 import model.enums.PaymentType;
+import model.MovieGoer;
 
 public class PaymentManager {
     
@@ -37,6 +38,7 @@ public class PaymentManager {
     }
 
     public static double calculateMovieTicketPrice(Cinema cinema, MovieSchedule movieSchedule, MovieGoer movieGoer, Seat seat) {
+        // ADD LOGIC: check movie showing time is holiday or not
         return cinema.getCinemaPrice() + movieSchedule.getMovieOnShow().getMoviePrice() + seat.getSeatPrice() + movieGoer.getGoerPrice();
     }
 }

@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import model.Cineplex;
 import model.MovieSchedule;
+import model.MovieTicket;
 import model.Payment;
 import model.BookingHistory;
 import model.Cinema;
@@ -18,6 +19,7 @@ import model.Seat;
 import model.Movie;
 import model.MovieGoer;
 import model.MovieReview;
+import model.MovieTicket;
 
 public class Database {
     /**
@@ -64,6 +66,11 @@ public class Database {
      * Movie Review in database
      */
     public static HashMap<String, MovieReview> MOVIE_REVIEW = new HashMap<String, MovieReview>();
+
+    /**
+     * Movie Ticket in database
+     */
+    public static HashMap<String, MovieTicket> MOVIE_TICKET = new HashMap<String, MovieTicket>();
 
     /**
      * Total number of seats for every cinema
@@ -118,6 +125,9 @@ public class Database {
         else if (! readData(ModelType.PAYMENT)) {
             System.out.println("Error! Reading of data " + ModelType.PAYMENT + " failed!");
         }
+        else if (! readData(ModelType.MOVIE_TICKET)) {
+            System.out.println("Error! Reading of data " + ModelType.MOVIE_TICKET + " failed!");
+        }
     }
 
     /**
@@ -164,6 +174,9 @@ public class Database {
             } 
             else if (modelType == ModelType.MOVIE_REVIEW) {
                 Database.MOVIE_REVIEW = (HashMap<String, MovieReview>) object;
+            }
+            else if (modelType == ModelType.MOVIE_REVIEW) {
+                Database.MOVIE_TICKET = (HashMap<String, MovieTicket>) object;
             }
 
             objectInputStream.close();
@@ -215,6 +228,9 @@ public class Database {
             else if (modelType == ModelType.MOVIE_REVIEW) {
                 objectOutputStream.writeObject(Database.MOVIE_REVIEW);
             }
+            else if (modelType == ModelType.MOVIE_TICKET) {
+                objectOutputStream.writeObject(Database.MOVIE_TICKET);
+            }
 
             fileOutputStream.close();
             objectOutputStream.close();
@@ -242,6 +258,7 @@ public class Database {
             Database.readData(ModelType.MOVIE);
             Database.readData(ModelType.MOVIE_GOER);
             Database.readData(ModelType.MOVIE_REVIEW);
+            Database.readData(ModelType.MOVIE_TICKET);
             return true;
         }
         catch (Exception e) {
@@ -266,6 +283,7 @@ public class Database {
             Database.writeData(ModelType.MOVIE);
             Database.writeData(ModelType.MOVIE_GOER);
             Database.writeData(ModelType.MOVIE_REVIEW);
+            Database.writeData(ModelType.MOVIE_TICKET);
             return true;
         }
         catch (Exception e) {
@@ -287,6 +305,7 @@ public class Database {
         Database.CINEMA = new HashMap<String, Cinema>();
         Database.SEAT = new HashMap<String, Seat>();
         Database.MOVIE_SCHEDULE = new HashMap<String, MovieSchedule>();
+        Database.MOVIE_TICKET = new HashMap<String, MovieTicket>();
 
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);
@@ -297,6 +316,7 @@ public class Database {
         Database.writeData(ModelType.MOVIE);
         Database.writeData(ModelType.MOVIE_GOER);
         Database.writeData(ModelType.MOVIE_REVIEW);
+        Database.writeData(ModelType.MOVIE_TICKET);
     }
 
     /**
