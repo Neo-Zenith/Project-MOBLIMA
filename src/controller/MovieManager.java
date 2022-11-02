@@ -15,7 +15,7 @@ import database.Database;
 
 public class MovieManager {
 
-    public Movie createMovie(String movieTitle, String movieType, MovieAgeRating movieAgeRating,
+    public static Movie createMovie(String movieTitle, String movieType, MovieAgeRating movieAgeRating,
             MovieShowingStatus showingStatus,
             ArrayList<String> movieCast,
             String movieDirector, String movieSynopsis, double movieDuration) {

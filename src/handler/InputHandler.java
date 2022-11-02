@@ -17,14 +17,25 @@ public class InputHandler {
         }
     }
 
-    public static String StringHandler() {
-        try {
+    public static String stringHandler(){
+        try{
             String input = InputHandler.scanner.nextLine();
             return input;
         }
-        catch (Exception e) {
-            System.out.println("Error! Please enter valid characters!");
-            return null;
+        catch (Exception e){
+            System.out.println("Error! Please enter a valid string!");        
+                return null;
+        }   
+    }
+    
+    public static double doubleHandler(){
+        try{
+            double input = InputHandler.scanner.nextDouble();
+            return input;
+        }
+        catch (Exception e){
+            System.out.println("Error! Please enter a valid double!");
+            return -1;
         }
     }
 }

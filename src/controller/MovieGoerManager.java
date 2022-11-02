@@ -16,21 +16,21 @@ import handler.DatabaseHandler;
 public class MovieGoerManager {
 
     public MovieGoer createMovieGoer(String ageGroup, int userID, String name, String email, String mobileNum,
-            int age) {
+            int age, String username, String password) {
         String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.CINEMA));
         MovieGoer goer;
         switch (ageGroup) {
             case ("Adult"):
-                goer = new Adult(UUID, name, email, mobileNum, age);
+                goer = new Adult(UUID, name, email, mobileNum, age, username, password);
                 break;
             case ("SeniorCitizen"):
-                goer = new SeniorCitizen(UUID, name, email, mobileNum, age);
+                goer = new SeniorCitizen(UUID, name, email, mobileNum, age, username, password);
                 break;
             case ("Child"):
-                goer = new Child(UUID, name, email, mobileNum, age);
+                goer = new Child(UUID, name, email, mobileNum, age, username, password);
                 break;
             default:
-                goer = new Adult(UUID, name, email, mobileNum, age);
+                goer = new Adult(UUID, name, email, mobileNum, age, username, password);
 
         }
         DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);

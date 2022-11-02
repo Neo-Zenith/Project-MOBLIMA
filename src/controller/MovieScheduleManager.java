@@ -104,13 +104,27 @@ public class MovieScheduleManager {
         return filteredSchedules;
     }
 
-    public static ArrayList <MovieSchedule> printMovieSchedule(Cinema cinema) {
-        ArrayList <MovieSchedule> filteredSchedules = MovieScheduleManager.filterMovieSchedules(cinema);
+    public static ArrayList<MovieSchedule> printMovieSchedule(Cinema cinema) {
+        ArrayList<MovieSchedule> filteredSchedules = MovieScheduleManager.filterMovieSchedules(cinema);
 
-        for (int i = 0; i < filteredSchedules.size(); i ++) {
+        for (int i = 0; i < filteredSchedules.size(); i++) {
             System.out.println(i + 1 + ". ");
             System.out.println("Scheduled Movie: " + filteredSchedules.get(i).getMovieOnShow().getMovieTitle());
-            DateTime showingTime = filteredSchedules.get(i).getShowingTime().get(i);
+            Movie m = filteredSchedules.get(i).getMovieOnShow();
+            System.out.println("Movie Title: " + m.getMovieTitle());
+            System.out.println("Movie Type: " + m.getMovieType());
+            System.out.println("Rated: " + m.getMovieAgeRating());
+            System.out.println("Duration: " + m.getMovieDuration());
+            System.out.println("Review rating: " + m.getMovieOverallReviewRating());
+            System.out.println("Director: " + m.getMovieDirector());
+            System.out.print("Cast: ");
+            for (int j = 0; j < m.getMovieCast().size(); j++) {
+                System.out.print(m.getMovieCast().get(j) + " ");
+            }
+            System.out.println("");
+            System.out.println("Synopsis: " + m.getMovieSynopsis());
+            System.out.println("Price: $" + m.getMoviePrice());
+            DateTime showingTime = filteredSchedules.get(i).getShowingTime();
             System.out.print("Showing Time: ");
             showingTime.printTime();
         }
@@ -127,5 +141,4 @@ public class MovieScheduleManager {
         }
         return -1;
     }
-
 }

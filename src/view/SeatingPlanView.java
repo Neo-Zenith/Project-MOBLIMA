@@ -54,7 +54,7 @@ public class SeatingPlanView {
             switch (choice) {
                 case 1:
                     System.out.println("Enter the seatID to be booked: ");
-                    String seatID = InputHandler.StringHandler();
+                    String seatID = InputHandler.stringHandler();
                     if (SeatManager.bookSeat(seatID, movieSchedule, cinema)) {
                         System.out.println("Booking has been made!");
                     }
