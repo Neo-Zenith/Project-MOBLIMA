@@ -42,6 +42,36 @@ public class MovieManager {
         return movie;
     }
 
+    public static Movie createStandardMovie(String movieTitle, MovieAgeRating movieAgeRating,MovieShowingStatus showingStatus,
+    ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration, double moviePrice){
+        String UUID = String.format("MV%03d", DatabaseHandler.generateUUID(Database.MOVIE));
+        Movie movie = new StandardMovie(UUID, movieTitle, movieAgeRating, showingStatus,
+        movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
+        DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
+        return movie;
+    }
+
+    public static Movie createBlockbusterMovie(String movieTitle, MovieAgeRating movieAgeRating,MovieShowingStatus showingStatus,
+    ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration, double moviePrice){
+        String UUID = String.format("MV%03d", DatabaseHandler.generateUUID(Database.MOVIE));
+        Movie movie = new BlockbusterMovie(UUID, movieTitle, movieAgeRating, showingStatus,
+        movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
+        DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
+        return movie;
+    }
+
+    public static Movie createThreeDMovie(String movieTitle, MovieAgeRating movieAgeRating,MovieShowingStatus showingStatus,
+    ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration, double moviePrice){
+        String UUID = String.format("MV%03d", DatabaseHandler.generateUUID(Database.MOVIE));
+        Movie movie = new ThreeDMovie(UUID, movieTitle, movieAgeRating, showingStatus,
+        movieCast, movieDirector, movieSynopsis, movieDuration, moviePrice);
+        DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
+        return movie;
+    }
+
+
+
+
     public static void updateMovieTicketSold(Movie movie) {
         int ticket = movie.getMovieTicketsSold();
         ticket++;

@@ -10,29 +10,38 @@ import model.Child;
 import model.MovieGoer;
 import model.MovieReview;
 import model.SeniorCitizen;
+import model.Student;
 import model.Movie;
+import model.enums.MovieGoerAge;
+
 import handler.DatabaseHandler;
 
 public class MovieGoerManager {
 
-    public MovieGoer createMovieGoer(String ageGroup, int userID, String name, String email, String mobileNum,
-            int age) {
-        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.CINEMA));
-        MovieGoer goer;
-        switch (ageGroup) {
-            case ("Adult"):
-                goer = new Adult(UUID, name, email, mobileNum, age);
-                break;
-            case ("SeniorCitizen"):
-                goer = new SeniorCitizen(UUID, name, email, mobileNum, age);
-                break;
-            case ("Child"):
-                goer = new Child(UUID, name, email, mobileNum, age);
-                break;
-            default:
-                goer = new Adult(UUID, name, email, mobileNum, age);
+    public static MovieGoer createGoerAdult(MovieGoerAge age, int userID, String name, String email, String mobileNum){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new Adult(UUID, name, email, mobileNum);
+        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
+        return goer;
+    }
 
-        }
+    public static MovieGoer createGoerChild(MovieGoerAge age, int userID, String name, String email, String mobileNum){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new Child(UUID, name, email, mobileNum);
+        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
+        return goer;
+    }
+
+    public static MovieGoer createGoerSeniorCitizen(MovieGoerAge age, int userID, String name, String email, String mobileNum){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new SeniorCitizen(UUID, name, email, mobileNum);
+        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
+        return goer;
+    }
+
+    public static MovieGoer createGoerStudent(MovieGoerAge age, int userID, String name, String email, String mobileNum){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new Student(UUID, name, email, mobileNum);
         DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
         return goer;
     }
