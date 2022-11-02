@@ -1,5 +1,4 @@
-package models.staff;
-import models.movie.DateTime;
+package model;
 import java.util.*;
 
 public class HolidayDateTime extends DateTime{
