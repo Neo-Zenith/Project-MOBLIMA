@@ -5,63 +5,53 @@ import java.util.Collections;
 
 import database.Database;
 import model.Adult;
-import model.BookingHistory;
 import model.Child;
 import model.MovieGoer;
 import model.MovieReview;
 import model.SeniorCitizen;
-import model.Student;
 import model.Movie;
-import model.enums.MovieGoerAge;
-
 import handler.DatabaseHandler;
 
 public class MovieGoerManager {
 
-    public static MovieGoer createGoerAdult(MovieGoerAge age, int userID, String name, String email, String mobileNum){
-        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
-        MovieGoer goer = new Adult(UUID, name, email, mobileNum);
-        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
-        return goer;
-    }
+    public static MovieGoer createMovieGoer(String ageGroup, int userID, String name, String email, String mobileNum,
+            int age) {
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.CINEMA));
+        MovieGoer goer;
+        switch (ageGroup) {
+            case ("Adult"):
+                goer = new Adult(UUID, name, email, mobileNum, age);
+                break;
+            case ("SeniorCitizen"):
+                goer = new SeniorCitizen(UUID, name, email, mobileNum, age);
+                break;
+            case ("Child"):
+                goer = new Child(UUID, name, email, mobileNum, age);
+                break;
+            default:
+                goer = new Adult(UUID, name, email, mobileNum, age);
 
-    public static MovieGoer createGoerChild(MovieGoerAge age, int userID, String name, String email, String mobileNum){
-        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
-        MovieGoer goer = new Child(UUID, name, email, mobileNum);
-        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
-        return goer;
-    }
-
-    public static MovieGoer createGoerSeniorCitizen(MovieGoerAge age, int userID, String name, String email, String mobileNum){
-        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
-        MovieGoer goer = new SeniorCitizen(UUID, name, email, mobileNum);
-        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
-        return goer;
-    }
-
-    public static MovieGoer createGoerStudent(MovieGoerAge age, int userID, String name, String email, String mobileNum){
-        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
-        MovieGoer goer = new Student(UUID, name, email, mobileNum);
-        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
-        return goer;
-    }
-
-    public static void viewBookingHistory(MovieGoer movieGoer) {
-        for(int i = 0; i < movieGoer.getBookingHistory().size(); i++) {
-            BookingHistory bookingHistory = movieGoer.getBookingHistory().get(i);
-            System.out.println( i+1 + ": " + bookingHistory.getMovieTicket().getMovieToWatch());
-            System.out.println("Transaction ID: " +
-            bookingHistory.getPayment().getTransactionID());
-            System.out.println("Row: " + this.bookingHistory.get(i).getSeatRowID() + 
-            "Column: " + this.bookingHistory.get(i).getSeatColumnID());
-            System.out.println("Price: " + this.bookingHistory.get(i).getFinalPrice());
-        if (this.bookingHistory.get(i).getPaymentStatus() == false){
-        System.out.println("Not paid yet!");
         }
-        else{
-        System.out.println("Ticket paid");
-        }
-        }
+        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
+        return goer;
+    }
+
+    public static void viewBookingHistory() {
+        // for(int i = 0; i<this.bookingHistory.size(); i++){
+        // System.out.println( i+1 + ": " + this.bookingHistory.get(i).getMovieTitle());
+        // System.out.println("Cinema code: " +
+        // this.bookingHistory.get(i).getCinemaCode()); movie ticket
+        // System.out.println("Row: " + this.bookingHistory.get(i).getSeatRowID() + "
+        // Column: " + this.bookingHistory.get(i).getSeatColumnID());
+        // System.out.println("Price: " + this.bookingHistory.get(i).getFinalPrice());
+        // if(this.bookingHistory.get(i).getPaymentStatus() == false){
+        // System.out.println("Not paid yet!");
+        // }
+        // else{
+        // System.out.println("Ticket paid");
+        // }
+        // }
+        //uuid, payment
     }
 
     public static ArrayList<Movie> rankTop5(String choice) {
@@ -98,7 +88,6 @@ public class MovieGoerManager {
     public static void setUserMovieReview(Movie movie, MovieGoer goer, String movieTitle, String movieType,
             String review,
             double movieReviewRating) {
-        MovieManager manager = new MovieManager();
         for (int i = 0; i < Movie.movies.size(); i++) {
             Movie m;
             m = Movie.movies.get(i);
@@ -106,7 +95,7 @@ public class MovieGoerManager {
                 String UUID = String.format("MR%03d", DatabaseHandler.generateUUID(Database.MOVIE_REVIEW));
                 MovieReview newReview = new MovieReview(UUID, goer.getUUID(), movieTitle, movieType, review,
                         movieReviewRating);
-                manager.writeMovieReview(movie, newReview);
+                MovieManager.writeMovieReview(movie, newReview);
                 goer.getReviewHistory().add(newReview);
                 DatabaseManager.saveUpdateToDatabase(UUID, newReview, Database.MOVIE_REVIEW);
                 return;
@@ -125,5 +114,6 @@ public class MovieGoerManager {
         return null;
 
     }
+
 
 }

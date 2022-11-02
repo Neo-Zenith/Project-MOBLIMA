@@ -5,8 +5,84 @@ import java.util.Scanner;
 import controller.MovieGoerManager;
 import model.MovieGoer;
 import model.Movie;
+import handler.InputHandler;
 
-public class MovieGoerView {
+public class MovieGoerView extends MainView{
+    private MovieScheduleView msview;
+    
+    public MovieGoerView(){
+        // this.msview = new MovieScheduleView(null)
+    }
+
+    public void printMenu(){
+        System.out.println("====================================");
+        MainView.printBoilerPlate("""
+                1. List Movies
+                2. Search Movie
+                3. View Booking History
+                4. List Top 5 Movies
+                5. Logout
+                """);
+        System.out.println("====================================");
+    }
+
+    public void printMovieMenu(){
+        System.out.println("====================================");
+        MainView.printBoilerPlate("""
+                1. Check Seat Availability / Selection of Seats
+                2. Return
+                """);
+        System.out.println("====================================");
+    }
+
+    public void printBookingMenu(){
+        System.out.println("====================================");
+        MainView.printBoilerPlate("""
+                1. Book & Purchase Ticket
+                2. Return
+                """);
+        System.out.println("====================================");
+    }
+
+    public void appContent(){
+        int choice = -1;
+        do{
+            Scanner sc = new Scanner(System.in);
+            this.printMenu();
+            choice = InputHandler.intHandler();
+
+            switch(choice){
+                case 1:
+                    // need to display the list of movies and have it print out the cineplex, cinema, schedules
+                    // based on the UUID of the movie that you use the cinema to get the movieOnShow and the UUID of the movie
+                    break;
+                case 2:
+                    // get the movie UUID and return all the cineplex, schedules that match the UUID
+                    //function here
+                    
+                    this.printMovieMenu();
+                    int movieChoice = sc.nextInt();
+                    if(movieChoice == 1){
+                        //function here to display seats
+                        printBookingMenu();
+                        int bookingChoice = sc.nextInt();
+                        if(bookingChoice == 1){
+                            //booking function
+                        }
+                        break;
+                    }
+                    break;
+                case 3:
+                    //payment stuff
+                    break;
+                case 4:
+                    this.printTop5();
+                    break;
+
+            }
+        }while (choice != 5);
+    }
+
 
     public void printDetails(String name) {
 
@@ -18,11 +94,11 @@ public class MovieGoerView {
 
     public void printTop5() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("--------------");
+        System.out.println("--------------------");
         System.out.println("Choose 1 or 2");
         System.out.println("1. Rank by ticket sales");
         System.out.println("2. Rank by overall reviewers' ratings");
-        System.out.println("--------------");
+        System.out.println("--------------------");
 
         int choice = sc.nextInt();
         if (choice == 1) {
