@@ -29,7 +29,8 @@ public abstract class Movie implements Serializable {
 	public Movie(String UUID, String movieTitle, MovieAgeRating movieAgeRating,
 			MovieShowingStatus showingStatus,
 			ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration) {
-
+		
+		this.UUID = UUID;
 		this.movieTitle = movieTitle;
 		this.movieAgeRating = movieAgeRating;
 		this.movieShowingStatus = showingStatus;
@@ -43,11 +44,11 @@ public abstract class Movie implements Serializable {
 	}
 
 	public String getUUID() {
-		return UUID;
+		return this.UUID;
 	}
 
-	public void setUUID(String uUID) {
-		UUID = uUID;
+	public void setUUID(String UUID) {
+		this.UUID = UUID;
 	}
 
 	public static ArrayList<Movie> getMovies() {

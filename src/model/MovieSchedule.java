@@ -7,18 +7,18 @@ public class MovieSchedule implements Serializable {
 
     private String UUID;
     private Movie movieOnShow;
-    private ArrayList<Cinema> showingVenue;
-    private ArrayList<ArrayList<Seat>> seatingPlan;
-    private ArrayList<DateTime> showingTime;
+    private ArrayList <Cinema> showingVenue;
+    private ArrayList <ArrayList <Seat>> seatingPlan;
+    private ArrayList <DateTime> showingTime;
     private static final long serialVersionUID = 5L;
 
-    public MovieSchedule(String UUID, Movie movieOnShow, ArrayList<Cinema> showingVenue,
-            ArrayList<ArrayList<Seat>> seatingPlan, ArrayList<DateTime> showingTime) {
-        this.setUUID(UUID);
-        this.setMovieOnShow(movieOnShow);
-        this.setShowingVenues(showingVenue);
-        this.setSeatingPlan(seatingPlan);
-        this.setShowingTime(showingTime);
+    public MovieSchedule(String UUID, Movie movieOnShow, ArrayList <Cinema> showingVenue, 
+                        ArrayList <ArrayList <Seat>> seatingPlan, ArrayList <DateTime> showingTime) {
+            this.setUUID(UUID);
+            this.setMovieOnShow(movieOnShow);
+            this.setShowingVenues(showingVenue);
+            this.setSeatingPlan(seatingPlan);
+            this.setShowingTime(showingTime);
     }
 
     public String getUUID() {
@@ -64,12 +64,15 @@ public class MovieSchedule implements Serializable {
         this.seatingPlan.get(venueSlot).get(index).setAssignStatus(assign);
     }
 
-    public ArrayList<DateTime> getShowingTime() {
-        return showingTime;
+    public ArrayList <DateTime> getShowingTime() {
+        return this.showingTime;
     }
 
-    public void setShowingTime(ArrayList<DateTime> showingTime) {
+    public void setShowingTime(ArrayList <DateTime> showingTime) {
         this.showingTime = showingTime;
     }
 
+    public void addShowingTime(DateTime showingTime) {
+        this.showingTime.add(showingTime);
+    }
 }

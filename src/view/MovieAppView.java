@@ -2,23 +2,22 @@ package view;
 
 import database.Database;
 import handler.InputHandler;
+import model.MovieGoer;
+import controller.UserManager;
 
 public class MovieAppView extends MainView {
 
-    private DatabaseView dbView;
-    private CineplexView cpView;
+    private MovieGoerView movieGoerView;
+    private StaffView staffView;
 
-    public MovieAppView() {
-        this.dbView = new DatabaseView();
-        this.cpView = new CineplexView();
-    }
+    public MovieAppView() {}
     
     public void printMenu() {
         System.out.println("====================================");
         System.out.println("Welcome to MOBLIMA!");
         MainView.printBoilerPlate("""
-                1. Manage Database.
-                2. View Cineplexes.
+                1. Login.
+                2. Register.
                 3. Exit the program.
                 """);
     }
@@ -33,10 +32,24 @@ public class MovieAppView extends MainView {
 
             switch (choice) {
                 case 1:
-                    this.dbView.appContent();
+                    System.out.println("Please enter your username: ");
+                    String username = InputHandler.stringHandler();
+                    System.out.println("Please enter your password: ");
+                    String password = InputHandler.stringHandler();
+                    Object user = UserManager.login(username, password);
+                    if (user instanceof MovieGoer) {
+                        this.movieGoerView = new MovieGoerView();
+                        this.movieGoerView.appContent();
+                    }
+                    else if (user instanceof Staff) {
+                        this.staffView = new StaffView();
+                        this.staffView.appContent();
+                    }
+                    else {
+                        System.out.println("Error! Invalid username or password! Please try again!");
+                    }
                     break;
                 case 2:
-                    this.cpView.appContent();
                     break;
             }
         }   while (choice != 3);

@@ -9,6 +9,7 @@ import model.Movie;
 import model.MovieSchedule;
 import model.Seat;
 import model.Cinema;
+import model.enums.CinemaClass;
 import model.StandardSeat;
 import model.enums.SeatType;
 
@@ -23,7 +24,7 @@ public class SeatManager {
      * @return {@link Seat} object that was created
      */
     public static Seat createCoupleSeat(SeatType seatType, double seatPrice) {
-        String UUID = String.format("CS%04d", DatabaseHandler.generateUUID(Database.SEAT));
+        String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new CoupleSeat(UUID, seatType, false, seatPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
         return seat;
@@ -36,16 +37,16 @@ public class SeatManager {
      * @return {@link Seat} object that was created
      */
     public static Seat createStandardSeat(SeatType seatType, double seatPrice) {
-        String UUID = String.format("SS%04d", DatabaseHandler.generateUUID(Database.SEAT));
+        String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new StandardSeat(UUID, seatType, false, seatPrice);
         DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
         return seat;
     }
 
 
-    public static void printCinemaFloorMap(ArrayList <Seat> seatingPlan) {
+    public static void printStandardCinemaFloorMap(ArrayList <Seat> seatingPlan) {
+        System.out.println(seatingPlan.size());
         int totalNumOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
-
         int index = 0;
         System.out.print("    ");
         for (int i = 0; i < totalNumOfSeatsPerRow; i ++) {
@@ -107,14 +108,66 @@ public class SeatManager {
                 """);
     }
 
+
+    public static void printPlatinumCinemaFloorMap(ArrayList <Seat> seatingPlan) {
+        int totalNumOfSeatsPerRow = Database.platinumNumOfSeatsPerRow;
+        int numOfRows = Database.platinumNumOfRow;
+
+        int index = 0;
+        System.out.print("    ");
+        for (int i = 0; i < totalNumOfSeatsPerRow; i ++) {
+            if (i == totalNumOfSeatsPerRow / 2) {
+                System.out.print("      ");
+            }
+            System.out.print("[  " + String.format("%02d", i + 1) + " ]");
+        }
+
+        System.out.println(""); 
+        System.out.println(""); 
+
+        Character row = 'A';
+        for (int i = 0; i < numOfRows; i ++) {
+            System.out.print(row);
+            System.out.print("   ");
+            row ++;
+            for (int j = 0; j < totalNumOfSeatsPerRow; j ++) {
+                Seat seat = seatingPlan.get(index);
+                if (j == totalNumOfSeatsPerRow / 2) {
+                    System.out.print("      ");
+                }
+
+                if (seat.getAssignStatus()) {
+                    System.out.print("[  X  ]");
+                }
+                else {
+                    System.out.print("[     ]");
+                }
+                index ++;
+            }
+            System.out.println("");
+            System.out.println("");
+        }
+
+        System.out.println("");
+        System.out.println("""
+                          Screen                                  
+                """);  
+    }
+
     /**
      * Helper function to translate UI-presented seat ID into back-end seat ID for processing
      * bookings
      * @param seatID the UI-presented seatID
      * @return {@code int} back-end seatID
      */
-    public static int seatIDConverter(String seatID) {
-        int totalNumOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
+    public static int seatIDConverter(String seatID, Cinema cinema) {
+        int totalNumOfSeatsPerRow;
+        if (cinema.getCinemaClass() == CinemaClass.PLATINUM) {
+            totalNumOfSeatsPerRow = Database.platinumNumOfSeatsPerRow;
+        }
+        else {
+            totalNumOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
+        }
         char row = seatID.charAt(0);
         int rowConverted = row - 65;
         int colConverted = Integer.parseInt(seatID.substring(1));
@@ -144,9 +197,9 @@ public class SeatManager {
      * @return {@code true} if booking is successful; {@code false} otherwise
      */
     public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, Cinema cinema) {
-        int index = SeatManager.seatIDConverter(seatID);
+        int index = SeatManager.seatIDConverter(seatID, cinema);
 
-        int venueSlot = MovieScheduleManager.getShowingVenueByIndex(movieSchedule, cinema);
+        int venueSlot = MovieScheduleManager.getShowingVenueIndex(movieSchedule, cinema);
         ArrayList <Seat> seatingPlan = movieSchedule.getSeatingPlan().get(venueSlot);
 
         Seat seatToBook = seatingPlan.get(index);

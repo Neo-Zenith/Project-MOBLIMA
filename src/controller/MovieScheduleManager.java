@@ -27,10 +27,16 @@ public class MovieScheduleManager {
      *                     movie will play
      * @return {@link MovieSchedule} object that was instantiated
      */
-    public static MovieSchedule createMovieSchedule(Movie movieOnShow, ArrayList<Cinema> showingVenue,
-            ArrayList<ArrayList<Seat>> seatingPlan, DateTime showingTime) {
+    public static MovieSchedule createMovieSchedule(Movie movieOnShow, ArrayList <Cinema> showingVenue,
+                                                ArrayList <ArrayList <Seat>> seatingPlan, ArrayList <DateTime> showingTime) {
+
+        MovieSchedule movieSchedule = updateMovieSchedule(movieOnShow, showingVenue, showingTime); 
+        if (movieSchedule != null) {
+            return movieSchedule;
+        }
+
         String UUID = String.format("MS%03d", DatabaseHandler.generateUUID(Database.MOVIE_SCHEDULE));
-        MovieSchedule movieSchedule = new MovieSchedule(UUID, movieOnShow, showingVenue, seatingPlan, showingTime);
+        movieSchedule = new MovieSchedule(UUID, movieOnShow, showingVenue, seatingPlan, showingTime);
         DatabaseManager.saveUpdateToDatabase(UUID, movieSchedule, Database.MOVIE_SCHEDULE);
         return movieSchedule;
     }
@@ -39,29 +45,32 @@ public class MovieScheduleManager {
      * Method to update an existing {@link MovieSchedule}
      * 
      * @param movieOnShow the movie that is to be showed on the showing setting
-     * @param cinema      the cinema to be added into schedule
-     * @param showingTime {@link DateTime} object which tells the time when the
-     *                    movie will play
+     * @param cinema ArrayList of {@link Cinema} which tells the showing venue to be added into schedule
+     * @param showingTime ArrayList of {@link DateTime} object which tells the time when the movie will play for each showing venue
      * @return {@code true} if update is successful; {@code false} otherwise
      */
-    public static boolean updateMovieSchedule(Movie movieOnShow, Cinema cinema, DateTime showingTime) {
-        ArrayList<MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
-        ArrayList<String> movieSchedulesKeyList = Database.getKeyList(Database.MOVIE_SCHEDULE.keySet());
+    public static MovieSchedule updateMovieSchedule(Movie movieOnShow, ArrayList <Cinema> cinema, ArrayList <DateTime> showingTime) {
+        ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
 
         for (int i = 0; i < movieSchedules.size(); i++) {
             MovieSchedule movieSchedule = movieSchedules.get(i);
-            if (movieSchedule.getMovieOnShow() == movieOnShow && movieSchedule.getShowingTime() == showingTime) {
-                if (movieSchedule.getShowingVenues().contains(cinema)) {
-                    return false;
-                } else {
-                    String UUID = movieSchedulesKeyList.get(i);
-                    movieSchedule.addShowingVenue(cinema);
-                    DatabaseManager.saveUpdateToDatabase(UUID, movieSchedule, Database.MOVIE_SCHEDULE);
-                    return true;
+            if (movieSchedule.getMovieOnShow().getUUID().contains(movieOnShow.getUUID())) {
+                for (int j = 0; j < showingTime.size(); j ++) {
+                    int index1 = movieSchedule.getShowingVenues().indexOf(cinema.get(j));
+                    int index2 = movieSchedule.getShowingTime().indexOf(showingTime.get(j));
+                    if (index1 != -1 || index2 != -1) {
+                        movieSchedule.getShowingVenues().set(index1, cinema.get(j));
+                        movieSchedule.getShowingTime().set(index2, showingTime.get(j));
+                    }
+                    else {
+                        movieSchedule.addShowingTime(showingTime.get(j));
+                        movieSchedule.addShowingVenue(cinema.get(j));
+                    }
                 }
+                return movieSchedule;
             }
         }
-        return false;
+        return null;
     }
 
     /**
