@@ -3,12 +3,13 @@ package view;
 import database.Database;
 import handler.InputHandler;
 import model.MovieGoer;
+import model.CinemaStaff;
 import controller.UserManager;
 
 public class MovieAppView extends MainView {
 
     private MovieGoerView movieGoerView;
-    private StaffView staffView;
+    private StaffSystemConfig staffView;
 
     public MovieAppView() {}
     
@@ -41,8 +42,8 @@ public class MovieAppView extends MainView {
                         this.movieGoerView = new MovieGoerView();
                         this.movieGoerView.appContent();
                     }
-                    else if (user instanceof Staff) {
-                        this.staffView = new StaffView();
+                    else if (user instanceof CinemaStaff) {
+                        this.staffView = new StaffSystemConfig();
                         this.staffView.appContent();
                     }
                     else {

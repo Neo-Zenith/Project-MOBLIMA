@@ -57,10 +57,10 @@ public class PaymentView {
                 this.payment = PaymentManager.createCardPayment(transactionID, movieTicketPrice);
 
                 System.out.println("Enter Card Number:");
-                cardNumber = InputHandler.StringHandler();
+                cardNumber = InputHandler.stringHandler();
                 while(cardNumber == null){
                     System.out.println("Please Re-Enter Card Number:");
-                    cardNumber = InputHandler.StringHandler();
+                    cardNumber = InputHandler.stringHandler();
                 }
 
                 System.out.println("Enter CCV:");

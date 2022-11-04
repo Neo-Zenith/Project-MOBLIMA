@@ -39,4 +39,7 @@ public class ThreeDMovie extends Movie {
         return this.type;
     }
 
+    public void setMovieType(MovieType type) {
+        this.type = type;
+    }
 }

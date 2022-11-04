@@ -112,7 +112,7 @@ public class MovieScheduleManager {
         return filteredSchedules;
     }
 
-    public static int getShowingVenueByIndex(MovieSchedule movieSchedule, Cinema cinema) {
+    public static int getShowingVenueIndex(MovieSchedule movieSchedule, Cinema cinema) {
         for (int i = 0; i < movieSchedule.getShowingVenues().size(); i++) {
             if (movieSchedule.getShowingVenues().get(i).getUUID().contains(cinema.getUUID())) {
                 return i;

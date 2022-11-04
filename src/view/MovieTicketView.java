@@ -6,6 +6,7 @@ import controller.MovieTicketManager;
 import controller.CineplexManager;
 import model.Cineplex;
 import model.Movie;
+import model.enums.MovieType;
 import model.Cinema;
 import model.DateTime;
 import model.Seat;
@@ -54,7 +55,7 @@ public class MovieTicketView {
         DateTime dateTime = movieTicketList.get(0).getShowTime();
 
         String movieName = movie.getMovieTitle();
-        String movieType = movie.getMovieType();
+        MovieType movieType = movie.getMovieType();
         CinemaClass cinemaClass = cinema.getCinemaClass();
         String cinemaId = cinema.getUUID();
         int date = dateTime.getDate();

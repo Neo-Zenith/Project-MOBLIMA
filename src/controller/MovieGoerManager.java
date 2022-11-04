@@ -40,7 +40,7 @@ public class MovieGoerManager {
     
     public static MovieGoer createGoerStudent(MovieGoerAge age, String name, String email, String mobileNum, String username, String password){
         String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
-        MovieGoer goer = new Student(UUID, name, email, mobileNum, usernamem, password);
+        MovieGoer goer = new Student(UUID, name, email, mobileNum, username, password);
         DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
         return goer;
     }
@@ -62,12 +62,21 @@ public class MovieGoerManager {
             }
     }
 
-    public static ArrayList<Movie> rankTop5(String choice) {
+    public static void rankTop5(String choice, boolean staff) {
 
+        if(!staff){
+            if(!MovieGoer.getViewTop5MovieSales()){
+                System.out.println("Ranking by Top 5 Movie Sales is unavailable");
+                return; 
+            }
+
+            if(!MovieGoer.getViewTop5OverallRatings()){
+                System.out.println("Ranking by Top 5 Overall Sales is unavailable");
+                return;
+            }
+        }
         if (Movie.movies.size() <= 1) {
-            System.out.println(
-                    "1. " + Movie.movies.get(0).getMovieTitle() + " [" + Movie.movies.get(0).getMovieType() + "]");
-            return Movie.movies;
+            return;
         }
         switch (choice) {
             case "ticket":
@@ -89,7 +98,7 @@ public class MovieGoerManager {
                     }
                 }
         }
-        return Movie.movies;
+        return;
 
     }
 

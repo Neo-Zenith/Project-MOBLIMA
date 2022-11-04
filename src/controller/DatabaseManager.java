@@ -92,20 +92,20 @@ public class DatabaseManager {
             case 0:
                 // Data 1
                 cinemaClass = CinemaClass.STANDARD;
-                cinemaPrice = Database.defaultStandardCinemaPrice;
+                cinemaPrice = Database.PRICES.getDefaultStandardCinemaPrice();
                 seats = initializeSeatData(cinemaClass);
                 return CinemaManager.createStandardCinema(cinemaClass, cinemaPrice, seats);
             case 1:
                 // Data 2
                 cinemaClass = CinemaClass.IMAX;
-                cinemaPrice = Database.defaultIMaxCinemaPrice;
+                cinemaPrice = Database.PRICES.getDefaultIMaxCinemaPrice();
                 seats = initializeSeatData(cinemaClass);
                 return CinemaManager.createIMaxCinema(cinemaClass, cinemaPrice, seats);
 
             case 2:
                 // Data 3
                 cinemaClass = CinemaClass.PLATINUM;
-                cinemaPrice = Database.defautltPlatinumCinemaPrice;
+                cinemaPrice = Database.PRICES.getDefaultPlatinumCinemaPrice();
                 seats = initializeSeatData(cinemaClass);
                 return CinemaManager.createPlatinumCinema(cinemaClass, cinemaPrice, seats);
         }
