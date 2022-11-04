@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.enums.MovieAgeRating;
+import model.enums.MovieType;
 import model.enums.MovieShowingStatus;
 
 public abstract class Movie implements Serializable {
 	public static ArrayList<Movie> movies = new ArrayList<>();
 	private String UUID;
 	private String movieTitle;
-	private String movieType;
 	private MovieShowingStatus movieShowingStatus;
 	private String movieSynopsis;
 	private String movieDirector;
@@ -20,20 +20,18 @@ public abstract class Movie implements Serializable {
 	private MovieAgeRating movieAgeRating;
 	private double movieDuration;
 	private int movieTicketsSold;
-	protected double moviePrice;
 	private final static long serialVersionUID = 8L;
 
 	public Movie() {
 		movies.add(this);
 	}
 
-	public Movie(String UUID, String movieTitle, String movieType, MovieAgeRating movieAgeRating,
+	public Movie(String UUID, String movieTitle, MovieAgeRating movieAgeRating,
 			MovieShowingStatus showingStatus,
 			ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration) {
 		
 		this.UUID = UUID;
 		this.movieTitle = movieTitle;
-		this.movieType = movieType;
 		this.movieAgeRating = movieAgeRating;
 		this.movieShowingStatus = showingStatus;
 		this.movieCast = movieCast;
@@ -67,14 +65,6 @@ public abstract class Movie implements Serializable {
 
 	public void setMovieTitle(String movieTitle) {
 		this.movieTitle = movieTitle;
-	}
-
-	public String getMovieType() {
-		return movieType;
-	}
-
-	public void setMovieType(String movieType) {
-		this.movieType = movieType;
 	}
 
 	public MovieShowingStatus getMovieShowingStatus() {
@@ -149,12 +139,11 @@ public abstract class Movie implements Serializable {
 		this.movieTicketsSold = movieTicketsSold;
 	}
 
-	public double getMoviePrice() {
-		return moviePrice;
-	}
+	public abstract double getMoviePrice();
 
-	public void setMoviePrice(double moviePrice) {
-		this.moviePrice = moviePrice;
-	}
+	public abstract void setMoviePrice(double price);
 
+	public abstract MovieType getMovieType();
+
+	public abstract void setMovieType(MovieType movieType);
 }

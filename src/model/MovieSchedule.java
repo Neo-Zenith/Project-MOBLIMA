@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MovieSchedule implements Serializable {
-    
+
     private String UUID;
     private Movie movieOnShow;
     private ArrayList <Cinema> showingVenue;
@@ -37,11 +37,11 @@ public class MovieSchedule implements Serializable {
         this.movieOnShow = movieOnShow;
     }
 
-    public ArrayList <Cinema> getShowingVenues() {
+    public ArrayList<Cinema> getShowingVenues() {
         return this.showingVenue;
     }
 
-    public void setShowingVenues(ArrayList <Cinema> showingVenue) {
+    public void setShowingVenues(ArrayList<Cinema> showingVenue) {
         this.showingVenue = showingVenue;
     }
 
@@ -49,16 +49,16 @@ public class MovieSchedule implements Serializable {
         this.showingVenue.add(cinema);
     }
 
-    public ArrayList <ArrayList <Seat>> getSeatingPlan() {
+    public ArrayList<ArrayList<Seat>> getSeatingPlan() {
         return this.seatingPlan;
     }
 
-    public void setSeatingPlan(ArrayList <ArrayList <Seat>> seatingPlan) {
+    public void setSeatingPlan(ArrayList<ArrayList<Seat>> seatingPlan) {
         this.seatingPlan = seatingPlan;
     }
 
     public void setSeatStatus(int venueSlot, Seat seat, boolean assign) {
-        ArrayList <Seat> seats = this.seatingPlan.get(venueSlot);
+        ArrayList<Seat> seats = this.seatingPlan.get(venueSlot);
 
         int index = seats.indexOf(seat);
         this.seatingPlan.get(venueSlot).get(index).setAssignStatus(assign);

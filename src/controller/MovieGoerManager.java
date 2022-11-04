@@ -5,34 +5,42 @@ import java.util.Collections;
 
 import database.Database;
 import model.Adult;
-import model.BookingHistory;
 import model.Child;
 import model.MovieGoer;
 import model.MovieReview;
 import model.SeniorCitizen;
 import model.Movie;
+import model.BookingHistory;
+import model.Student;
 import handler.DatabaseHandler;
+import model.enums.MovieGoerAge;
 
 public class MovieGoerManager {
 
-    public MovieGoer createMovieGoer(String ageGroup, int userID, String name, String email, String mobileNum,
-            int age, String username, String password) {
-        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.CINEMA));
-        MovieGoer goer;
-        switch (ageGroup) {
-            case ("Adult"):
-                goer = new Adult(UUID, name, email, mobileNum, age, username, password);
-                break;
-            case ("SeniorCitizen"):
-                goer = new SeniorCitizen(UUID, name, email, mobileNum, age, username, password);
-                break;
-            case ("Child"):
-                goer = new Child(UUID, name, email, mobileNum, age, username, password);
-                break;
-            default:
-                goer = new Adult(UUID, name, email, mobileNum, age, username, password);
+    public static MovieGoer createGoerAdult(MovieGoerAge age, String name, String email, String mobileNum, String username, String password){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new Adult(UUID, name, email, mobileNum, username, password);
+        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
+        return goer;
+    }
 
-        }
+    public static MovieGoer createGoerChild(MovieGoerAge age, String name, String email, String mobileNum, String username, String password){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new Child(UUID, name, email, mobileNum, username, password);
+        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
+        return goer;
+    }
+
+    public static MovieGoer createGoerSeniorCitizen(MovieGoerAge age, String name, String email, String mobileNum, String username, String password){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new SeniorCitizen(UUID, name, email, mobileNum, username, password);
+        DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
+        return goer;
+    }
+    
+    public static MovieGoer createGoerStudent(MovieGoerAge age, String name, String email, String mobileNum, String username, String password){
+        String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
+        MovieGoer goer = new Student(UUID, name, email, mobileNum, username, password);
         DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
         return goer;
     }
@@ -46,21 +54,29 @@ public class MovieGoerManager {
             System.out.println("Row: " + this.bookingHistory.get(i).getSeatRowID() + 
             "Column: " + this.bookingHistory.get(i).getSeatColumnID());
             System.out.println("Price: " + this.bookingHistory.get(i).getFinalPrice());
-        if (this.bookingHistory.get(i).getPaymentStatus() == false){
-        System.out.println("Not paid yet!");
-        }
-        else{
-        System.out.println("Ticket paid");
-        }
-        }
+            if (this.bookingHistory.get(i).getPaymentStatus() == false){
+            	System.out.println("Not paid yet!");
+            }
+            else{
+            	System.out.println("Ticket paid");
+            }
     }
 
-    public static ArrayList<Movie> rankTop5(String choice) {
+    public static void rankTop5(String choice, boolean staff) {
 
+        if(!staff){
+            if(!MovieGoer.getViewTop5MovieSales()){
+                System.out.println("Ranking by Top 5 Movie Sales is unavailable");
+                return; 
+            }
+
+            if(!MovieGoer.getViewTop5OverallRatings()){
+                System.out.println("Ranking by Top 5 Overall Sales is unavailable");
+                return;
+            }
+        }
         if (Movie.movies.size() <= 1) {
-            System.out.println(
-                    "1. " + Movie.movies.get(0).getMovieTitle() + " [" + Movie.movies.get(0).getMovieType() + "]");
-            return Movie.movies;
+            return;
         }
         switch (choice) {
             case "ticket":
@@ -82,7 +98,7 @@ public class MovieGoerManager {
                     }
                 }
         }
-        return Movie.movies;
+        return;
 
     }
 
@@ -116,5 +132,6 @@ public class MovieGoerManager {
         return null;
 
     }
+
 
 }

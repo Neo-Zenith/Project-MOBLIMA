@@ -3,11 +3,13 @@ package view;
 import database.Database;
 import handler.InputHandler;
 import model.MovieGoer;
+import model.CinemaStaff;
+import controller.UserManager;
 
 public class MovieAppView extends MainView {
 
     private MovieGoerView movieGoerView;
-    private StaffView staffView;
+    private StaffSystemConfig staffView;
 
     public MovieAppView() {}
     
@@ -32,16 +34,16 @@ public class MovieAppView extends MainView {
             switch (choice) {
                 case 1:
                     System.out.println("Please enter your username: ");
-                    String username = InputHandler.StringHandler();
+                    String username = InputHandler.stringHandler();
                     System.out.println("Please enter your password: ");
-                    String password = InputHandler.StringHandler();
+                    String password = InputHandler.stringHandler();
                     Object user = UserManager.login(username, password);
                     if (user instanceof MovieGoer) {
                         this.movieGoerView = new MovieGoerView();
                         this.movieGoerView.appContent();
                     }
-                    else if (user instanceof Staff) {
-                        this.staffView = new StaffView();
+                    else if (user instanceof CinemaStaff) {
+                        this.staffView = new StaffSystemConfig();
                         this.staffView.appContent();
                     }
                     else {

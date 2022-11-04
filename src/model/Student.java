@@ -2,13 +2,13 @@ package model;
 
 import model.enums.MovieGoerAge;
 
-public class SeniorCitizen extends MovieGoer {
+public class Student extends MovieGoer {
     private MovieGoerAge age;
     private double price;
 
-    public SeniorCitizen(String UUID, String name, String email, String mobileNum, String username, String password) {
+    public Student(String UUID, String name, String email, String mobileNum, String username, String password) {
         super(UUID, name, email, mobileNum, username, password);
-        this.age = MovieGoerAge.SeniorCitizen;
+        this.age = MovieGoerAge.Student;
         this.price = 2.00;
     }
 
