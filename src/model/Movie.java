@@ -145,7 +145,5 @@ public abstract class Movie implements Serializable {
 
 	public abstract MovieType getMovieType();
 
-	public void setMovieType(MovieType movieType){
-		this.movieType = 
-	}
+	public abstract void setMovieType(MovieType movieType);
 }

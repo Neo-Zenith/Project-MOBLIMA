@@ -2,7 +2,9 @@ package view;
 
 import handler.InputHandler;
 import java.util.ArrayList;
-import model.Movie
+import model.Movie;
+import database.Database;
+import model.MovieSchedule;
 
 public class StaffMovieDetailsView {
     private StaffConfigureMovieView staffConfigureMovieView;

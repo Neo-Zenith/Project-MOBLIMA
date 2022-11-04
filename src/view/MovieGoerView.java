@@ -165,9 +165,9 @@ public class MovieGoerView extends MainView {
 
         int choice = sc.nextInt();
         if (choice == 1) {
-            MovieGoerManager.rankTop5("ticket");
+            MovieGoerManager.rankTop5("ticket",  false);
         } else if (choice == 2) {
-            MovieGoerManager.rankTop5("ratings");
+            MovieGoerManager.rankTop5("ratings", false);
         }
 
         if (choice == 1) {

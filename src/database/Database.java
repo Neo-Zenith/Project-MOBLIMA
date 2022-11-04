@@ -99,6 +99,8 @@ public class Database {
     public static ArrayList <DateTime> holidays = new ArrayList<>();
     public static Prices PRICES;
 
+    public static int platinumNumOfRow = 4;
+    public static int platinumNumOfSeatsPerRow = 6;
     /**
      * Root path to the database
      */
