@@ -145,6 +145,10 @@ public class Database {
         else if (! readData(ModelType.MOVIE_TICKET)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE_TICKET + " failed!");
         }
+        else if (!readData(ModelType.PRICES)){
+            System.out.println("Error! Reading of data " + ModelType.PRICES + "failed");
+        }
+
     }
 
     /**

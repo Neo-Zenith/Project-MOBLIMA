@@ -4,6 +4,7 @@ import handler.InputHandler;
 import controller.CinemaStaffManager;
 
 public class StaffConfigPermissionsView {
+    private StaffConfigSettingsView staffConfigSettingsView;
     public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
@@ -21,11 +22,23 @@ public class StaffConfigPermissionsView {
             this.printMenu();
             choice = InputHandler.intHandler();
             CinemaStaffManager.optOutOne(choice);
-            if (choice == 1){
-                System.out.println("Movie goer can no longer view top 5 based on overall ratings.");       
-            }
-            else {
-                System.out.println("Movie goer can no longer view top 5 based on movie sales.");       
+            switch(choice){
+                case 1:
+                    System.out.println("Movie goer can no longer view top 5 based on overall ratings.");      
+                break;
+                
+                case 2:
+                    System.out.println("Movie goer can no longer view top 5 based on overall ratings.");      
+                break;
+                
+                case 3:
+                    this.staffConfigSettingsView = new StaffConfigSettingsView();
+                    this.staffConfigSettingsView.appContent();
+                break;
+
+                default:
+                    System.out.println("Invalid choice");
+                break;
             }
         }   while (choice != 3);
     }

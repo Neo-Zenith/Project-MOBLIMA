@@ -120,7 +120,7 @@ public class DatabaseManager {
      */
     public static ArrayList <Seat> initializeSeatData(CinemaClass cinemaClass) {
         SeatType seatType;
-        double seatPrice = Database.defaultSeatPrice;;
+        double seatPrice = Database.defaultSeatPrice;
         int numOfSeatsPerRow;
         ArrayList <Seat> seats = new ArrayList<>();
 

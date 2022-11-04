@@ -72,6 +72,8 @@ public class MovieSchedule implements Serializable {
         this.showingTime = showingTime;
     }
 
+    
+
     public void addShowingTime(DateTime showingTime) {
         this.showingTime.add(showingTime);
     }

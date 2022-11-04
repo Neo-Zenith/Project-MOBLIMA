@@ -3,6 +3,7 @@ package view;
 import handler.InputHandler;
 
 public class StaffConfigSettingsView {
+    private StaffSystemConfig staffSystemConfig;
     private StaffConfigPriceView staffConfigPriceView;
     private StaffConfigHolidayView staffConfigHolidayView;
     private StaffConfigPermissionsView staffConfigPermissionsView;
@@ -38,6 +39,13 @@ public class StaffConfigSettingsView {
                     this.staffConfigPermissionsView = new StaffConfigPermissionsView();
                     this.staffConfigPermissionsView.appContent();
                     break;
+                case 4:
+                    this.staffSystemConfig = new StaffSystemConfig();
+                    this.staffSystemConfig.appContent();
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                break;
             }
         }   while (choice != 4);
     }
