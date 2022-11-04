@@ -44,6 +44,8 @@ public class MovieMenuView {
                 case 3:
                     break;
                 case 4:
+                    MovieListRankingView rank = new MovieListRankingView();
+                    rank.appContent();
                     break;
 
             }
