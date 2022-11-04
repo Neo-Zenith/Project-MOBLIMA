@@ -2,6 +2,7 @@ package view;
 
 import model.Cinema;
 import model.Cineplex;
+import model.enums.CinemaClass;
 import model.*;
 
 import java.util.ArrayList;
@@ -9,27 +10,31 @@ import java.util.ArrayList;
 import controller.CinemaManager;
 import handler.InputHandler;
 
-public class CinemaView extends MainView{
+public class CinemaView extends MainView {
     private Movie movie;
     private Cineplex cineplex;
-    private ArrayList <Cinema> listOfCinemas;
+    private ArrayList<Cinema> listOfCinemaClass;
     private MovieScheduleView movieScheduleView;
     private MovieGoer movieGoer;
 
     public CinemaView(Cineplex cineplex, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cineplex = cineplex;
-        this.listOfCinemas = CinemaManager.filterCinemaByCineplexMovie(cineplex, movie);
+        this.listOfCinemaClass = CinemaManager.filterCinemaByCineplexMovie(cineplex, movie);
         this.movieGoer = movieGoer;
     }
-    
+
     public void printCinemas() {
+        ArrayList<CinemaClass> existingClass = new ArrayList<CinemaClass>();
         System.out.println("====================================");
-        for (int i = 0; i < this.listOfCinemas.size(); i ++) {
-            Cinema cinema = this.listOfCinemas.get(i);
-            System.out.println((i+1) + ". " + cinema.getCinemaClass());
+        for (int i = 0; i < this.listOfCinemaClass.size(); i++) {
+            Cinema cinema = this.listOfCinemaClass.get(i);
+            if (!existingClass.contains(cinema.getCinemaClass())) {
+                existingClass.add(cinema.getCinemaClass());
+                System.out.println((i + 1) + ". " + cinema.getCinemaClass());
+            }
         }
-        System.out.println((this.listOfCinemas.size()+1) + ". Return");
+        System.out.println((this.listOfCinemaClass.size() + 1) + ". Return");
     }
 
     public void printMenu() {
@@ -40,24 +45,24 @@ public class CinemaView extends MainView{
     public void appContent() {
         int choice = -1;
         this.printCinemas();
-        do{
+        do {
             this.printMenu();
             choice = InputHandler.intHandler();
-            while(choice<0 || choice >this.listOfCinemas.size()+1){
+            while (choice < 0 || choice > this.listOfCinemaClass.size() + 1) {
                 System.out.println("Please enter a valid input");
                 choice = InputHandler.intHandler();
             }
-            if (choice == this.listOfCinemas.size()+1){
+            if (choice == this.listOfCinemaClass.size() + 1) {
                 return;
             }
 
-            this.movieScheduleView = new MovieScheduleView(listOfCinemas.get(choice-1), this.movie, this.movieGoer);
+            this.movieScheduleView = new MovieScheduleView(listOfCinemaClass, this.movie, this.movieGoer);
             this.movieScheduleView.appContent();
 
-            if(MovieMenuView.exit){
+            if (MovieMenuView.exit) {
                 return;
             }
-        }while(choice>0 && choice<=this.listOfCinemas.size());
-        
+        } while (choice > 0 && choice <= this.listOfCinemaClass.size());
+
     }
 }

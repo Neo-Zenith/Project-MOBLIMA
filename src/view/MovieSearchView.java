@@ -34,7 +34,7 @@ public class MovieSearchView extends MainView {
             if (movieTitle.equals("1")) {
                 return;
             }
-            ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+            ArrayList<Movie> movies = Database.getValueList(Database.MOVIE.values());
             for (int i = 0; i < movies.size(); i++) {
                 if (movies.get(i).getMovieTitle().equals(movieTitle)) {
                     this.movieTitle = movieTitle;
@@ -43,8 +43,8 @@ public class MovieSearchView extends MainView {
                 }
             }
             if (available) {
-                MovieTypeView typeView = new MovieTypeView(movieTitle, movieGoer);
-                typeView.appContent();
+                MovieDetailsView detailsView = new MovieDetailsView(movieTitle, movieGoer);
+                detailsView.appContent();
             } else {
                 System.out.println("This movie is not available.");
             }
