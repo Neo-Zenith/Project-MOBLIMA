@@ -16,6 +16,7 @@ public class StaffSystemConfig extends MainView{
                 3. List Top 5
                 4. Logout
                 """);
+        System.out.println("====================================");
         }
     
     public void appContent(){
@@ -24,10 +25,6 @@ public class StaffSystemConfig extends MainView{
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-
-            if (choice == 4){
-                System.out.println("Loggin out of MOBLIMA (STAFF)....");
-            }
 
             switch(choice){
                 case 1:
