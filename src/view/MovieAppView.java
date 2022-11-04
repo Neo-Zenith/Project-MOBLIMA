@@ -26,6 +26,8 @@ public class MovieAppView extends MainView {
     public void appContent() {
         int choice = -1;
         Database db = new Database();
+        String username;
+        String password;
 
         do {
             this.printMenu();
@@ -34,9 +36,9 @@ public class MovieAppView extends MainView {
             switch (choice) {
                 case 1:
                     System.out.println("Please enter your username: ");
-                    String username = InputHandler.stringHandler();
+                    username = InputHandler.stringHandler();
                     System.out.println("Please enter your password: ");
-                    String password = InputHandler.stringHandler();
+                    password = InputHandler.stringHandler();
                     Object user = UserManager.login(username, password);
                     if (user instanceof MovieGoer) {
                         this.movieGoerView = new MovieGoerView();
@@ -51,6 +53,15 @@ public class MovieAppView extends MainView {
                     }
                     break;
                 case 2:
+                    while (true) {
+                        System.out.println("Please enter a unique username");
+                        username = InputHandler.stringHandler();
+                        System.out.println("Please enter a password");
+                        password = InputHandler.stringHandler();
+                        if (UserManager.checkUniqueUser(username)) {
+                            break;
+                        }
+                    }
                     break;
             }
         }   while (choice != 3);

@@ -1,47 +1,41 @@
 package view;
 
-import java.util.ArrayList;
-
+import model.MovieSchedule;
 import controller.MovieScheduleManager;
 import model.Cinema;
-import model.Seat;
-import model.MovieSchedule;
-import handler.InputHandler;
+import model.Movie;
+
+import java.util.ArrayList;
 
 public class MovieScheduleView {
-    private ArrayList <MovieSchedule> movieSchedules;
+    private Movie movie;
     private Cinema cinema;
-    private SeatingPlanView seatingPlanView;
+    private MovieSchedule movieSchedule;
 
-    public MovieScheduleView(Cinema cinema) {
+    public MovieScheduleView(Cinema cinema, Movie movie) {
+        this.movie = movie;
         this.cinema = cinema;
+        this.movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
     }
     
+    public void printMovieSchedule() {
+        ArrayList <Cinema> showingVenues = this.movieSchedule.getShowingVenues();
+        for (int i = 0; i < showingVenues.size(); i ++) {
+            Cinema showingVenue = showingVenues.get(i);
+
+            if (showingVenue.getUUID().equals(this.cinema.getUUID())) {
+
+            }
+        }
+
+    }
+
     public void printMenu() {
-        System.out.println("====================================");
-        System.out.println("Viewing all schedules under " + this.cinema.getUUID());
-        this.movieSchedules = MovieScheduleManager.printMovieSchedule(this.cinema);
-        System.out.println(this.movieSchedules.size() + 1 + ". Return back.");
-        MainView.printBoilerPlate("""
-                Select one of the schedules to enquire about booking matters.
-                """);
+        MainView.printBoilerPlate("Please select a cinema to view the movie schedule: ");
         System.out.println("====================================");
     }
 
     public void appContent() {
-        int choice = -1;
-        do {
-            this.printMenu();
-            choice = InputHandler.intHandler();
-            if (choice > this.movieSchedules.size() || choice < 0) {
-                break;
-            }
-            MovieSchedule movieSchedule = this.movieSchedules.get(choice - 1);
-            int index = MovieScheduleManager.getShowingVenueIndex(movieSchedule, cinema);
-            ArrayList <Seat> seatingPlan = this.movieSchedules.get(choice - 1).getSeatingPlan().get(index);
-            this.seatingPlanView = new SeatingPlanView(movieSchedule, cinema, seatingPlan);
-            this.seatingPlanView.appContent();
-
-        }   while (choice <= this.movieSchedules.size() && choice > 0);
+        this.printMenu();
     }
 }

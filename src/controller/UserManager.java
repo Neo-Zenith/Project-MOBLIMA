@@ -27,4 +27,28 @@ public class UserManager {
         }
         return null;
     }
+
+    
+    public static boolean checkUniqueUser(String username) {
+        ArrayList <CinemaStaff> cinemaStaffList = Database.getValueList(Database.CINEMA_STAFF.values());
+        ArrayList <MovieGoer> movieGoerList = Database.getValueList(Database.MOVIE_GOER.values());
+
+        for (int i = 0; i < cinemaStaffList.size(); i ++) {
+            CinemaStaff cinemaStaff = cinemaStaffList.get(i);
+
+            if (cinemaStaff.getUsername().equals(username)) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < movieGoerList.size(); i ++) {
+            MovieGoer movieGoer = movieGoerList.get(i);
+
+            if (movieGoer.getUsername().equals(username)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

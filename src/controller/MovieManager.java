@@ -70,22 +70,27 @@ public class MovieManager {
         movie.setMovieOverallReviewRating(overallRating / movie.getMovieReviews().size());
     }
 
+
     public static void writeMovieReview(Movie movie, MovieReview newReview) {
         movie.getMovieReviews().add(newReview);
     }
 
-    public static ArrayList<Cineplex> getCineplexesByMovie(MovieSchedule schedule) {
-        ArrayList<Cineplex> filteredCineplex = new ArrayList<>();
-        ArrayList<Cineplex> cineplexList = Database.getValueList(Database.CINEPLEX.values());
-        for (int i = 0; i < cineplexList.size(); i++) {
-            ArrayList<Cinema> cinemaList = cineplexList.get(i).getCinemas();
-            for (int j = 0; j < cinemaList.size(); j++) {
-                if (cinemaList.get(j).getUUID().equals(schedule.getMovieOnShow().getUUID())) {
-                    filteredCineplex.add(cineplexList.get(j));
-                }
-            }
-        }
-        return filteredCineplex;
+
+    public static ArrayList <Movie> getAllMovieList() {
+        return Database.getValueList(Database.MOVIE.values());
     }
 
+    public static ArrayList <Movie> getMovieList(Movie movie) {
+        ArrayList <Movie> movies = new ArrayList<>();
+        ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
+
+        for (int i = 0; i < movieSchedules.size(); i++) {
+            MovieSchedule movieSchedule = movieSchedules.get(i);
+            Movie _movie = movieSchedule.getMovieOnShow();
+            if (_movie.getMovieTitle().equals(movie.getMovieTitle())) {
+                movies.add(_movie);
+            }
+        }
+        return movies;
+    }
 }
