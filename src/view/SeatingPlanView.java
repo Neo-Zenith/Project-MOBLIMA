@@ -49,7 +49,7 @@ public class SeatingPlanView {
         System.out.println("====================================");
     }
 
-    public void appContent(Movie movieSelected) {
+    public void appContent() {
 
         int choice = -1;
         ArrayList<String> seatIDList = new ArrayList<String>();
@@ -101,7 +101,8 @@ public class SeatingPlanView {
                     this.paymentView = new PaymentView();
                     this.paymentCreated = this.paymentView.createPayment(cinemaCode, totalMovieTicketPrice);
                     this.movieTicketView = new MovieTicketView();
-                    this.movieTicketListCreated = this.movieTicketView.createMovieTicketList(seatIDList, movieSelected, this.movieSchedule.getShowingTime().get(index), this.seatBooked, this.cinema, totalMovieTicketPrice);
+                    Movie movie = this.movieSchedule.getMovieOnShow();
+                    this.movieTicketListCreated = this.movieTicketView.createMovieTicketList(seatIDList, movie, this.movieSchedule.getShowingTime().get(index), this.seatBooked, this.cinema, totalMovieTicketPrice);
                     this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated, this.paymentCreated);
 
                     System.out.println("Your Booking History has been saved!");

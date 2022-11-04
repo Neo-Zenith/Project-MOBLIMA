@@ -42,7 +42,8 @@ public class MovieAppView extends MainView {
                     password = InputHandler.stringHandler();
                     Object user = UserManager.login(username, password);
                     if (user instanceof MovieGoer) {
-                        MovieMenuView menu = new MovieMenuView();
+                        MovieGoer movieGoer = (MovieGoer) user;
+                        MovieMenuView menu = new MovieMenuView(movieGoer);
                         menu.appContent();
                     } else if (user instanceof CinemaStaff) {
                         this.staffView = new StaffSystemConfig();

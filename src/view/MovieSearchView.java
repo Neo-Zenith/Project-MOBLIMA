@@ -3,6 +3,7 @@ package view;
 import database.Database;
 import handler.InputHandler;
 import model.Movie;
+import model.MovieGoer;
 import model.MovieSchedule;
 import controller.MovieManager;
 
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 
 public class MovieSearchView extends MainView {
     private String movieTitle;
+    private MovieGoer movieGoer;
 
-    public MovieSearchView() {
+    public MovieSearchView(MovieGoer movieGoer) {
+        this.movieGoer = movieGoer;
     }
 
     public void printMenu() {
@@ -40,7 +43,7 @@ public class MovieSearchView extends MainView {
                 }
             }
             if (available) {
-                MovieTypeView typeView = new MovieTypeView(movieTitle);
+                MovieTypeView typeView = new MovieTypeView(movieTitle, movieGoer);
                 typeView.appContent();
             } else {
                 System.out.println("This movie is not available.");

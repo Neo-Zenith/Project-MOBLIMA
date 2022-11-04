@@ -2,7 +2,7 @@ package view;
 
 import model.Cinema;
 import model.Cineplex;
-import model.Movie;
+import model.*;
 
 import java.util.ArrayList;
 
@@ -14,11 +14,13 @@ public class CinemaView extends MainView{
     private Cineplex cineplex;
     private ArrayList <Cinema> listOfCinemas;
     private MovieScheduleView movieScheduleView;
+    private MovieGoer movieGoer;
 
-    public CinemaView(Cineplex cineplex, Movie movie) {
+    public CinemaView(Cineplex cineplex, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cineplex = cineplex;
         this.listOfCinemas = CinemaManager.filterCinemaByCineplexMovie(cineplex, movie);
+        this.movieGoer = movieGoer;
     }
     
     public void printCinemas() {
@@ -49,7 +51,7 @@ public class CinemaView extends MainView{
                 return;
             }
 
-            this.movieScheduleView = new MovieScheduleView(listOfCinemas.get(choice-1), this.movie);
+            this.movieScheduleView = new MovieScheduleView(listOfCinemas.get(choice-1), this.movie, this.movieGoer);
             this.movieScheduleView.appContent();
 
             if(MovieMenuView.exit){

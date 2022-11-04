@@ -5,7 +5,7 @@ import controller.MovieScheduleManager;
 import handler.InputHandler;
 import model.Cinema;
 import model.Movie;
-
+import model.MovieGoer;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,14 @@ public class MovieScheduleView {
     private Cinema cinema;
     private MovieSchedule movieSchedule;
     private int num = 0;
+    private MovieGoer movieGoer;
     private SeatingPlanView seatingPlanView;
 
-    public MovieScheduleView(Cinema cinema, Movie movie) {
+    public MovieScheduleView(Cinema cinema, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cinema = cinema;
         this.movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
+        this.movieGoer = movieGoer;
     }
     
     public void printMovieSchedule() {
@@ -56,7 +58,7 @@ public class MovieScheduleView {
             }
 
             this.seatingPlanView = new SeatingPlanView(this.movieSchedule, this.movieSchedule.getShowingVenues().get(choice-1),
-            this.movieSchedule.getShowingVenues().get(choice-1).getSeats());
+            this.movieSchedule.getShowingVenues().get(choice-1).getSeats(), movieGoer);
             this.seatingPlanView.appContent();
             
             if(MovieMenuView.exit){

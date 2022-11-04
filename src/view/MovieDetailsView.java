@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 import model.Movie;
+import model.MovieGoer;
 import model.MovieReview;
 import controller.MovieManager;
 import handler.InputHandler;
@@ -12,8 +13,9 @@ public class MovieDetailsView extends MainView {
     private Movie movie;
     private String synopsis;
     private ArrayList<MovieReview> pastReviews;
+    private MovieGoer movieGoer;
 
-    public MovieDetailsView(String title) {
+    public MovieDetailsView(String title, MovieGoer movieGoer) {
         this.movieTitle = title;
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
         for (int i = 0; i < movies.size(); i++) {
@@ -24,6 +26,7 @@ public class MovieDetailsView extends MainView {
         }
         synopsis = movie.getMovieSynopsis();
         pastReviews = movie.getMovieReviews();
+        this.movieGoer = movieGoer;
     }
 
     public void printMovieDetails() {
@@ -74,7 +77,7 @@ public class MovieDetailsView extends MainView {
                         this.printPastReviews();
                         break;
                     case 3:
-                        MovieTypeView typeView = new MovieTypeView(movie.getMovieTitle());
+                        MovieTypeView typeView = new MovieTypeView(movie.getMovieTitle(), this.movieGoer);
                         typeView.appContent();
                         break;
                 }
