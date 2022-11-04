@@ -3,6 +3,7 @@ package view;
 import handler.InputHandler;
 
 public class MovieMenuView {
+    public static boolean exit = false;
     private MovieListView movieListView;
 
     public MovieMenuView() {
@@ -28,11 +29,24 @@ public class MovieMenuView {
             this.printMenu();
             choice = InputHandler.intHandler();
 
+            while (choice < 1 || choice > 5) {
+                System.out.println("Please enter a valid input.");
+                choice = InputHandler.intHandler();
+            }
+
             switch (choice) {
                 case 1:
                     this.movieListView.appContent();
                     break;
+                case 2:
+                    MovieSearchView search = new MovieSearchView();
+                    search.appContent();
+                case 3:
+                    break;
+                case 4:
+                    break;
+
             }
-        }   while (choice > 0 && choice < 5);
+        } while (choice > 0 && choice < 5);
     }
 }

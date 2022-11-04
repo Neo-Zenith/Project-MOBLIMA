@@ -11,8 +11,9 @@ public class MovieAppView extends MainView {
     private MovieGoerView movieGoerView;
     private StaffSystemConfig staffView;
 
-    public MovieAppView() {}
-    
+    public MovieAppView() {
+    }
+
     public void printMenu() {
         System.out.println("====================================");
         System.out.println("Welcome to MOBLIMA!");
@@ -41,14 +42,12 @@ public class MovieAppView extends MainView {
                     password = InputHandler.stringHandler();
                     Object user = UserManager.login(username, password);
                     if (user instanceof MovieGoer) {
-                        this.movieGoerView = new MovieGoerView();
-                        this.movieGoerView.appContent();
-                    }
-                    else if (user instanceof CinemaStaff) {
+                        MovieMenuView menu = new MovieMenuView();
+                        menu.appContent();
+                    } else if (user instanceof CinemaStaff) {
                         this.staffView = new StaffSystemConfig();
                         this.staffView.appContent();
-                    }
-                    else {
+                    } else {
                         System.out.println("Error! Invalid username or password! Please try again!");
                     }
                     break;
@@ -64,6 +63,6 @@ public class MovieAppView extends MainView {
                     }
                     break;
             }
-        }   while (choice != 3);
+        } while (choice != 3);
     }
 }
