@@ -31,9 +31,9 @@ public class MovieSearchView extends MainView {
             if (movieTitle.equals("1")) {
                 return;
             }
-
-            for (int i = 0; i < Movie.movies.size(); i++) {
-                if (Movie.movies.get(i).getMovieTitle().equals(movieTitle)) {
+            ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+            for (int i = 0; i < movies.size(); i++) {
+                if (movies.get(i).getMovieTitle().equals(movieTitle)) {
                     this.movieTitle = movieTitle;
                     available = true;
                     break;

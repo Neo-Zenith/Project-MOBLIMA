@@ -5,7 +5,8 @@ import controller.MovieScheduleManager;
 import handler.InputHandler;
 import model.Cinema;
 import model.Movie;
-, 
+
+
 import java.util.ArrayList;
 
 public class MovieScheduleView {

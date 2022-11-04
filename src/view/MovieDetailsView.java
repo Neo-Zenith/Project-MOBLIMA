@@ -5,6 +5,7 @@ import model.Movie;
 import model.MovieReview;
 import controller.MovieManager;
 import handler.InputHandler;
+import database.*;
 
 public class MovieDetailsView extends MainView {
     private String movieTitle;
@@ -14,9 +15,10 @@ public class MovieDetailsView extends MainView {
 
     public MovieDetailsView(String title) {
         this.movieTitle = title;
-        for (int i = 0; i < Movie.movies.size(); i++) {
-            if (movieTitle.equals(Movie.movies.get(i).getMovieTitle())) {
-                movie = Movie.movies.get(i);
+        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        for (int i = 0; i < movies.size(); i++) {
+            if (movieTitle.equals(movies.get(i).getMovieTitle())) {
+                movie = movies.get(i);
                 break;
             }
         }
