@@ -98,12 +98,8 @@ public class CineplexManager {
 
     public static ArrayList<Cineplex> filterCineplexesByMovie(Movie movie) {
         ArrayList <Cineplex> cineplexes = new ArrayList<>();
-        ArrayList <MovieSchedule> movieSchedules = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
-
-        for (int i = 0; i < movieSchedules.size(); i ++) {
-            MovieSchedule movieSchedule = movieSchedules.get(i);
-            cineplexes.addAll(CineplexManager.filterCineplexesByMovieSchedule(movieSchedule));
-        }
+        MovieSchedule movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
+        cineplexes.addAll(CineplexManager.filterCineplexesByMovieSchedule(movieSchedule));
 
         HashSet <Cineplex> cineplexesSet = new HashSet<Cineplex>(cineplexes);
         ArrayList <Cineplex> finalCineplexes = new ArrayList<>(cineplexesSet);
