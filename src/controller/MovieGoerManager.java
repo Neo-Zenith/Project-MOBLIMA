@@ -40,7 +40,7 @@ public class MovieGoerManager {
     
     public static MovieGoer createGoerStudent(MovieGoerAge age, String name, String email, String mobileNum, String username, String password){
         String UUID = String.format("MG%03d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
-        MovieGoer goer = new Student(UUID, name, email, mobileNum, usernamem, password);
+        MovieGoer goer = new Student(UUID, name, email, mobileNum, username, password);
         DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);
         return goer;
     }

@@ -34,6 +34,22 @@ public abstract class MovieGoer implements Serializable {
         this.viewTop5OverallRatings = true;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
@@ -101,6 +117,8 @@ public abstract class MovieGoer implements Serializable {
     public abstract MovieGoerAge getMovieGoerAge();
 
     public abstract double getGoerPrice();
+
+
 
     public static long getSerialversionuid() {
         return serialVersionUID;

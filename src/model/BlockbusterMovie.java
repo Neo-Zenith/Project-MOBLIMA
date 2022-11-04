@@ -36,4 +36,8 @@ public class BlockbusterMovie extends Movie {
         this.moviePrice = price;
     }
 
+    public void setMovieType(MovieType type) {
+        this.type = type;
+    }
+
 }
