@@ -35,10 +35,11 @@ public class CinemaStaffManager{
      * @param staffID   staff login id 
      */
     public CinemaStaffManager(){}
-    public static void createCinemaStaff(String name, String password, String username){
+    public static CinemaStaff createCinemaStaff(String name, String password, String username){
         String UUID = String.format("SF%03d", DatabaseHandler.generateUUID(Database.CINEMA_STAFF));
         CinemaStaff cinemaStaff = new CinemaStaff(UUID, name, password, username);
         DatabaseManager.saveUpdateToDatabase(UUID, cinemaStaff, Database.CINEMA_STAFF);
+        return cinemaStaff;
     }
 
 

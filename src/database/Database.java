@@ -1,5 +1,6 @@
 package database;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -9,7 +10,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
+import controller.CinemaStaffManager;
 import controller.DatabaseManager;
+import controller.MovieGoerManager;
 import model.Cineplex;
 import model.MovieSchedule;
 import model.MovieTicket;
@@ -97,7 +100,7 @@ public class Database {
     public static int numOfCoupleRows = 4;
 
     public static ArrayList <DateTime> holidays = new ArrayList<>();
-    public static Prices PRICES;
+    public static Prices PRICES = new Prices();
 
     public static int platinumNumOfRow = 4;
     public static int platinumNumOfSeatsPerRow = 6;
@@ -115,40 +118,45 @@ public class Database {
         if (!readData(ModelType.CINEPLEX)) {
             System.out.println("Error! Reading of data " + ModelType.CINEPLEX + " failed!");
         } 
-        else if (!readData(ModelType.CINEMA)) {
+        if (!readData(ModelType.CINEMA)) {
             System.out.println("Error! Reading of data " + ModelType.CINEMA + " failed!");
         } 
-        else if (!readData(ModelType.SEAT)) {
+        if (!readData(ModelType.SEAT)) {
             System.out.println("Error! Reading of data " + ModelType.SEAT + " failed!");
         } 
-        else if (!readData(ModelType.MOVIE_SCHEDULE)) {
+        if (!readData(ModelType.MOVIE_SCHEDULE)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE_SCHEDULE + " failed!");
         } 
-        else if (!readData(ModelType.MOVIE)) {
+        if (!readData(ModelType.MOVIE)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE + " failed!");
         } 
-        else if (!readData(ModelType.MOVIE_GOER)) {
+        if (!readData(ModelType.MOVIE_GOER)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE_GOER + " failed!");
         } 
-        else if (!readData(ModelType.MOVIE_REVIEW)) {
+        if (!readData(ModelType.MOVIE_REVIEW)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE_REVIEW + " failed!");
         } 
-        else if (! readData(ModelType.BOOKING_HISTORY)) {
+        if (! readData(ModelType.BOOKING_HISTORY)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE_SCHEDULE + " failed!");
         }
-        else if (! readData(ModelType.PAYMENT)) {
+        if (! readData(ModelType.PAYMENT)) {
             System.out.println("Error! Reading of data " + ModelType.PAYMENT + " failed!");
         }
-        else if (!readData(ModelType.CINEMA_STAFF)) { 
+        if (!readData(ModelType.CINEMA_STAFF)) { 
             System.out.println("Error! Reading of data " + ModelType.CINEMA_STAFF + " failed!");
         }
-        else if (! readData(ModelType.MOVIE_TICKET)) {
+        if (! readData(ModelType.MOVIE_TICKET)) {
             System.out.println("Error! Reading of data " + ModelType.MOVIE_TICKET + " failed!");
         }
-        else if (!readData(ModelType.PRICES)){
-            System.out.println("Error! Reading of data " + ModelType.PRICES + "failed");
+        if (!readData(ModelType.PRICES)){
+            System.out.println("Error! Reading of data " + ModelType.PRICES + " failed");
         }
 
+        CinemaStaff cinemaStaff = CinemaStaffManager.createCinemaStaff("John", "aaa", "aaa");
+        Database.CINEMA_STAFF.put("CS0001", cinemaStaff);
+
+        MovieGoer movieGoer = MovieGoerManager.createGoerAdult("Smith", "aaa", "aaa", "aaa1", "aaa");
+        Database.MOVIE_GOER.put("MG0001", movieGoer);
     }
 
     /**
@@ -158,16 +166,10 @@ public class Database {
      */
     public static boolean readData(ModelType modelType) {
         String filePath = Database.path + "/" + modelType.getFileName() + extension;
-
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             Object object = objectInputStream.readObject();
-
-            if (! (object instanceof HashMap) || ! (object instanceof Prices)) {
-                objectInputStream.close();
-                return false;
-            }
 
             if (modelType == ModelType.CINEPLEX) {
                 Database.CINEPLEX = (HashMap <String, Cineplex>) object;
@@ -214,6 +216,7 @@ public class Database {
             return true;
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             System.out.println("Error! Reading of data " + modelType.getFileName() + " failed!");
             return false;
         }

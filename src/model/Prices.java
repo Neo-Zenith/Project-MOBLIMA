@@ -1,6 +1,8 @@
 package model;
 
-public class Prices {
+import java.io.Serializable;
+
+public class Prices implements Serializable {
     
     private double defaultStandardCinemaPrice = 2;
     private double defaultPlatinumCinemaPrice = 30;
@@ -15,7 +17,10 @@ public class Prices {
     private double defaultSeniorCitizenPrice = 1.5;
     private double holidayPrice = 1.5;
     private double weekendPrice = 1.5;
-
+    private final static long serialVersionUID = 15L;
+    
+    public Prices() {}
+    
     public Prices(double defaultStandardCinemaPrice,
                     double defautltPlatinumCinemaPrice,
                     double defaultIMaxCinemaPrice,

@@ -5,6 +5,7 @@ import handler.InputHandler;
 public class StaffSystemConfig extends MainView{
     private StaffMovieDetailsView staffMovieDetailsView;
     private StaffConfigSettingsView staffConfigSettingsView;
+    private DatabaseView databaseView;
     
     public void printMenu() {
         System.out.println("====================================");
@@ -13,8 +14,9 @@ public class StaffSystemConfig extends MainView{
                 Select a function to be executed.
                 1. Configure movie details
                 2. Configure system settings
-                3. List Top 5
-                4. Logout
+                3. Configure Database
+                4. List Top 5
+                5. Logout
                 """);
         System.out.println("====================================");
         }
@@ -38,7 +40,8 @@ public class StaffSystemConfig extends MainView{
                 break;
                 
                 case 3:
-                    MovieGoerView.printTop5(true);  
+                    this.databaseView = new DatabaseView();
+                    this.databaseView.appContent();
                 break;
 
                 case 4:

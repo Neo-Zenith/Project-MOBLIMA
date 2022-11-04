@@ -4,11 +4,10 @@ import database.Database;
 import handler.InputHandler;
 import model.MovieGoer;
 import model.CinemaStaff;
+import controller.DatabaseManager;
 import controller.UserManager;
 
 public class MovieAppView extends MainView {
-
-    private MovieGoerView movieGoerView;
     private StaffSystemConfig staffView;
 
     public MovieAppView() {
@@ -62,7 +61,7 @@ public class MovieAppView extends MainView {
                             break;
                         }
                     }
-                    break;
+                    break; 
             }
         } while (choice != 3);
     }
