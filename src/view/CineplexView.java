@@ -1,41 +1,46 @@
 package view;
 
 import java.util.ArrayList;
-
-import controller.CineplexManager;
-import controller.DatabaseManager;
+import model.Movie;
+import model.MovieSchedule;
 import model.Cineplex;
-import handler.InputHandler;
+import controller.CineplexManager;
+import controller.MovieManager;
+import controller.MovieScheduleManager;
 
 public class CineplexView extends MainView {
-    
+    private Movie movie;
     private ArrayList <Cineplex> cineplexes;
-    private CinemaView cinemaView;
 
-    public CineplexView() {}
-    
-    public void printMenu() {
+
+    public CineplexView(Movie movie) {
+        this.movie = movie;
+        this.cineplexes = CineplexManager.filterCineplexesByMovie(this.movie);
+    }
+
+
+    public void printCineplex() {
         System.out.println("====================================");
-        System.out.println("You may view all the cineplexes supported by our App here:");
-        this.cineplexes = CineplexManager.printCineplexesInfo();
-        System.out.println(this.cineplexes.size() + 1 + ". Return back.");
-        MainView.printBoilerPlate("""
-                Select one of the cineplexes to view further informations.
-                """);
+        int index = 1;
+        for (int i = 0; i < cineplexes.size(); i ++) {
+            Cineplex cineplex = cineplexes.get(i);
+            System.out.println(index + ". " + cineplex.getCineplexName());
+        }
+    }
+
+    public void printMenu() {
+        MainView.printBoilerPlate("Please select a cineplex to view the cinemas available: ");
         System.out.println("====================================");
     }
 
     public void appContent() {
         int choice = -1;
+        this.printCineplex();
+
         do {
             this.printMenu();
-            choice = InputHandler.intHandler();
-            if (choice > this.cineplexes.size() || choice < 0) {
-                break;
-            }
-            this.cinemaView = new CinemaView(cineplexes.get(choice - 1));
-            this.cinemaView.appContent();
             
-        }   while (choice <= this.cineplexes.size() && choice > 0);
+        }   while (choice > 0 && choice <= this.cineplexes.size());
     }
 }
+

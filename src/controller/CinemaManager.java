@@ -5,7 +5,9 @@ import model.Cinema;
 import model.IMaxCinema;
 import model.PlatinumCinema;
 import model.Seat;
+import model.Movie;
 import model.StandardCinema;
+import model.MovieSchedule;
 import model.enums.CinemaClass;
 import database.Database;
 import handler.DatabaseHandler;
@@ -77,23 +79,26 @@ public class CinemaManager {
     }
 
 
-    public static ArrayList <Cinema> printCinemasInfo(Cineplex cineplex) {
-        ArrayList <Cinema> cinemas = cineplex.getCinemas();
-        Collections.sort(cinemas);
+    public static ArrayList <Cinema> filterCinemaByCineplexMovie(Cineplex cineplex, Movie movie) {
+        ArrayList <Cinema> filteredCinemas = new ArrayList<>();
+        ArrayList <Cinema> cineplexCinemas = cineplex.getCinemas();
+        ArrayList <MovieSchedule> movieSchedules = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
 
-        int index = 1;
-        for (int i = 0; i < cinemas.size(); i ++) {
-            String key = cinemas.get(i).getUUID();
-            System.out.println(index + ".  ");
-            System.out.print("Reference ID: " + key + "   Class: ");
-            System.out.println(cinemas.get(i).getCinemaClass());
-            System.out.println(cinemas.get(i).getTotalNumOfSeats());
-            System.out.println("");
-            index ++;
+        for (int i = 0; i < movieSchedules.size(); i ++) {
+            MovieSchedule movieSchedule = movieSchedules.get(i);
+            ArrayList <Cinema> showingVenues = movieSchedule.getShowingVenues();
             
-            
+            for (int j = 0; j < cineplexCinemas.size(); j ++) {
+                Cinema cineplexCinema = cineplexCinemas.get(j);
+
+                for (int k = 0; k < showingVenues.size(); k ++) {
+                    Cinema showingVenue = showingVenues.get(k);
+                    if (cineplexCinema.getUUID().equals(showingVenue.getUUID())) {
+                        filteredCinemas.add(cineplexCinema);
+                    }
+                }
+            }
         }
-
-        return cinemas;
+        return filteredCinemas;
     }
 }

@@ -89,28 +89,21 @@ public class MovieScheduleManager {
         return true;
     }
 
-    /**
-     * Method to obtain a filterd list of movie schedules based on cinema
-     * 
-     * @param cinema the filter query parameter to filter movie schedules
-     * @return ArrayList of {@link MovieSchedule} instances which is showed at
-     *         {@code cinema}
-     */
-    public static ArrayList<MovieSchedule> filterMovieSchedules(Cinema cinema) {
-        ArrayList<MovieSchedule> filteredSchedules = new ArrayList<>();
+
+    public static MovieSchedule filterMovieSchedulesByMovie(Movie movie) {
         ArrayList<MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
 
         for (int i = 0; i < movieSchedules.size(); i++) {
-            for (int j = 0; j < movieSchedules.get(i).getShowingVenues().size(); j++) {
-                if (movieSchedules.get(i).getShowingVenues().get(j).getUUID().contains(cinema.getUUID())) {
-                    filteredSchedules.add(movieSchedules.get(i));
-                }
+            MovieSchedule movieSchedule = movieSchedules.get(i);
+            Movie _movie = movieSchedule.getMovieOnShow();
+
+            if (movie.getUUID().equals(_movie.getUUID())) {
+                return movieSchedule;
             }
-
         }
-
-        return filteredSchedules;
+        return null;
     }
+
 
     public static int getShowingVenueIndex(MovieSchedule movieSchedule, Cinema cinema) {
         for (int i = 0; i < movieSchedule.getShowingVenues().size(); i++) {
@@ -120,5 +113,4 @@ public class MovieScheduleManager {
         }
         return -1;
     }
-
 }

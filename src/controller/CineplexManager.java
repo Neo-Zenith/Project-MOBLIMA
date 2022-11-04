@@ -3,11 +3,14 @@ package controller;
 import model.Cineplex;
 import model.Cinema;
 import model.enums.CinemaClass;
+import model.MovieSchedule;
+import model.Movie;
 import database.Database;
 import handler.DatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class CineplexManager {
     
@@ -90,5 +93,46 @@ public class CineplexManager {
         }
 
         return null;
+    }
+
+
+    public static ArrayList<Cineplex> filterCineplexesByMovie(Movie movie) {
+        ArrayList <Cineplex> cineplexes = new ArrayList<>();
+        ArrayList <MovieSchedule> movieSchedules = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
+
+        for (int i = 0; i < movieSchedules.size(); i ++) {
+            MovieSchedule movieSchedule = movieSchedules.get(i);
+            cineplexes.addAll(CineplexManager.filterCineplexesByMovieSchedule(movieSchedule));
+        }
+
+        HashSet <Cineplex> cineplexesSet = new HashSet<Cineplex>(cineplexes);
+        ArrayList <Cineplex> finalCineplexes = new ArrayList<>(cineplexesSet);
+        return finalCineplexes;
+    }
+
+    public static ArrayList <Cineplex> filterCineplexesByMovieSchedule(MovieSchedule movieSchedule) {
+        ArrayList <Cineplex> cineplexes = new ArrayList<>();
+        ArrayList <Cineplex> allCineplexes = Database.getValueList(Database.CINEPLEX.values());
+        ArrayList <Cinema> targetCinemas = movieSchedule.getShowingVenues();
+
+        for (int i = 0; i < allCineplexes.size(); i ++) {
+            Cineplex cineplex = allCineplexes.get(i);
+            ArrayList <Cinema> cineplexCinemas = cineplex.getCinemas();
+
+            for (int j = 0; j < cineplexCinemas.size(); j ++) {
+                Cinema cinema = cineplexCinemas.get(j);
+
+                if (cineplexes.indexOf(cineplex) == -1) {
+                    for (int k = 0; k < targetCinemas.size(); k ++) {
+                        Cinema targetCinema = targetCinemas.get(k);
+                        if (cinema.getUUID().equals(targetCinema.getUUID())) {
+                            cineplexes.add(cineplex);
+                        }
+                    }
+                }
+            }
+        }
+
+        return cineplexes;
     }
 }

@@ -75,4 +75,8 @@ public class MovieSchedule implements Serializable {
     public void addShowingTime(DateTime showingTime) {
         this.showingTime.add(showingTime);
     }
+
+    public void updateShowingTime(DateTime showingTime, int showingTimeID) {
+        this.showingTime.set(showingTimeID, showingTime);
+    }
 }
