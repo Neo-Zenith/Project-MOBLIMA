@@ -15,7 +15,7 @@ public class BookingHistoryManager {
     
     public BookingHistoryManager() {}
 
-    public BookingHistory createBookingHistory(ArrayList<MovieTicket> movieTicket, Payment payment) {
+    public static BookingHistory createBookingHistory(ArrayList<MovieTicket> movieTicket, Payment payment) {
         String UUID = String.format("BH%04d", DatabaseHandler.generateUUID(Database.BOOKING_HISTORY));
         BookingHistory bookingHistory = new BookingHistory(UUID, movieTicket, payment);
         DatabaseManager.saveUpdateToDatabase(UUID, bookingHistory, Database.BOOKING_HISTORY);
