@@ -36,7 +36,7 @@ public class StaffConfigSettingsView {
                     break;
                 case 3:
                     this.staffConfigPermissionsView = new StaffConfigPermissionsView();
-                    this.staffConfigHolidayView.appContent();
+                    this.staffConfigPermissionsView.appContent();
                     break;
             }
         }   while (choice != 4);

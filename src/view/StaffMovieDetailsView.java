@@ -1,6 +1,10 @@
 package view;
 
 import handler.InputHandler;
+import java.util.ArrayList;
+import model.Movie;
+import database.Database;
+import model.MovieSchedule;
 
 public class StaffMovieDetailsView {
     private StaffConfigureMovieView staffConfigureMovieView;
@@ -14,7 +18,6 @@ public class StaffMovieDetailsView {
                 """);
     }
     public void appContent(){
-        int choice = -1;
         int movieNumber = -1;
 
         do {
@@ -24,5 +27,12 @@ public class StaffMovieDetailsView {
             this.staffConfigureMovieView.appContent(movieNumber);
             
         }   while (movieNumber != 10);
+    }
+
+    void printAllMovies(){
+        ArrayList<MovieSchedule> movieList1 = Database.getValueList(Database.MOVIE_SCHEDULE.keySet());
+
+
+
     }
 }

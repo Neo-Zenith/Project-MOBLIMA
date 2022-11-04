@@ -97,6 +97,8 @@ public abstract class MovieGoer implements Serializable {
 
     public abstract double getGoerPrice();
 
+
+
     public static long getSerialversionuid() {
         return serialVersionUID;
     }

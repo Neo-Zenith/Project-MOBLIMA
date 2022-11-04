@@ -1,6 +1,5 @@
 package view;
 
-import database.Database;
 import handler.InputHandler;
 
 public class StaffSystemConfig extends MainView{
@@ -35,7 +34,7 @@ public class StaffSystemConfig extends MainView{
                     this.staffConfigSettingsView.appContent();
                 case 3:
                     /*
-                     * List Top 5
+                     * List Top 5 
                      */    
             }
         }   while (choice != 4);

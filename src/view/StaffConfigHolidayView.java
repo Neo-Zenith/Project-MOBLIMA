@@ -16,11 +16,9 @@ public class StaffConfigHolidayView {
     }
     public void appContent(){
         int choice = -1;
-
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-            
             CinemaStaffManager.configureHoliday(choice);
         }   while (choice != 3);
     }
