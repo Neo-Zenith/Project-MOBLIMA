@@ -1,12 +1,16 @@
 package view;
 
 import handler.InputHandler;
+import model.MovieGoer;
 
 public class MovieMenuView {
+    public static boolean exit = false;
     private MovieListView movieListView;
+    private MovieGoer movieGoer;
 
-    public MovieMenuView() {
-        this.movieListView = new MovieListView();
+    public MovieMenuView(MovieGoer movieGoer) {
+        this.movieGoer = movieGoer;
+        this.movieListView = new MovieListView(this.movieGoer);
     }
 
     public void printMenu() {
@@ -28,11 +32,24 @@ public class MovieMenuView {
             this.printMenu();
             choice = InputHandler.intHandler();
 
+            while (choice < 1 || choice > 5) {
+                System.out.println("Please enter a valid input.");
+                choice = InputHandler.intHandler();
+            }
+
             switch (choice) {
                 case 1:
                     this.movieListView.appContent();
                     break;
+                case 2:
+                    MovieSearchView search = new MovieSearchView(this.movieGoer);
+                    search.appContent();
+                case 3:
+                    break;
+                case 4:
+                    break;
+
             }
-        }   while (choice > 0 && choice < 5);
+        } while (choice > 0 && choice < 5);
     }
 }

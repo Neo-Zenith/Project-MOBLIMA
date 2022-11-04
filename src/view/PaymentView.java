@@ -15,9 +15,10 @@ public class PaymentView {
     private int CCV;
     private int OTP;
     private int bankAccountNumber;
+    private PaymentManager paymentManager;
     
-    public PaymentView(Payment payment){
-        this.payment = payment;
+    public PaymentView(){
+        //this.payment = payment;
     }
 
     public Payment getPayment(){
@@ -41,13 +42,17 @@ public class PaymentView {
         // if the entered int or String is not valid, the user is prompted to re-enter again until the system receive a valid value
         String transactionID;
 
+        PaymentManager paymentManager = new PaymentManager();
+
         System.out.println("Payment:");
+        System.out.println("====================================");
         MainView.printBoilerPlate("""
                 1.  Card Payment
                 2.  QRCode
                 3.  Bank Transaction
                 """);
         System.out.println("Please Select A Payment Method:");
+        System.out.println("====================================");
 
         int choice = InputHandler.intHandler();
         switch(choice){
@@ -123,20 +128,20 @@ public class PaymentView {
 
     public void printReceipt(String paymentMethod){
         // can add more criteria to be printed
-        System.out.println("===================================");
-        System.out.println("              MOBLIMA              ");
+        System.out.println("====================================");
+        System.out.println("               MOBLIMA              ");
         System.out.println("");
-        System.out.println("              RECEIPT              ");
-        System.out.println("___________________________________");
+        System.out.println("               RECEIPT              ");
+        System.out.println("____________________________________");
         System.out.println("Payment ID      :     " + this.payment.getUUID());
         System.out.println("Transaction ID  :     " + this.payment.getTransactionID());
         System.out.println("Payment Method  :     " + paymentMethod);
         System.out.println("Total Amount ($):     " + this.payment.getMovieTicketPrice());
-        System.out.println("___________________________________");
+        System.out.println("____________________________________");
         System.out.println("");
-        System.out.println("            THANK YOU!             ");
-        System.out.println("          See you again!           ");
-        System.out.println("===================================");
+        System.out.println("              THANK YOU!            ");
+        System.out.println("            See you again!          ");
+        System.out.println("====================================");
     }
 
 }
