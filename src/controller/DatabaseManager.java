@@ -249,11 +249,15 @@ public class DatabaseManager {
     
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
-        Database.writeToDatabase();
-        Database.remountDatabase();
+        DatabaseManager.relaodDatabase();
     }
 
     public static void resetDatabase() {
         Database.resetDatabase();
+    }
+
+    public static void relaodDatabase() {
+        Database.writeToDatabase();
+        Database.remountDatabase();
     }
 }

@@ -205,6 +205,9 @@ public class Database {
             else if (modelType == ModelType.MOVIE_TICKET) {
                 Database.MOVIE_TICKET = (HashMap<String, MovieTicket>) object;
             }
+            else if (modelType == ModelType.HOLIDAY) {
+                Database.holidays = (ArrayList <DateTime>) object;
+            }
 
             objectInputStream.close();
             fileInputStream.close();
@@ -264,6 +267,9 @@ public class Database {
             else if (modelType == ModelType.MOVIE_TICKET) {
                 objectOutputStream.writeObject(Database.MOVIE_TICKET);
             }
+            else if (modelType == ModelType.HOLIDAY) {
+                objectOutputStream.writeObject(Database.holidays);
+            }
 
             fileOutputStream.close();
             objectOutputStream.close();
@@ -294,6 +300,8 @@ public class Database {
             Database.readData(ModelType.CINEMA_STAFF);
             Database.readData(ModelType.PRICES);
             Database.readData(ModelType.MOVIE_TICKET);
+            Database.readData(ModelType.HOLIDAY);
+        
             return true;
         }
         catch (Exception e) {
@@ -321,6 +329,7 @@ public class Database {
             Database.writeData(ModelType.CINEMA_STAFF);
             Database.writeData(ModelType.PRICES);
             Database.writeData(ModelType.MOVIE_TICKET);
+            Database.writeData(ModelType.HOLIDAY);
             return true;
         }
         catch (Exception e) {
@@ -345,6 +354,7 @@ public class Database {
         Database.CINEMA_STAFF = new HashMap <String, CinemaStaff>();
         Database.PRICES = DatabaseManager.initializePrices();
         Database.MOVIE_TICKET = new HashMap<String, MovieTicket>();
+        Database.holidays = new ArrayList<DateTime>();
 
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);
@@ -358,6 +368,7 @@ public class Database {
         Database.writeData(ModelType.CINEMA_STAFF);
         Database.writeData(ModelType.PRICES);
         Database.writeData(ModelType.MOVIE_TICKET);
+        Database.writeData(ModelType.HOLIDAY);
     }
 
     /**
