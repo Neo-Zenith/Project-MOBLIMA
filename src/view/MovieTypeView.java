@@ -8,15 +8,14 @@ import controller.MovieManager;
 
 import java.util.ArrayList;
 
-
 public class MovieTypeView extends MainView {
-    private Movie movie;
-    private ArrayList <Movie> listOfMovieTypes;
+    private String movieTitle;
+    private ArrayList<Movie> listOfMovieTypes;
     private int numOfMovieTypes;
 
-    public MovieTypeView(Movie movie) {
-        this.movie = movie;
-        this.listOfMovieTypes = MovieManager.getMovieList(movie);
+    public MovieTypeView(String movieTitle) {
+        this.movieTitle = movieTitle;
+        this.listOfMovieTypes = MovieManager.getMovieList(movieTitle);
         this.numOfMovieTypes = this.listOfMovieTypes.size();
     }
 
@@ -24,10 +23,11 @@ public class MovieTypeView extends MainView {
         System.out.println("====================================");
         System.out.println("Movie Type Available: ");
         int index = 1;
-        for (int i = 0; i < listOfMovieTypes.size(); i ++) {
+        for (int i = 0; i < listOfMovieTypes.size(); i++) {
             Movie movie = listOfMovieTypes.get(i);
             System.out.println(index + ". " + movie.getMovieType());
         }
+        System.out.println((this.numOfMovieTypes + 1) + ". Return");
     }
 
     public void printMenu() {
@@ -43,6 +43,19 @@ public class MovieTypeView extends MainView {
             this.printMenu();
             choice = InputHandler.intHandler();
 
-        }   while (choice > 0 && choice < this.numOfMovieTypes);
+            while (choice < 1 || choice > numOfMovieTypes + 1) {
+                System.out.println("Please enter a valid input.");
+                choice = InputHandler.intHandler();
+            }
+            if (choice == numOfMovieTypes + 1) {
+                return;
+            } else {
+                CineplexView cineplex = new CineplexView(listOfMovieTypes.get(choice - 1));
+                cineplex.appContent();
+            }
+            if (MovieMenuView.exit) {
+                return;
+            }
+        } while (choice > 0 && choice < this.numOfMovieTypes);
     }
 }
