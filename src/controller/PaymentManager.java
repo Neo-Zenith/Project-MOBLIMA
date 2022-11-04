@@ -5,6 +5,7 @@ import handler.DatabaseHandler;
 import model.BankTransactionPayment;
 import model.Cinema;
 import model.MovieSchedule;
+import model.MovieGoer;
 import model.Seat;
 import model.CardPayment;
 import model.Payment;

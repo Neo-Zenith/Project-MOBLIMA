@@ -9,6 +9,7 @@ import model.BookingHistory;
 import model.MovieTicket;
 import model.MovieGoer;
 import model.Payment;
+import model.MovieGoer;
 
 public class BookingHistoryManager {
     
