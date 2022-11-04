@@ -41,9 +41,7 @@ public class StaffSystemConfig extends MainView{
                 break;
                 
                 case 3:
-                    /*
-                     * List Top 5 
-                     */    
+                    MovieGoerView.printTop5(true);  
                 break;
 
                 case 4:
