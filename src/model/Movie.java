@@ -144,4 +144,6 @@ public abstract class Movie implements Serializable {
 	public abstract void setMoviePrice(double price);
 
 	public abstract MovieType getMovieType();
+
+	public abstract void setMovieType(MovieType movieType);
 }
