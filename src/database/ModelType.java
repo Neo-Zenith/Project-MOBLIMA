@@ -11,6 +11,9 @@ public enum ModelType {
     MOVIE("Movie"),
     MOVIE_REVIEW("MovieReview"),
     CINEMA_STAFF("CinemaStaff"),
+    HOLIDAY("Holiday"),
+    PRICES("Prices"),
+    MOVIE_TICKET("MovieTicket"),
     PAYMENT("Payment");
 
     private final String fileName;

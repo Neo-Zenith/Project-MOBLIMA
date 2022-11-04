@@ -27,13 +27,18 @@ public class DatabaseView extends MainView{
 
             switch (choice) {
                 case 1:
+                    DatabaseManager.initializePrices();
                     DatabaseManager.initializeCineplexData();
+                    System.out.println("Cineplex data initialized successfully!");
                     DatabaseManager.initializeMovie();
+                    System.out.println("Movie data initialized successfully!");
                     DatabaseManager.initializeMovieScheduleData(); 
+                    System.out.println("Movie schedule data initialized successfully!");
                     Database.writeToDatabase();
                     break;
                 case 2:                   
                     Database.resetDatabase();
+                    System.out.println("Database resetted successfully!");
                     break;
                 case 3:
                     break;

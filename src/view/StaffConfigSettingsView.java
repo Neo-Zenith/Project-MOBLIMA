@@ -1,4 +1,12 @@
+package view;
+
+import handler.InputHandler;
+
 public class StaffConfigSettingsView {
+    private StaffConfigPriceView staffConfigPriceView;
+    private StaffConfigHolidayView staffConfigHolidayView;
+    private StaffConfigPermissionsView staffConfigPermissionsView;
+
     public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
@@ -6,30 +14,29 @@ public class StaffConfigSettingsView {
                 1. Configure pricings.
                 2. Configure holidays. 
                 3. Configure movie goer permissions
-                3. Back   
+                4. Back   
                 """);
         System.out.println("====================================");    
     }
-    public void appContent(int movieNumber){
+    public void appContent(){
         int choice = -1;
-        Database db = new Database();
 
         do {
             this.printMenu();
-            int choice = InputHandler.intHandler();
+            choice = InputHandler.intHandler();
             
             switch (choice){
                 case 1:
                     this.staffConfigPriceView = new StaffConfigPriceView();
-                    this.staffConfigPriceView = appContent();
+                    this.staffConfigPriceView.appContent();
                     break;
                 case 2:
                     this.staffConfigHolidayView = new StaffConfigHolidayView();
-                    this.staffConfigHolidayView = appContent();
+                    this.staffConfigHolidayView.appContent();
                     break;
                 case 3:
-                    this.StaffConfigPermissions = new StaffConfigPermissions();
-                    this.staffConfigHolidayView = appContent();
+                    this.staffConfigPermissionsView = new StaffConfigPermissionsView();
+                    this.staffConfigPermissionsView.appContent();
                     break;
             }
         }   while (choice != 4);

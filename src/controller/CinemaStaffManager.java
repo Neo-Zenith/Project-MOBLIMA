@@ -9,6 +9,7 @@ import model.enums.MovieAgeRating;
 import model.enums.MovieShowingStatus;
 import model.MovieSchedule;
 import model.DateTime;
+import model.Prices;
 
 import database.Database;
 
@@ -72,8 +73,8 @@ public class CinemaStaffManager{
 
             case 2:
             System.out.println("Enter the new Movie Type for " + m.getMovieTitle()); 
-
             int newMovieType = InputHandler.intHandler();
+            
             if (newMovieType < 1 || newMovieType > 3){
                 System.out.println("No such movie type.");
                 return 1;
@@ -91,19 +92,17 @@ public class CinemaStaffManager{
             ArrayList <DateTime> oldShowingTimes = ms.getShowingTime();
             ArrayList<ArrayList<Seat>> oldSeatingPlan = ms.getSeatingPlan();
 
-            Database.MOVIE_SCHEDULE.remove(scheduleUUID);
-            Database.MOVIE.remove(movieUUID);
-
             if (newMovieType == 1){
-                Movie newMovie = MovieManager.createMovie(oldMovieTitle, "Blockbuster", oldMovieAgeRating, oldShowingStatus, 
-                                                          oldMovieCast, oldMovieDirector, oldMovieSynopsis, oldMovieDuration);
+                Movie newMovie = new BlockbusterMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
+                oldMovieShowingStatus, oldMovieCast, String oldmovieDirector, String movieSynopsis,
+                double movieDuration, double moviePrice) 
                 MovieSchedule newSchedule = MovieScheduleManager.createMovieSchedule(newMovie, oldCinemas, oldSeatingPlan, oldShowingTimes);
             } else if (newMovieType == 2){
                 Movie newMovie = MovieManager.createMovie(oldMovieTitle, "ThreeD", oldMovieAgeRating, oldShowingStatus, 
                                                           oldMovieCast, oldMovieDirector, oldMovieSynopsis, oldMovieDuration);
                 MovieSchedule newSchedule = MovieScheduleManager.createMovieSchedule(newMovie, oldCinemas, oldSeatingPlan, oldShowingTimes);
             } else if (newMovieType == 3){
-                Movie newMovie = MovieManager.createMovie(oldMovieTitle, "Blockbuster", oldMovieAgeRating, oldShowingStatus, 
+                Movie newMovie = MovieManager.createMovie(oldMovieTitle, "Standard", oldMovieAgeRating, oldShowingStatus, 
                                                           oldMovieCast, oldMovieDirector, oldMovieSynopsis, oldMovieDuration);
                 MovieSchedule newSchedule = MovieScheduleManager.createMovieSchedule(newMovie, oldCinemas, oldSeatingPlan, oldShowingTimes);
             }
@@ -411,131 +410,129 @@ public class CinemaStaffManager{
     }
 
     public static int configurePrice(int choice){
-        int price;
-        ArrayList <Prices> moviePrices = Database.getValueList(Database.PRICES.values());
-        ArrayList <String> moviePricesKeyList = Database.getKeyList(Database.PRICES.keySet());
-        
-        int index;
-        String UUID;
+        double price;
         switch(choice){
             case 1:
                 System.out.println("Enter new price for Standard Cinemas:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultStandardCinemaPrice().setDefaultStandardCinemaPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultStandardCinemaPrice(price);
                 return 0;
-                break;
             case 2:
                 System.out.println("Enter new price for Platinum cinemas:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultPlatinumCinemaPrice().setDefaultPlatinumCinemaPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultPlatinumCinemaPrice(price);
                 return 0;
-                break;
             case 3:
                 System.out.println("Enter new price for IMax cinemas:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultIMaxCinemaPrice().setDefaultIMaxCinemaPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultIMaxCinemaPrice(price);
                 return 0;
-                break;
             case 4:
                 System.out.println("Enter new price for seats:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultSeatPrice().setDefaultSeatPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultSeatPrice(price);
                 return 0;
-                break;
             case 5:
                 System.out.println("Enter new price for Blockbuster movies:");
-                price = InputHandler.intHandler();    
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultBlockBusterMoviePrice().setDefaultBlockBusterMoviePrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();    
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultBlockbusterMoviePrice(price);
                 return 0;
-                break;
             case 6:
                 System.out.println("Enter new price for 3D movies:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefault3DMoviePrice().setDefault3DMoviePrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefault3DMoviePrice(price);
                 return 0;
-                break;
             case 7:
                 System.out.println("Enter new price for standard movies:");
-                price = InputHandler.intHandler();    
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultStandardMoviePrice().setDefaultStandardMoviePrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();    
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultStandardMoviePrice(price);
                 return 0;
-                break;
             case 8:
                 System.out.println("Enter new price weightage for children:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultChildPrice().setDefaultChildPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultChildPrice(price);
                 return 0;
-                break;
             case 9:
                 System.out.println("Enter new price weightage for students:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultStudentPrice().setDefaultStudentPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultStudentPrice(price);
                 return 0;
-                break;
             case 10:
                 System.out.println("Enter new price weightage for adults:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultAdultPrice().setDefaultChildPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultChildPrice(price);
                 return 0;
-                break;
             case 11:
                 System.out.println("Enter new price weightage for senior citizens:");
-                price = InputHandler.intHandler();   
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getDefaultSeniorCitizenPrice().setDefaultSeniorCitizenPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();   
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setDefaultSeniorCitizenPrice(price);
                 return 0;
-                break;
             case 12:
                 System.out.println("Enter new price weightage for holidays:");
-                price = InputHandler.intHandler();
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getHolidayPrice().setHolidayPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setHolidayPrice(price);
                 return 0;
-                break;
             case 13:
                 System.out.println("Enter new price weightage for weekends:");
-                price = InputHandler.intHandler();    
-                index = moviePrices.indexOf(price);
-                UUID = moviePricesKeyList.get(index);
-                Database.PRICES.getWeekendPrice().setWeekendPrice(price);
-                DatabaseManager.saveUpdateToDatabase(UUID, moviePrices, Database.PRICES);
+                price = InputHandler.doubleHandler();    
+                if (price < 0){
+                    System.out.println("Price cannot be negative.");
+                    return 1;
+                }
+                Database.PRICES.setWeekendPrice(price);
                 return 0;
-                break;
+            default:
+                return 1;
         }
+        
     }
 
     public static int configureHoliday(int choice){
@@ -545,14 +542,14 @@ public class CinemaStaffManager{
                 System.out.println("Enter holiday date time to be added");
                 holiday = queryHoliday();
                 
-                for (int i = 0; i < DateTime.holidays.size(); i++){
-                    if (DateTime.holidays.get(i).getYear() == holiday.getYear() && DateTime.holidays.get(i).getMonth() == holiday.getMonth() && DateTime.holidays.get(i).getDate() == holiday.getDate() && DateTime.holidays.get(i).getHour() == holiday.getHour() && DateTime.holidays.get(i).getMinute() == holiday.getMinute() && DateTime.holidays.get(i).getDay() == holiday.getDay()){
+                for (int i = 0; i < Database.holidays.size(); i++){
+                    if (Database.holidays.get(i).getYear() == holiday.getYear() && Database.holidays.get(i).getMonth() == holiday.getMonth() && Database.holidays.get(i).getDate() == holiday.getDate() && Database.holidays.get(i).getHour() == holiday.getHour() && Database.holidays.get(i).getMinute() == holiday.getMinute() && Database.holidays.get(i).getDay() == holiday.getDay()){
                     System.out.println("Holiday already exists!");
                     printHolidayList();
                     return 1;
                 }
                 }
-                DateTime.holidays.add(holiday);
+                Database.holidays.add(holiday);
                 System.out.println("Holiday Added");
                 printHolidayList();
                 return 0;
@@ -560,13 +557,13 @@ public class CinemaStaffManager{
             case 2:       
                 System.out.println("Enter holiday to be removed");
                 holiday = queryHoliday();
-                if (DateTime.holidays.size() == 0){
+                if (Database.holidays.size() == 0){
                     System.out.println("Holiday list is empty!");
                     return 1;
                 }
-                for (int i = 0; i < DateTime.holidays.size(); i++){
-                    if (DateTime.holidays.get(i).getYear() == holiday.getYear() && DateTime.holidays.get(i).getMonth() == holiday.getMonth() && DateTime.holidays.get(i).getDate() == holiday.getDate() && DateTime.holidays.get(i).getHour() == holiday.getHour() && DateTime.holidays.get(i).getMinute() == holiday.getMinute() && DateTime.holidays.get(i).getDay() == holiday.getDay()){
-                        DateTime.holidays.remove(i);
+                for (int i = 0; i < Database.holidays.size(); i++){
+                    if (Database.holidays.get(i).getYear() == holiday.getYear() && Database.holidays.get(i).getMonth() == holiday.getMonth() && Database.holidays.get(i).getDate() == holiday.getDate() && Database.holidays.get(i).getHour() == holiday.getHour() && Database.holidays.get(i).getMinute() == holiday.getMinute() && Database.holidays.get(i).getDay() == holiday.getDay()){
+                        Database.holidays.remove(i);
                         System.out.println("Holiday removed");
                         printHolidayList();
                         return 0;
@@ -586,13 +583,13 @@ public class CinemaStaffManager{
 
     
     public static void printHolidayList(){
-        if (DateTime.holidays.size() == 0){
+        if (Database.holidays.size() == 0){
             System.out.println("Holiday list is empty!");
             return;
         }
         System.out.println("Here are the list of holidays:");
-        for (int i = 0; i < DateTime.holidays.size(); i++){
-            DateTime.holidays.get(i).printTime();
+        for (int i = 0; i < Database.holidays.size(); i++){
+            Database.holidays.get(i).printTime();
         }
         System.out.println("");
     }
@@ -616,10 +613,10 @@ public class CinemaStaffManager{
 
     public static void optOutOne(int choice){
         if (choice == 1){
-            MovieGoer.viewTop5OverallRatings = false; 
+            MovieGoer.setViewTop5OverallRatings = false; 
         }
         else{
-            MovieGoer.viewTop55MovieSales = false;
+            MovieGoer.setViewTop55MovieSales(false);
         }
 
     }
