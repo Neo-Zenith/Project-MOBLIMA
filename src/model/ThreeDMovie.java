@@ -1,27 +1,20 @@
 package model;
 
-import model.enums.MovieAgeRating;
-import model.enums.MovieType;
-import model.enums.MovieShowingStatus;
-import java.util.ArrayList;
+import model.enums.*;
+import java.util.*;
+import database.*;
 
 public class ThreeDMovie extends Movie {
     private MovieType type;
     private double moviePrice;
 
-    public ThreeDMovie() {
-        super();
-    }
-
     public ThreeDMovie(String UUID, String movieTitle, MovieAgeRating movieAgeRating,
-            MovieShowingStatus showingStatus,
-            ArrayList<String> movieCast, String movieDirector, String movieSynopsis, double movieDuration,
-            double moviePrice) {
+            MovieShowingStatus showingStatus, ArrayList<String> movieCast, String movieDirector,
+            String movieSynopsis, double movieDuration) {
         super(UUID, movieTitle, movieAgeRating, showingStatus, movieCast,
                 movieDirector, movieSynopsis, movieDuration);
         this.type = MovieType.ThreeD;
-        this.moviePrice = moviePrice;
-
+        this.moviePrice = Database.PRICES.getDefault3DMoviePrice();
     }
 
     @Override

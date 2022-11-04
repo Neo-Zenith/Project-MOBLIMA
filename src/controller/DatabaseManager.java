@@ -1,23 +1,10 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Collections;
+import java.util.*;
+import database.*;
+import model.*;
+import model.enums.*;
 
-import database.Database;
-import model.Seat;
-import model.enums.CinemaClass;
-import model.enums.MovieAgeRating;
-import model.enums.MovieShowingStatus;
-import model.Cinema;
-import model.Cineplex;
-import model.enums.SeatType;
-import model.enums.MovieAgeRating;
-import model.enums.MovieShowingStatus;
-import model.Movie;
-import model.DateTime;
-import model.Prices;
 
 public class DatabaseManager {
 
@@ -82,7 +69,6 @@ public class DatabaseManager {
      */
     public static Cinema initializeCinemaData() {
         CinemaClass cinemaClass;
-        double cinemaPrice;
         ArrayList <Seat> seats;
 
         Random rand = new Random();
@@ -92,22 +78,19 @@ public class DatabaseManager {
             case 0:
                 // Data 1
                 cinemaClass = CinemaClass.STANDARD;
-                cinemaPrice = Database.PRICES.getDefaultStandardCinemaPrice();
                 seats = initializeSeatData(cinemaClass);
-                return CinemaManager.createStandardCinema(cinemaClass, cinemaPrice, seats);
+                return CinemaManager.createStandardCinema(seats);
             case 1:
                 // Data 2
                 cinemaClass = CinemaClass.IMAX;
-                cinemaPrice = Database.PRICES.getDefaultIMaxCinemaPrice();
                 seats = initializeSeatData(cinemaClass);
-                return CinemaManager.createIMaxCinema(cinemaClass, cinemaPrice, seats);
+                return CinemaManager.createIMaxCinema(seats);
 
             case 2:
                 // Data 3
                 cinemaClass = CinemaClass.PLATINUM;
-                cinemaPrice = Database.PRICES.getDefaultPlatinumCinemaPrice();
                 seats = initializeSeatData(cinemaClass);
-                return CinemaManager.createPlatinumCinema(cinemaClass, cinemaPrice, seats);
+                return CinemaManager.createPlatinumCinema(seats);
         }
         return null;
     }
@@ -119,8 +102,6 @@ public class DatabaseManager {
      *         initialization
      */
     public static ArrayList <Seat> initializeSeatData(CinemaClass cinemaClass) {
-        SeatType seatType;
-        double seatPrice = Database.PRICES.getDefaultSeatPrice();
         int numOfSeatsPerRow;
         ArrayList <Seat> seats = new ArrayList<>();
 
@@ -128,16 +109,14 @@ public class DatabaseManager {
             numOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
 
             for (int i = 0; i < Database.numOfCoupleRows; i ++) {
-                seatType = SeatType.COUPLE;
                 for (int j = 0; j < numOfSeatsPerRow; j ++) {
-                    seats.add(SeatManager.createCoupleSeat(seatType, seatPrice));
+                    seats.add(SeatManager.createCoupleSeat());
                 }
             }
 
             for (int i = 0; i < Database.numOfRows - Database.numOfCoupleRows; i ++) {
-                seatType = SeatType.STANDARD;
                 for (int j = 0; j < numOfSeatsPerRow; j ++) {
-                    seats.add(SeatManager.createStandardSeat(seatType, seatPrice));
+                    seats.add(SeatManager.createStandardSeat());
                 }
             }
         }
@@ -146,9 +125,8 @@ public class DatabaseManager {
             int numofRows = Database.platinumNumOfRow;
 
             for (int i = 0; i < numofRows; i ++) {
-                seatType = SeatType.STANDARD;
                 for (int j = 0; j < numOfSeatsPerRow; j ++) {
-                    seats.add(SeatManager.createStandardSeat(seatType, seatPrice));
+                    seats.add(SeatManager.createStandardSeat());
                 }
             }
 
@@ -213,50 +191,51 @@ public class DatabaseManager {
     }
 
     public static void initializeMovie() {
+        String title;
+        MovieAgeRating movieAgeRating;
+        MovieShowingStatus movieShowingStatus;
+        ArrayList <String> movieCast = new ArrayList<>();
+        String director;
+        String synopsis;
+        double duration;
 
         // Movie1
-        String title1 = "The Conjuring";
-        MovieAgeRating ageRating1 = MovieAgeRating.M18;
-        MovieShowingStatus status1 = MovieShowingStatus.NOW_SHOWING;
-        ArrayList<String> cast = new ArrayList<String>();
-        cast.add("Yeek");
-        cast.add("Jerick");
-        String director = "LeeJuin";
-        String synopsis = "Good";
-        double duration = 123.0;
-        MovieManager manager = new MovieManager();
-        double moviePrice1 = 7.0;
-        MovieManager.createBlockbusterMovie(title1, ageRating1, status1, cast, director, synopsis, duration,
-                moviePrice1);
+        title = "The Conjuring";
+        movieAgeRating = MovieAgeRating.M18;
+        movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
+        movieCast.add("Yeek");
+        movieCast.add("Jerick");
+        director = "LeeJuin";
+        synopsis = "Good";
+        duration = 123.0;
+        MovieManager.createBlockbusterMovie(title, movieAgeRating, movieShowingStatus, 
+                                            movieCast, director, synopsis, duration);
 
         // Movie2
-        String title2 = "Zootopia";
-        MovieAgeRating ageRating2 = MovieAgeRating.G;
-        MovieShowingStatus status2 = MovieShowingStatus.NOW_SHOWING;
-        ArrayList<String> cast2 = new ArrayList<String>();
-        cast.add("Yeek");
-        cast.add("Jerick");
-        String director2 = "LeeJuin";
-        String synopsis2 = "Good";
-        double duration2 = 155.0;
-        double moviePrice2 = 6.0;
-        MovieManager.createThreeDMovie(title2, ageRating2, status2, cast2, director2, synopsis2, duration2,
-                moviePrice2);
+        title = "Zootopia";
+        movieAgeRating = MovieAgeRating.G;
+        movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
+        movieCast = new ArrayList<String>();
+        movieCast.add("Yeek");
+        movieCast.add("Jerick");
+        director = "LeeJuin";
+        synopsis = "Good";
+        duration = 155.0;
+        MovieManager.createThreeDMovie(title, movieAgeRating, movieShowingStatus, 
+                                        movieCast, director, synopsis, duration);
 
         // Movie3
-        String title3 = "Spiderman";
-        String movieType3 = "Standard";
-        MovieAgeRating ageRating3 = MovieAgeRating.G;
-        MovieShowingStatus status3 = MovieShowingStatus.NOW_SHOWING;
-        ArrayList<String> cast3 = new ArrayList<String>();
-        cast.add("Yeek");
-        cast.add("Jerick");
-        String director3 = "LeeJuin";
-        String synopsis3 = "Good";
-        double duration3 = 155.0;
-        double moviePrice3 = 5.0;
-        MovieManager.createStandardMovie(title3, ageRating3, status3, cast3, director3, synopsis3, duration3,
-                moviePrice3);
+        title = "Spiderman";
+        movieAgeRating = MovieAgeRating.G;
+        movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
+        movieCast = new ArrayList<String>();
+        movieCast.add("Yeek");
+        movieCast.add("Jerick");
+        director = "LeeJuin";
+        synopsis = "Good";
+        duration = 155.0;
+        MovieManager.createStandardMovie(title, movieAgeRating, movieShowingStatus, 
+                                            movieCast, director, synopsis, duration);
 
     }
 

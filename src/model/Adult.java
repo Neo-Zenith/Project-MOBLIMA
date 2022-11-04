@@ -1,5 +1,6 @@
 package model;
 
+import database.Database;
 import model.enums.MovieGoerAge;
 
 public class Adult extends MovieGoer {
@@ -9,7 +10,7 @@ public class Adult extends MovieGoer {
     public Adult(String UUID, String name, String email, String mobileNum, String username, String password) {
         super(UUID, name, email, mobileNum, username, password);
         this.age = MovieGoerAge.Adult;
-        this.price = 5.00;
+        this.price = Database.PRICES.getDefaultAdultPrice();
     }
 
     public MovieGoerAge getMovieGoerAge() {

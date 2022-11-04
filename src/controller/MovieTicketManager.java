@@ -1,14 +1,8 @@
 package controller;
 
-import model.MovieTicket;
-import model.Movie;
-import model.DateTime;
-import model.Seat;
-import model.Cinema;
-import handler.DatabaseHandler;
-import database.Database;
-
-import java.util.*;
+import model.*;
+import handler.*;
+import database.*;
 
 public class MovieTicketManager {
 

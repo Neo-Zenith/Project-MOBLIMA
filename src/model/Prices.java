@@ -105,15 +105,15 @@ public class Prices {
         return this.defaultChildPrice;
     }
 
-    public double getDefaultStudentPrice(double defaultStudentPrice) {
+    public double getDefaultStudentPrice() {
         return this.defaultStudentPrice;
     }
 
-    public double getDefaultAdultPrice(double defaultAdultPrice) {
+    public double getDefaultAdultPrice() {
         return this.defaultAdultPrice;
     }
 
-    public double getDefaultSeniorCitizenPrice(double defaultSeniorCitizenPrice) {
+    public double getDefaultSeniorCitizenPrice() {
         return this.defaultSeniorCitizenPrice;
     }
 

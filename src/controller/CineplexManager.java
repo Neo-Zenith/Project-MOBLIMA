@@ -1,67 +1,34 @@
 package controller;
 
-import model.Cineplex;
-import model.Cinema;
-import model.enums.CinemaClass;
-import model.MovieSchedule;
-import model.Movie;
-import database.Database;
-import handler.DatabaseHandler;
+import java.util.*;
+import model.*;
+import model.enums.*;
+import database.*;
+import handler.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 
 public class CineplexManager {
     
     public CineplexManager() {}
 
     /**
-     * Method to instantiate a cineplex instance and save to database
-     * @param cineplexName  name of the cineplex
-     * @param numOfCinemas  number of cinemas for a cineplex
-     * @param cinemas   ArrayList of {@link Cinema} objects
+     * Creates a {@Link Cineplex} and save to {@Link Database}
+     * @param cineplexName is the name of the {@Link Cineplex}
+     * @param numOfCinemas is the number of {@link Cinema} in the cineplex
+     * @param cinemas is the ArrayList of {@link Cinema} instances in the cineplex
+     * @param cineplexLocation is the location of the cineplex
+     * @return {@link Cineplex} instance which was created
      */
-    public static void createCineplex(String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas, String cineplexLocation) {
+    public static Cineplex createCineplex(String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas, String cineplexLocation) {
         String UUID = String.format("CP%04d", DatabaseHandler.generateUUID(Database.CINEPLEX));
         Cineplex cineplex = new Cineplex(UUID, cineplexName, numOfCinemas, cinemas, cineplexLocation);
         DatabaseManager.saveUpdateToDatabase(UUID, cineplex, Database.CINEPLEX);
+        return cineplex;
     }
 
-    /**
-     * Method to print out information of all the cineplexes in the database
-     * @return ArrayList of {@link Cineplex} objects
-     */
-    public static ArrayList <Cineplex> printCineplexesInfo() {
-        ArrayList <Cineplex> cineplexes = new ArrayList<>();
-        ArrayList <String> cineplexKeyList = Database.getKeyList(Database.CINEPLEX.keySet());
-        ArrayList <Cineplex> cineplexValueList = Database.getValueList(Database.CINEPLEX.values());
-        Collections.sort(cineplexKeyList);
-        Collections.sort(cineplexValueList);
-
-        int index = 1;
-        for (int i = 0; i < cineplexValueList.size(); i ++) {
-            cineplexes.add(cineplexValueList.get(i));
-            System.out.println(index + ".");
-            System.out.print("Cineplex Branch:     ");
-            System.out.println(cineplexValueList.get(i).getCineplexName());
-            System.out.println("Location: ");
-            System.out.println(cineplexValueList.get(i).getCineplexLocation());
-            System.out.println("Standard Cinema: " + 
-                            CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.STANDARD));
-            System.out.println("Platinum Cinema: " + 
-                            CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.PLATINUM));
-            System.out.println("IMAX Cinema: " + 
-                            CineplexManager.countCinemaClass(cineplexValueList.get(i), CinemaClass.IMAX));
-            System.out.println("");
-            index ++;
-        }
-
-        return cineplexes;
-    }
 
     /**
-     * Method that counts the number of different cinema classes for a cineplex
+     * Counts the number of different cinema classes for a cineplex
      * @param cineplex the target {@link Cineplex}
      * @param cinemaCLass the target {@link CinemaClass}
      * @return the number of cinemas of which belong to {@param cinemaClass}
@@ -79,6 +46,11 @@ public class CineplexManager {
     }
 
 
+    /**
+     * Get the {@Cineplex} instance of which the {@param targetCinema} belongs to
+     * @param targetCinema is the {@link Cinema} instance which we want to find its {@Link Cineplex}
+     * @return  {@Link Cineplex} instance which contains the {@param targetCinema}
+     */
     public static Cineplex getCineplexByCinema(Cinema targetCinema) {
         ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
 
@@ -96,6 +68,11 @@ public class CineplexManager {
     }
 
 
+    /**
+     * Returns a filtered list of cineplexes which contains cinemas that are showing {@param movie}
+     * @param movie is the target movie
+     * @return ArrayList of {@link Cineplex} instances
+     */
     public static ArrayList<Cineplex> filterCineplexesByMovie(Movie movie) {
         ArrayList <Cineplex> cineplexes = new ArrayList<>();
         MovieSchedule movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
@@ -106,6 +83,12 @@ public class CineplexManager {
         return finalCineplexes;
     }
 
+
+    /**
+     * Returns a filtered list of cineplexes which contains cinemas that are found in the {@param movieSchedule}
+     * @param movieSchedule is the target movie schedule
+     * @return ArrayList of {@Link Cineplex} instances
+     */
     public static ArrayList <Cineplex> filterCineplexesByMovieSchedule(MovieSchedule movieSchedule) {
         ArrayList <Cineplex> cineplexes = new ArrayList<>();
         ArrayList <Cineplex> allCineplexes = Database.getValueList(Database.CINEPLEX.values());

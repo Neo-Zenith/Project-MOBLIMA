@@ -8,7 +8,6 @@ import model.enums.MovieType;
 import model.enums.MovieShowingStatus;
 
 public abstract class Movie implements Serializable {
-	public static ArrayList<Movie> movies = new ArrayList<>();
 	private String UUID;
 	private String movieTitle;
 	private MovieShowingStatus movieShowingStatus;
@@ -21,10 +20,6 @@ public abstract class Movie implements Serializable {
 	private double movieDuration;
 	private int movieTicketsSold;
 	private final static long serialVersionUID = 8L;
-
-	public Movie() {
-		movies.add(this);
-	}
 
 	public Movie(String UUID, String movieTitle, MovieAgeRating movieAgeRating,
 			MovieShowingStatus showingStatus,
@@ -40,7 +35,6 @@ public abstract class Movie implements Serializable {
 		this.movieDuration = movieDuration;
 		this.movieReviews = new ArrayList<>();
 		this.movieTicketsSold = 0;
-		movies.add(this);
 	}
 
 	public String getUUID() {
@@ -49,14 +43,6 @@ public abstract class Movie implements Serializable {
 
 	public void setUUID(String UUID) {
 		this.UUID = UUID;
-	}
-
-	public static ArrayList<Movie> getMovies() {
-		return movies;
-	}
-
-	public static void setMovies(ArrayList<Movie> movies) {
-		Movie.movies = movies;
 	}
 
 	public String getMovieTitle() {
@@ -113,6 +99,10 @@ public abstract class Movie implements Serializable {
 
 	public void setMovieReviews(ArrayList<MovieReview> movieReviews) {
 		this.movieReviews = movieReviews;
+	}
+
+	public void addMovieReview(MovieReview movieReview) {
+		this.movieReviews.add(movieReview);
 	}
 
 	public MovieAgeRating getMovieAgeRating() {

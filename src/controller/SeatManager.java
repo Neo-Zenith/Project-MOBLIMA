@@ -2,16 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 
-import database.Database;
-import handler.DatabaseHandler;
-import model.CoupleSeat;
-import model.Movie;
-import model.MovieSchedule;
-import model.Seat;
-import model.Cinema;
-import model.enums.CinemaClass;
-import model.StandardSeat;
-import model.enums.SeatType;
+import database.*;
+import handler.*;
+import model.*;
+import model.enums.*;
 
 public class SeatManager {
 
@@ -23,9 +17,9 @@ public class SeatManager {
      * @param seatPrice price weight of the seat
      * @return {@link Seat} object that was created
      */
-    public static Seat createCoupleSeat(SeatType seatType, double seatPrice) {
+    public static Seat createCoupleSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
-        Seat seat = new CoupleSeat(UUID, seatType, false, seatPrice);
+        Seat seat = new CoupleSeat(UUID);
         DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
         return seat;
     }
@@ -36,9 +30,9 @@ public class SeatManager {
      * @param seatPrice price weight of the seat
      * @return {@link Seat} object that was created
      */
-    public static Seat createStandardSeat(SeatType seatType, double seatPrice) {
+    public static Seat createStandardSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
-        Seat seat = new StandardSeat(UUID, seatType, false, seatPrice);
+        Seat seat = new StandardSeat(UUID);
         DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
         return seat;
     }

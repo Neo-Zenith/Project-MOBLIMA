@@ -1,6 +1,8 @@
 package model;
 
-import model.enums.MovieGoerAge;
+import database.*;
+import model.enums.*;
+
 
 public class Child extends MovieGoer {
     private MovieGoerAge age;
@@ -9,7 +11,7 @@ public class Child extends MovieGoer {
     public Child(String UUID, String name, String email, String mobileNum, String username, String password) {
         super(UUID, name, email, mobileNum, username, password);
         this.age = MovieGoerAge.Student;
-        this.price = 4.00;
+        this.price = Database.PRICES.getDefaultChildPrice();
     }
 
     public MovieGoerAge getMovieGoerAge() {

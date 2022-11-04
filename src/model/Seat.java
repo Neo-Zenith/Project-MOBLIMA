@@ -6,16 +6,12 @@ import model.enums.SeatType;
 
 public abstract class Seat implements Serializable{
     private String UUID;
-    private SeatType seatType;
     private boolean isAssigned;
-    private double seatPrice;
     private static final long serialVersionUID = 3L;
     
-    public Seat(String UUID, SeatType seatType, boolean isAssigned, double seatPrice) {
+    public Seat(String UUID) {
         this.setUUID(UUID);
-        this.setSeatType(seatType);
-        this.setAssignStatus(isAssigned);
-        this.setSeatPrice(seatPrice);
+        this.isAssigned = false;
     }
 
     public String getUUID() {
@@ -26,13 +22,9 @@ public abstract class Seat implements Serializable{
         this.UUID = UUID;
     }
 
-    public SeatType getSeatType() {
-        return this.seatType;
-    }
+    public abstract SeatType getSeatType();
 
-    public void setSeatType(SeatType seatType) {
-        this.seatType = seatType;
-    }
+    public abstract void setSeatType(SeatType seatType);
 
     public boolean getAssignStatus() {
         return this.isAssigned;
@@ -42,9 +34,7 @@ public abstract class Seat implements Serializable{
         this.isAssigned = assign;
     }
 
-    public double getSeatPrice() {
-        return this.seatPrice;
-    }
+    public abstract double getSeatPrice();
 
     public abstract void setSeatPrice(double seatPrice);
 }

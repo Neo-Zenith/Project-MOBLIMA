@@ -3,17 +3,22 @@ package model;
 import java.util.ArrayList;
 
 import model.enums.CinemaClass;
+import database.*;
 
 public class IMaxCinema extends Cinema{
     private double cinemaPrice;
     
-    public IMaxCinema(  String UUID, CinemaClass cinemaClass, 
-                            ArrayList <Seat> seats, double cinemaPrice,
-                            int numOfRows, int totalNumOfSeats) {
-        super(UUID, cinemaClass, seats, cinemaPrice, numOfRows, totalNumOfSeats);
+    public IMaxCinema(String UUID, ArrayList <Seat> seats, int numOfRows, int totalNumOfSeats) {
+        super(UUID, seats, numOfRows, totalNumOfSeats);
+        super.setCinemaClass(CinemaClass.IMAX);
+        this.setCinemaPrice(Database.PRICES.getDefaultIMaxCinemaPrice());
     }
 
     public void setCinemaPrice(double cinemaPrice) {
         this.cinemaPrice = cinemaPrice;
+    }
+
+    public double getCinemaPrice() {
+        return this.cinemaPrice;
     }
 }
