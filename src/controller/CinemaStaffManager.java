@@ -46,7 +46,6 @@ public class CinemaStaffManager{
         ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
         ArrayList <String> movieSchedulesKeyList = Database.getKeyList(Database.MOVIE_SCHEDULE.keySet());
 
-
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
         ArrayList <String> movieKeyList = Database.getKeyList(Database.MOVIE.keySet());
 
@@ -62,7 +61,6 @@ public class CinemaStaffManager{
 
         int scheduleIndex = movieSchedules.indexOf(m);
     
-        boolean editMovieSchedule = true;
         ms = movieSchedules.get(scheduleIndex);
         scheduleUUID = movieSchedulesKeyList.get(scheduleIndex);
 
@@ -91,16 +89,13 @@ public class CinemaStaffManager{
             String oldMovieDirector = m.getMovieDirector();
             String oldMovieSynopsis = m.getMovieSynopsis();
             double oldMovieDuration = m.getMovieDuration();
-            
-            ArrayList<Cinema> oldCinemas = ms.getShowingVenues();
-            ArrayList <DateTime> oldShowingTimes = ms.getShowingTime();
-            ArrayList<ArrayList<Seat>> oldSeatingPlan = ms.getSeatingPlan();
 
+           
             if (newMovieType == 1){
                 double moviePrice = Database.PRICES.getDefaultStandardMoviePrice();
                 Movie newMovie = new StandardMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
                                                     oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
-                                                    oldMovieDuration, moviePrice);
+                                                    oldMovieDuration);
                 ms.setMovieOnShow(newMovie);
                 DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
                 DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
@@ -108,7 +103,7 @@ public class CinemaStaffManager{
                 double moviePrice = Database.PRICES.getDefaultBlockbusterMoviePrice();
                 Movie newMovie = new BlockbusterMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
                                                     oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
-                                                    oldMovieDuration, moviePrice);
+                                                    oldMovieDuration);
                 ms.setMovieOnShow(newMovie);
                 DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
                 DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
@@ -116,7 +111,7 @@ public class CinemaStaffManager{
                 double moviePrice = Database.PRICES.getDefault3DMoviePrice();
                 Movie newMovie = new ThreeDMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
                                                     oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
-                                                    oldMovieDuration, moviePrice);
+                                                    oldMovieDuration);
                 ms.setMovieOnShow(newMovie);
                 DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
                 DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
@@ -300,14 +295,14 @@ public class CinemaStaffManager{
                 System.out.println("3. IMaxCinema");
                 int newVenueType = InputHandler.intHandler(); 
                 if (newVenueType == 1){
-                    Cinema c = new StandardCinema(scheduleUUID, CinemaClass.STANDARD, oldSeats, oldCinemaPrice, oldNumOfRows, oldTotalNumofSeats);
+                    Cinema c = new StandardCinema(scheduleUUID,  oldSeats, oldNumOfRows, oldTotalNumofSeats);
                     ms.getShowingVenues().set(venueID -1, c);
                     
                 } else if (newVenueType == 2){
-                    Cinema c = new PlatinumCinema(scheduleUUID, CinemaClass.PLATINUM, oldSeats, oldCinemaPrice, oldNumOfRows, oldTotalNumofSeats);
+                    Cinema c = new PlatinumCinema(scheduleUUID, oldSeats, oldNumOfRows, oldTotalNumofSeats);
                     ms.getShowingVenues().set(venueID -1, c);
                 } else if (newVenueType == 3){
-                    Cinema c = new IMaxCinema(scheduleUUID, CinemaClass.IMAX, oldSeats, oldCinemaPrice, oldNumOfRows, oldTotalNumofSeats);
+                    Cinema c = new IMaxCinema(scheduleUUID, oldSeats,oldNumOfRows, oldTotalNumofSeats);
                     ms.getShowingVenues().set(venueID -1, c);
                 } else {
                     System.out.println("Invalid showing venue type");
@@ -349,24 +344,22 @@ public class CinemaStaffManager{
                 newVenueType = InputHandler.intHandler(); 
                 if (newVenueType == 1){
                     CinemaClass cinemaClass = CinemaClass.STANDARD;
-                    double cinemaPrice = Database.PRICES.getDefaultStandardCinemaPrice();
                     ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                    Cinema c = CinemaManager.createStandardCinema(cinemaClass, cinemaPrice, seats);
+                    Cinema c = CinemaManager.createStandardCinema(seats);
                     ms.getShowingVenues().set(venueID -1, c);
 
                 } else if (newVenueType == 2){
                     CinemaClass cinemaClass = CinemaClass.PLATINUM;
-                    double cinemaPrice = Database.PRICES.getDefaultPlatinumCinemaPrice();
                     ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                    Cinema c = CinemaManager.createPlatinumCinema(cinemaClass, cinemaPrice, seats);
+                    Cinema c = CinemaManager.createPlatinumCinema(seats);
                     ms.getShowingVenues().set(venueID -1, c);
 
                 } else if (newVenueType == 3){
                     CinemaClass cinemaClass = CinemaClass.IMAX;
-                    double cinemaPrice = Database.PRICES.getDefaultIMaxCinemaPrice();
                     ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                    Cinema c = CinemaManager.createIMaxCinema(cinemaClass, cinemaPrice, seats);
+                    Cinema c = CinemaManager.createIMaxCinema(seats);
                     ms.getShowingVenues().set(venueID -1, c);
+
                 } else {
                     System.out.println("Invalid showing venue");
                     return 1;
