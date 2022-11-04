@@ -4,6 +4,7 @@ import handler.InputHandler;
 import controller.CinemaStaffManager;
 
 public class StaffConfigureMovieView {
+    private StaffMovieDetailsView staffMovieDetailsView;
     public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
@@ -24,12 +25,20 @@ public class StaffConfigureMovieView {
     }
     public void appContent(int movieNumber){
         int choice = -1;
-        int failure = 0;
 
         do {
             this.printMenu();
-            int detail = InputHandler.intHandler();
-            failure = CinemaStaffManager.updateExistingMovieDetails(movieNumber, detail);
-        }   while (choice != 11 || failure == 0);
+            choice = InputHandler.intHandler();
+            if (choice == 11){
+                this.staffMovieDetailsView = new StaffMovieDetailsView();
+                staffMovieDetailsView.appContent();
+            }
+            else if (choice <= 11 && choice >= 1 ) {
+                CinemaStaffManager.updateExistingMovieDetails(movieNumber, choice);
+            }
+            else {
+                System.out.println("Invalid choice");
+            }
+        }   while (choice != 11);
     }
 }

@@ -87,4 +87,6 @@ public class DateTime implements Serializable {
 
         System.out.println(String.format("%02d", this.getHour()) + String.format("%02d", this.getMinute()));
     }
+
+
 }

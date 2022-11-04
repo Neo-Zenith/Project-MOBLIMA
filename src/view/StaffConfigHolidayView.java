@@ -4,6 +4,7 @@ import controller.CinemaStaffManager;
 import handler.InputHandler;
 
 public class StaffConfigHolidayView {
+    private StaffConfigSettingsView staffConfigSettingsView;
     public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
@@ -19,7 +20,24 @@ public class StaffConfigHolidayView {
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-            CinemaStaffManager.configureHoliday(choice);
+            switch (choice){
+                case 1:
+                    CinemaStaffManager.configureHoliday(choice);
+                break;
+
+                case 2:
+                    CinemaStaffManager.configureHoliday(choice);
+                break;
+                
+                case 3:
+                    this.staffConfigSettingsView = new StaffConfigSettingsView();
+                    this.staffConfigSettingsView.appContent();
+                break;
+
+                default:
+                    System.out.println("Invalid choice");
+                break;
+            }
         }   while (choice != 3);
     }
 }
