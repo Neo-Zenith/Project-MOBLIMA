@@ -93,4 +93,64 @@ public class MovieManager {
         }
         return movies;
     }
+ 
+    public static void printMovieList(){
+        ArrayList<MovieSchedule> schedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
+        ArrayList<String> movieTitles = new ArrayList<>();
+        if(schedules.size() == 0){
+            System.out.println("No Movie found!!");
+        }
+        
+        //getting arraylist of unique movie titles
+        for(int i = 0; i<schedules.size(); i++){
+            String movieTitle = schedules.get(i).getMovieOnShow().getMovieTitle();
+            if(!movieTitles.contains(movieTitle)){
+                movieTitles.add(movieTitle);
+            }     
+        }
+
+        for(int i = 0; i< movieTitles.size(); i++){
+            String movieTitle = movieTitles.get(i);
+            //printing out the movie details
+            for(int j = 0; j<schedules.size(); j++){
+                if(schedules.get(j).getMovieOnShow().getMovieTitle().equals(movieTitle)){
+                    System.out.println("Movie Title: " + schedules.get(j).getMovieOnShow().getMovieTitle());
+                    System.out.println("Showing Status: " + schedules.get(j).getMovieOnShow().getMovieShowingStatus());
+                    System.out.println("Synopsis: " + schedules.get(j).getMovieOnShow().getMovieSynopsis());
+                    System.out.println("Director: " + schedules.get(j).getMovieOnShow().getMovieDirector());
+                    System.out.print("Cast: ");
+                    for(int k = 0; k < schedules.get(j).getMovieOnShow().getMovieCast().size(); k++) {
+                        System.out.print(schedules.get(j).getMovieOnShow().getMovieCast().get(k) + " ");
+                    }
+                    System.out.println("");
+                    for(int m = 0; m<schedules.get(j).getMovieOnShow().getMovieReviews().size(); m++){
+                        System.out.println("Review " + (m+1) + ": " + schedules.get(j).getMovieOnShow().getMovieReviews().get(m));
+                    }
+                    System.out.println("Review Rating: " +schedules.get(j).getMovieOnShow().getMovieOverallReviewRating());
+                    System.out.println("Age Rating: " + schedules.get(j).getMovieOnShow().getMovieAgeRating());
+                    System.out.println("Duration: " + schedules.get(j).getMovieOnShow().getMovieDuration());
+                    System.out.println("Tickets sold:" + schedules.get(j).getMovieOnShow().getMovieTicketsSold());
+                    break;
+                }
+            }
+            //printing out movie schedule
+            System.out.println("-----------------------------------------------------------");
+            for(int j = 0; j<schedules.size(); j++){
+                if(schedules.get(j).getMovieOnShow().getMovieTitle().equals(movieTitle)){
+                    System.out.print("Movie UUID: " + schedules.get(j).getMovieOnShow().getUUID());
+                    System.out.println(" [" + schedules.get(j).getMovieOnShow().getMovieType() + "] ");
+                    System.out.println("___________");
+                    for(int k=0; k<schedules.get(j).getShowingVenues().size(); k++){
+                        System.out.print("Cinema: " + schedules.get(j).getShowingVenues().get(k).getUUID());
+                        System.out.print(" Showing at: ");
+                        schedules.get(j).getShowingTime().get(k).printTime();
+                        System.out.println("");
+                    }
+                    System.out.println("");
+                }
+
+            }
+        }
+        return;
+    }
 }

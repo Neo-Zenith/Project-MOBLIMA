@@ -7,11 +7,13 @@ import model.Cineplex;
 import controller.CineplexManager;
 import controller.MovieManager;
 import controller.MovieScheduleManager;
+import handler.InputHandler;
+
 
 public class CineplexView extends MainView {
     private Movie movie;
     private ArrayList <Cineplex> cineplexes;
-
+    private CinemaView cinemaView;
 
     public CineplexView(Movie movie) {
         this.movie = movie;
@@ -21,11 +23,11 @@ public class CineplexView extends MainView {
 
     public void printCineplex() {
         System.out.println("====================================");
-        int index = 1;
         for (int i = 0; i < cineplexes.size(); i ++) {
             Cineplex cineplex = cineplexes.get(i);
-            System.out.println(index + ". " + cineplex.getCineplexName());
+            System.out.println((i+1) + ". " + cineplex.getCineplexName());
         }
+        System.out.println((cineplexes.size()+1) + ". Return");
     }
 
     public void printMenu() {
@@ -39,8 +41,22 @@ public class CineplexView extends MainView {
 
         do {
             this.printMenu();
+            choice = InputHandler.intHandler();
+            while(choice <=0 || choice > this.cineplexes.size()+1){
+                System.out.println("Please enter a valid input!");
+                choice = InputHandler.intHandler();;
+            }
+            if (choice == this.cineplexes.size()+1){
+                return;
+            }
+            this.cinemaView = new CinemaView(cineplexes.get(choice-1), this.movie);
+            this.cinemaView.appContent();
             
-        }   while (choice > 0 && choice <= this.cineplexes.size());
+            if(MovieMenuView.exit){
+                return;
+            }
+
+        }while (choice > 0 && choice <= this.cineplexes.size());
     }
 }
 
