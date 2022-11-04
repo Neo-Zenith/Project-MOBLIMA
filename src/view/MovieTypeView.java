@@ -3,7 +3,7 @@ package view;
 import database.Database;
 import handler.InputHandler;
 import model.Movie;
-import model.MovieSchedule;
+import model.*;
 import controller.MovieManager;
 
 import java.util.ArrayList;
@@ -12,11 +12,13 @@ public class MovieTypeView extends MainView {
     private String movieTitle;
     private ArrayList<Movie> listOfMovieTypes;
     private int numOfMovieTypes;
+    private MovieGoer movieGoer;
 
-    public MovieTypeView(String movieTitle) {
+    public MovieTypeView(String movieTitle, MovieGoer movieGoer) {
         this.movieTitle = movieTitle;
         this.listOfMovieTypes = MovieManager.getMovieList(movieTitle);
         this.numOfMovieTypes = this.listOfMovieTypes.size();
+        this.movieGoer = movieGoer;
     }
 
     public void printMovieType() {
@@ -50,7 +52,7 @@ public class MovieTypeView extends MainView {
             if (choice == numOfMovieTypes + 1) {
                 return;
             } else {
-                CineplexView cineplex = new CineplexView(listOfMovieTypes.get(choice - 1));
+                CineplexView cineplex = new CineplexView(listOfMovieTypes.get(choice - 1), this.movieGoer);
                 cineplex.appContent();
             }
             if (MovieMenuView.exit) {

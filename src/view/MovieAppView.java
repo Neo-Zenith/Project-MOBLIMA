@@ -4,11 +4,10 @@ import database.Database;
 import handler.InputHandler;
 import model.MovieGoer;
 import model.CinemaStaff;
+import controller.DatabaseManager;
 import controller.UserManager;
 
 public class MovieAppView extends MainView {
-
-    private MovieGoerView movieGoerView;
     private StaffSystemConfig staffView;
 
     public MovieAppView() {
@@ -42,7 +41,8 @@ public class MovieAppView extends MainView {
                     password = InputHandler.stringHandler();
                     Object user = UserManager.login(username, password);
                     if (user instanceof MovieGoer) {
-                        MovieMenuView menu = new MovieMenuView();
+                        MovieGoer movieGoer = (MovieGoer) user;
+                        MovieMenuView menu = new MovieMenuView(movieGoer);
                         menu.appContent();
                     } else if (user instanceof CinemaStaff) {
                         this.staffView = new StaffSystemConfig();
@@ -61,7 +61,7 @@ public class MovieAppView extends MainView {
                             break;
                         }
                     }
-                    break;
+                    break; 
             }
         } while (choice != 3);
     }

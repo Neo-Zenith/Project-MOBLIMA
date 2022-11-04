@@ -1,13 +1,16 @@
 package view;
 
 import handler.InputHandler;
+import model.MovieGoer;
 
 public class MovieMenuView {
     public static boolean exit = false;
     private MovieListView movieListView;
+    private MovieGoer movieGoer;
 
-    public MovieMenuView() {
-        this.movieListView = new MovieListView();
+    public MovieMenuView(MovieGoer movieGoer) {
+        this.movieGoer = movieGoer;
+        this.movieListView = new MovieListView(this.movieGoer);
     }
 
     public void printMenu() {
@@ -39,7 +42,7 @@ public class MovieMenuView {
                     this.movieListView.appContent();
                     break;
                 case 2:
-                    MovieSearchView search = new MovieSearchView();
+                    MovieSearchView search = new MovieSearchView(this.movieGoer);
                     search.appContent();
                 case 3:
                     break;

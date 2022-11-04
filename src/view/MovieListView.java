@@ -2,14 +2,17 @@ package view;
 
 import java.util.ArrayList;
 import model.Movie;
+import model.MovieGoer;
 import controller.MovieManager;
 import handler.InputHandler;
 
 public class MovieListView extends MainView {
     private ArrayList<Movie> allMovies;
+    private MovieGoer movieGoer;
 
-    public MovieListView() {
+    public MovieListView(MovieGoer movieGoer) {
         this.allMovies = MovieManager.getAllMovieList();
+        this.movieGoer = movieGoer;
     }
 
     public void printMovieList() {
@@ -46,7 +49,7 @@ public class MovieListView extends MainView {
                 return;
             } else {
                 movieTitle = allMovies.get(choice).getMovieTitle();
-                MovieDetailsView detailsview = new MovieDetailsView(movieTitle);
+                MovieDetailsView detailsview = new MovieDetailsView(movieTitle, this.movieGoer);
                 detailsview.appContent();
             }
             if (MovieMenuView.exit) {
