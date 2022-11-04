@@ -6,9 +6,9 @@ public class Child extends MovieGoer {
     private MovieGoerAge age;
     private double price;
 
-    public Child(String UUID, String name, String email, String mobileNum, MovieGoerAge age, String username, String password) {
+    public Child(String UUID, String name, String email, String mobileNum, String username, String password) {
         super(UUID, name, email, mobileNum, username, password);
-        this.age = age;
+        this.age = MovieGoerAge.Student;
         this.price = 4.00;
     }
 
