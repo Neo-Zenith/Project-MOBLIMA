@@ -732,5 +732,15 @@ public class CinemaStaffManager{
         }
 
     }
+    public static void optInOne(int choice){
+        if (choice == 1){
+            MovieGoer.setViewTop5OverallRatings(true); 
+        }
+        else{
+            MovieGoer.setViewTop5MovieSales(true);
+        }
+
+    }
+
 
 }
