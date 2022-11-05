@@ -3,6 +3,7 @@ package view;
 import model.MovieSchedule;
 import controller.MovieScheduleManager;
 import handler.InputHandler;
+import handler.UIHandler;
 import model.Cinema;
 import model.DateTime;
 import model.Movie;
@@ -19,6 +20,7 @@ public class MovieScheduleView {
     private ArrayList<DateTime> showingTimes;
     private ArrayList<Integer> indexList;
     private SeatingPlanView seatingPlanView;
+    private String errorMessage;
 
     public MovieScheduleView(ArrayList<Cinema> cinemaList, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
@@ -35,47 +37,64 @@ public class MovieScheduleView {
                 }
             }
         }
+        this.errorMessage = "";
     }
 
     public void printShowingTimes() {
-        System.out.println("====================================");
-        for (int i = 0; i < showingTimes.size(); i++) {
-            System.out.print((i + 1) + ". ");
-            showingTimes.get(i).printTime();
+        String content = "\n";
+
+        int count = 0;
+        for (int i = 0; i < this.showingTimes.size(); i++) {
+            String index = String.format("%02d. ", i + 1);
+            DateTime showingTime = this.showingTimes.get(i);
+            String payload = String.format(index + "%s\n", showingTime.getTimeNow());
+            content = content + payload;
+            count = i + 1;
         }
-        System.out.println((showingTimes.size() + 1) + ". Return");
+
+        String index = String.format("%02d. ", count + 1);
+        String payload = String.format(index + "Return.");
+        content = content + payload;
+
+        MainView.printMenuContent(content);
     }
 
     public void printMenu() {
-        MainView.printBoilerPlate("Please select a showing time to view the seating plan: ");
-        System.out.println("====================================");
+        MainView.printBoilerPlate("Showing Schedule for " + this.movie.getMovieTitle());
+        this.printShowingTimes();
     }
 
     public void appContent() {
-        this.printShowingTimes();
         int choice = -1;
+
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-            while (choice < 1 || choice > showingTimes.size() + 1) {
-                System.out.println("Please enter a valid input");
-                choice = InputHandler.intHandler();
+            if (choice < 1 || choice > showingTimes.size() + 1) {
+                this.errorMessage = "Error! Please enter a valid input";
+                continue;
             }
         
             if (choice == showingTimes.size() + 1) {
+                this.errorMessage = "";
                 return;
-            } else {
+            } 
+            else {
                 int pointer = indexList.get(choice - 1);
                 this.seatingPlanView = new SeatingPlanView(this.movieSchedule,
                         this.movieSchedule.getShowingVenues().get(pointer),
                         this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
+                this.errorMessage = "";
                 this.seatingPlanView.appContent();
             }
 
             if (MovieMenuView.exit) {
+                this.errorMessage = "";
                 return;
             }
-        } while (choice > 0 && choice <= showingTimes.size() + 1);
+        } while (true);
 
     }
 }

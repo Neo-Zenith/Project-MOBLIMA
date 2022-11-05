@@ -30,7 +30,6 @@ public class MovieDetailsView extends MainView {
     }
 
     public void printMovieDetails() {
-        MainView.printBoilerPlate(this.movieTitle);
         System.out.println("Showing Status: " + movie.getMovieShowingStatus().getDisplayName());
         System.out.println("Movie Director: " + movie.getMovieDirector());
         if (movie.getMovieReviews().size() == 0) {
@@ -48,6 +47,7 @@ public class MovieDetailsView extends MainView {
     }
 
     public void printMenu() {
+        MainView.printBoilerPlate(this.movieTitle);
         this.printMovieDetails();
         MainView.printMenuContent("""
 
@@ -119,8 +119,8 @@ public class MovieDetailsView extends MainView {
 
             for (int i = 0; i < pastReviews.size(); i++) {
                 String index = String.format("%d. ", i + 1);
-                String payload = String.format("%s\n", this.pastReviews.get(i));
-                content = index + payload;
+                String payload = String.format(index + "%s\n", this.pastReviews.get(i));
+                content = content + payload;
             }
             MainView.printMenuContent(content);
         }

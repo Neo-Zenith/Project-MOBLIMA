@@ -89,4 +89,41 @@ public class DateTime implements Serializable {
     }
 
 
+    public String getTimeNow() {
+        String timeNow = "";
+        timeNow += this.getDate() + "/";
+        timeNow += this.getMonth() + "/";
+        timeNow += this.getYear() + "  ";
+
+        switch (this.day) {
+            case 1:
+               timeNow += "Sunday  ";
+                break;
+            case 2:
+                timeNow += "Monday  ";
+                break;
+            case 3:
+                timeNow += "Tuesday  ";
+                break;
+            case 4:
+                timeNow += "Wednesday  ";
+                break;
+            case 5:
+                timeNow += "Thursday  ";
+                break;
+            case 6:
+                timeNow += "Friday  ";
+                break;
+            case 7:
+                timeNow += "Saturday  ";
+                break;
+            default:
+                break;
+        }
+
+        timeNow += String.format("%02d", this.getHour());
+        timeNow += String.format("%02d", this.getMinute());
+
+        return timeNow;
+    }
 }

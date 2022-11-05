@@ -1,63 +1,73 @@
 package view;
 
-import database.Database;
-import handler.InputHandler;
-import model.Movie;
+import handler.*;
 import model.*;
-import controller.MovieManager;
+import controller.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class MovieTypeView extends MainView {
     private String movieTitle;
     private ArrayList<Movie> listOfMovieTypes;
-    private int numOfMovieTypes;
     private MovieGoer movieGoer;
+    private String errorMessage;
 
     public MovieTypeView(String movieTitle, MovieGoer movieGoer) {
         this.movieTitle = movieTitle;
         this.listOfMovieTypes = MovieManager.getMovieList(movieTitle);
-        this.numOfMovieTypes = this.listOfMovieTypes.size();
         this.movieGoer = movieGoer;
+        this.errorMessage = "";
     }
 
     public void printMovieType() {
-        System.out.println("====================================");
-        System.out.println("Movie Type Available: ");
-        int index = 1;
+        String content = "\n";
+
+        int count = 0;
         for (int i = 0; i < listOfMovieTypes.size(); i++) {
             Movie movie = listOfMovieTypes.get(i);
-            System.out.println(index + ". " + movie.getMovieType());
+            String index = String.format("%d. ", i + 1);
+            String payload = String.format(index + "%s\n", movie.getMovieType().getDisplayName());
+            content = content + payload;
+            count = i + 1;
         }
-        System.out.println((this.numOfMovieTypes + 1) + ". Return");
+        String index = String.format("%d. ", count + 1);
+        String payload = String.format(index + "Return.");
+        content = content + payload;
+
+        MainView.printMenuContent(content);
     }
 
     public void printMenu() {
-        MainView.printBoilerPlate("Please select one of the movie types: ");
-        System.out.println("====================================");
+        MainView.printBoilerPlate("Movie Type for " + this.movieTitle);
+        this.printMovieType();
     }
 
     public void appContent() {
         int choice = -1;
-        this.printMovieType();
 
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
 
-            while (choice < 1 || choice > numOfMovieTypes + 1) {
-                System.out.println("Please enter a valid input.");
-                choice = InputHandler.intHandler();
+            if (choice < 0 || choice > this.listOfMovieTypes.size() + 1) {
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
-            if (choice == numOfMovieTypes + 1) {
+            if (choice == this.listOfMovieTypes.size() + 1) {
+                this.errorMessage = "";
                 return;
-            } else {
+            } 
+            else {
+                this.errorMessage = "";
                 CineplexView cineplex = new CineplexView(listOfMovieTypes.get(choice - 1), this.movieGoer);
                 cineplex.appContent();
             }
             if (MovieMenuView.exit) {
+                this.errorMessage = "";
                 return;
             }
-        } while (choice > 0 && choice < this.numOfMovieTypes);
+        } while (true);
     }
 }

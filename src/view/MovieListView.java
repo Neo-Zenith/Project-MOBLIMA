@@ -18,7 +18,7 @@ public class MovieListView extends MainView {
     }
 
     public void printMovieList() {
-        String content = "";
+        String content = "\n";
         int count = 0;
         for (int i = 0; i < this.allMovies.size(); i++) {
             Movie movie = allMovies.get(i);

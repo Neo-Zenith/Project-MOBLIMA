@@ -1,14 +1,9 @@
 package view;
 
-import java.util.ArrayList;
-import model.Movie;
-import model.MovieGoer;
-import model.MovieSchedule;
-import model.Cineplex;
-import controller.CineplexManager;
-import controller.MovieManager;
-import controller.MovieScheduleManager;
-import handler.InputHandler;
+import java.util.*;
+import model.*;
+import controller.*;
+import handler.*;
 
 
 public class CineplexView extends MainView {
@@ -16,50 +11,67 @@ public class CineplexView extends MainView {
     private ArrayList <Cineplex> cineplexes;
     private CinemaView cinemaView;
     private MovieGoer movieGoer;
+    private String errorMessage;
 
     public CineplexView(Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cineplexes = CineplexManager.filterCineplexesByMovie(this.movie);
         this.movieGoer = movieGoer;
+        this.errorMessage = "";
     }
 
 
     public void printCineplex() {
-        System.out.println("====================================");
+        String content = "";
+        int count = 0;
         for (int i = 0; i < cineplexes.size(); i ++) {
             Cineplex cineplex = cineplexes.get(i);
-            System.out.println((i+1) + ". " + cineplex.getCineplexName());
+            String index = String.format("%d. ", i + 1);
+            String payload = String.format(index + "%s\n", cineplex.getCineplexName());
+            payload += String.format("%s\n", cineplex.getCineplexLocation());
+            
+            content = content + payload;
+            count = i + 1;
         }
-        System.out.println((cineplexes.size()+1) + ". Return");
+        String index = String.format("%d. ", count + 1); 
+        String payload = String.format(index + "Return.");
+        content = content + payload;
+
+        MainView.printMenuContent(content);
     }
 
     public void printMenu() {
-        MainView.printBoilerPlate("Please select a cineplex to view the cinemas available: ");
-        System.out.println("====================================");
+        MainView.printBoilerPlate("Cineplexes showing " + this.movie.getMovieTitle());
+        this.printCineplex();
     }
+
 
     public void appContent() {
         int choice = -1;
-        this.printCineplex();
 
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-            while(choice <=0 || choice > this.cineplexes.size()+1){
-                System.out.println("Please enter a valid input!");
-                choice = InputHandler.intHandler();;
+            if (choice < 0 || choice > this.cineplexes.size() + 1) {
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
-            if (choice == this.cineplexes.size()+1){
+            if (choice == this.cineplexes.size() + 1) {
+                this.errorMessage = "";
                 return;
             }
-            this.cinemaView = new CinemaView(cineplexes.get(choice-1), this.movie, this.movieGoer);
+            this.cinemaView = new CinemaView(cineplexes.get(choice - 1), this.movie, this.movieGoer);
+            this.errorMessage = "";
             this.cinemaView.appContent();
             
-            if(MovieMenuView.exit){
+            if (MovieMenuView.exit) {
+                this.errorMessage = "";
                 return;
             }
 
-        }while (choice > 0 && choice <= this.cineplexes.size());
+        }   while (true);
     }
 }
 
