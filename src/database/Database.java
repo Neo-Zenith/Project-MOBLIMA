@@ -152,11 +152,10 @@ public class Database {
             System.out.println("Error! Reading of data " + ModelType.PRICES + " failed");
         }
 
-        CinemaStaff cinemaStaff = CinemaStaffManager.createCinemaStaff("John", "aaa", "aaa");
-        Database.CINEMA_STAFF.put("CS0001", cinemaStaff);
-
-        MovieGoer movieGoer = MovieGoerManager.createGoerAdult("Smith", "aaa", "aaa", "aaa1", "aaa");
-        Database.MOVIE_GOER.put("MG0001", movieGoer);
+        ArrayList <CinemaStaff> currentStaff = Database.getValueList(Database.CINEMA_STAFF.values());
+        if (currentStaff.size() == 0) {
+            DatabaseManager.initalizeCinemaStaff();
+        }
     }
 
     /**
@@ -355,7 +354,7 @@ public class Database {
         Database.MOVIE_GOER = new HashMap <String, MovieGoer>();
         Database.MOVIE_REVIEW = new HashMap <String, MovieReview>();
         Database.CINEMA_STAFF = new HashMap <String, CinemaStaff>();
-        Database.PRICES = DatabaseManager.initializePrices();
+        Database.PRICES = new Prices();
         Database.MOVIE_TICKET = new HashMap<String, MovieTicket>();
         Database.holidays = new ArrayList<DateTime>();
 

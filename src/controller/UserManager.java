@@ -1,7 +1,7 @@
 package controller;
 
-import model.CinemaStaff;
-import model.MovieGoer;
+import model.enums.*;
+import model.*;
 
 import database.Database;
 
@@ -50,5 +50,37 @@ public class UserManager {
         }
 
         return true;
+    }
+
+
+    public static MovieGoer register(MovieGoerAge age, String name, String username, 
+                                    String password, String email, String mobileNum) {
+
+        if (checkUniqueUser(username)) {
+            switch(age) {
+                case Adult:
+                    return MovieGoerManager.createGoerAdult(name, email, mobileNum, username, 
+                                                            password);
+                
+                case Student:
+                    return MovieGoerManager.createGoerStudent(name, email, mobileNum, username, 
+                                                                password);
+                
+                case SeniorCitizen:
+                    return MovieGoerManager.createGoerSeniorCitizen(name, email, mobileNum, 
+                                                                    username, password);
+                
+                case Child:
+                    return MovieGoerManager.createGoerStudent(name, email, mobileNum, username, 
+                                                            password);
+                
+                default:
+                    return MovieGoerManager.createGoerAdult(name, email, mobileNum, username, 
+                                                            password);
+            }
+        }
+        else {
+            return null;
+        }
     }
 }

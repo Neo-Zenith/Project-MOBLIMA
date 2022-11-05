@@ -70,7 +70,7 @@ public class MovieGoerManager {
      * @param password is the password of the user
      * @return {@link MovieGoer} instance that was created
      */
-    public static MovieGoer createGoerStudent(MovieGoerAge age, String name, String email, String mobileNum, String username, String password){
+    public static MovieGoer createGoerStudent(String name, String email, String mobileNum, String username, String password){
         String UUID = String.format("MG%04d", DatabaseHandler.generateUUID(Database.MOVIE_GOER));
         MovieGoer goer = new Student(UUID, name, email, mobileNum, username, password);
         DatabaseManager.saveUpdateToDatabase(UUID, goer, Database.MOVIE_GOER);

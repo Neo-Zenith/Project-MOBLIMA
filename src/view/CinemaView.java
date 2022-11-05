@@ -16,6 +16,7 @@ public class CinemaView extends MainView {
     private ArrayList<Cinema> listOfCinemaClass;
     private MovieScheduleView movieScheduleView;
     private MovieGoer movieGoer;
+    private ArrayList <CinemaClass> existingClass;
 
     public CinemaView(Cineplex cineplex, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
@@ -25,7 +26,7 @@ public class CinemaView extends MainView {
     }
 
     public void printCinemas() {
-        ArrayList<CinemaClass> existingClass = new ArrayList<CinemaClass>();
+        this.existingClass = new ArrayList<CinemaClass>();
         System.out.println("====================================");
         for (int i = 0; i < this.listOfCinemaClass.size(); i++) {
             Cinema cinema = this.listOfCinemaClass.get(i);
@@ -34,7 +35,7 @@ public class CinemaView extends MainView {
                 System.out.println((i + 1) + ". " + cinema.getCinemaClass());
             }
         }
-        System.out.println((this.listOfCinemaClass.size() + 1) + ". Return");
+        System.out.println((existingClass.size() + 1) + ". Return");
     }
 
     public void printMenu() {
@@ -48,11 +49,11 @@ public class CinemaView extends MainView {
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-            while (choice < 0 || choice > this.listOfCinemaClass.size() + 1) {
+            while (choice < 0 || choice > this.existingClass.size() + 1) {
                 System.out.println("Please enter a valid input");
                 choice = InputHandler.intHandler();
             }
-            if (choice == this.listOfCinemaClass.size() + 1) {
+            if (choice == this.existingClass.size() + 1) {
                 return;
             }
 
@@ -62,7 +63,7 @@ public class CinemaView extends MainView {
             if (MovieMenuView.exit) {
                 return;
             }
-        } while (choice > 0 && choice <= this.listOfCinemaClass.size());
+        } while (choice > 0 && choice <= this.existingClass.size());
 
     }
 }

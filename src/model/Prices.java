@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class Prices implements Serializable {
     
-    private double defaultStandardCinemaPrice = 2;
-    private double defaultPlatinumCinemaPrice = 30;
-    private double defaultIMaxCinemaPrice = 3;
-    private double defaultSeatPrice = 4;
-    private double defaultBlockbusterMoviePrice = 3;
-    private double default3DMoviePrice = 5;
-    private double defaultStandardMoviePrice = 2;
-    private double defaultChildPrice = 1.5;
-    private double defaultStudentPrice = 1.5;
-    private double defaultAdultPrice = 2;
-    private double defaultSeniorCitizenPrice = 1.5;
-    private double holidayPrice = 1.5;
-    private double weekendPrice = 1.5;
+    private double defaultStandardCinemaPrice;
+    private double defaultPlatinumCinemaPrice;
+    private double defaultIMaxCinemaPrice;
+    private double defaultSeatPrice;
+    private double defaultBlockbusterMoviePrice;
+    private double default3DMoviePrice;
+    private double defaultStandardMoviePrice;
+    private double defaultChildPrice;
+    private double defaultStudentPrice;
+    private double defaultAdultPrice;
+    private double defaultSeniorCitizenPrice;
+    private double holidayPrice;
+    private double weekendPrice;
     private final static long serialVersionUID = 15L;
     
     public Prices() {}

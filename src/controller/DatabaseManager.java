@@ -15,6 +15,14 @@ public class DatabaseManager {
      * Initializes dummy data for cinplexes.
      */
     public static void initializeCineplexData() {
+        ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
+
+        if (cineplexs.size() != 0) {
+            System.out.println("Error! Existing cineplex data in the database!");
+            System.out.println("Consider resetting database before loading initial data!");
+            return;
+        }
+
         String cineplexName;
         String cineplexLocation;
         int numOfCinemas;
@@ -60,6 +68,8 @@ public class DatabaseManager {
             cinemas.add(initializeCinemaData());
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
+
+        System.out.println("Cineplex data loaded successfully!");
     }
 
     /**
@@ -134,7 +144,16 @@ public class DatabaseManager {
         return seats;
     }
 
+
     public static void initializeMovieScheduleData() {
+        ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
+
+        if (movieSchedules.size() != 0) {
+            System.out.println("Error! Existing movie schedule data in the database!");
+            System.out.println("Consider resetting database before loading initial data!");
+            return;
+        }
+
         Movie movieOnShow;
         ArrayList <Cinema> showingVenue;
         ArrayList <ArrayList <Seat>> seatingPlan = new ArrayList<ArrayList<Seat>>();
@@ -188,9 +207,18 @@ public class DatabaseManager {
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
+        System.out.println("Movie Schedule data loaded successfully!");
     }
 
     public static void initializeMovie() {
+        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+
+        if (movies.size() != 0) {
+            System.out.println("Error! Existing movie data in the database!");
+            System.out.println("Consider resetting database before loading initial data!");
+            return;
+        }
+
         String title;
         MovieAgeRating movieAgeRating;
         MovieShowingStatus movieShowingStatus;
@@ -236,17 +264,42 @@ public class DatabaseManager {
         duration = 155.0;
         MovieManager.createStandardMovie(title, movieAgeRating, movieShowingStatus, 
                                             movieCast, director, synopsis, duration);
-
+        
+        System.out.println("Movie data loaded successfully!");
     }
 
-    public static Prices initializePrices() {
+
+    public static void initalizeCinemaStaff() {
+        ArrayList <CinemaStaff> cinemaStaffs = Database.getValueList(Database.CINEMA_STAFF.values());
+
+        if (cinemaStaffs.size() != 0) {
+            System.out.println("Error! Existing staff data in the database!");
+            System.out.println("Consider resetting database before loading initial data!");
+            return;
+        }
+
+        String name = "CinemaStaf";
+        String username = "admin";
+        String password = "password";
+        CinemaStaffManager.createCinemaStaff(name, password, username);
+
+        System.out.println("Cinema Staff data loaded successfully!");
+    }
+
+
+    public static void initializePrices() {
+        System.out.println("Overriding existing ticket price settings to default!");
         Prices prices = new Prices(2,30,3,
         4,3,
         5,2,1.5, 
         1.5,2,1.5,1.5,1.5);
-        return prices;
+        Database.PRICES = prices;
+        DatabaseManager.relaodDatabase();
+        
+        System.out.println("Price data loaded successfully!");
     }   
     
+
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
         DatabaseManager.relaodDatabase();

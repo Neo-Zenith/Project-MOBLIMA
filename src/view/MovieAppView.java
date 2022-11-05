@@ -3,15 +3,16 @@ package view;
 import database.Database;
 import handler.InputHandler;
 import model.MovieGoer;
+import model.enums.MovieGoerAge;
 import model.CinemaStaff;
 import controller.DatabaseManager;
+import controller.MovieGoerManager;
 import controller.UserManager;
 
 public class MovieAppView extends MainView {
     private StaffSystemConfig staffView;
 
-    public MovieAppView() {
-    }
+    public MovieAppView() {}
 
     public void printMenu() {
         System.out.println("====================================");
@@ -20,6 +21,18 @@ public class MovieAppView extends MainView {
                 1. Login.
                 2. Register.
                 3. Exit the program.
+                """);
+    }
+
+
+    public void printAgeGroup() {
+        System.out.println("====================================");
+        System.out.println("What is your age group?");
+        MainView.printBoilerPlate("""
+                1. Adult.
+                2. Child.
+                3. Senior Citizen.
+                4. Student.
                 """);
     }
 
@@ -60,7 +73,38 @@ public class MovieAppView extends MainView {
                         if (UserManager.checkUniqueUser(username)) {
                             break;
                         }
+                        System.out.println("Username has been taken!");
                     }
+                    
+                    int choice1 = -1;
+                    MovieGoerAge movieGoerAge = MovieGoerAge.Adult;
+                    this.printAgeGroup();
+                    choice1 = InputHandler.intHandler();
+                    switch (choice1) {
+                        case 1:
+                            movieGoerAge = MovieGoerAge.Adult;
+                            break;
+                        case 2:
+                            movieGoerAge = MovieGoerAge.Child;
+                            break;
+                        case 3:
+                            movieGoerAge = MovieGoerAge.SeniorCitizen;
+                            break;
+                        case 4:
+                            movieGoerAge = MovieGoerAge.Student;
+                            break;
+                    }
+
+                    System.out.println("Enter your name: ");
+                    String name = InputHandler.stringHandler();
+                    System.out.println("Enter your email: ");
+                    String email = InputHandler.stringHandler();
+                    System.out.println("Enter your mobile number: ");
+                    String mobileNum = InputHandler.stringHandler();
+
+                    MovieGoer movieGoer = UserManager.register(movieGoerAge, name, username, password, email, mobileNum);
+                    MovieMenuView menu = new MovieMenuView(movieGoer);
+                    menu.appContent();
                     break; 
             }
         } while (choice != 3);

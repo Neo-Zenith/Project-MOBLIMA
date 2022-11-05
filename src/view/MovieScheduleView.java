@@ -61,10 +61,11 @@ public class MovieScheduleView {
                 System.out.println("Please enter a valid input");
                 choice = InputHandler.intHandler();
             }
-            int pointer = indexList.get(choice - 1);
+        
             if (choice == showingTimes.size() + 1) {
                 return;
             } else {
+                int pointer = indexList.get(choice - 1);
                 this.seatingPlanView = new SeatingPlanView(this.movieSchedule,
                         this.movieSchedule.getShowingVenues().get(pointer),
                         this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
@@ -74,7 +75,7 @@ public class MovieScheduleView {
             if (MovieMenuView.exit) {
                 return;
             }
-        } while (choice > 0 && choice <= this.num);
+        } while (choice > 0 && choice <= showingTimes.size() + 1);
 
     }
 }

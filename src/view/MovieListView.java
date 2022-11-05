@@ -48,7 +48,7 @@ public class MovieListView extends MainView {
             if (choice == (allMovies.size() + 1)) {
                 return;
             } else {
-                movieTitle = allMovies.get(choice).getMovieTitle();
+                movieTitle = allMovies.get(choice - 1).getMovieTitle();
                 MovieDetailsView detailsview = new MovieDetailsView(movieTitle, this.movieGoer);
                 detailsview.appContent();
             }
