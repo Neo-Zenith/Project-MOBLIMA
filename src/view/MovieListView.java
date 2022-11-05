@@ -1,62 +1,74 @@
 package view;
 
-import java.util.ArrayList;
-import model.Movie;
-import model.MovieGoer;
-import controller.MovieManager;
-import handler.InputHandler;
+import java.util.*;
+import model.*;
+import controller.*;
+import handler.*;
+
 
 public class MovieListView extends MainView {
     private ArrayList<Movie> allMovies;
     private MovieGoer movieGoer;
+    private String errorMessage;
 
     public MovieListView(MovieGoer movieGoer) {
         this.allMovies = MovieManager.getAllMovieList();
         this.movieGoer = movieGoer;
+        this.errorMessage = "";
     }
 
     public void printMovieList() {
-        int size = 0;
-        System.out.println("====================================");
+        String content = "";
+        int count = 0;
         for (int i = 0; i < this.allMovies.size(); i++) {
-            size = i + 1;
             Movie movie = allMovies.get(i);
-            System.out.println((i + 1) + ". " + movie.getMovieTitle());
+            String index = String.format("%02d. ", (i + 1));
+            String payload = String.format(index + "%s\n", movie.getMovieTitle());
+            content = content + payload;
+            count = i + 1;
         }
-        System.out.println((size + 1) + ". Return");
+        String index = String.format("%02d. ", (count + 1));
+        String payload = String.format(index + "Return.\n");
+        content = content + payload;
 
+        MainView.printMenuContent(content);
     }
 
     public void printMenu() {
-        MainView.printBoilerPlate("Please select a movie to view further details or return to previous page: ");
-        System.out.println("====================================");
+        MainView.printBoilerPlate("Available Movies");
+        this.printMovieList();
     }
 
     public void appContent() {
         int choice = -1;
-        this.printMovieList();
         String movieTitle;
 
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
 
-            while (choice < 1 || choice > allMovies.size() + 1) {
-                System.out.println("Please enter a valid input.");
-                choice = InputHandler.intHandler();
+            if (choice == -1 || choice < 0 || choice > allMovies.size() + 1) {
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
             if (choice == (allMovies.size() + 1)) {
+                this.errorMessage = "";
                 return;
-            } else {
+            } 
+            else {
                 movieTitle = allMovies.get(choice - 1).getMovieTitle();
                 MovieDetailsView detailsview = new MovieDetailsView(movieTitle, this.movieGoer);
+                this.errorMessage = "";
                 detailsview.appContent();
             }
             if (MovieMenuView.exit) {
+                this.errorMessage = "";
                 return;
             }
 
-        } while (choice > 0 && choice <= allMovies.size());
+        }   while (true);
     }
 
 }

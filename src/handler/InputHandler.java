@@ -12,6 +12,7 @@ public class InputHandler {
             return input;
         }
         catch (Exception e) {
+            scanner.nextLine();
             System.out.println("Error! Please enter a valid integer!");
             return -1;
         }
@@ -34,6 +35,7 @@ public class InputHandler {
             return input;
         }
         catch (Exception e){
+            scanner.nextLine();
             System.out.println("Error! Please enter a valid double!");
             return -1;
         }

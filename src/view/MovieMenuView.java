@@ -1,41 +1,41 @@
 package view;
 
 import handler.InputHandler;
+import handler.UIHandler;
 import model.MovieGoer;
 
 public class MovieMenuView {
     public static boolean exit = false;
     private MovieListView movieListView;
     private MovieGoer movieGoer;
+    private String errorMessage;
 
     public MovieMenuView(MovieGoer movieGoer) {
         this.movieGoer = movieGoer;
         this.movieListView = new MovieListView(this.movieGoer);
+        this.errorMessage = "";
     }
 
     public void printMenu() {
-        System.out.println("====================================");
-        MainView.printBoilerPlate("""
+        MainView.printBoilerPlate("Main Menu");
+        MainView.printMenuContent("""
+
                 1. List Movies
                 2. Search Movie
                 3. View Booking History
                 4. List Top 5 Movies
                 5. Logout
                 """);
-        System.out.println("====================================");
     }
 
     public void appContent() {
         int choice = -1;
 
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-
-            while (choice < 1 || choice > 5) {
-                System.out.println("Please enter a valid input.");
-                choice = InputHandler.intHandler();
-            }
 
             switch (choice) {
                 case 1:
@@ -50,8 +50,12 @@ public class MovieMenuView {
                     MovieListRankingView rank = new MovieListRankingView();
                     rank.appContent();
                     break;
-
+                case 5:
+                    return;
+                default:
+                    this.errorMessage = "Please enter a valid input!";
             }
-        } while (choice > 0 && choice < 5);
+
+        }   while ((Integer) choice instanceof Integer);
     }
 }

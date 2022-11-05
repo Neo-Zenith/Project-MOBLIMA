@@ -1,12 +1,15 @@
 package model;
 
+import java.io.Serializable;
+
 import model.enums.PaymentType;
 
-public abstract class Payment {
+public abstract class Payment implements Serializable {
     private String UUID;
     private PaymentType paymentType;
     private String transactionID;
     private double movieTicketPrice;
+    private static final long serialVersionUID = 16L;
 
     public Payment(String UUID, PaymentType paymentType, String transactionID, double movieTicketPrice) {
         this.setUUID(UUID);

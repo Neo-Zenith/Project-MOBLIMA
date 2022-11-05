@@ -1,12 +1,10 @@
 package view;
 
-import java.util.ArrayList;
-import model.Movie;
-import model.MovieGoer;
-import model.MovieReview;
-import controller.MovieManager;
-import handler.InputHandler;
+import java.util.*;
+import model.*;
+import handler.*;
 import database.*;
+
 
 public class MovieDetailsView extends MainView {
     private String movieTitle;
@@ -14,6 +12,7 @@ public class MovieDetailsView extends MainView {
     private String synopsis;
     private ArrayList<MovieReview> pastReviews;
     private MovieGoer movieGoer;
+    private String errorMessage;
 
     public MovieDetailsView(String title, MovieGoer movieGoer) {
         this.movieTitle = title;
@@ -24,79 +23,109 @@ public class MovieDetailsView extends MainView {
                 break;
             }
         }
-        synopsis = movie.getMovieSynopsis();
-        pastReviews = movie.getMovieReviews();
+        this.synopsis = movie.getMovieSynopsis();
+        this.pastReviews = movie.getMovieReviews();
         this.movieGoer = movieGoer;
+        this.errorMessage = "";
     }
 
     public void printMovieDetails() {
-        int size = 0;
-        System.out.println("====================================");
-
-        System.out.println("Movie Title: " + movie.getMovieTitle());
-        System.out.println("Showing Status: " + movie.getMovieShowingStatus());
+        MainView.printBoilerPlate(this.movieTitle);
+        System.out.println("Showing Status: " + movie.getMovieShowingStatus().getDisplayName());
         System.out.println("Movie Director: " + movie.getMovieDirector());
-        System.out.println("Overall Rating: " + movie.getMovieOverallReviewRating());
-        System.out.println("Movie Cast: ");
-        for (int j = 0; j < movie.getMovieCast().size(); j++) {
-            System.out.println(movie.getMovieCast().get(j));
+        if (movie.getMovieReviews().size() == 0) {
+            System.out.println("Overall Rating: Not Available!");
         }
+        else {
+            System.out.println("Overall Rating: " + movie.getMovieOverallReviewRating());
+        }
+        System.out.print("Movie Cast: ");
+        for (int j = 0; j < movie.getMovieCast().size(); j++) {
+            System.out.print(movie.getMovieCast().get(j));
+            System.out.print(", ");
+        }
+        System.out.println("...");
     }
 
-    @Override
     public void printMenu() {
-        MainView.printBoilerPlate("""
+        this.printMovieDetails();
+        MainView.printMenuContent("""
+
                     1. View Synopsis
                     2. View Past Reviews
                     3. Choose Movie Type
                     4. Return
                 """);
-        System.out.println("====================================");
     }
 
     public void appContent() {
         int choice = -1;
-        this.printMovieDetails();
 
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
 
-            while (choice < 1 || choice > 4) {
-                System.out.println("Please enter a valid input.");
-                choice = InputHandler.intHandler();
+            if (choice < 0 || choice > 4) {
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
             if (choice == 4) {
+                this.errorMessage = "";
                 return;
-            } else {
+            } 
+            else {
                 switch (choice) {
                     case 1:
+                        UIHandler.clearScreen();
+                        this.errorMessage = "";
                         this.printSynopsis();
                         break;
                     case 2:
+                        UIHandler.clearScreen();
+                        this.errorMessage = "";
                         this.printPastReviews();
                         break;
                     case 3:
                         MovieTypeView typeView = new MovieTypeView(movie.getMovieTitle(), this.movieGoer);
+                        this.errorMessage = "";
                         typeView.appContent();
                         break;
                 }
             }
             if (MovieMenuView.exit) {
+                this.errorMessage = "";
                 return;
             }
-        } while (choice > 0 && choice <= 4);
+        } while (true);
     }
 
     public void printSynopsis() {
-        System.out.println("Synopsis: ");
-        System.out.println(this.synopsis);
+        MainView.printBoilerPlate("Synopsis of " + this.movieTitle);
+        MainView.printMenuContent(this.synopsis);
+        System.out.println("Press any key to return: ");
+        String dummy = InputHandler.stringHandler();
     }
 
     public void printPastReviews() {
-        System.out.println("Past Reviews: ");
-        for (int i = 0; i < pastReviews.size(); i++) {
-            System.out.println(this.pastReviews.get(i));
+        MainView.printBoilerPlate("Past Reviews of " + this.movieTitle);
+
+        if (this.movie.getMovieReviews().size() <= 1) {
+            MainView.printMenuContent("Reviews are not available yet!");
         }
+        else {
+            String content = "\n";
+
+            for (int i = 0; i < pastReviews.size(); i++) {
+                String index = String.format("%d. ", i + 1);
+                String payload = String.format("%s\n", this.pastReviews.get(i));
+                content = index + payload;
+            }
+            MainView.printMenuContent(content);
+        }
+
+        System.out.println("Press any key to return: ");
+        String dummy = InputHandler.stringHandler();
     }
 }
