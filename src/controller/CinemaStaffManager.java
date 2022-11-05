@@ -66,9 +66,8 @@ public class CinemaStaffManager{
         System.out.println("1. COMING_SOON");
         System.out.println("2.  PREVIEW");
         System.out.println("3. NOW_SHOWING");
-        System.out.println("4. END_OF_SHOWING");
         choice = InputHandler.intHandler();
-        if (choice < 1 || choice > 4){
+        if (choice < 1 || choice > 3){
             System.out.println("Invalid showing status");
             return;
         }
