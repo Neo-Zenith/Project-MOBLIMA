@@ -14,7 +14,8 @@ public enum ModelType {
     HOLIDAY("Holiday"),
     PRICES("Prices"),
     MOVIE_TICKET("MovieTicket"),
-    PAYMENT("Payment");
+    PAYMENT("Payment"),
+    PERMISSION("Permission");
 
     private final String fileName;
 

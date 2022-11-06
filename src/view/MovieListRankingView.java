@@ -35,10 +35,24 @@ public class MovieListRankingView extends MainView {
             case 1:
                 MainView.printBoilerPlate("Ranking by ticket sales");
                 movies = MovieGoerManager.rankTop5("ticket", movies, false);
+                if (movies == null) {
+                    content += "Ranking by Top 5 Movie Sales is unavailable";
+                    MainView.printMenuContent(content);
+                    System.out.println("Press any key to return");
+                    InputHandler.stringHandler();
+                    return;
+                }
                 break;
             case 2:
                 MainView.printBoilerPlate("Ranking by overall rating");
                 movies = MovieGoerManager.rankTop5("ratings", movies, false);
+                if (movies == null) {
+                    content += "Ranking by Top 5 Movie Overall Review Ratings is unavailable";
+                    MainView.printMenuContent(content);
+                    System.out.println("Press any key to return");
+                    InputHandler.stringHandler();
+                    return;
+                }
                 break;
         }
     

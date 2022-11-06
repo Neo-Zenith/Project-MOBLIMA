@@ -1,32 +1,10 @@
 package database;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
+import java.io.*;
+import java.util.*;
+import controller.*;
+import model.*;
 
-import controller.CinemaStaffManager;
-import controller.DatabaseManager;
-import controller.MovieGoerManager;
-import model.Cineplex;
-import model.MovieSchedule;
-import model.MovieTicket;
-import model.Payment;
-import model.CinemaStaff;
-import model.BookingHistory;
-import model.Cinema;
-import model.Seat;
-import model.Movie;
-import model.MovieGoer;
-import model.MovieReview;
-import model.DateTime;
-import model.Prices;
-import model.MovieTicket;
 
 public class Database {
     /**
@@ -101,6 +79,7 @@ public class Database {
 
     public static ArrayList <DateTime> holidays = new ArrayList<>();
     public static Prices PRICES = new Prices();
+    public static Permission PERMISSION = new Permission();
 
     public static int platinumNumOfRow = 4;
     public static int platinumNumOfSeatsPerRow = 6;
@@ -150,6 +129,9 @@ public class Database {
         }
         if (!readData(ModelType.PRICES)){
             System.out.println("Error! Reading of data " + ModelType.PRICES + " failed");
+        }
+        if (!readData(ModelType.PERMISSION)) {
+            System.out.println("Error! Reading of data " + ModelType.PERMISSION + " failed");
         }
 
         ArrayList <CinemaStaff> currentStaff = Database.getValueList(Database.CINEMA_STAFF.values());
@@ -208,6 +190,9 @@ public class Database {
             }
             else if (modelType == ModelType.HOLIDAY) {
                 Database.holidays = (ArrayList <DateTime>) object;
+            }
+            else if (modelType == ModelType.PERMISSION) {
+                Database.PERMISSION = (Permission) object;
             }
 
             objectInputStream.close();
@@ -272,6 +257,9 @@ public class Database {
             else if (modelType == ModelType.HOLIDAY) {
                 objectOutputStream.writeObject(Database.holidays);
             }
+            else if (modelType == ModelType.PERMISSION) {
+                objectOutputStream.writeObject(Database.PERMISSION);
+            }
 
             fileOutputStream.close();
             objectOutputStream.close();
@@ -303,6 +291,7 @@ public class Database {
             Database.readData(ModelType.PRICES);
             Database.readData(ModelType.MOVIE_TICKET);
             Database.readData(ModelType.HOLIDAY);
+            Database.readData(ModelType.PERMISSION);
         
             return true;
         }
@@ -332,6 +321,7 @@ public class Database {
             Database.writeData(ModelType.PRICES);
             Database.writeData(ModelType.MOVIE_TICKET);
             Database.writeData(ModelType.HOLIDAY);
+            Database.writeData(ModelType.PERMISSION);
             return true;
         }
         catch (Exception e) {
@@ -357,6 +347,7 @@ public class Database {
         Database.PRICES = new Prices();
         Database.MOVIE_TICKET = new HashMap<String, MovieTicket>();
         Database.holidays = new ArrayList<DateTime>();
+        Database.PERMISSION = new Permission();
 
         Database.writeData(ModelType.CINEPLEX);
         Database.writeData(ModelType.CINEMA);
@@ -371,6 +362,7 @@ public class Database {
         Database.writeData(ModelType.PRICES);
         Database.writeData(ModelType.MOVIE_TICKET);
         Database.writeData(ModelType.HOLIDAY);
+        Database.writeData(ModelType.PERMISSION);
     }
 
     /**

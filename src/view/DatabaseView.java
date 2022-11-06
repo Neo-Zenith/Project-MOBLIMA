@@ -47,7 +47,7 @@ public class DatabaseView extends MainView{
                     break;
                 case 3:
                     Database.resetDatabase();
-                    System.out.println("Database resetted successfully!");
+                    this.errorMessage = "Database resetted successfully!";
                     break;
                 case 4:
                     this.errorMessage = "";

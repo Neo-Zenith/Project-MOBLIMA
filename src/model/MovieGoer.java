@@ -14,8 +14,6 @@ public abstract class MovieGoer implements Serializable {
     private ArrayList<BookingHistory> bookingHistory;
     private ArrayList<MovieReview> reviewHistory;
     private final static long serialVersionUID = 9L;
-    private static boolean viewTop5OverallRatings = true;
-    private static boolean viewTop5MovieSales = true;
 
     public MovieGoer(String UUID, String name, String email, String mobileNum, String username, String password) {
         this.name = name;
@@ -98,22 +96,6 @@ public abstract class MovieGoer implements Serializable {
 
     public void addReviewHistory(MovieReview movieReview) {
         this.reviewHistory.add(movieReview);
-    }
-
-    public static boolean getViewTop5OverallRatings() {
-        return MovieGoer.viewTop5OverallRatings;
-    }
-
-    public static void setViewTop5OverallRatings(boolean viewTop5OverallRating) {
-        MovieGoer.viewTop5OverallRatings = viewTop5OverallRating;
-    }
-
-    public static boolean getViewTop5MovieSales() {
-        return MovieGoer.viewTop5MovieSales;
-    }
-
-    public static void setViewTop5MovieSales(boolean viewTop5MovieSale) {
-        MovieGoer.viewTop5MovieSales = viewTop5MovieSale;
     }
 
     public abstract MovieGoerAge getMovieGoerAge();

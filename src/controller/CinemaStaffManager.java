@@ -26,6 +26,7 @@ import handler.InputHandler;
 import handler.UIHandler;
 import view.*;
 
+import java.security.Permission;
 import java.util.*;
 
 public class CinemaStaffManager{
@@ -653,33 +654,13 @@ public class CinemaStaffManager{
         return holiday;
     }
 
-    public static void optOutOne(int choice){
-        if (choice == 1){
-            ArrayList <MovieGoer> goerList = Database.getValueList(Database.MOVIE_GOER.values());
-            for(int i = 0; i< goerList.size(); i++){
-                MovieGoer.setViewTop5OverallRatings(false);
-                DatabaseManager.saveUpdateToDatabase(goerList.get(i).getUUID(), goerList.get(i), Database.MOVIE_GOER);
-            } 
-           
-            //DatabaseManager.reloadDatabase();
+    public static void optInOut(int choice, boolean optInOut){
+        if (choice == 1) {
+            Database.PERMISSION.setOverallRatingsPermission(optInOut);
         }
-        else{
-            MovieGoer.setViewTop5MovieSales(false);
-            //DatabaseManager.reloadDatabase();
+        else {
+            Database.PERMISSION.setMovieSalesPermission(optInOut);
         }
-
+        DatabaseManager.reloadDatabase();
     }
-    public static void optInOne(int choice){
-        if (choice == 1){
-            MovieGoer.setViewTop5OverallRatings(true); 
-            DatabaseManager.reloadDatabase();
-        }
-        else{
-            MovieGoer.setViewTop5MovieSales(true);
-            DatabaseManager.reloadDatabase();
-        }
-
-    }
-
-
 }

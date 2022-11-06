@@ -92,13 +92,11 @@ public class MovieGoerManager {
      */
     public static ArrayList<Movie> rankTop5(String choice, ArrayList<Movie> movies, boolean staff) {
         if (!staff) {
-            if (!MovieGoer.getViewTop5MovieSales()) {
-                System.out.println("Ranking by Top 5 Movie Sales is unavailable");
-                return movies;
+            if (choice == "ticket" && !Database.PERMISSION.getOverallRatingsPermission()) {
+                return null;
             }
-            if (!MovieGoer.getViewTop5OverallRatings()) {
-                System.out.println("Ranking by Top 5 Overall Sales is unavailable");
-                return movies;
+            if (choice == "ratings" && !Database.PERMISSION.getMovieSalesPermission()) {
+                return null;
             }
         }
 
