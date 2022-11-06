@@ -67,7 +67,6 @@ public class MovieDetailsView extends MainView {
             System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-
             if (choice < 0 || choice > 4) {
                 this.errorMessage = "Error! Please enter a valid input!";
                 continue;
@@ -135,6 +134,9 @@ public class MovieDetailsView extends MainView {
     }
 
     public void printAddReview() {
+        MainView.printBoilerPlate("Adding Reviews for " + this.movieTitle);
+        System.out.println("Give a review for the movie: ");
+        String review = InputHandler.stringHandler();
         System.out.println("Give a rating for the movie: (0-5)");
         double rating = InputHandler.doubleHandler();
         while (rating < 0 || rating > 5) {
@@ -142,13 +144,10 @@ public class MovieDetailsView extends MainView {
             System.out.println(this.errorMessage);
             rating = InputHandler.doubleHandler();
         }
-        Scanner sc  = new Scanner(System.in);
-        sc.next();
-        System.out.println("Give a review for the movie: ");
-        String review = InputHandler.stringHandler();
-
+        System.out.println("Review Created!!");
         MovieReviewManager manager = new MovieReviewManager();
         manager.createMovieReview(this.movieGoer, this.movie, review, rating);
-        System.out.println("Review created!");
+        System.out.println("Press any key to return: ");
+        String dummy = InputHandler.stringHandler();
     }
 }
