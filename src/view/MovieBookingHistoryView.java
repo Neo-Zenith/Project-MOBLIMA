@@ -21,47 +21,53 @@ public class MovieBookingHistoryView extends MainView {
         ArrayList<Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
         this.bookingHistories = movieGoer.getBookingHistory();
         this.movieGoer = movieGoer;
-
-        for (int i = 0; i < this.bookingHistories.size(); i++) {
-            BookingHistory history = bookingHistories.get(i);
-            MovieTicket ticket = history.getMovieTicket().get(0);
-            this.movieTitle.add(ticket.getMovieToWatch().getMovieTitle());
-            this.showingTime.add(ticket.getShowTime());
-            this.cinemaList.add(ticket.getShowingVenue());
-            ArrayList<String> IDList = new ArrayList<String>();
-            for (int j = 0; j < history.getMovieTicket().size(); j++) {
-                IDList.add(history.getMovieTicket().get(j).getSeatID());
-            }
-            this.seatIDList.add(IDList);
-            String cinemaUUID = ticket.getShowingVenue().getUUID();
-            for (int j = 0; j < cineplexes.size(); j++) {
-                Cineplex cineplex = cineplexes.get(j);
-                for (int k = 0; k < cineplex.getCinemas().size(); k++) {
-                    if (cinemaUUID.equals(cineplex.getCinemas().get(k).getUUID())) {
-                        cineplexList.add(cineplex);
-                        break;
-                    }
+        this.movieTitle = new ArrayList<String>();
+        this.showingTime = new ArrayList<DateTime>();
+        this.cinemaList = new ArrayList<Cinema>();
+        this.cineplexList = new ArrayList<Cineplex>();
+        this.seatIDList = new ArrayList<ArrayList<String>>();
+        if (this.bookingHistories.size() > 0) {
+            for (int i = 0; i < this.bookingHistories.size(); i++) {
+                BookingHistory history = bookingHistories.get(i);
+                MovieTicket ticket = history.getMovieTicket().get(0);
+                this.movieTitle.add(ticket.getMovieToWatch().getMovieTitle());
+                this.showingTime.add(ticket.getShowTime());
+                this.cinemaList.add(ticket.getShowingVenue());
+                ArrayList<String> IDList = new ArrayList<String>();
+                for (int j = 0; j < history.getMovieTicket().size(); j++) {
+                    IDList.add(history.getMovieTicket().get(j).getSeatID());
                 }
+                this.seatIDList.add(IDList);
+                String cinemaUUID = ticket.getShowingVenue().getUUID();
+                for (int j = 0; j < cineplexes.size(); j++) {
+                    Cineplex cineplex = cineplexes.get(j);
+                    for (int k = 0; k < cineplex.getCinemas().size(); k++) {
+                        if (cinemaUUID.equals(cineplex.getCinemas().get(k).getUUID())) {
+                            cineplexList.add(cineplex);
+                            break;
+                        }
+                    }
 
+                }
             }
         }
-
+        System.out.println("pass2");
         this.errorMessage = "";
     }
 
     public void printBookingHistories() {
-        String content = "\n";
+        String content = "";
         int count = 0;
         for (int i = 0; i < this.bookingHistories.size(); i++) {
-            String index = String.format("%02d. ", (i + 1));
-            String payload1 = String.format(index + "Booking ID: %s\n", this.bookingHistories.get(i).getUUID());
-            String payload2 = String.format("   Movie Title: %s\n", this.movieTitle.get(i));
-            String payload3 = String.format("   Cineplex Location: %s\n",
+            String index = String.format("%02d.\n", (i + 1));
+            String payload1 = String.format("Booking ID: %s\n", this.bookingHistories.get(i).getUUID());
+            String payload2 = String.format("Movie Title: %s\n", this.movieTitle.get(i));
+            String payload3 = String.format("Cineplex Location:\n%s",
                     this.cineplexList.get(i).getCineplexLocation());
-            String payload4 = String.format("   Cinema: %s %s\n", this.cinemaList.get(i).getUUID(),
+            String payload4 = String.format("Cinema: %s %s\n", this.cinemaList.get(i).getUUID(),
                     this.cinemaList.get(i).getCinemaClass());
-            String payload5 = String.format("   Showing Time: %s\n", showingTime.get(i).getTimeNow());
-            content = content + payload1 + payload2 + payload3 + payload4 + payload5;
+            String payload5 = String.format("Showing Time: %s\n\n", showingTime.get(i).getTimeNow());
+            content = content + index + payload1 + payload2 + payload3 + payload4 + payload5;
             count = i + 1;
         }
         String index = String.format("%02d. ", (count + 1));

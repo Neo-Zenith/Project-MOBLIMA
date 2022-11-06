@@ -8,30 +8,30 @@ import handler.InputHandler;
 import model.Movie;
 
 public class MovieListRankingView extends MainView {
-    public void printMenu(){
+    public void printMenu() {
         MainView.printBoilerPlate("Rank Top 5");
         MainView.printMenuContent("""
 
-            1. Rank by ticket sales
-            2. Rank by overall reviewers' ratings
-            3. Return
-            Please choose 1 or 2
-            """);
+                01. Rank by ticket sales
+                02. Rank by overall reviewers' ratings
+                03. Return
+                Please choose 1 or 2
+                """);
     }
-    
-    public void appContent(){
+
+    public void appContent() {
         int choice = -1;
-        do{
+        do {
             this.printMenu();
             choice = InputHandler.intHandler();
-            while (choice<1 || choice > 3){
+            while (choice < 1 || choice > 3) {
                 System.out.println("Please enter a valid input");
                 choice = InputHandler.intHandler();
             }
 
-            ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+            ArrayList<Movie> movies = Database.getValueList(Database.MOVIE.values());
 
-            switch(choice){
+            switch (choice) {
                 case 1:
                     movies = MovieGoerManager.rankTop5("ticket", movies, false);
                     break;
@@ -71,6 +71,6 @@ public class MovieListRankingView extends MainView {
                     }
                 }
             }
-        }while(choice != 3);
+        } while (choice != 3);
     }
 }

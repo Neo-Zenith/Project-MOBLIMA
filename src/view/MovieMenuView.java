@@ -20,11 +20,11 @@ public class MovieMenuView {
         MainView.printBoilerPlate("Main Menu");
         MainView.printMenuContent("""
 
-                1. List Movies
-                2. Search Movie
-                3. View Booking History
-                4. List Top 5 Movies
-                5. Logout
+                01. List Movies
+                02. Search Movie
+                03. View Booking History
+                04. List Top 5 Movies
+                05. Logout
                 """);
     }
 
@@ -32,6 +32,7 @@ public class MovieMenuView {
         int choice = -1;
 
         do {
+
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             this.printMenu();
@@ -56,6 +57,9 @@ public class MovieMenuView {
                     return;
                 default:
                     this.errorMessage = "Please enter a valid input!";
+            }
+            if (exit) {
+                exit = false;
             }
 
         } while ((Integer) choice instanceof Integer);

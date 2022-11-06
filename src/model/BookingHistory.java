@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class BookingHistory {
+public class BookingHistory implements Serializable {
     private String UUID;
     private ArrayList<MovieTicket> movieTicket;
     private Payment payment;

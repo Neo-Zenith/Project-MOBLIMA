@@ -52,11 +52,11 @@ public class MovieDetailsView extends MainView {
         this.printMovieDetails();
         MainView.printMenuContent("""
 
-                    1. View Synopsis
-                    2. View Past Reviews
-                    3. Choose Movie Type
-                    4. Review the Movie
-                    5. Return
+                    01. View Synopsis
+                    02. View Past Reviews
+                    03. Choose Movie Type
+                    04. Review the Movie
+                    05. Return
                 """);
     }
 
@@ -97,7 +97,7 @@ public class MovieDetailsView extends MainView {
                     this.errorMessage = "";
                     return;
             }
-            
+
             if (MovieMenuView.exit) {
                 this.errorMessage = "";
                 return;

@@ -5,16 +5,15 @@ import controller.*;
 import handler.*;
 import view.*;
 
-
-public class PaymentView extends MainView{
+public class PaymentView extends MainView {
 
     private Payment payment;
     private String transactionID;
     private double totalMovieTicketPrice;
     private String referenceID;
     private String errorMessage;
-    
-    public PaymentView(String cinemaCode, double totalMovieTicketPrice){
+
+    public PaymentView(String cinemaCode, double totalMovieTicketPrice) {
         this.totalMovieTicketPrice = totalMovieTicketPrice;
         this.transactionID = PaymentManager.generateTransactionId(cinemaCode);
         this.errorMessage = "";
@@ -28,41 +27,42 @@ public class PaymentView extends MainView{
         MainView.printBoilerPlate("Payment");
         MainView.printMenuContent("""
 
-                1.  Card Payment
-                2.  QRCode
-                3.  Bank Transaction
-                4.  Return
-        """);
+                        01.  Card Payment
+                        02.  QRCode
+                        03.  Bank Transaction
+                        04.  Return
+                """);
     }
 
-    public void appContent(){
+    public void appContent() {
 
         // generate Transaction ID at the moment a new Payment is created.
-        // if the entered int or String is not valid, the user is prompted to re-enter again until the system receive a valid value
+        // if the entered int or String is not valid, the user is prompted to re-enter
+        // again until the system receive a valid value
         int choice = -1;
         do {
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-            
-            switch(choice){
+
+            switch (choice) {
                 case 1:
                     UIHandler.clearScreen();
                     System.out.println(this.errorMessage);
                     MainView.printBoilerPlate("Card Payment");
                     this.payment = PaymentManager.createCardPayment(this.transactionID, this.totalMovieTicketPrice);
-    
+
                     System.out.println("Enter Card Number:");
                     this.referenceID = InputHandler.stringHandler();
                     System.out.println("Enter CCV:");
                     InputHandler.intHandler();
-    
+
                     printPaymentSuccessful();
                     printReceipt("Card Payment");
                     MovieMenuView.exit = true;
                     break;
-    
+
                 case 2:
                     UIHandler.clearScreen();
                     System.out.println(this.errorMessage);
@@ -75,15 +75,16 @@ public class PaymentView extends MainView{
                     printReceipt("QR Code Payment");
                     MovieMenuView.exit = true;
                     break;
-    
+
                 case 3:
                     UIHandler.clearScreen();
                     System.out.println(this.errorMessage);
                     MainView.printBoilerPlate("Bank Transaction");
-                    this.payment = PaymentManager.createBankTransactioPayment(transactionID, this.totalMovieTicketPrice);
-    
+                    this.payment = PaymentManager.createBankTransactioPayment(transactionID,
+                            this.totalMovieTicketPrice);
+
                     System.out.println("Enter Bank Account Number:");
-                    this.referenceID = InputHandler.stringHandler();    
+                    this.referenceID = InputHandler.stringHandler();
                     printPaymentSuccessful();
                     printReceipt("Bank Transaction");
                     MovieMenuView.exit = true;
@@ -93,14 +94,14 @@ public class PaymentView extends MainView{
                     return;
             }
 
-            if(MovieMenuView.exit){
+            if (MovieMenuView.exit) {
                 return;
             }
 
-        }while (true);
+        } while (true);
     }
 
-    public void printPaymentSuccessful(){
+    public void printPaymentSuccessful() {
         System.out.println("");
         System.out.println("Payment Processing...");
         System.out.println("");
@@ -109,7 +110,7 @@ public class PaymentView extends MainView{
         System.out.println("");
     }
 
-    public void printReceipt(String paymentMethod){
+    public void printReceipt(String paymentMethod) {
         // can add more criteria to be printed
         System.out.println("====================================");
         System.out.println("               MOBLIMA              ");

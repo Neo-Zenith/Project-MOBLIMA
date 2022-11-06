@@ -12,21 +12,22 @@ public class StaffConfigSettingsView {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
                 Select the system settings to be configured
-                1. Configure pricings.
-                2. Configure holidays. 
-                3. Configure movie goer permissions
-                4. Back   
+                01. Configure pricings.
+                02. Configure holidays.
+                03. Configure movie goer permissions
+                04. Back
                 """);
-        System.out.println("====================================");    
+        System.out.println("====================================");
     }
-    public void appContent(){
+
+    public void appContent() {
         int choice = -1;
 
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-            
-            switch (choice){
+
+            switch (choice) {
                 case 1:
                     this.staffConfigPriceView = new StaffConfigPriceView();
                     this.staffConfigPriceView.appContent();
@@ -45,8 +46,8 @@ public class StaffConfigSettingsView {
                     break;
                 default:
                     System.out.println("Invalid choice");
-                break;
+                    break;
             }
-        }   while (choice != 4);
+        } while (choice != 4);
     }
 }

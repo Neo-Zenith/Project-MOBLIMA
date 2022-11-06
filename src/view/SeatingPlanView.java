@@ -3,6 +3,7 @@ package view;
 import java.util.*;
 
 import controller.*;
+import database.Database;
 import model.*;
 import model.enums.*;
 import handler.*;
@@ -55,9 +56,9 @@ public class SeatingPlanView {
         this.printSeatingPlan();
         this.printSeatInCart();
         MainView.printMenuContent("""
-                1. Add Seat into Booking Cart.
-                2. Check Out and Proceed To Payment.
-                3. Return back.
+                01. Add Seat into Booking Cart.
+                02. Check Out and Proceed To Payment.
+                03. Return back.
                 """);
     }
 
@@ -128,15 +129,17 @@ public class SeatingPlanView {
                     this.paymentView = new PaymentView(cinemaCode, this.totalMovieTicketPrice);
                     this.errorMessage = "";
                     this.paymentView.appContent();
-                    if(MovieMenuView.exit){
+                    if (MovieMenuView.exit) {
                         this.paymentCreated = this.paymentView.getPayment();
                         Movie movie = this.movieSchedule.getMovieOnShow();
-                        this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime, this.cinema,
+                        this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime,
+                                this.cinema,
                                 this.seatingPlan, this.totalMovieTicketPrice);
                         movieTicketView.printMovieTickets();
                         this.movieTicketListCreated = this.movieTicketView.getMovieTickets();
-                        this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated,
-                                this.paymentCreated);
+                        this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(
+                                this.movieTicketListCreated,
+                                this.paymentCreated, this.movieGoer);
                     }
                     break;
 
@@ -145,7 +148,7 @@ public class SeatingPlanView {
                     return;
 
             }
-            if(MovieMenuView.exit){
+            if (MovieMenuView.exit) {
                 return;
             }
         } while (true);
