@@ -11,12 +11,11 @@ public abstract class MovieGoer implements Serializable {
     private String mobileNum;
     private String username;
     private String password;
-    private ArrayList <BookingHistory> bookingHistory;
-    private ArrayList <MovieReview> reviewHistory;
+    private ArrayList<BookingHistory> bookingHistory;
+    private ArrayList<MovieReview> reviewHistory;
     private final static long serialVersionUID = 9L;
     private static boolean viewTop5OverallRatings = true;
     private static boolean viewTop5MovieSales = true;
-
 
     public MovieGoer(String UUID, String name, String email, String mobileNum, String username, String password) {
         this.name = name;
@@ -83,6 +82,10 @@ public abstract class MovieGoer implements Serializable {
 
     public void setBookingHistory(ArrayList<BookingHistory> bookingHistory) {
         this.bookingHistory = bookingHistory;
+    }
+
+    public void addBookingHistory(BookingHistory history) {
+        this.bookingHistory.add(history);
     }
 
     public ArrayList<MovieReview> getReviewHistory() {

@@ -655,19 +655,28 @@ public class CinemaStaffManager{
 
     public static void optOutOne(int choice){
         if (choice == 1){
-            MovieGoer.setViewTop5OverallRatings(false); 
+            ArrayList <MovieGoer> goerList = Database.getValueList(Database.MOVIE_GOER.values());
+            for(int i = 0; i< goerList.size(); i++){
+                MovieGoer.setViewTop5OverallRatings(false);
+                DatabaseManager.saveUpdateToDatabase(goerList.get(i).getUUID(), goerList.get(i), Database.MOVIE_GOER);
+            } 
+           
+            //DatabaseManager.reloadDatabase();
         }
         else{
             MovieGoer.setViewTop5MovieSales(false);
+            //DatabaseManager.reloadDatabase();
         }
 
     }
     public static void optInOne(int choice){
         if (choice == 1){
             MovieGoer.setViewTop5OverallRatings(true); 
+            DatabaseManager.reloadDatabase();
         }
         else{
             MovieGoer.setViewTop5MovieSales(true);
+            DatabaseManager.reloadDatabase();
         }
 
     }

@@ -2,7 +2,7 @@ package view;
 
 import handler.*;
 
-public class StaffSystemConfig extends MainView{
+public class StaffSystemConfig extends MainView {
     private StaffMovieDetailsView staffMovieDetailsView;
     private StaffConfigSettingsView staffConfigSettingsView;
     private DatabaseView databaseView;
@@ -33,25 +33,28 @@ public class StaffSystemConfig extends MainView{
             System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-
+            
+            while(choice<0 || choice >5){
+                System.out.println("Invalid choice");
+            }
             switch(choice){
                 case 1:
                     this.errorMessage = "";
                     this.staffMovieDetailsView = new StaffMovieDetailsView();
                     this.staffMovieDetailsView.appContent();
-                break;
-                
+                    break;
+
                 case 2:
                     this.errorMessage = "";
                     this.staffConfigSettingsView = new StaffConfigSettingsView();
                     this.staffConfigSettingsView.appContent();
-                break;
-                
+                    break;
+
                 case 3:
                     this.errorMessage = "";
                     this.databaseView = new DatabaseView();
                     this.databaseView.appContent();
-                break;
+                    break;
 
                 case 4:
 

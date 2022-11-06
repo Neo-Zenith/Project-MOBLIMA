@@ -12,10 +12,10 @@ public class DatabaseView extends MainView{
         System.out.println("====================================");
         System.out.println("Welcome to the Database!");
         MainView.printBoilerPlate("""
-                1. Load initial data into database.
-                2. Add new movies into database.
-                3. Reset database.
-                4. Return back.
+                01. Load initial data into database.
+                02. Add new movies into database.
+                03. Reset database.
+                04. Return back.
                 """);
         System.out.println("====================================");
     }
@@ -31,20 +31,20 @@ public class DatabaseView extends MainView{
                     DatabaseManager.initializePrices();
                     DatabaseManager.initializeCineplexData();
                     DatabaseManager.initializeMovie();
-                    DatabaseManager.initializeMovieScheduleData(); 
+                    DatabaseManager.initializeMovieScheduleData();
                     Database.writeToDatabase();
                     break;
                 case 2:
                     this.staffAddMovieView = new StaffAddMovieView();
                     staffAddMovieView.appContent();
                     break;
-                case 3:                   
+                case 3:
                     Database.resetDatabase();
                     System.out.println("Database resetted successfully!");
                     break;
                 case 4:
                     break;
             }
-        } while (choice != 3);
+        } while (choice != 4);
     }
 }

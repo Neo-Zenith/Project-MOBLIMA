@@ -6,7 +6,6 @@ import model.*;
 import model.enums.*;
 import controller.*;
 
-
 public class MovieAppView extends MainView {
     private StaffSystemConfig staffView;
     private String errorMessage;
@@ -18,22 +17,21 @@ public class MovieAppView extends MainView {
     public void printMenu() {
         MainView.printBoilerPlate("Welcome to MOBLIMA!");
         MainView.printMenuContent("""
-            
-                1. Login.
-                2. Register.
-                3. Exit the program.
+
+                01. Login.
+                02. Register.
+                03. Exit the program.
                 """);
     }
-
 
     public void printAgeGroup() {
         MainView.printBoilerPlate("What is your age group?");
         MainView.printMenuContent("""
 
-                1. Adult.
-                2. Child.
-                3. Senior Citizen.
-                4. Student.
+                01. Adult.
+                02. Child.
+                03. Senior Citizen.
+                04. Student.
                 """);
     }
 
@@ -63,13 +61,11 @@ public class MovieAppView extends MainView {
                         MovieMenuView menu = new MovieMenuView(movieGoer);
                         this.errorMessage = "";
                         menu.appContent();
-                    } 
-                    else if (user instanceof CinemaStaff) {
+                    } else if (user instanceof CinemaStaff) {
                         this.staffView = new StaffSystemConfig();
                         this.errorMessage = "";
                         this.staffView.appContent();
-                    } 
-                    else {
+                    } else {
                         this.errorMessage = "Error! Invalid username or password! Please try again!";
                     }
                     break;
@@ -80,11 +76,11 @@ public class MovieAppView extends MainView {
                     UIHandler.clearScreen();
                     System.out.println("Please enter a password");
                     password = InputHandler.stringHandler();
-                    if (! UserManager.checkUniqueUser(username)) {
+                    if (!UserManager.checkUniqueUser(username)) {
                         this.errorMessage = "Username has been taken!";
                         break;
                     }
-                    
+
                     int choice1 = -1;
                     MovieGoerAge movieGoerAge = MovieGoerAge.Adult;
                     UIHandler.clearScreen();
@@ -115,18 +111,19 @@ public class MovieAppView extends MainView {
                     System.out.println("Enter your mobile number: ");
                     String mobileNum = InputHandler.stringHandler();
 
-                    MovieGoer movieGoer = UserManager.register(movieGoerAge, name, username, password, email, mobileNum);
+                    MovieGoer movieGoer = UserManager.register(movieGoerAge, name, username, password, email,
+                            mobileNum);
                     MovieMenuView menu = new MovieMenuView(movieGoer);
                     this.errorMessage = "";
                     menu.appContent();
-                    break; 
-                
+                    break;
+
                 case 3:
                     return;
-                
+
                 default:
                     this.errorMessage = "Error! Please enter a valid input!";
             }
-        }   while (true);
+        } while (true);
     }
 }

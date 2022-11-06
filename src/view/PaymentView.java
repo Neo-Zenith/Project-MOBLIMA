@@ -6,8 +6,7 @@ import database.Database;
 import handler.*;
 import view.*;
 
-
-public class PaymentView extends MainView{
+public class PaymentView extends MainView {
 
     private Payment payment;
     private MovieSchedule movieSchedule;
@@ -15,8 +14,8 @@ public class PaymentView extends MainView{
     private double totalMovieTicketPrice;
     private String referenceID;
     private String errorMessage;
-    
-    public PaymentView(String cinemaCode, double totalMovieTicketPrice, MovieSchedule movieSchedule){
+
+    public PaymentView(String cinemaCode, double totalMovieTicketPrice, MovieSchedule movieSchedule) {
         this.totalMovieTicketPrice = totalMovieTicketPrice;
         this.transactionID = PaymentManager.generateTransactionId(cinemaCode);
         this.movieSchedule = movieSchedule;
@@ -31,16 +30,18 @@ public class PaymentView extends MainView{
         MainView.printBoilerPlate("Payment");
         MainView.printMenuContent("""
 
-                1.  Card Payment
-                2.  QRCode
-                3.  Bank Transaction
-        """);
+                        01.  Card Payment
+                        02.  QRCode
+                        03.  Bank Transaction
+                        04.  Return
+                """);
     }
 
-    public void appContent(){
+    public void appContent() {
 
         // generate Transaction ID at the moment a new Payment is created.
-        // if the entered int or String is not valid, the user is prompted to re-enter again until the system receive a valid value
+        // if the entered int or String is not valid, the user is prompted to re-enter
+        // again until the system receive a valid value
         int choice = -1;
         UIHandler.clearScreen();
         System.out.println(this.errorMessage);
@@ -93,7 +94,7 @@ public class PaymentView extends MainView{
 
     }
 
-    public void printPaymentSuccessful(){
+    public void printPaymentSuccessful() {
         System.out.println("");
         System.out.println("Payment Processing...");
         System.out.println("");
@@ -102,7 +103,7 @@ public class PaymentView extends MainView{
         System.out.println("");
     }
 
-    public void printReceipt(String paymentMethod){
+    public void printReceipt(String paymentMethod) {
         // can add more criteria to be printed
         System.out.println("====================================");
         System.out.println("               MOBLIMA              ");

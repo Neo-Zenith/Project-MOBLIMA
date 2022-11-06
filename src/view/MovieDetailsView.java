@@ -1,10 +1,11 @@
 package view;
 
 import java.util.*;
+
+import controller.MovieReviewManager;
 import model.*;
 import handler.*;
 import database.*;
-
 
 public class MovieDetailsView extends MainView {
     private String movieTitle;
@@ -16,7 +17,7 @@ public class MovieDetailsView extends MainView {
 
     public MovieDetailsView(String title, MovieGoer movieGoer) {
         this.movieTitle = title;
-        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        ArrayList<Movie> movies = Database.getValueList(Database.MOVIE.values());
         for (int i = 0; i < movies.size(); i++) {
             if (movieTitle.equals(movies.get(i).getMovieTitle())) {
                 movie = movies.get(i);
@@ -32,11 +33,11 @@ public class MovieDetailsView extends MainView {
     public void printMovieDetails() {
         System.out.println("Showing Status: " + movie.getMovieShowingStatus().getDisplayName());
         System.out.println("Movie Director: " + movie.getMovieDirector());
-        if (movie.getMovieReviews().size() == 0) {
+        if (movie.getMovieReviews().size() < 2) {
             System.out.println("Overall Rating: Not Available!");
-        }
-        else {
-            System.out.println("Overall Rating: " + movie.getMovieOverallReviewRating());
+        } else {
+            String rating = String.format("%.2f", movie.getMovieOverallReviewRating());
+            System.out.println("Overall Rating: " + rating);
         }
         System.out.print("Movie Cast: ");
         for (int j = 0; j < movie.getMovieCast().size(); j++) {
@@ -51,10 +52,11 @@ public class MovieDetailsView extends MainView {
         this.printMovieDetails();
         MainView.printMenuContent("""
 
-                    1. View Synopsis
-                    2. View Past Reviews
-                    3. Choose Movie Type
-                    4. Return
+                    01. View Synopsis
+                    02. View Past Reviews
+                    03. Choose Movie Type
+                    04. Review the Movie
+                    05. Return
                 """);
     }
 
@@ -66,34 +68,36 @@ public class MovieDetailsView extends MainView {
             System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-
-            if (choice < 0 || choice > 4) {
+            if (choice < 0 || choice > 5) {
                 this.errorMessage = "Error! Please enter a valid input!";
                 continue;
             }
-            if (choice == 4) {
-                this.errorMessage = "";
-                return;
-            } 
-            else {
-                switch (choice) {
-                    case 1:
-                        UIHandler.clearScreen();
-                        this.errorMessage = "";
-                        this.printSynopsis();
-                        break;
-                    case 2:
-                        UIHandler.clearScreen();
-                        this.errorMessage = "";
-                        this.printPastReviews();
-                        break;
-                    case 3:
-                        MovieTypeView typeView = new MovieTypeView(movie.getMovieTitle(), this.movieGoer);
-                        this.errorMessage = "";
-                        typeView.appContent();
-                        break;
-                }
+            switch (choice) {
+                case 1:
+                    UIHandler.clearScreen();
+                    this.errorMessage = "";
+                    this.printSynopsis();
+                    break;
+                case 2:
+                    UIHandler.clearScreen();
+                    this.errorMessage = "";
+                    this.printPastReviews();
+                    break;
+                case 3:
+                    MovieTypeView typeView = new MovieTypeView(movie.getMovieTitle(), this.movieGoer);
+                    this.errorMessage = "";
+                    typeView.appContent();
+                    break;
+                case 4:
+                    UIHandler.clearScreen();
+                    this.errorMessage = "";
+                    this.printAddReview();
+                    break;
+                case 5:
+                    this.errorMessage = "";
+                    return;
             }
+
             if (MovieMenuView.exit) {
                 this.errorMessage = "";
                 return;
@@ -111,21 +115,37 @@ public class MovieDetailsView extends MainView {
     public void printPastReviews() {
         MainView.printBoilerPlate("Past Reviews of " + this.movieTitle);
 
-        if (this.movie.getMovieReviews().size() <= 1) {
+        if (this.movie.getMovieReviews().size() <= 0) {
             MainView.printMenuContent("Reviews are not available yet!");
-        }
-        else {
+        } else {
             String content = "\n";
 
             for (int i = 0; i < pastReviews.size(); i++) {
                 String index = String.format("%d. ", i + 1);
-                String payload = String.format(index + "%s\n", this.pastReviews.get(i));
-                content = content + payload;
+                String payload1 = String.format(index + "Rating: " + this.pastReviews.get(i).getMovieReviewRating());
+                String payload2 = String.format("\n   Review: %s\n", this.pastReviews.get(i).getReview());
+                content = content + payload1 + payload2;
             }
             MainView.printMenuContent(content);
         }
 
         System.out.println("Press any key to return: ");
         InputHandler.stringHandler();
+    }
+
+    public void printAddReview() {
+        MainView.printBoilerPlate("Adding Reviews for " + this.movieTitle);
+        System.out.println("Give a review for the movie: ");
+        String review = InputHandler.stringHandler();
+        System.out.println("Give a rating for the movie: (0-5)");
+        double rating = InputHandler.doubleHandler();
+        while (rating < 0 || rating > 5) {
+            this.errorMessage = "Error! Please enter a valid input!";
+            System.out.println(this.errorMessage);
+            rating = InputHandler.doubleHandler();
+        }
+        System.out.println("Review Created!!");
+        MovieReviewManager manager = new MovieReviewManager();
+        manager.createMovieReview(this.movieGoer, this.movie, review, rating);
     }
 }

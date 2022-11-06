@@ -5,39 +5,41 @@ import handler.InputHandler;
 
 public class StaffConfigHolidayView {
     private StaffConfigSettingsView staffConfigSettingsView;
+
     public void printMenu() {
         System.out.println("====================================");
         MainView.printBoilerPlate("""
                 How would you like to configure holidays.
-                1. Add holiday
-                2. Delete holiday
-                3. Back
+                01. Add holiday
+                02. Delete holiday
+                03. Back
                 """);
-        System.out.println("====================================");    
+        System.out.println("====================================");
     }
-    public void appContent(){
+
+    public void appContent() {
         int choice = -1;
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-            switch (choice){
+            switch (choice) {
                 case 1:
                     CinemaStaffManager.configureHoliday(choice);
-                break;
+                    break;
 
                 case 2:
                     CinemaStaffManager.configureHoliday(choice);
-                break;
-                
+                    break;
+
                 case 3:
                     this.staffConfigSettingsView = new StaffConfigSettingsView();
                     this.staffConfigSettingsView.appContent();
-                break;
+                    break;
 
                 default:
                     System.out.println("Invalid choice");
-                break;
+                    break;
             }
-        }   while (choice != 3);
+        } while (choice != 3);
     }
 }
