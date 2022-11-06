@@ -65,12 +65,6 @@ public class CinemaStaffManager{
     }
 
     public static int updateExistingMovieDetails(Movie movie, int detail){
-        ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
-        ArrayList <String> movieSchedulesKeyList = Database.getKeyList(Database.MOVIE_SCHEDULE.keySet());
-
-        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
-        ArrayList <String> movieKeyList = Database.getKeyList(Database.MOVIE.keySet());
-
         String movieUUID = movie.getUUID();
         MovieSchedule movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
         String movieScheduleUUID = movieSchedule.getUUID();
