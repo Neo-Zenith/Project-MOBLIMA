@@ -6,7 +6,8 @@ public class StaffSystemConfig extends MainView {
     private StaffMovieDetailsView staffMovieDetailsView;
     private StaffConfigSettingsView staffConfigSettingsView;
     private DatabaseView databaseView;
-
+    private StaffMovieListRankingView staffMovieListRankingView;
+    
     public void printMenu() {
         System.out.println("====================================");
         System.out.println("Staff Module");
@@ -27,8 +28,11 @@ public class StaffSystemConfig extends MainView {
         do {
             this.printMenu();
             choice = InputHandler.intHandler();
-
-            switch (choice) {
+            
+            while(choice<0 || choice >5){
+                System.out.println("Invalid choice");
+            }
+            switch(choice){
                 case 1:
                     this.staffMovieDetailsView = new StaffMovieDetailsView();
                     this.staffMovieDetailsView.appContent();
@@ -45,14 +49,14 @@ public class StaffSystemConfig extends MainView {
                     break;
 
                 case 4:
-                    System.out.println("Logging out of MOBLIMA (STAFF)....");
-                    System.exit(0);
-                    break;
-
-                default:
-                    System.out.println("Invalid choice");
-                    break;
+                    this.staffMovieListRankingView = new StaffMovieListRankingView();
+                    this.staffMovieListRankingView.appContent();
+                break;
             }
-        } while (choice != 4);
+            if(choice == 5){
+                System.out.println("Logging out of MOBLIMA (STAFF)....");
+                return;
+            }
+        } while (choice != 5);
     }
 }

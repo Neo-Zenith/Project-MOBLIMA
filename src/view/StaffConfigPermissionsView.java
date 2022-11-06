@@ -48,14 +48,12 @@ public class StaffConfigPermissionsView {
                     break;
 
                 case 5:
-                    this.staffConfigSettingsView = new StaffConfigSettingsView();
-                    this.staffConfigSettingsView.appContent();
-                    break;
+                    return;
 
                 default:
                     System.out.println("Invalid choice");
                     break;
             }
-        } while (choice != 3);
+        }   while (choice != 5);
     }
 }

@@ -46,6 +46,6 @@ public class DatabaseView extends MainView {
                 case 4:
                     break;
             }
-        } while (choice != 3);
+        } while (choice != 4);
     }
 }

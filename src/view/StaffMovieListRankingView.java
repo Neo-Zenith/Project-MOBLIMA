@@ -1,5 +1,4 @@
 package view;
-
 import java.util.ArrayList;
 
 import controller.MovieGoerManager;
@@ -7,36 +6,36 @@ import database.Database;
 import handler.InputHandler;
 import model.Movie;
 
-public class MovieListRankingView extends MainView {
-    public void printMenu() {
-        MainView.printBoilerPlate("Rank Top 5");
+public class StaffMovieListRankingView extends MainView {
+    public void printMenu(){
+        MainView.printBoilerPlate("Staff Rank Top 5");
         MainView.printMenuContent("""
 
-                01. Rank by ticket sales
-                02. Rank by overall reviewers' ratings
-                03. Return
-                Please choose 1 or 2
-                """);
+            1. Rank by ticket sales
+            2. Rank by overall reviewers' ratings
+            3. Return
+            Please choose 1 or 2
+            """);
     }
-
-    public void appContent() {
+    
+    public void appContent(){
         int choice = -1;
-        do {
+        do{
             this.printMenu();
             choice = InputHandler.intHandler();
-            while (choice < 1 || choice > 3) {
+            while (choice<1 || choice > 3){
                 System.out.println("Please enter a valid input");
                 choice = InputHandler.intHandler();
             }
 
-            ArrayList<Movie> movies = Database.getValueList(Database.MOVIE.values());
+            ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
 
-            switch (choice) {
+            switch(choice){
                 case 1:
-                    movies = MovieGoerManager.rankTop5("ticket", movies, false);
+                    movies = MovieGoerManager.rankTop5("ticket", movies, true);
                     break;
                 case 2:
-                    movies = MovieGoerManager.rankTop5("ratings", movies, false);
+                    movies = MovieGoerManager.rankTop5("ratings", movies, true);
                     break;
             }
             System.out.println("====================================================");
@@ -71,6 +70,6 @@ public class MovieListRankingView extends MainView {
                     }
                 }
             }
-        } while (choice != 3);
+        }while(choice != 3);
     }
 }

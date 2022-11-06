@@ -47,7 +47,7 @@ public class MovieMenuView {
                     search.appContent();
                 case 3:
                     MovieBookingHistoryView bookingView = new MovieBookingHistoryView(this.movieGoer);
-                    bookingView.appContent();
+                    bookingView.appContent();                    
                     break;
                 case 4:
                     MovieListRankingView rank = new MovieListRankingView();
