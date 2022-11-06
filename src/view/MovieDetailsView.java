@@ -123,8 +123,9 @@ public class MovieDetailsView extends MainView {
 
             for (int i = 0; i < pastReviews.size(); i++) {
                 String index = String.format("%d. ", i + 1);
-                String payload = String.format(index + "%s\n", this.pastReviews.get(i));
-                content = content + payload;
+                String payload1 = String.format(index + "Rating: " + this.pastReviews.get(i).getMovieReviewRating());
+                String payload2 = String.format("\n   Review: %s\n", this.pastReviews.get(i).getReview());
+                content = content + payload1 + payload2;
             }
             MainView.printMenuContent(content);
         }
@@ -141,7 +142,8 @@ public class MovieDetailsView extends MainView {
             System.out.println(this.errorMessage);
             rating = InputHandler.doubleHandler();
         }
-
+        Scanner sc  = new Scanner(System.in);
+        sc.next();
         System.out.println("Give a review for the movie: ");
         String review = InputHandler.stringHandler();
 
