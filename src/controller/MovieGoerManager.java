@@ -87,24 +87,22 @@ public class MovieGoerManager {
      * @param staff is to check if the calling object is a staff or not
      * @return {@code true} if calling object can 
      */
-    public static boolean rankTop5(String choice, boolean staff) {
+    public static ArrayList<Movie> rankTop5(String choice, ArrayList<Movie> movies, boolean staff) {
         if(! staff){
             if(! MovieGoer.getViewTop5MovieSales()) {
                 System.out.println("Ranking by Top 5 Movie Sales is unavailable");
-                return false; 
+                return movies; 
             }
             if(! MovieGoer.getViewTop5OverallRatings()) {
                 System.out.println("Ranking by Top 5 Overall Sales is unavailable");
-                return false;
+                return movies;
             }
         }
 
-        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
         if (movies.size() <= 1) {
-            return false;
+            return movies;
         }
-        MovieManager.sortMovie(choice);
-        return true;
+        return MovieManager.sortMovie(movies, choice);
     }
 
 

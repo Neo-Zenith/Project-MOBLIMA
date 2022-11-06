@@ -31,6 +31,7 @@ public class PaymentView extends MainView{
                 1.  Card Payment
                 2.  QRCode
                 3.  Bank Transaction
+                4.  Return
         """);
     }
 
@@ -44,7 +45,7 @@ public class PaymentView extends MainView{
             System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-
+            
             switch(choice){
                 case 1:
                     UIHandler.clearScreen();
@@ -59,6 +60,7 @@ public class PaymentView extends MainView{
     
                     printPaymentSuccessful();
                     printReceipt("Card Payment");
+                    MovieMenuView.exit = true;
                     break;
     
                 case 2:
@@ -71,6 +73,7 @@ public class PaymentView extends MainView{
                     this.referenceID = InputHandler.stringHandler();
                     printPaymentSuccessful();
                     printReceipt("QR Code Payment");
+                    MovieMenuView.exit = true;
                     break;
     
                 case 3:
@@ -83,9 +86,18 @@ public class PaymentView extends MainView{
                     this.referenceID = InputHandler.stringHandler();    
                     printPaymentSuccessful();
                     printReceipt("Bank Transaction");
+                    MovieMenuView.exit = true;
                     break;
+                case 4:
+                    this.errorMessage = "";
+                    return;
             }
-        }   while (true);
+
+            if(MovieMenuView.exit){
+                return;
+            }
+
+        }while (true);
     }
 
     public void printPaymentSuccessful(){

@@ -146,8 +146,7 @@ public class MovieManager {
      * Sort the movie by {@param sortBy} key
      * @param sortBy is the key to sort the movies
      */
-    public static void sortMovie(String sortBy) {
-        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+    public static ArrayList<Movie> sortMovie(ArrayList<Movie> movies, String sortBy) {
 
         for (int i = 1; i < movies.size(); i ++) {
             for (int j = i; j > 0; j --) {
@@ -171,5 +170,6 @@ public class MovieManager {
                 }
             }
         }
+        return movies;
     }
 }

@@ -10,10 +10,12 @@ public class MovieTicketView {
     private ArrayList<MovieTicket> movieTicketList;
     private ArrayList<String> seatID;
     private double totalMovieTicketPrice;
+    private Movie movie;
 
     public MovieTicketView(ArrayList<String> seatID, Movie movie, DateTime showingTime, Cinema cinema,
             ArrayList<Seat> seatingPlan, double totalMovieTicketPrice) {
         this.seatID = seatID;
+        this.movie = movie;
         this.totalMovieTicketPrice = totalMovieTicketPrice;
         this.movieTicketList = MovieTicketManager.createMovieTicketList(seatID, movie, showingTime, cinema, seatingPlan,
                 totalMovieTicketPrice);
@@ -46,6 +48,8 @@ public class MovieTicketView {
         int minute = dateTime.getMinute();
         String seatID;
         double pricePerMovieTicket = totalMovieTicketPrice / this.movieTicketList.size();
+
+        this.movie.setMovieTicketsSold(this.movie.getMovieTicketsSold()+movieTicketList.size());
 
         System.out.println("Here is your Movie Ticket(s): ");
         System.out.println("Total number of movie ticket: " + this.movieTicketList.size());

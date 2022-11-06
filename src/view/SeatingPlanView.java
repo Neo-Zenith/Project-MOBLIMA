@@ -128,19 +128,25 @@ public class SeatingPlanView {
                     this.paymentView = new PaymentView(cinemaCode, this.totalMovieTicketPrice);
                     this.errorMessage = "";
                     this.paymentView.appContent();
-                    this.paymentCreated = this.paymentView.getPayment();
-                    Movie movie = this.movieSchedule.getMovieOnShow();
-                    this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime, this.cinema,
-                            this.seatingPlan, this.totalMovieTicketPrice);
-                    this.movieTicketListCreated = this.movieTicketView.getMovieTickets();
-                    this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated,
-                            this.paymentCreated);
+                    if(MovieMenuView.exit){
+                        this.paymentCreated = this.paymentView.getPayment();
+                        Movie movie = this.movieSchedule.getMovieOnShow();
+                        this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime, this.cinema,
+                                this.seatingPlan, this.totalMovieTicketPrice);
+                        movieTicketView.printMovieTickets();
+                        this.movieTicketListCreated = this.movieTicketView.getMovieTickets();
+                        this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated,
+                                this.paymentCreated);
+                    }
                     break;
 
                 case 3:
                     this.errorMessage = "";
                     return;
 
+            }
+            if(MovieMenuView.exit){
+                return;
             }
         } while (true);
     }

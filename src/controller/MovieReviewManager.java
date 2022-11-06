@@ -24,6 +24,7 @@ public class MovieReviewManager {
         DatabaseManager.saveUpdateToDatabase(UUID, movieReview, Database.MOVIE_REVIEW);
 
         movie.addMovieReview(movieReview);
+        MovieManager.calculateOverallReviewRating(movie);
         DatabaseManager.saveUpdateToDatabase(movie.getUUID(), movie, Database.MOVIE);
         movieGoer.addReviewHistory(movieReview);
         DatabaseManager.saveUpdateToDatabase(goerUUID, movieGoer, Database.MOVIE_GOER);

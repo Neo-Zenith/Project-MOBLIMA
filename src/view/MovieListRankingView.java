@@ -9,18 +9,17 @@ import model.Movie;
 
 public class MovieListRankingView extends MainView {
     public void printMenu(){
-        System.out.println("====================================");
-        MainView.printBoilerPlate("""
+        MainView.printBoilerPlate("Rank Top 5");
+        MainView.printMenuContent("""
+
             1. Rank by ticket sales
             2. Rank by overall reviewers' ratings
             3. Return
             Please choose 1 or 2
             """);
-        System.out.println("====================================");
     }
     
     public void appContent(){
-        boolean result = false; 
         int choice = -1;
         do{
             this.printMenu();
@@ -30,19 +29,19 @@ public class MovieListRankingView extends MainView {
                 choice = InputHandler.intHandler();
             }
 
+            ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+
             switch(choice){
                 case 1:
-                    result = MovieGoerManager.rankTop5("ticket", false);
+                    movies = MovieGoerManager.rankTop5("ticket", movies, false);
                     break;
                 case 2:
-                    result = MovieGoerManager.rankTop5("ratings", false);
+                    movies = MovieGoerManager.rankTop5("ratings", movies, false);
                     break;
             }
 
-            ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
-
             if (choice == 1) {
-                if (!result|| 5 > movies.size()) {
+                if (5 > movies.size()) {
                     for (int j = 0; j < movies.size(); j++) {
                         System.out.println(j + 1 + ". " + movies.get(j).getMovieTitle() + " ["
                                 + movies.get(j).getMovieType() + "] - Tickets sold: "
@@ -56,17 +55,19 @@ public class MovieListRankingView extends MainView {
                     }
                 }
             } else {
-                if (!result || 5 > movies.size()) {
+                if (5 > movies.size()) {
                     for (int j = 0; j < movies.size(); j++) {
+                        String rating = String.format("%.2f", movies.get(j).getMovieOverallReviewRating());
                         System.out.println(j + 1 + ". " + movies.get(j).getMovieTitle() + " ["
                                 + movies.get(j).getMovieType() + "] - Overall Rating: "
-                                + movies.get(j).getMovieOverallReviewRating());
+                                + rating);
                     }
                 } else {
                     for (int j = 0; j < 5; j++) {
+                        String rating = String.format("%.2f", movies.get(j).getMovieOverallReviewRating());
                         System.out.println(j + 1 + ". " + movies.get(j).getMovieTitle() + " ["
                                 + movies.get(j).getMovieType() + "] - Overall Rating: "
-                                + movies.get(j).getMovieOverallReviewRating());
+                                + rating);
                     }
                 }
             }
