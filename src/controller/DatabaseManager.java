@@ -302,14 +302,14 @@ public class DatabaseManager {
 
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
-        DatabaseManager.relaodDatabase();
+        DatabaseManager.reloadDatabase();
     }
 
     public static void resetDatabase() {
         Database.resetDatabase();
     }
 
-    public static void relaodDatabase() {
+    public static void reloadDatabase() {
         Database.writeToDatabase();
         Database.remountDatabase();
     }

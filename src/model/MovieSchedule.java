@@ -72,7 +72,7 @@ public class MovieSchedule implements Serializable {
         this.showingTime = showingTime;
     }
 
-    
+
 
     public void addShowingTime(DateTime showingTime) {
         this.showingTime.add(showingTime);
@@ -80,5 +80,13 @@ public class MovieSchedule implements Serializable {
 
     public void updateShowingTime(DateTime showingTime, int showingTimeID) {
         this.showingTime.set(showingTimeID, showingTime);
+    }
+
+    public void removeShowingVenue(int index){
+        this.getShowingVenues().remove(index);
+    }
+
+    public void removeShowingTime(int index){
+        this.getShowingTime().remove(index);
     }
 }

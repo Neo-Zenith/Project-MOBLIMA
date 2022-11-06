@@ -1,5 +1,6 @@
 package view;
 
+import controller.CinemaStaffManager;
 import controller.DatabaseManager;
 import database.Database;
 import handler.InputHandler;
@@ -13,6 +14,7 @@ public class DatabaseView extends MainView{
         System.out.println("Welcome to the Database!");
         MainView.printBoilerPlate("""
                 1. Load initial data into database.
+                2. Add new movies into database.
                 2. Reset database.
                 3. Return back.
                 """);
@@ -33,11 +35,14 @@ public class DatabaseView extends MainView{
                     DatabaseManager.initializeMovieScheduleData(); 
                     Database.writeToDatabase();
                     break;
-                case 2:                   
+                case 2:
+                    CinemaStaffManager.addNewMovie();
+                    break;
+                case 3:                   
                     Database.resetDatabase();
                     System.out.println("Database resetted successfully!");
                     break;
-                case 3:
+                case 4:
                     break;
             }
         } while (choice != 3);
