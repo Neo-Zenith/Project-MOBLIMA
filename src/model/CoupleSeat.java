@@ -10,7 +10,7 @@ public class CoupleSeat extends Seat {
     public CoupleSeat(String UUID) {
         super(UUID);
         this.setSeatPrice(Database.PRICES.getDefaultSeatPrice());
-        this.setSeatType(SeatType.STANDARD);
+        this.setSeatType(SeatType.COUPLE);
     }
 
     public void setSeatPrice(double seatPrice) {

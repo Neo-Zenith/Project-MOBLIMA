@@ -1,120 +1,87 @@
 package view;
 
-import model.Payment;
-import controller.PaymentManager;
-import handler.InputHandler;
-import view.MainView;
+import model.*;
+import controller.*;
+import handler.*;
+import view.*;
 
-import java.time.format.DateTimeFormatter;  
-import java.time.LocalDateTime;  
 
-public class PaymentView {
+public class PaymentView extends MainView{
 
     private Payment payment;
-    private String cardNumber;
-    private int CCV;
-    private int OTP;
-    private int bankAccountNumber;
-    private PaymentManager paymentManager;
+    private String transactionID;
+    private double totalMovieTicketPrice;
+    private String referenceID;
+    private String errorMessage;
     
-    public PaymentView(){
-        //this.payment = payment;
+    public PaymentView(String cinemaCode, double totalMovieTicketPrice){
+        this.totalMovieTicketPrice = totalMovieTicketPrice;
+        this.transactionID = PaymentManager.generateTransactionId(cinemaCode);
+        this.errorMessage = "";
     }
 
-    public Payment getPayment(){
-        return this.payment;
-    }
+    public void printMenu() {
+        MainView.printBoilerPlate("Payment");
+        MainView.printMenuContent("""
 
-    public void setPayment(Payment payment){
-        this.payment = payment;
-    }
-
-    public String generateTransactionId(String cinemaCode){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmm");  
-        LocalDateTime now = LocalDateTime.now(); 
-        String transactionId = cinemaCode + dtf.format(now);
-        return transactionId;
-    }
-
-    public Payment createPayment(String cinemaCode, double movieTicketPrice){
-
-        // generate Transaction ID at the moment a new Payment is created.
-        // if the entered int or String is not valid, the user is prompted to re-enter again until the system receive a valid value
-        String transactionID;
-
-        PaymentManager paymentManager = new PaymentManager();
-
-        System.out.println("Payment:");
-        System.out.println("====================================");
-        MainView.printBoilerPlate("""
                 1.  Card Payment
                 2.  QRCode
                 3.  Bank Transaction
-                """);
-        System.out.println("Please Select A Payment Method:");
-        System.out.println("====================================");
+        """);
+    }
 
-        int choice = InputHandler.intHandler();
-        switch(choice){
-            case 1:
-                System.out.println("--- Card Payment ---");
-                transactionID = generateTransactionId(cinemaCode);
-                this.payment = PaymentManager.createCardPayment(transactionID, movieTicketPrice);
+    public void appContent(){
 
-                System.out.println("Enter Card Number:");
-                cardNumber = InputHandler.stringHandler();
-                while(cardNumber == null){
-                    System.out.println("Please Re-Enter Card Number:");
-                    cardNumber = InputHandler.stringHandler();
-                }
+        // generate Transaction ID at the moment a new Payment is created.
+        // if the entered int or String is not valid, the user is prompted to re-enter again until the system receive a valid value
+        int choice = -1;
+        do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
+            this.printMenu();
+            choice = InputHandler.intHandler();
 
-                System.out.println("Enter CCV:");
-                CCV = InputHandler.intHandler();
-                while(CCV == -1){
-                    System.out.println("Please Re-Enter CCV:");
-                    CCV = InputHandler.intHandler();
-                }
-
-                printPaymentSuccessful();
-                printReceipt("Card Payment");
-                break;
-
-            case 2:
-                System.out.println("--- QRCode Payment---");
-                transactionID = generateTransactionId(cinemaCode);
-                this.payment = PaymentManager.createQRCodePayment(transactionID, movieTicketPrice);
-
-                System.out.println("Please Scan the QRCode:");
-
-                System.out.println("Enter OTP Received:");
-                OTP = InputHandler.intHandler();
-                while(OTP == -1){
-                    System.out.println("Please Re-Enter OTP Received:");
-                    OTP = InputHandler.intHandler();
-                }
-
-                printPaymentSuccessful();
-                printReceipt("QRCode");
-                break;
-
-            case 3:
-                System.out.println("--- Bank Transaction Payment ---");
-                transactionID = generateTransactionId(cinemaCode);
-                this.payment = PaymentManager.createBankTransactioPayment(transactionID, movieTicketPrice);
-
-                System.out.println("Enter Bank Account Number:");
-                bankAccountNumber = InputHandler.intHandler();
-                while(bankAccountNumber == -1){
-                    System.out.println("Please Re-Enter Bank Account Number:");
-                    bankAccountNumber = InputHandler.intHandler();
-                }
-
-                printPaymentSuccessful();
-                printReceipt("Bank Transaction");
-                break;
-        }
-
-        return this.payment;
+            switch(choice){
+                case 1:
+                    UIHandler.clearScreen();
+                    System.out.println(this.errorMessage);
+                    MainView.printBoilerPlate("Card Payment");
+                    this.payment = PaymentManager.createCardPayment(this.transactionID, this.totalMovieTicketPrice);
+    
+                    System.out.println("Enter Card Number:");
+                    this.referenceID = InputHandler.stringHandler();
+                    System.out.println("Enter CCV:");
+                    InputHandler.intHandler();
+    
+                    printPaymentSuccessful();
+                    printReceipt("Card Payment");
+                    break;
+    
+                case 2:
+                    UIHandler.clearScreen();
+                    System.out.println(this.errorMessage);
+                    MainView.printBoilerPlate("QR Code Payment");
+                    this.payment = PaymentManager.createQRCodePayment(this.transactionID, this.totalMovieTicketPrice);
+                    System.out.println("Please Scan the QRCode:");
+                    System.out.println("Enter OTP Received:");
+                    this.referenceID = InputHandler.stringHandler();
+                    printPaymentSuccessful();
+                    printReceipt("QR Code Payment");
+                    break;
+    
+                case 3:
+                    UIHandler.clearScreen();
+                    System.out.println(this.errorMessage);
+                    MainView.printBoilerPlate("Bank Transaction");
+                    this.payment = PaymentManager.createBankTransactioPayment(transactionID, this.totalMovieTicketPrice);
+    
+                    System.out.println("Enter Bank Account Number:");
+                    this.referenceID = InputHandler.stringHandler();    
+                    printPaymentSuccessful();
+                    printReceipt("Bank Transaction");
+                    break;
+            }
+        }   while (true);
     }
 
     public void printPaymentSuccessful(){
@@ -136,6 +103,7 @@ public class PaymentView {
         System.out.println("Payment ID      :     " + this.payment.getUUID());
         System.out.println("Transaction ID  :     " + this.payment.getTransactionID());
         System.out.println("Payment Method  :     " + paymentMethod);
+        System.out.println("Reference Payment ID:       " + this.referenceID);
         System.out.println("Total Amount ($):     " + this.payment.getMovieTicketPrice());
         System.out.println("____________________________________");
         System.out.println("");
@@ -143,5 +111,4 @@ public class PaymentView {
         System.out.println("            See you again!          ");
         System.out.println("====================================");
     }
-
 }

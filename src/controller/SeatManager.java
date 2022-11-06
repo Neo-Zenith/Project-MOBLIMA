@@ -39,7 +39,6 @@ public class SeatManager {
 
 
     public static void printStandardCinemaFloorMap(ArrayList <Seat> seatingPlan) {
-        System.out.println(seatingPlan.size());
         int totalNumOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
         int index = 0;
         System.out.print("    ");
@@ -166,6 +165,9 @@ public class SeatManager {
         int rowConverted = row - 65;
         int colConverted = Integer.parseInt(seatID.substring(1));
 
+        if (colConverted > totalNumOfSeatsPerRow) {
+            return -1;
+        }
         int convertedSeatID = rowConverted * (totalNumOfSeatsPerRow) + colConverted - 1;
         return convertedSeatID;
     }
@@ -197,13 +199,42 @@ public class SeatManager {
         ArrayList <Seat> seatingPlan = movieSchedule.getSeatingPlan().get(venueSlot);
 
         Seat seatToBook = seatingPlan.get(index);
-        if (validateBooking(seatToBook, true)) {
-            seatToBook.setAssignStatus(true);
-            DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
-            return true;
+        
+        if (seatToBook.getSeatType() == SeatType.STANDARD) {
+            if (validateBooking(seatToBook, true)) {
+                seatToBook.setAssignStatus(true);
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         else {
-            return false;
+            Seat nextSeat;
+            int nextSeatIndex;
+
+            if (index % 2 == 0) {
+                nextSeatIndex = index + 1;
+            }
+            else {
+                nextSeatIndex = index - 1;
+            }
+            nextSeat = seatingPlan.get(nextSeatIndex);
+
+            if (validateBooking(seatToBook, true) && validateBooking(nextSeat, true)) {
+                seatToBook.setAssignStatus(true);
+                nextSeat.setAssignStatus(true);
+                return true;
+            }
+            else {
+                return false;
+            }
         }
+    }
+
+
+    public static Seat getSeatBySeatID(String seatID, ArrayList <Seat> seatingPlan, Cinema cinema) {
+        int index = SeatManager.seatIDConverter(seatID, cinema);
+        return seatingPlan.get(index);
     }
 }

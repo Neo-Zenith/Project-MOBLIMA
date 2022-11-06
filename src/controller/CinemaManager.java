@@ -95,4 +95,10 @@ public class CinemaManager {
         }
         return filteredCinemas;
     }
+
+    public static String getCinemaCode(Cinema cinema) {
+        String UUID = cinema.getUUID();
+        int length = UUID.length();
+        return UUID.substring(length - 3);
+    }
 }
