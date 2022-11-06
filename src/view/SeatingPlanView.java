@@ -8,9 +8,8 @@ import model.enums.*;
 import handler.*;
 import view.*;
 
-
 public class SeatingPlanView {
-    private ArrayList <Seat> seatingPlan;
+    private ArrayList<Seat> seatingPlan;
     private DateTime showingTime;
     private Cinema cinema;
     private MovieSchedule movieSchedule;
@@ -26,7 +25,8 @@ public class SeatingPlanView {
     private double currentMovieTicketPrice;
     private double totalMovieTicketPrice;
 
-    public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList <Seat> seatingPlan, MovieGoer movieGoer) {
+    public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList<Seat> seatingPlan,
+            MovieGoer movieGoer) {
         this.seatingPlan = seatingPlan;
         this.cinema = cinema;
         this.movieSchedule = movieSchedule;
@@ -42,12 +42,11 @@ public class SeatingPlanView {
     public void printSeatingPlan() {
         if (this.cinema.getCinemaClass() == CinemaClass.PLATINUM) {
             SeatManager.printPlatinumCinemaFloorMap(this.seatingPlan);
-        }
-        else {
+        } else {
             SeatManager.printStandardCinemaFloorMap(this.seatingPlan);
         }
     }
-    
+
     public void printMenu() {
         MainView.printBoilerPlate("Seat Booking");
         System.out.println("Cinema ID: " + this.cinema.getUUID());
@@ -65,7 +64,7 @@ public class SeatingPlanView {
     public void printSeatInCart() {
         String content = "\nSeat in cart: \n";
 
-        for (int i = 0; i < this.seatIDList.size(); i ++) {
+        for (int i = 0; i < this.seatIDList.size(); i++) {
             String seatID = this.seatIDList.get(i);
             Seat seat = SeatManager.getSeatBySeatID(seatID, this.seatingPlan, this.cinema);
             String index = String.format("%02d. ", i + 1);
@@ -80,10 +79,10 @@ public class SeatingPlanView {
 
     public void appContent() {
         int choice = -1;
-        
+
         do {
             UIHandler.clearScreen();
-            System.out.println(this.errorMessage);    
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
             if (choice < 0 || choice > 3) {
@@ -105,42 +104,44 @@ public class SeatingPlanView {
                     if (SeatManager.bookSeat(seatID, this.movieSchedule, this.cinema)) {
                         // add seatID into seatIDList => add new ticket into bucket list
                         seatIDList.add(seatID);
-                        if (this.seatBooked.getSeatType() ==  SeatType.STANDARD) {
-                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.cinema, this.movieSchedule, this.movieGoer, this.seatBooked);
+                        if (this.seatBooked.getSeatType() == SeatType.STANDARD) {
+                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.cinema,
+                                    this.movieSchedule, this.movieGoer, this.seatBooked);
+                        } else {
+                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.cinema,
+                                    this.movieSchedule, this.movieGoer, this.seatBooked) * 2;
                         }
-                        else {
-                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.cinema, this.movieSchedule, this.movieGoer, this.seatBooked) * 2;
-                        }
-                        
+
                         this.totalMovieTicketPrice += this.currentMovieTicketPrice;
                         this.errorMessage = "Booking has been made!";
-                    }
-                    else {
+                    } else {
                         this.errorMessage = "Error! Booking cannot be made on the seat selected!";
                     }
                     break;
 
                 case 2:
-                    // create new payment + new movie ticket list => then put into new booking history
-                    
-                    //cinema code is the last 3 characters in cinema UUID
+                    // create new payment + new movie ticket list => then put into new booking
+                    // history
+
+                    // cinema code is the last 3 characters in cinema UUID
                     String cinemaCode = CinemaManager.getCinemaCode(this.cinema);
                     this.paymentView = new PaymentView(cinemaCode, this.totalMovieTicketPrice);
                     this.errorMessage = "";
                     this.paymentView.appContent();
                     this.paymentCreated = this.paymentView.getPayment();
                     Movie movie = this.movieSchedule.getMovieOnShow();
-                    this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime, this.cinema, this.seatingPlan, this.totalMovieTicketPrice);
+                    this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime, this.cinema,
+                            this.seatingPlan, this.totalMovieTicketPrice);
                     this.movieTicketListCreated = this.movieTicketView.getMovieTickets();
-                    this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated, this.paymentCreated);
+                    this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated,
+                            this.paymentCreated);
                     break;
 
                 case 3:
                     this.errorMessage = "";
                     return;
-                    
+
             }
-        }   while (true);
+        } while (true);
     }
 }
-

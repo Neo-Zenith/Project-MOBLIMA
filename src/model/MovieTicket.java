@@ -3,13 +3,16 @@ package model;
 public class MovieTicket {
 
     private String UUID;
+    private String seatID;
     private Movie movieToWatch;
     private DateTime showTime;
     private Seat bookedSeat;
     private Cinema showingVenue;
 
-    public MovieTicket(String UUID, Movie movieToWatch, DateTime showTime, Seat bookedSeat, Cinema cinema) {
+    public MovieTicket(String UUID, Movie movieToWatch, DateTime showTime, Seat bookedSeat, Cinema cinema,
+            String seatID) {
         this.setUUID(UUID);
+        this.setSeatID(seatID);
         this.setMovieToWatch(movieToWatch);
         this.setShowTime(showTime);
         this.setBookedSeat(bookedSeat);
@@ -54,5 +57,13 @@ public class MovieTicket {
 
     public void setShowingVenue(Cinema showingVenue) {
         this.showingVenue = showingVenue;
+    }
+
+    public String getSeatID() {
+        return seatID;
+    }
+
+    public void setSeatID(String seatID) {
+        this.seatID = seatID;
     }
 }
