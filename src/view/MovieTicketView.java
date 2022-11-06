@@ -2,6 +2,8 @@ package view;
 
 import model.*;
 import controller.*;
+import handler.InputHandler;
+import handler.UIHandler;
 
 import java.util.*;
 
@@ -48,17 +50,16 @@ public class MovieTicketView {
         int minute = dateTime.getMinute();
         double pricePerMovieTicket = totalMovieTicketPrice / this.movieTicketList.size();
 
-        this.movie.setMovieTicketsSold(this.movie.getMovieTicketsSold() + movieTicketList.size());
-
-        System.out.println("Here is your Movie Ticket(s): ");
+        UIHandler.clearScreen();
+        MainView.printBoilerPlate("Movie Tickets");
         System.out.println("Total number of movie ticket: " + this.movieTicketList.size());
         System.out.println("[ Please keep it(them) as the proof for entrance ]");
         System.out.println("");
         for (int i = 0; i < this.movieTicketList.size(); i++) {
 
-            System.out.println("====================================");
-            System.out.println("               MOBLIMA              ");
-            System.out.println("                                    ");
+            System.out.println("══════════════════════════════════════");
+            System.out.println("                MOBLIMA               ");
+            System.out.println("                                      ");
             System.out.println("             MOVIE TICKET " + (i + 1));
             System.out.println("___________________________________");
             System.out.println("Movie Name: " + movieName);
@@ -68,12 +69,13 @@ public class MovieTicketView {
             System.out.println("Cinema ID: " + cinemaId); // Cinema uuid -> Cinema Hall Number (ex. Hall 3)
             System.out.println("Showing Date: " + date + "/" + month + "/" + year);
             System.out.println("Showing Time: " + hour + ":" + minute);
-            System.out.println("Seat ID: " + this.seatID); // seat uuid -> seat ID
+            System.out.println("Seat ID: " + this.seatID.get(i)); // seat uuid -> seat ID
             System.out.println("Price ($)/ ticket: " + pricePerMovieTicket);
-            System.out.println("_________________________________-__");
+            System.out.println("____________________________________");
             System.out.println("                                    ");
             System.out.println("          Enjoy Your Movie!         ");
-            System.out.println("====================================");
+            System.out.println("═════════════════════════════════════");
+            System.out.println("");
         }
     }
 }

@@ -45,6 +45,7 @@ public class MovieMenuView {
                 case 2:
                     MovieSearchView search = new MovieSearchView(this.movieGoer);
                     search.appContent();
+                    break;
                 case 3:
                     MovieBookingHistoryView bookingView = new MovieBookingHistoryView(this.movieGoer);
                     bookingView.appContent();                    
@@ -54,18 +55,16 @@ public class MovieMenuView {
                     rank.appContent();
                     break;
                 case 5:
+                    this.errorMessage = "";
                     return;
                 default:
-                    this.errorMessage = "Please enter a valid input!";
-            }
-            if (exit) {
-                exit = false;
+                    this.errorMessage = "Error! Please enter a valid input!";
             }
 
             if (MovieMenuView.exit) {
                 MovieMenuView.exit = false;
             }
 
-        }   while ((Integer) choice instanceof Integer);
+        }   while (true);
     }
 }

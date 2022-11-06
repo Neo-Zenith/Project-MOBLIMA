@@ -84,12 +84,18 @@ public class MovieManager {
      * Updates the movie ticket sold for a movie
      * @param movie is the target movie
      */
-    public static void updateMovieTicketSold(Movie movie) {
+    public static void updateMovieTicketSold(Movie movie, int numOfTickets) {
         int ticket = movie.getMovieTicketsSold();
-        ticket ++;
+        System.out.println(ticket);
+        ticket += numOfTickets;
         movie.setMovieTicketsSold(ticket);
         String UUID = movie.getUUID();
+        MovieSchedule movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
+        String scheduleUUID = movieSchedule.getUUID();
+        movieSchedule.setMovieOnShow(movie);
+
         DatabaseManager.saveUpdateToDatabase(UUID, movie, Database.MOVIE);
+        DatabaseManager.saveUpdateToDatabase(scheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
     }
 
 

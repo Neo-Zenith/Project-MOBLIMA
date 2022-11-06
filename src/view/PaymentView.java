@@ -91,7 +91,6 @@ public class PaymentView extends MainView {
                 DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
                 break;
         }
-
     }
 
     public void printPaymentSuccessful() {

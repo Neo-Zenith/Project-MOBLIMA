@@ -141,10 +141,13 @@ public class SeatingPlanView {
                                 this.cinema,
                                 this.seatingPlan, this.totalMovieTicketPrice);
                         movieTicketView.printMovieTickets();
+                        MovieManager.updateMovieTicketSold(movie, seatIDList.size());
                         this.movieTicketListCreated = this.movieTicketView.getMovieTickets();
                         this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(
                                 this.movieTicketListCreated,
                                 this.paymentCreated, this.movieGoer);
+                        System.out.println("Press any key to return");
+                        InputHandler.stringHandler();
                     }
                     break;
 

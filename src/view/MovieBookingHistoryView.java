@@ -59,15 +59,17 @@ public class MovieBookingHistoryView extends MainView {
         String content = "";
         int count = 0;
         for (int i = 0; i < this.bookingHistories.size(); i++) {
+            BookingHistory bookingHistory = this.bookingHistories.get(i);
             String index = String.format("%02d.\n", (i + 1));
             String payload1 = String.format("Booking ID: %s\n", this.bookingHistories.get(i).getUUID());
-            String payload2 = String.format("Movie Title: %s\n", this.movieTitle.get(i));
-            String payload3 = String.format("Cineplex Location:\n%s",
+            String payload2 = String.format("Transaction ID: %s\n", bookingHistory.getPayment().getTransactionID());
+            String payload3 = String.format("Movie Title: %s\n", this.movieTitle.get(i));
+            String payload4 = String.format("Cineplex Location:\n%s",
                     this.cineplexList.get(i).getCineplexLocation());
-            String payload4 = String.format("Cinema: %s %s\n", this.cinemaList.get(i).getUUID(),
+            String payload5 = String.format("Cinema: %s %s\n", this.cinemaList.get(i).getUUID(),
                     this.cinemaList.get(i).getCinemaClass());
-            String payload5 = String.format("Showing Time: %s\n\n", showingTime.get(i).getTimeNow());
-            content = content + index + payload1 + payload2 + payload3 + payload4 + payload5;
+            String payload6 = String.format("Showing Time: %s\n\n", showingTime.get(i).getTimeNow());
+            content = content + index + payload1 + payload2 + payload3 + payload4 + payload5 + payload6;
             count = i + 1;
         }
         String index = String.format("%02d. ", (count + 1));

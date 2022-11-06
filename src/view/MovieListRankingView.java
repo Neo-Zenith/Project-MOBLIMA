@@ -5,9 +5,16 @@ import java.util.ArrayList;
 import controller.MovieGoerManager;
 import database.Database;
 import handler.InputHandler;
+import handler.UIHandler;
 import model.Movie;
 
 public class MovieListRankingView extends MainView {
+    private String errorMessage;
+
+    public MovieListRankingView() {
+        this.errorMessage = "";
+    }
+
     public void printMenu() {
         MainView.printBoilerPlate("Rank Top 5");
         MainView.printMenuContent("""
@@ -15,62 +22,71 @@ public class MovieListRankingView extends MainView {
                 01. Rank by ticket sales
                 02. Rank by overall reviewers' ratings
                 03. Return
-                Please choose 1 or 2
                 """);
+    }
+
+    public void printTop5(int choice) {
+        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        String content = "\n";
+        String payload;
+        String index;
+
+        switch (choice) {
+            case 1:
+                MainView.printBoilerPlate("Ranking by ticket sales");
+                movies = MovieGoerManager.rankTop5("ticket", movies, false);
+                break;
+            case 2:
+                MainView.printBoilerPlate("Ranking by overall rating");
+                movies = MovieGoerManager.rankTop5("ratings", movies, false);
+                break;
+        }
+    
+        int length = (movies.size() > 5) ? 5 : movies.size();
+
+        if (choice == 1) {
+            for (int j = 0; j < length; j++) {
+                index = String.format("%d. ", j + 1);
+                payload = String.format(index + movies.get(j).getMovieTitle() + " [" +
+                                        movies.get(j).getMovieType() + "] - Tickets sold: "
+                                        + movies.get(j).getMovieTicketsSold() + "\n");
+                content = content + payload;
+            }
+
+        } 
+        else {
+            for (int j = 0; j < length; j++) {
+                String rating = String.format("%.1f", movies.get(j).getMovieOverallReviewRating());
+                index = String.format("%d. ", j + 1);
+                payload = String.format(index + movies.get(j).getMovieTitle() + " [" +
+                                        movies.get(j).getMovieType() + "] - Overall rating: "
+                                        + rating + "\n");
+                content = content + payload;
+            }
+        }
+        MainView.printMenuContent(content);
+        System.out.println("Press any key to return");
+        InputHandler.stringHandler();
     }
 
     public void appContent() {
         int choice = -1;
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-            while (choice < 1 || choice > 3) {
-                System.out.println("Please enter a valid input");
-                choice = InputHandler.intHandler();
+            if (choice == 3) {
+                this.errorMessage = "";
+                return;
             }
-
-            ArrayList<Movie> movies = Database.getValueList(Database.MOVIE.values());
-
-            switch (choice) {
-                case 1:
-                    movies = MovieGoerManager.rankTop5("ticket", movies, false);
-                    break;
-                case 2:
-                    movies = MovieGoerManager.rankTop5("ratings", movies, false);
-                    break;
+            if (choice < 1 || choice > 3) {
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
-            System.out.println("====================================================");
-            if (choice == 1) {
-                if (5 > movies.size()) {
-                    for (int j = 0; j < movies.size(); j++) {
-                        System.out.println(j + 1 + ". " + movies.get(j).getMovieTitle() + " ["
-                                + movies.get(j).getMovieType() + "] - Tickets sold: "
-                                + movies.get(j).getMovieTicketsSold());
-                    }
-                } else {
-                    for (int j = 0; j < 5; j++) {
-                        System.out.println(j + 1 + ". " + movies.get(j).getMovieTitle() + " ["
-                                + movies.get(j).getMovieType() + "] - Tickets sold: "
-                                + movies.get(j).getMovieTicketsSold());
-                    }
-                }
-            } else {
-                if (5 > movies.size()) {
-                    for (int j = 0; j < movies.size(); j++) {
-                        String rating = String.format("%.2f", movies.get(j).getMovieOverallReviewRating());
-                        System.out.println(j + 1 + ". " + movies.get(j).getMovieTitle() + " ["
-                                + movies.get(j).getMovieType() + "] - Overall Rating: "
-                                + rating);
-                    }
-                } else {
-                    for (int j = 0; j < 5; j++) {
-                        String rating = String.format("%.2f", movies.get(j).getMovieOverallReviewRating());
-                        System.out.println(j + 1 + ". " + movies.get(j).getMovieTitle() + " ["
-                                + movies.get(j).getMovieType() + "] - Overall Rating: "
-                                + rating);
-                    }
-                }
-            }
-        } while (choice != 3);
+            UIHandler.clearScreen();
+            this.printTop5(choice);
+            
+        } while (true);
     }
 }
