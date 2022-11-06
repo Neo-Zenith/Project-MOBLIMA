@@ -1,46 +1,21 @@
 package view;
 
-import model.Cineplex;
-import model.MovieTicket;
-import controller.MovieTicketManager;
-import controller.CineplexManager;
-import model.Cineplex;
-import model.Movie;
-import model.enums.MovieType;
-import model.Cinema;
-import model.DateTime;
-import model.Seat;
-import model.enums.CinemaClass;
+import model.*;
+import controller.*;
 
 import java.util.*;
 
 public class MovieTicketView {
 
     private ArrayList<MovieTicket> movieTicketList;
-    //private ArrayList<Integer> seatID; 
+    private ArrayList<String> seatID; 
     
-    public MovieTicketView(){
-        //this.movieTicketList = movieTicketList;
+    public MovieTicketView(ArrayList<String> seatID, Movie movie, DateTime showingTime, Cinema cinema, ArrayList <Seat> seatingPlan, double totalMovieTicketPrice){
+        this.seatID = seatID;
+        this.movieTicketList = MovieTicketManager.createMovieTicketList(seatID, movie, showingTime, cinema, seatingPlan, totalMovieTicketPrice);
     }
 
-    public ArrayList<MovieTicket> getMovieTicketList(){
-        return this.movieTicketList;
-    }
-
-    public void setMovieTicketList(ArrayList<MovieTicket> movieTicketList){
-        this.movieTicketList = movieTicketList;
-    }
-
-    public ArrayList<MovieTicket> createMovieTicketList(ArrayList<String> seatID, Movie movieToWatch, DateTime showTime, Seat bookedSeat, Cinema cinema, double totalMovieTicketPrice){
-        // create a new list of movie tickets based on the number of seatID got from user
-        this.movieTicketList = new ArrayList<MovieTicket>();
-        for(int i=0; i<seatID.size(); i++){
-            MovieTicket newMovieTicket = MovieTicketManager.createMovieTicket(movieToWatch, showTime, bookedSeat, cinema);
-            this.movieTicketList.add(newMovieTicket);
-        }
-
-        printMovieTickets(this.movieTicketList, totalMovieTicketPrice);
-
+    public ArrayList <MovieTicket> getMovieTickets() {
         return this.movieTicketList;
     }
 

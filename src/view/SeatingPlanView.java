@@ -126,12 +126,13 @@ public class SeatingPlanView {
                     //cinema code is the last 3 characters in cinema UUID
                     String cinemaCode = CinemaManager.getCinemaCode(this.cinema);
                     this.paymentView = new PaymentView(cinemaCode, this.totalMovieTicketPrice);
-                    this.movieTicketView = new MovieTicketView();
-                    Movie movie = this.movieSchedule.getMovieOnShow();
-                    this.movieTicketListCreated = this.movieTicketView.createMovieTicketList(seatIDList, movie, this.showingTime, this.seatBooked, this.cinema, this.totalMovieTicketPrice);
-                    this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated, this.paymentCreated);
                     this.errorMessage = "";
                     this.paymentView.appContent();
+                    this.paymentCreated = this.paymentView.getPayment();
+                    Movie movie = this.movieSchedule.getMovieOnShow();
+                    this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime, this.cinema, this.seatingPlan, this.totalMovieTicketPrice);
+                    this.movieTicketListCreated = this.movieTicketView.getMovieTickets();
+                    this.bookingHistoryCreated = BookingHistoryManager.createBookingHistory(this.movieTicketListCreated, this.paymentCreated);
                     break;
 
                 case 3:

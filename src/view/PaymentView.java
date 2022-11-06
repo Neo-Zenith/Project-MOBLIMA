@@ -20,6 +20,10 @@ public class PaymentView extends MainView{
         this.errorMessage = "";
     }
 
+    public Payment getPayment() {
+        return this.payment;
+    }
+
     public void printMenu() {
         MainView.printBoilerPlate("Payment");
         MainView.printMenuContent("""
@@ -103,7 +107,7 @@ public class PaymentView extends MainView{
         System.out.println("Payment ID      :     " + this.payment.getUUID());
         System.out.println("Transaction ID  :     " + this.payment.getTransactionID());
         System.out.println("Payment Method  :     " + paymentMethod);
-        System.out.println("Reference Payment ID:       " + this.referenceID);
+        System.out.println("Reference ID:       " + this.referenceID);
         System.out.println("Total Amount ($):     " + this.payment.getMovieTicketPrice());
         System.out.println("____________________________________");
         System.out.println("");
