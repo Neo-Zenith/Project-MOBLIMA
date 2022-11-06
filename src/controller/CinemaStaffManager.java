@@ -23,6 +23,8 @@ import database.Database;
 
 import handler.DatabaseHandler;
 import handler.InputHandler;
+import handler.UIHandler;
+import view.*;
 
 import java.util.*;
 
@@ -62,332 +64,383 @@ public class CinemaStaffManager{
         System.out.println("Movie added into database");
     }
 
-    public static int updateExistingMovieDetails(int movieNumber, int detail){
+    public static int updateExistingMovieDetails(Movie movie, int detail){
         ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
         ArrayList <String> movieSchedulesKeyList = Database.getKeyList(Database.MOVIE_SCHEDULE.keySet());
 
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
         ArrayList <String> movieKeyList = Database.getKeyList(Database.MOVIE.keySet());
 
-        if(movieNumber > movies.size()){
-            System.out.println("No such movie in database.");
-            return 1;
-        }
-        Movie m = movies.get(movieNumber - 1);
-        String movieUUID = movieKeyList.get(movieNumber - 1);
+        String movieUUID = movie.getUUID();
+        MovieSchedule movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
+        String movieScheduleUUID = movieSchedule.getUUID();
 
-        MovieSchedule ms; 
-        String scheduleUUID;
+        String errorMessage = "";
 
-        int scheduleIndex = movieSchedules.indexOf(m);
-    
-        ms = movieSchedules.get(scheduleIndex);
-        scheduleUUID = movieSchedulesKeyList.get(scheduleIndex);
-
+        int choice = -1;
         switch(detail){
             case 1:
-            System.out.println("Enter the new name of the movie");
-            String newMovieName = InputHandler.stringHandler();
-            m.setMovieTitle(newMovieName);
-            ms.setMovieOnShow(m);
+                UIHandler.clearScreen();
+                System.out.println("Enter the new name of the movie: ");
+                String newMovieName = InputHandler.stringHandler();
+                movie.setMovieTitle(newMovieName);
+                movieSchedule.setMovieOnShow(movie);
 
-            DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-            DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            return 0;
+                DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                return 1;
 
             case 2:
-            System.out.println("Enter the new Movie Type for " + m.getMovieTitle()); 
-            System.out.println("1. Standard Movie");
-            System.out.println("2. Blockbuster Movie");
-            System.out.println("3. 3D Movie");
-            int newMovieType = InputHandler.intHandler();  
+                do {
+                    UIHandler.clearScreen();
+                    System.out.println(errorMessage);
+                    MainView.printBoilerPlate("Movie Type for " + movie.getMovieTitle()); 
+                    MainView.printMenuContent("""
 
-            String oldMovieTitle = m.getMovieTitle();
-            MovieAgeRating oldMovieAgeRating = m.getMovieAgeRating();
-            MovieShowingStatus oldShowingStatus = m.getMovieShowingStatus();
-            ArrayList<String> oldMovieCast = m.getMovieCast(); 
-            String oldMovieDirector = m.getMovieDirector();
-            String oldMovieSynopsis = m.getMovieSynopsis();
-            double oldMovieDuration = m.getMovieDuration();
+                        1. Standard Movie
+                        2. Blockbuster Movie
+                        3. 3D Movie
+                    """);
+        
+                    int newMovieType = InputHandler.intHandler();  
 
-           
-            if (newMovieType == 1){
-                Movie newMovie = new StandardMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
-                                                    oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
-                                                    oldMovieDuration);
-                ms.setMovieOnShow(newMovie);
-                DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
-                DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            } else if (newMovieType == 2){
-                Movie newMovie = new BlockbusterMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
-                                                    oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
-                                                    oldMovieDuration);
-                ms.setMovieOnShow(newMovie);
-                DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
-                DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            } else if (newMovieType == 3){
-                Movie newMovie = new ThreeDMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
-                                                    oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
-                                                    oldMovieDuration);
-                ms.setMovieOnShow(newMovie);
-                DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
-                DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            } else {
-                System.out.println("No such movie type.");
-                return 1;
-            }
+                    String oldMovieTitle = movie.getMovieTitle();
+                    MovieAgeRating oldMovieAgeRating = movie.getMovieAgeRating();
+                    MovieShowingStatus oldShowingStatus = movie.getMovieShowingStatus();
+                    ArrayList<String> oldMovieCast = movie.getMovieCast(); 
+                    String oldMovieDirector = movie.getMovieDirector();
+                    String oldMovieSynopsis = movie.getMovieSynopsis();
+                    double oldMovieDuration = movie.getMovieDuration();
 
-            
-            return 0;
+                    if (newMovieType == 1) {
+                        Movie newMovie = new StandardMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
+                                                            oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
+                                                            oldMovieDuration);
+                        movieSchedule.setMovieOnShow(newMovie);
+                        DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
+                        DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                        return 1;
+                    } 
+                    else if (newMovieType == 2) {
+                        Movie newMovie = new BlockbusterMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
+                                                            oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
+                                                            oldMovieDuration);
+                        movieSchedule.setMovieOnShow(newMovie);
+                        DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
+                        DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                        return 1;
+                    } 
+                    else if (newMovieType == 3){
+                        Movie newMovie = new ThreeDMovie(movieUUID, oldMovieTitle, oldMovieAgeRating,
+                                                            oldShowingStatus, oldMovieCast, oldMovieDirector, oldMovieSynopsis,
+                                                            oldMovieDuration);
+                        movieSchedule.setMovieOnShow(newMovie);
+                        DatabaseManager.saveUpdateToDatabase(movieUUID, newMovie, Database.MOVIE);
+                        DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                        return 1;
+                    } 
+                    else {
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                }   while(true);
+                    
 
             case 3:
-            System.out.println("Enter the new age rating for " + m.getMovieTitle());
-            System.out.println("1. G");
-            System.out.println("2. PG");
-            System.out.println("3. PG13");
-            System.out.println("4. NC16");
-            System.out.println("5. M18");
-            System.out.println("6. R21");
-            int choice = InputHandler.intHandler();
-            if (choice < 1 || choice > 6){
-                System.out.println("No such age rating.");
-                return 1;
-            }
-            MovieAgeRating newMovieAgeRating = MovieAgeRating.values()[choice - 1];
-            m.setMovieAgeRating(newMovieAgeRating);
-            ms.setMovieOnShow(m);
-            DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-            DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            return 0;
-            
+                do {
+                    UIHandler.clearScreen();
+                    MainView.printBoilerPlate("Age Rating for " + movie.getMovieTitle());
+                    MainView.printMenuContent("""
+                        1. G
+                        2. PG
+                        3. PG13
+                        4. NC16
+                        5. M18
+                        6. R21
+                    """);
+
+                    choice = InputHandler.intHandler();
+                    if (choice < 1 || choice > 6){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    MovieAgeRating newMovieAgeRating = MovieAgeRating.values()[choice - 1];
+                    movie.setMovieAgeRating(newMovieAgeRating);
+                    movieSchedule.setMovieOnShow(movie);
+                    DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                    DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                    return 1;
+                }   while(true);
+                
             case 4:
-            System.out.println("Enter the new showing status for " + m.getMovieTitle());
-            System.out.println("1. COMING_SOON");
-            System.out.println("2. PREVIEW");
-            System.out.println("3. NOW_SHOWING");
-            System.out.println("4. END_OF_SHOWING");
-            choice = InputHandler.intHandler();
-            if (choice < 1 || choice > 4){
-                System.out.println("No such showing status");
-                return 1;
-            }
-            MovieShowingStatus newShowingStatus = MovieShowingStatus.values()[choice - 1];
-            
-            if (newShowingStatus == MovieShowingStatus.END_OF_SHOWING){
-                System.out.println("Deleting " + m.getMovieTitle() + " from movie schedule...");
-                Database.MOVIE_SCHEDULE.remove(scheduleUUID);
-                DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-                return 0;    
-            }
-            m.setMovieShowingStatus(newShowingStatus);
-            ms.setMovieOnShow(m);
-            DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-            DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            return 0;
+                do {
+                    UIHandler.clearScreen();
+                    MainView.printBoilerPlate("Showing Status for " + movie.getMovieTitle());
+                    MainView.printMenuContent("""
+                            1. Coming Soon
+                            2. Preview
+                            3. Now Showing
+                            4. End of Showing
+                            """);
+
+                    choice = InputHandler.intHandler();
+                    if (choice < 1 || choice > 4){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    MovieShowingStatus newShowingStatus = MovieShowingStatus.values()[choice - 1];
+                    
+                    if (newShowingStatus == MovieShowingStatus.END_OF_SHOWING){
+                        System.out.println("Deleting " + movie.getMovieTitle() + " from movie schedule...");
+                        Database.MOVIE_SCHEDULE.remove(movieScheduleUUID);
+                        DatabaseManager.reloadDatabase();
+                        return 1;    
+                    }
+                    movie.setMovieShowingStatus(newShowingStatus);
+                    movieSchedule.setMovieOnShow(movie);
+                    DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                    DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                    return 1;
+                }   while (true);
             
             case 5:
-            System.out.println("How would you like to configure cast names");
-            System.out.println("1. Remove cast name");
-            System.out.println("2. Add cast name");
+                do {
+                    UIHandler.clearScreen();
+                    MainView.printBoilerPlate("Configure Casts for " + movie.getMovieTitle());
+                    MainView.printMenuContent("""
+                        1. Remove cast
+                        2. Add cast
+                            """);
 
-            int innerchoice = InputHandler.intHandler();
-            if (innerchoice < 1 || innerchoice > 1){
-                System.out.println("Invalid choice.");
-                return 1;
-            }    
-            switch(innerchoice){
+                    choice = InputHandler.intHandler();
+                    if (choice < 1 || choice > 2){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }  
 
-                case 1: 
-                    System.out.println("Enter which cast number is to be removed. (Enter Cast Number)");
-                    for (int i = 0; i < m.getMovieCast().size(); i++){
-                        System.out.println("Cast Number " + (i+1) + ". " + m.getMovieCast().get(i));
+                    switch(choice) {
+                        case 1: 
+                            do {
+                                UIHandler.clearScreen();
+                                String content = "\nEnter which cast number is to be removed. (Enter Cast Number)\n";
+
+                                for (int i = 0; i < movie.getMovieCast().size(); i++){
+                                    String payload = String.format("Cast number: %d", (i + 1) + "\t" + movie.getMovieCast().get(i) + "\n");
+                                    content = content + payload;
+                                }
+                                MainView.printMenuContent(content);
+                                int castNumber = InputHandler.intHandler();
+                                if (castNumber < 1 || castNumber > movie.getMovieCast().size()){
+                                    errorMessage = "Error! Please enter a valid input!";
+                                    continue;
+                                }
+                                movie.getMovieCast().remove(castNumber - 1);
+                                movieSchedule.setMovieOnShow(movie);
+                                DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                                DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                                return 1;
+                            }   while(true);
+                            
+                        case 2:
+                            UIHandler.clearScreen();
+                            System.out.println("Enter the name of the cast to be added.");
+                            String castName = InputHandler.stringHandler();
+                            movie.getMovieCast().add(castName);
+                            movieSchedule.setMovieOnShow(movie);
+                            DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                            DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                            return 1;
                     }
-                    int castNumber = InputHandler.intHandler();
-                    if (castNumber < 1 || castNumber > m.getMovieCast().size()){
-                        System.out.println("Invalid cast number.");
-                        return 1;
-                    }
-                    m.getMovieCast().remove(castNumber - 1);
-                    ms.setMovieOnShow(m);
-                    DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-                    DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-                    return 0;
+                }   while (true);
 
-                case 2:
-                    System.out.println("Enter the name of the cast to be added.");
-                    String castName = InputHandler.stringHandler();
-                    m.getMovieCast().add(castName);
-                    ms.setMovieOnShow(m);
-                    DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-                    DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-                    return 0;
-            }
-
-            break;
-            
             case 6:
-            System.out.println("Enter the new name of the Movie Director of " + m.getMovieTitle() + ".");
-            String newDirectorName = InputHandler.stringHandler();
-            m.setMovieDirector(newDirectorName);
-            ms.setMovieOnShow(m);
-            DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-            DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            return 0;
+                UIHandler.clearScreen();
+                System.out.println("Enter the new movie director for: " + movie.getMovieTitle());
+                String newDirectorName = InputHandler.stringHandler();
+                movie.setMovieDirector(newDirectorName);
+                movieSchedule.setMovieOnShow(movie);
+                DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                return 1;
 
             case 7:
-            System.out.println("Enter the new synopsis of " + m.getMovieTitle() + ".");
-            String newSynopsis = InputHandler.stringHandler();
-            m.setMovieSynopsis(newSynopsis);
-            ms.setMovieOnShow(m);
-            DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-            DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            return 0;
+                UIHandler.clearScreen();
+                System.out.println("Enter the new synopsis of " + movie.getMovieTitle() + ".");
+                String newSynopsis = InputHandler.stringHandler();
+                movie.setMovieSynopsis(newSynopsis);
+                movieSchedule.setMovieOnShow(movie);
+                DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                return 1;
 
             case 8:
-            System.out.println("Enter new duration of " + m.getMovieTitle() + ".");
-            double newMovieDuration = InputHandler.doubleHandler();
-            if (newMovieDuration < 0){
-                System.out.println("Movie duration cannot be negative.");
-                return 1;
-            }
-            m.setMovieDuration(newMovieDuration);
-            ms.setMovieOnShow(m);
-            DatabaseManager.saveUpdateToDatabase(movieUUID, m, Database.MOVIE);
-            DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-            return 0;  
+                do {
+                    UIHandler.clearScreen();
+                    System.out.println(errorMessage);
+                    System.out.println("Enter new showing duration for " + movie.getMovieTitle() + ".");
+                    double newMovieDuration = InputHandler.doubleHandler();
+                    if (newMovieDuration < 0) {
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    movie.setMovieDuration(newMovieDuration);
+                    movieSchedule.setMovieOnShow(movie);
+                    DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
+                    DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                    return 1;  
+                } while(true);
+                
 
-            
             case 9:
-            System.out.println("How would you like to configure showing venues");
-            System.out.println("1. Remove showing venue");
-            System.out.println("2. Add showing venue");
+                do {
+                    UIHandler.clearScreen();
+                    System.out.println(errorMessage);
+                    MainView.printBoilerPlate("Configure Showing Venues");
+                    MainView.printMenuContent("""
+                            1. Remove Showing Venue
+                            2. Add Showing Venue
+                    """);
 
-            innerchoice = InputHandler.intHandler();
-            if(innerchoice < 1 || innerchoice > 2){
-                System.out.println("Invalid choice.");
-                return 1;
-            }
-            switch(innerchoice){
-                case 1:
-                    System.out.println("Enter which showing venue is to be removed. (Enter ID number)");
-                    for (int i = 0; i < ms.getShowingVenues().size(); i++){
-                        System.out.println((i + 1) + ": "+ ms.getShowingVenues().get(i).getCinemaClass());
-                    }
-                    int venueID = InputHandler.intHandler();
-                    if (venueID < 1 || venueID > ms.getShowingVenues().size()){
-                        System.out.println("Invalid showing venue.");
-                        return 1;
-                    }
-                    ms.removeShowingVenue(venueID- 1);
-                    DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-                break;
-
-                case 2:
-                    System.out.println("Enter which showing venue is to be added. (Enter ID number)");
-                    for (int i = 0; i < ms.getShowingVenues().size(); i++){
-                        System.out.println((i + 1) + ": "+ ms.getShowingVenues().get(i).getCinemaClass());
-                    }
-                    venueID = InputHandler.intHandler();
-                    if (venueID < 1 || venueID > ms.getShowingVenues().size()){
-                        System.out.println("Invalid showing venue.");
-                        return 1;
+                    choice = InputHandler.intHandler();
+                    if (choice < 1 || choice > 2){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
                     }
 
-                    
-                    System.out.println("Enter which showing venue type to be added.");
-                    System.out.println("1. Standard Cinema");
-                    System.out.println("2. Platinum Cinema");
-                    System.out.println("3. IMax Cinema");
-                    int newVenueType = InputHandler.intHandler(); 
-                    
-                    System.out.println("Enter the date time for this cinema type");
-                    DateTime showingTime = queryDate();
-                    ArrayList <DateTime> newShowingTimes = new ArrayList<DateTime>();
-                    newShowingTimes.add(showingTime);
-                    
-                    if (newVenueType == 1){
-                        CinemaClass cinemaClass = CinemaClass.STANDARD;
-                        ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                        Cinema c = CinemaManager.createStandardCinema(seats);
-                        ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
-                        newCinemaList.add(c);
-                        MovieScheduleManager.updateMovieSchedule(m, newCinemaList ,newShowingTimes);
-                    } else if (newVenueType == 2){
-                        CinemaClass cinemaClass = CinemaClass.PLATINUM;
-                        ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                        Cinema c = CinemaManager.createPlatinumCinema(seats);
-                        ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
-                        newCinemaList.add(c);
-                        MovieScheduleManager.updateMovieSchedule(m, newCinemaList ,newShowingTimes);
-                    } else if (newVenueType == 3){
-                        CinemaClass cinemaClass = CinemaClass.IMAX;
-                        ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                        Cinema c = CinemaManager.createIMaxCinema(seats);
-                        ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
-                        newCinemaList.add(c);
-                        MovieScheduleManager.updateMovieSchedule(m, newCinemaList ,newShowingTimes);
-                    } else {
-                        System.out.println("Invalid showing venue");
-                        return 1;
-                    }
-                    return 0;
-                } 
-                break;
+                    switch(choice){
+                        case 1:
+                            UIHandler.clearScreen();
+                            String content = "\nEnter which showing venue to be removed. (Enter ID number)\n";
+                            for (int i = 0; i < movieSchedule.getShowingVenues().size(); i ++) {
+                                Cinema cinema = movieSchedule.getShowingVenues().get(i);
+                                String payload = String.format("ID: %d.\t", i + 1 + "Cinema ID: %s" + cinema.getUUID() + "Class: %s\n" + cinema.getCinemaClass());
+                                content = content + payload;
+                            }
+                            MainView.printMenuContent(content);
+                            int venueID = InputHandler.intHandler();
+                            if (venueID < 1 || venueID > movieSchedule.getShowingVenues().size()){
+                                errorMessage = "Error! Please enter a valid input!";
+                                continue;
+                            }
+                            movieSchedule.removeShowingVenue(venueID - 1);
+                            movieSchedule.removeShowingTime(venueID - 1);
+                            DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                            return 1;
+
+                        case 2:
+                            do {
+                                UIHandler.clearScreen();
+                                MainView.printMenuContent("""
+                                    Enter which showing venue type to be added.
+                                    1. Standard Cinema
+                                    2. Platinum Cinema
+                                    3. IMAX Cinema
+                                        """);
+
+                                int newVenueType = InputHandler.intHandler(); 
+                                UIHandler.clearScreen();
+                                System.out.println("Enter the date time for this cinema type");
+                                DateTime showingTime = queryDate();
+                                ArrayList <DateTime> newShowingTimes = new ArrayList<DateTime>();
+                                newShowingTimes.add(showingTime);
+                                
+                                if (newVenueType == 1){
+                                    CinemaClass cinemaClass = CinemaClass.STANDARD;
+                                    ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
+                                    Cinema c = CinemaManager.createStandardCinema(seats);
+                                    ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
+                                    newCinemaList.add(c);
+                                    MovieScheduleManager.updateMovieSchedule(movie, newCinemaList ,newShowingTimes);
+                                    return 1;
+                                } 
+                                else if (newVenueType == 2){
+                                    CinemaClass cinemaClass = CinemaClass.PLATINUM;
+                                    ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
+                                    Cinema c = CinemaManager.createPlatinumCinema(seats);
+                                    ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
+                                    newCinemaList.add(c);
+                                    MovieScheduleManager.updateMovieSchedule(movie, newCinemaList ,newShowingTimes);
+                                    return 1;
+                                } 
+                                else if (newVenueType == 3){
+                                    CinemaClass cinemaClass = CinemaClass.IMAX;
+                                    ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
+                                    Cinema c = CinemaManager.createIMaxCinema(seats);
+                                    ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
+                                    newCinemaList.add(c);
+                                    MovieScheduleManager.updateMovieSchedule(movie, newCinemaList ,newShowingTimes);
+                                    return 1;
+                                } 
+                                else {
+                                    errorMessage = "Errpr! Please enter a valid input!";
+                                    continue;
+                                }
+                            }   while(true);
+
+                    } 
+                } while (true);
             
 
             case 10:
-            System.out.println("How would you like to configure showing times?");
-            System.out.println("1. Remove showing time");
-            System.out.println("2. Add new showing time");
-            innerchoice = InputHandler.intHandler();
-            if (innerchoice < 1 || innerchoice > 2){
-                System.out.println("Invalid choice.");
-                return 1;
-            }
-            switch(innerchoice){
-                case 1:
-                    System.out.println("Enter which showing time is to be removed. (Enter ID number)");
-                    for (int i = 0; i < ms.getShowingTime().size(); i++){
-                        System.out.println((i+1) + " . " + "Date: " + ms.getShowingTime().get(i).getYear() + ms.getShowingTime().get(i).getMonth() + ms.getShowingTime().get(i).getDate() + " Time: " + ms.getShowingTime().get(i).getHour() + ms.getShowingTime().get(i).getMinute());
+                do {
+                    UIHandler.clearScreen();
+                    MainView.printMenuContent("""
+                        How would you like to configure showing times?
+                        1. Remove showing time
+                        2. Add new showing time
+                    """);
+
+                    choice = InputHandler.intHandler();
+                    if (choice < 1 || choice > 2){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
                     }
-                    int showingTimeID = InputHandler.intHandler();
-                    if (showingTimeID < 1 || showingTimeID > ms.getShowingTime().size()){
-                        System.out.println("Invalid showing time.");
-                        return 1;
+                    switch(choice){
+                        case 1:
+                            UIHandler.clearScreen();
+                            System.out.println("Enter which showing time is to be removed. (Enter ID number)");
+                            for (int i = 0; i < movieSchedule.getShowingTime().size(); i++){
+                                System.out.println((i+1) + " . " + "Date: " + movieSchedule.getShowingTime().get(i).getYear() + movieSchedule.getShowingTime().get(i).getMonth() + movieSchedule.getShowingTime().get(i).getDate() + " Time: " + movieSchedule.getShowingTime().get(i).getHour() + movieSchedule.getShowingTime().get(i).getMinute());
+                            }
+                            int showingTimeID = InputHandler.intHandler();
+                            if (showingTimeID < 1 || showingTimeID > movieSchedule.getShowingTime().size()){
+                                System.out.println("Invalid showing time.");
+                                return 1;
+                            }
+                            movieSchedule.removeShowingTime(showingTimeID - 1);
+                            movieSchedule.removeShowingVenue(showingTimeID - 1);
+                            System.out.println("Showing time removed.");
+                            DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                            return 1;
+
+                        case 2:
+                            UIHandler.clearScreen();
+                            System.out.println("Enter the time to be added.");
+
+                            System.out.println("year:");
+                            int year = InputHandler.intHandler();
+                            System.out.println("month:");
+                            int month = InputHandler.intHandler();
+                            System.out.println("date:");
+                            int date = InputHandler.intHandler();
+                            System.out.println("hour:");
+                            int hour = InputHandler.intHandler();
+                            System.out.println("minute:");
+                            int minute = InputHandler.intHandler();
+                            System.out.println("day:");
+                            int day = InputHandler.intHandler();
+
+                            DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
+                            movieSchedule.addShowingTime(newShowingTime);
+                            System.out.println("Showing time added.");
+                            DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
+                            return 1;
                     }
-                    ms.removeShowingTime(showingTimeID- 1);
-                    System.out.println("Showing time removed.");
-                    DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-                    return 0;
-
-                case 2:
-                    System.out.println("Enter the time to be added.");
-
-                    System.out.println("year:");
-                    int year = InputHandler.intHandler();
-                    System.out.println("month:");
-                    int month = InputHandler.intHandler();
-                    System.out.println("date:");
-                    int date = InputHandler.intHandler();
-                    System.out.println("hour:");
-                    int hour = InputHandler.intHandler();
-                    System.out.println("minute:");
-                    int minute = InputHandler.intHandler();
-                    System.out.println("day:");
-                    int day = InputHandler.intHandler();
-
-                    DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
-                    ms.addShowingTime(newShowingTime);
-                    System.out.println("Showing time added.");
-                    DatabaseManager.saveUpdateToDatabase(scheduleUUID, ms, Database.MOVIE_SCHEDULE);
-                    return 0;
-                }
-            break;
+                } while (true);
             
             default:
-            break;
+                return 0;
         }
-        return 1;
     }
 
     public static int configurePrice(int choice){

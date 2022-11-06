@@ -1,51 +1,70 @@
 package view;
 
 import handler.InputHandler;
+import handler.UIHandler;
+
 import java.util.ArrayList;
+
+import controller.MovieManager;
 import database.Database;
-import model.MovieSchedule;
+import model.*;
 
 public class StaffMovieDetailsView {
     private StaffConfigureMovieView staffConfigureMovieView;
-    private StaffSystemConfig staffSystemConfig;
+    private ArrayList <Movie> allMovies;
+    private String errorMessage;
+
+    public StaffMovieDetailsView() {
+        this.errorMessage = "";
+        this.allMovies = MovieManager.getAllMovieList();
+    }
 
     
     public void printMenu() {
-        System.out.println("====================================");
-        System.out.println("Here are the list of movies");
-        MainView.printBoilerPlate("""
-
-
-                """);
-        
+        MainView.printBoilerPlate("List of Movies");
+        this.printMovieList();
     }
+
+
+    public void printMovieList() {
+        String content = "\n";
+        int count = 0;
+        for (int i = 0; i < this.allMovies.size(); i++) {
+            Movie movie = allMovies.get(i);
+            String index = String.format("%02d. ", (i + 1));
+            String payload = String.format(index + "%s\n", movie.getMovieTitle());
+            content = content + payload;
+            count = i + 1;
+        }
+        String index = String.format("%02d. ", (count + 1));
+        String payload = String.format(index + "Return.\n");
+        content = content + payload;
+
+        MainView.printMenuContent(content);
+    }
+
+
     public void appContent(){
-        ArrayList<MovieSchedule> movieList = Database.getValueList(Database.MOVIE_SCHEDULE.keySet());
-        int movieNumber = -1;
+        int choice = -1;
+
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
-            movieNumber = InputHandler.intHandler();
-            if (movieNumber == Database.getValueList(Database.MOVIE_SCHEDULE.keySet()).size() + 1){
-                System.out.println("====================================");
-                this.staffSystemConfig = new StaffSystemConfig();
-                this.staffSystemConfig.appContent();
+            choice = InputHandler.intHandler();
+            if (choice < 0 || choice > this.allMovies.size() + 1) {
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
-            else if (movieNumber >= 1 && movieNumber <= movieList.size() + 1){
-                System.out.println("====================================");
-                this.staffConfigureMovieView = new StaffConfigureMovieView();
-                this.staffConfigureMovieView.appContent(movieNumber);
+            if (choice == this.allMovies.size() + 1){
+                this.errorMessage = "";
+                return;
             }
             else {
-                System.out.println("====================================");
-                System.out.println("Invalid choice");
+                Movie movie = this.allMovies.get(choice - 1);
+                this.staffConfigureMovieView = new StaffConfigureMovieView(movie);
+                this.staffConfigureMovieView.appContent();
             }
-        }   while (movieNumber != movieList.size() + 1);
+        }   while (true);
     }
-
-    // void printAllMovies(){
-    //     ArrayList<MovieSchedule> movieList1 = Database.getValueList(Database.MOVIE_SCHEDULE.keySet());
-
-
-
-    // }
 }

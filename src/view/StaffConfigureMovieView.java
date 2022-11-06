@@ -1,14 +1,25 @@
 package view;
 
 import handler.InputHandler;
+import handler.UIHandler;
 import controller.CinemaStaffManager;
+import model.*;
 
 public class StaffConfigureMovieView {
     private StaffMovieDetailsView staffMovieDetailsView;
+    private Movie movie;
+    private String errorMessage;
+
+    public StaffConfigureMovieView(Movie movie) {
+        this.movie = movie;
+        this.errorMessage = "";
+    }
+
     public void printMenu() {
-        System.out.println("====================================");
-        MainView.printBoilerPlate("""
+        MainView.printBoilerPlate("Configure Setting for " + this.movie.getMovieTitle());
+        MainView.printMenuContent("""
             Select the detail to be configured.
+
             1. Movie Title
             2. Movie Type
             3. Age Rating
@@ -19,26 +30,31 @@ public class StaffConfigureMovieView {
             8. Movie Duration
             9. Movie Showing Venues
             10. Movie Showing Times
-            11. Back
+            11. Return.
                 """);
-        System.out.println("====================================");
     }
-    public void appContent(int movieNumber){
+
+    public void appContent(){
         int choice = -1;
 
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
-            if (choice == 11){
-                this.staffMovieDetailsView = new StaffMovieDetailsView();
-                staffMovieDetailsView.appContent();
+
+            if (choice == 11) {
+                this.errorMessage = "";
+                return;
             }
             else if (choice <= 11 && choice >= 1 ) {
-                CinemaStaffManager.updateExistingMovieDetails(movieNumber, choice);
+                this.errorMessage = "";
+                CinemaStaffManager.updateExistingMovieDetails(this.movie, choice);
             }
             else {
-                System.out.println("Invalid choice");
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
-        }   while (choice != 11);
+        }   while (true);
     }
 }
