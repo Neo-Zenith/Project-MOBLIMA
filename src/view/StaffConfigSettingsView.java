@@ -1,53 +1,63 @@
 package view;
 
 import handler.InputHandler;
+import handler.UIHandler;
 
 public class StaffConfigSettingsView {
-    private StaffSystemConfig staffSystemConfig;
     private StaffConfigPriceView staffConfigPriceView;
     private StaffConfigHolidayView staffConfigHolidayView;
     private StaffConfigPermissionsView staffConfigPermissionsView;
+    private String errorMessage;
+
+    public StaffConfigSettingsView() {
+        this.errorMessage = "";
+    }
 
     public void printMenu() {
-        System.out.println("====================================");
-        MainView.printBoilerPlate("""
+        MainView.printBoilerPlate("Configure System Settings");
+        MainView.printMenuContent("""
+
                 Select the system settings to be configured
+
                 01. Configure pricings.
                 02. Configure holidays.
                 03. Configure movie goer permissions
-                04. Back
+                04. Return.
                 """);
-        System.out.println("====================================");
     }
 
     public void appContent() {
         int choice = -1;
 
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
 
             switch (choice) {
                 case 1:
                     this.staffConfigPriceView = new StaffConfigPriceView();
+                    this.errorMessage = "";
                     this.staffConfigPriceView.appContent();
                     break;
                 case 2:
                     this.staffConfigHolidayView = new StaffConfigHolidayView();
+                    this.errorMessage = "";
                     this.staffConfigHolidayView.appContent();
                     break;
                 case 3:
                     this.staffConfigPermissionsView = new StaffConfigPermissionsView();
+                    this.errorMessage = "";
                     this.staffConfigPermissionsView.appContent();
                     break;
                 case 4:
-                    this.staffSystemConfig = new StaffSystemConfig();
-                    this.staffSystemConfig.appContent();
-                    break;
+                    this.errorMessage = "";
+                    return;
                 default:
-                    System.out.println("Invalid choice");
-                    break;
+                    this.errorMessage = "Error! Please enter a valid input!";
+                    continue;
             }
-        } while (choice != 4);
+        } while (true);
     }
 }

@@ -5,6 +5,7 @@ import handler.*;
 public class StaffSystemConfig extends MainView {
     private StaffMovieDetailsView staffMovieDetailsView;
     private StaffConfigSettingsView staffConfigSettingsView;
+    private StaffMovieListRankingView staffMovieListRankingView;
     private DatabaseView databaseView;
     private String errorMessage;
 
@@ -34,10 +35,11 @@ public class StaffSystemConfig extends MainView {
             this.printMenu();
             choice = InputHandler.intHandler();
             
-            while(choice<0 || choice >5){
-                System.out.println("Invalid choice");
+            if (choice < 0 || choice > 5){
+                this.errorMessage = "Error! Please enter a valid input!";
+                continue;
             }
-            switch(choice){
+            switch(choice) {
                 case 1:
                     this.errorMessage = "";
                     this.staffMovieDetailsView = new StaffMovieDetailsView();
@@ -57,7 +59,10 @@ public class StaffSystemConfig extends MainView {
                     break;
 
                 case 4:
-
+                    this.errorMessage = "";
+                    this.staffMovieListRankingView = new StaffMovieListRankingView();
+                    this.staffMovieListRankingView.appContent();
+                    break;
 
                 case 5:
                     this.errorMessage = "";
