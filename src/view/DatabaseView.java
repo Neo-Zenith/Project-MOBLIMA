@@ -1,12 +1,11 @@
 package view;
 
-import controller.CinemaStaffManager;
 import controller.DatabaseManager;
 import database.Database;
 import handler.InputHandler;
 
 public class DatabaseView extends MainView{
-    
+    private StaffAddMovieView staffAddMovieView;
     public DatabaseView() {}
     
     public void printMenu() {
@@ -36,7 +35,8 @@ public class DatabaseView extends MainView{
                     Database.writeToDatabase();
                     break;
                 case 2:
-                    CinemaStaffManager.addNewMovie();
+                    this.staffAddMovieView = new StaffAddMovieView();
+                    staffAddMovieView.appContent();
                     break;
                 case 3:                   
                     Database.resetDatabase();
