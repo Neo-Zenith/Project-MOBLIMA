@@ -36,4 +36,4 @@ tmp/*
 .DS_STORE
 bin/*
 
-.dat
+*.dat
