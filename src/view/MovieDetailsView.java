@@ -105,7 +105,7 @@ public class MovieDetailsView extends MainView {
         MainView.printBoilerPlate("Synopsis of " + this.movieTitle);
         MainView.printMenuContent(this.synopsis);
         System.out.println("Press any key to return: ");
-        String dummy = InputHandler.stringHandler();
+        InputHandler.stringHandler();
     }
 
     public void printPastReviews() {
@@ -126,6 +126,6 @@ public class MovieDetailsView extends MainView {
         }
 
         System.out.println("Press any key to return: ");
-        String dummy = InputHandler.stringHandler();
+        InputHandler.stringHandler();
     }
 }

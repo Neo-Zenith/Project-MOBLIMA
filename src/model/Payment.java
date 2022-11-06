@@ -6,16 +6,12 @@ import model.enums.PaymentType;
 
 public abstract class Payment implements Serializable {
     private String UUID;
-    private PaymentType paymentType;
     private String transactionID;
-    private double movieTicketPrice;
     private static final long serialVersionUID = 16L;
 
-    public Payment(String UUID, PaymentType paymentType, String transactionID, double movieTicketPrice) {
+    public Payment(String UUID, String transactionID) {
         this.setUUID(UUID);
-        this.setPaymentType(paymentType);
         this.setTransactionID(transactionID);
-        this.setMovieTicketPrice(movieTicketPrice);
     }
 
     public String getUUID() {
@@ -26,23 +22,19 @@ public abstract class Payment implements Serializable {
         this.UUID = UUID;
     }
 
-    public PaymentType getPaymentType() {
-        return this.paymentType;
-    }
+    public abstract PaymentType getPaymentType();
 
-    public void setPaymentType(PaymentType paymentType) {
-        this.paymentType = paymentType;
-    }
+    public abstract void setPaymentType(PaymentType paymentType);
 
     public String getTransactionID() {
         return this.transactionID;
     }
 
-    public abstract void setTransactionID(String transactionID);
-
-    public double getMovieTicketPrice() {
-        return this.movieTicketPrice;
+    public void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
     }
+
+    public abstract double getMovieTicketPrice();
 
     public abstract void setMovieTicketPrice(double movieTicketPrice);
 }   

@@ -1,12 +1,15 @@
 package model;
 
-public class MovieTicket {
+import java.io.Serializable;
+
+public class MovieTicket implements Serializable{
 
     private String UUID;
     private Movie movieToWatch;
     private DateTime showTime;
     private Seat bookedSeat;
     private Cinema showingVenue;
+    private final static long serialVersionUID = 14L;
 
     public MovieTicket(String UUID, Movie movieToWatch, DateTime showTime, Seat bookedSeat, Cinema cinema) {
         this.setUUID(UUID);

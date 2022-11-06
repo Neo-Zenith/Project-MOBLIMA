@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class BookingHistory {
+public class BookingHistory implements Serializable {
     private String UUID;
     private ArrayList<MovieTicket> movieTicket;
     private Payment payment;
+    private final static long serialVersionUID = 13L;
 
     public BookingHistory(String UUID, ArrayList<MovieTicket> movieTicket, Payment payment) {
         this.setMovieTicket(movieTicket);

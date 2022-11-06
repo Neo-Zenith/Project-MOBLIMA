@@ -68,6 +68,11 @@ public class MovieScheduleView {
         int choice = -1;
 
         do {
+            if (MovieMenuView.exit) {
+                this.errorMessage = "";
+                return;
+            }
+            
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             this.printMenu();
@@ -88,11 +93,6 @@ public class MovieScheduleView {
                         this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
                 this.errorMessage = "";
                 this.seatingPlanView.appContent();
-            }
-
-            if (MovieMenuView.exit) {
-                this.errorMessage = "";
-                return;
             }
         } while (true);
 

@@ -82,6 +82,11 @@ public class SeatingPlanView {
         int choice = -1;
         
         do {
+            if (MovieMenuView.exit) {
+                this.errorMessage = "";
+                return;
+            }
+            
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);    
             this.printMenu();
@@ -125,7 +130,7 @@ public class SeatingPlanView {
                     
                     //cinema code is the last 3 characters in cinema UUID
                     String cinemaCode = CinemaManager.getCinemaCode(this.cinema);
-                    this.paymentView = new PaymentView(cinemaCode, this.totalMovieTicketPrice);
+                    this.paymentView = new PaymentView(cinemaCode, this.totalMovieTicketPrice, this.movieSchedule);
                     this.errorMessage = "";
                     this.paymentView.appContent();
                     this.paymentCreated = this.paymentView.getPayment();

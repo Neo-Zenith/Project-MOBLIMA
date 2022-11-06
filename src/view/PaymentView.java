@@ -2,6 +2,7 @@ package view;
 
 import model.*;
 import controller.*;
+import database.Database;
 import handler.*;
 import view.*;
 
@@ -9,14 +10,16 @@ import view.*;
 public class PaymentView extends MainView{
 
     private Payment payment;
+    private MovieSchedule movieSchedule;
     private String transactionID;
     private double totalMovieTicketPrice;
     private String referenceID;
     private String errorMessage;
     
-    public PaymentView(String cinemaCode, double totalMovieTicketPrice){
+    public PaymentView(String cinemaCode, double totalMovieTicketPrice, MovieSchedule movieSchedule){
         this.totalMovieTicketPrice = totalMovieTicketPrice;
         this.transactionID = PaymentManager.generateTransactionId(cinemaCode);
+        this.movieSchedule = movieSchedule;
         this.errorMessage = "";
     }
 
@@ -39,53 +42,55 @@ public class PaymentView extends MainView{
         // generate Transaction ID at the moment a new Payment is created.
         // if the entered int or String is not valid, the user is prompted to re-enter again until the system receive a valid value
         int choice = -1;
-        do {
-            UIHandler.clearScreen();
-            System.out.println(this.errorMessage);
-            this.printMenu();
-            choice = InputHandler.intHandler();
+        UIHandler.clearScreen();
+        System.out.println(this.errorMessage);
+        this.printMenu();
+        choice = InputHandler.intHandler();
 
-            switch(choice){
-                case 1:
-                    UIHandler.clearScreen();
-                    System.out.println(this.errorMessage);
-                    MainView.printBoilerPlate("Card Payment");
-                    this.payment = PaymentManager.createCardPayment(this.transactionID, this.totalMovieTicketPrice);
-    
-                    System.out.println("Enter Card Number:");
-                    this.referenceID = InputHandler.stringHandler();
-                    System.out.println("Enter CCV:");
-                    InputHandler.intHandler();
-    
-                    printPaymentSuccessful();
-                    printReceipt("Card Payment");
-                    break;
-    
-                case 2:
-                    UIHandler.clearScreen();
-                    System.out.println(this.errorMessage);
-                    MainView.printBoilerPlate("QR Code Payment");
-                    this.payment = PaymentManager.createQRCodePayment(this.transactionID, this.totalMovieTicketPrice);
-                    System.out.println("Please Scan the QRCode:");
-                    System.out.println("Enter OTP Received:");
-                    this.referenceID = InputHandler.stringHandler();
-                    printPaymentSuccessful();
-                    printReceipt("QR Code Payment");
-                    break;
-    
-                case 3:
-                    UIHandler.clearScreen();
-                    System.out.println(this.errorMessage);
-                    MainView.printBoilerPlate("Bank Transaction");
-                    this.payment = PaymentManager.createBankTransactioPayment(transactionID, this.totalMovieTicketPrice);
-    
-                    System.out.println("Enter Bank Account Number:");
-                    this.referenceID = InputHandler.stringHandler();    
-                    printPaymentSuccessful();
-                    printReceipt("Bank Transaction");
-                    break;
-            }
-        }   while (true);
+        switch(choice){
+            case 1:
+                UIHandler.clearScreen();
+                System.out.println(this.errorMessage);
+                MainView.printBoilerPlate("Card Payment");
+                this.payment = PaymentManager.createCardPayment(this.transactionID, this.totalMovieTicketPrice);
+
+                System.out.println("Enter Card Number:");
+                this.referenceID = InputHandler.stringHandler();
+                System.out.println("Enter CCV:");
+                InputHandler.intHandler();
+
+                printPaymentSuccessful();
+                printReceipt("Card Payment");
+                DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
+                break;
+
+            case 2:
+                UIHandler.clearScreen();
+                System.out.println(this.errorMessage);
+                MainView.printBoilerPlate("QR Code Payment");
+                this.payment = PaymentManager.createQRCodePayment(this.transactionID, this.totalMovieTicketPrice);
+                System.out.println("Please Scan the QRCode:");
+                System.out.println("Enter OTP Received:");
+                this.referenceID = InputHandler.stringHandler();
+                printPaymentSuccessful();
+                printReceipt("QR Code Payment");
+                DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
+                break;
+
+            case 3:
+                UIHandler.clearScreen();
+                System.out.println(this.errorMessage);
+                MainView.printBoilerPlate("Bank Transaction");
+                this.payment = PaymentManager.createBankTransactioPayment(this.transactionID, this.totalMovieTicketPrice);
+
+                System.out.println("Enter Bank Account Number:");
+                this.referenceID = InputHandler.stringHandler();    
+                printPaymentSuccessful();
+                printReceipt("Bank Transaction");
+                DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
+                break;
+        }
+
     }
 
     public void printPaymentSuccessful(){
@@ -107,12 +112,15 @@ public class PaymentView extends MainView{
         System.out.println("Payment ID      :     " + this.payment.getUUID());
         System.out.println("Transaction ID  :     " + this.payment.getTransactionID());
         System.out.println("Payment Method  :     " + paymentMethod);
-        System.out.println("Reference ID:       " + this.referenceID);
         System.out.println("Total Amount ($):     " + this.payment.getMovieTicketPrice());
         System.out.println("____________________________________");
         System.out.println("");
         System.out.println("              THANK YOU!            ");
         System.out.println("            See you again!          ");
         System.out.println("====================================");
+
+        MovieMenuView.exit = true;
+        System.out.println("(Press any key to return back to Main Menu)");
+        InputHandler.stringHandler();
     }
 }
