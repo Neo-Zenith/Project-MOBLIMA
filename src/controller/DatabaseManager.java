@@ -294,7 +294,7 @@ public class DatabaseManager {
         5,2,1.5, 
         1.5,2,1.5,1.5,1.5);
         Database.PRICES = prices;
-        DatabaseManager.relaodDatabase();
+        DatabaseManager.reloadDatabase();
         
         System.out.println("Price data loaded successfully!");
     }   

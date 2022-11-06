@@ -15,8 +15,8 @@ public class DatabaseView extends MainView{
         MainView.printBoilerPlate("""
                 1. Load initial data into database.
                 2. Add new movies into database.
-                2. Reset database.
-                3. Return back.
+                3. Reset database.
+                4. Return back.
                 """);
         System.out.println("====================================");
     }
