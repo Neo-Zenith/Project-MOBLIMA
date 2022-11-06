@@ -56,6 +56,6 @@ public class MovieMenuView {
                     this.errorMessage = "Please enter a valid input!";
             }
 
-        }   while ((Integer) choice instanceof Integer);
+        } while ((Integer) choice instanceof Integer);
     }
 }

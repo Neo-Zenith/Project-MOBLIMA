@@ -1,10 +1,11 @@
 package view;
 
 import java.util.*;
+
+import controller.MovieReviewManager;
 import model.*;
 import handler.*;
 import database.*;
-
 
 public class MovieDetailsView extends MainView {
     private String movieTitle;
@@ -16,7 +17,7 @@ public class MovieDetailsView extends MainView {
 
     public MovieDetailsView(String title, MovieGoer movieGoer) {
         this.movieTitle = title;
-        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        ArrayList<Movie> movies = Database.getValueList(Database.MOVIE.values());
         for (int i = 0; i < movies.size(); i++) {
             if (movieTitle.equals(movies.get(i).getMovieTitle())) {
                 movie = movies.get(i);
@@ -34,8 +35,7 @@ public class MovieDetailsView extends MainView {
         System.out.println("Movie Director: " + movie.getMovieDirector());
         if (movie.getMovieReviews().size() == 0) {
             System.out.println("Overall Rating: Not Available!");
-        }
-        else {
+        } else {
             System.out.println("Overall Rating: " + movie.getMovieOverallReviewRating());
         }
         System.out.print("Movie Cast: ");
@@ -54,7 +54,8 @@ public class MovieDetailsView extends MainView {
                     1. View Synopsis
                     2. View Past Reviews
                     3. Choose Movie Type
-                    4. Return
+                    4. Review the Movie
+                    5. Return
                 """);
     }
 
@@ -71,11 +72,10 @@ public class MovieDetailsView extends MainView {
                 this.errorMessage = "Error! Please enter a valid input!";
                 continue;
             }
-            if (choice == 4) {
+            if (choice == 5) {
                 this.errorMessage = "";
                 return;
-            } 
-            else {
+            } else {
                 switch (choice) {
                     case 1:
                         UIHandler.clearScreen();
@@ -91,6 +91,11 @@ public class MovieDetailsView extends MainView {
                         MovieTypeView typeView = new MovieTypeView(movie.getMovieTitle(), this.movieGoer);
                         this.errorMessage = "";
                         typeView.appContent();
+                        break;
+                    case 4:
+                        UIHandler.clearScreen();
+                        this.errorMessage = "";
+                        this.printAddReview();
                         break;
                 }
             }
@@ -113,8 +118,7 @@ public class MovieDetailsView extends MainView {
 
         if (this.movie.getMovieReviews().size() <= 1) {
             MainView.printMenuContent("Reviews are not available yet!");
-        }
-        else {
+        } else {
             String content = "\n";
 
             for (int i = 0; i < pastReviews.size(); i++) {
@@ -127,5 +131,22 @@ public class MovieDetailsView extends MainView {
 
         System.out.println("Press any key to return: ");
         String dummy = InputHandler.stringHandler();
+    }
+
+    public void printAddReview() {
+        System.out.println("Give a rating for the movie: (0-5)");
+        double rating = InputHandler.doubleHandler();
+        while (rating < 0 || rating > 5) {
+            this.errorMessage = "Error! Please enter a valid input!";
+            System.out.println(this.errorMessage);
+            rating = InputHandler.doubleHandler();
+        }
+
+        System.out.println("Give a review for the movie: ");
+        String review = InputHandler.stringHandler();
+
+        MovieReviewManager manager = new MovieReviewManager();
+        manager.createMovieReview(this.movieGoer, this.movie, review, rating);
+        System.out.println("Review created!");
     }
 }
