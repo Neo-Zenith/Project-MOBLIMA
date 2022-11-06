@@ -45,6 +45,9 @@ public class StaffSystemConfig extends MainView{
                 break;
 
                 case 4:
+                
+
+                case 5:
                     System.out.println("Logging out of MOBLIMA (STAFF)....");
                     System.exit(0);
                 break;
@@ -53,6 +56,6 @@ public class StaffSystemConfig extends MainView{
                     System.out.println("Invalid choice");
                 break;
             }
-        }   while (choice != 4);
+        }   while (choice != 5);
     }
 }
