@@ -76,6 +76,8 @@ public class CinemaStaffManager{
         switch(detail){
             case 1:
                 UIHandler.clearScreen();
+                System.out.println(errorMessage);
+                MainView.printBoilerPlate("Configure Movie Title");
                 System.out.println("Enter the new name of the movie: ");
                 String newMovieName = InputHandler.stringHandler();
                 movie.setMovieTitle(newMovieName);
@@ -89,12 +91,13 @@ public class CinemaStaffManager{
                 do {
                     UIHandler.clearScreen();
                     System.out.println(errorMessage);
-                    MainView.printBoilerPlate("Movie Type for " + movie.getMovieTitle()); 
+                    MainView.printBoilerPlate("Configure Movie Type for " + movie.getMovieTitle()); 
                     MainView.printMenuContent("""
 
                         1. Standard Movie
                         2. Blockbuster Movie
                         3. 3D Movie
+                        4. Return
                     """);
         
                     int newMovieType = InputHandler.intHandler();  
@@ -134,6 +137,10 @@ public class CinemaStaffManager{
                         DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
                         return 1;
                     } 
+                    else if (newMovieType == 4) {
+                        errorMessage = "";
+                        return 1;
+                    }
                     else {
                         errorMessage = "Error! Please enter a valid input!";
                         continue;
@@ -144,7 +151,8 @@ public class CinemaStaffManager{
             case 3:
                 do {
                     UIHandler.clearScreen();
-                    MainView.printBoilerPlate("Age Rating for " + movie.getMovieTitle());
+                    System.out.println(errorMessage);
+                    MainView.printBoilerPlate("Configure Age Rating for " + movie.getMovieTitle());
                     MainView.printMenuContent("""
                         1. G
                         2. PG
@@ -152,13 +160,20 @@ public class CinemaStaffManager{
                         4. NC16
                         5. M18
                         6. R21
+                        7. Return
                     """);
 
                     choice = InputHandler.intHandler();
-                    if (choice < 1 || choice > 6){
+                    if (choice < 1 || choice > 7){
                         errorMessage = "Error! Please enter a valid input!";
                         continue;
                     }
+
+                    if (choice == 7) {
+                        errorMessage = "";
+                        return 1;
+                    }
+
                     MovieAgeRating newMovieAgeRating = MovieAgeRating.values()[choice - 1];
                     movie.setMovieAgeRating(newMovieAgeRating);
                     movieSchedule.setMovieOnShow(movie);
@@ -170,29 +185,40 @@ public class CinemaStaffManager{
             case 4:
                 do {
                     UIHandler.clearScreen();
-                    MainView.printBoilerPlate("Showing Status for " + movie.getMovieTitle());
+                    System.out.println(errorMessage);
+                    MainView.printBoilerPlate("Configure Showing Status for " + movie.getMovieTitle());
                     MainView.printMenuContent("""
                             1. Coming Soon
                             2. Preview
                             3. Now Showing
                             4. End of Showing
+                            5. Return
                             """);
 
                     choice = InputHandler.intHandler();
-                    if (choice < 1 || choice > 4){
+                    if (choice < 1 || choice > 5){
                         errorMessage = "Error! Please enter a valid input!";
                         continue;
                     }
+
+                    if (choice == 5) {
+                        errorMessage = "";
+                        return 1;
+                    }
+
                     MovieShowingStatus newShowingStatus = MovieShowingStatus.values()[choice - 1];
+                    movie.setMovieShowingStatus(newShowingStatus);
+                    movieSchedule.setMovieOnShow(movie);
                     
                     if (newShowingStatus == MovieShowingStatus.END_OF_SHOWING){
                         System.out.println("Deleting " + movie.getMovieTitle() + " from movie schedule...");
-                        Database.MOVIE_SCHEDULE.remove(movieScheduleUUID);
-                        DatabaseManager.reloadDatabase();
-                        return 1;    
+                        ArrayList <Cinema> resetShowingVenues = new ArrayList<>();
+                        ArrayList <ArrayList<Seat>> resetSeat = new ArrayList<>();
+                        ArrayList <DateTime> resetShowingTime = new ArrayList<>();
+                        movieSchedule.setSeatingPlan(resetSeat);
+                        movieSchedule.setShowingTime(resetShowingTime);
+                        movieSchedule.setShowingVenues(resetShowingVenues);   
                     }
-                    movie.setMovieShowingStatus(newShowingStatus);
-                    movieSchedule.setMovieOnShow(movie);
                     DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
                     DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
                     return 1;
@@ -201,14 +227,16 @@ public class CinemaStaffManager{
             case 5:
                 do {
                     UIHandler.clearScreen();
+                    System.out.println(errorMessage);
                     MainView.printBoilerPlate("Configure Casts for " + movie.getMovieTitle());
                     MainView.printMenuContent("""
                         1. Remove cast
                         2. Add cast
+                        3. Return
                             """);
 
                     choice = InputHandler.intHandler();
-                    if (choice < 1 || choice > 2){
+                    if (choice < 1 || choice > 3){
                         errorMessage = "Error! Please enter a valid input!";
                         continue;
                     }  
@@ -217,6 +245,8 @@ public class CinemaStaffManager{
                         case 1: 
                             do {
                                 UIHandler.clearScreen();
+                                System.out.println(errorMessage);
+                                MainView.printBoilerPlate("Remove Movie Casts");
                                 String content = "\nEnter which cast number is to be removed. (Enter Cast Number)\n";
 
                                 for (int i = 0; i < movie.getMovieCast().size(); i++){
@@ -238,6 +268,8 @@ public class CinemaStaffManager{
                             
                         case 2:
                             UIHandler.clearScreen();
+                            System.out.println(errorMessage);
+                            MainView.printBoilerPlate("Add Movie Cast");
                             System.out.println("Enter the name of the cast to be added.");
                             String castName = InputHandler.stringHandler();
                             movie.getMovieCast().add(castName);
@@ -245,11 +277,17 @@ public class CinemaStaffManager{
                             DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
                             DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
                             return 1;
+                        
+                        default:
+                            errorMessage = "";
+                            return 1;
                     }
                 }   while (true);
 
             case 6:
                 UIHandler.clearScreen();
+                System.out.println(errorMessage);
+                MainView.printBoilerPlate("Configure Movie Director");
                 System.out.println("Enter the new movie director for: " + movie.getMovieTitle());
                 String newDirectorName = InputHandler.stringHandler();
                 movie.setMovieDirector(newDirectorName);
@@ -260,6 +298,8 @@ public class CinemaStaffManager{
 
             case 7:
                 UIHandler.clearScreen();
+                System.out.println(errorMessage);
+                MainView.printBoilerPlate("Configure Movie Synopsis");
                 System.out.println("Enter the new synopsis of " + movie.getMovieTitle() + ".");
                 String newSynopsis = InputHandler.stringHandler();
                 movie.setMovieSynopsis(newSynopsis);
@@ -272,6 +312,7 @@ public class CinemaStaffManager{
                 do {
                     UIHandler.clearScreen();
                     System.out.println(errorMessage);
+                    MainView.printBoilerPlate("Configure Movie Duration");
                     System.out.println("Enter new showing duration for " + movie.getMovieTitle() + ".");
                     double newMovieDuration = InputHandler.doubleHandler();
                     if (newMovieDuration < 0) {
@@ -290,25 +331,33 @@ public class CinemaStaffManager{
                 do {
                     UIHandler.clearScreen();
                     System.out.println(errorMessage);
-                    MainView.printBoilerPlate("Configure Showing Venues");
+                    MainView.printBoilerPlate("Configure Schedule");
                     MainView.printMenuContent("""
-                            1. Remove Showing Venue
-                            2. Add Showing Venue
+                            1. Remove Schedule
+                            2. Add Schedule
+                            3. Return
                     """);
 
                     choice = InputHandler.intHandler();
-                    if (choice < 1 || choice > 2){
+                    if (choice < 1 || choice > 3){
                         errorMessage = "Error! Please enter a valid input!";
                         continue;
                     }
-
+                    errorMessage = "";
                     switch(choice){
                         case 1:
                             UIHandler.clearScreen();
-                            String content = "\nEnter which showing venue to be removed. (Enter ID number)\n";
+                            System.out.println(errorMessage);
+                            MainView.printBoilerPlate("Remove Schedule");
+                            String content = "\nEnter which schedule to be removed. (Enter ID number)\n";
                             for (int i = 0; i < movieSchedule.getShowingVenues().size(); i ++) {
                                 Cinema cinema = movieSchedule.getShowingVenues().get(i);
-                                String payload = String.format("ID: %d.\t", i + 1 + "Cinema ID: %s" + cinema.getUUID() + "Class: %s\n" + cinema.getCinemaClass());
+                                DateTime showingTime = movieSchedule.getShowingTime().get(i);
+                                String payload = String.format("ID: %d.\n", (i + 1));
+                                payload += String.format("Cinema ID: %s", cinema.getUUID());
+                                payload += String.format("\tClass: %s\n", cinema.getCinemaClass());
+                                payload += (showingTime.getTimeNow() + "\n\n");
+
                                 content = content + payload;
                             }
                             MainView.printMenuContent(content);
@@ -325,114 +374,87 @@ public class CinemaStaffManager{
                         case 2:
                             do {
                                 UIHandler.clearScreen();
+                                System.out.println(errorMessage);
+                                MainView.printBoilerPlate("Add Schedule");
+                                ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
+                                content = "\nEnter the cineplex showing this movie\n";
+
+                                for (int i = 0; i < cineplexes.size(); i++){
+                                    String index = String.format("%02d. ", i + 1);
+                                    String payload = String.format(index + cineplexes.get(i).getCineplexName() + "\n");
+                                    payload += (cineplexes.get(i).getCineplexLocation() + "\n");
+                                    content += payload;
+                                }
+                                content += String.format("%02d. ", cineplexes.size() + 1);
+                                content += "Return";
+
+                                MainView.printMenuContent(content);
+                                int cineplexChoice = InputHandler.intHandler();
+                                if (cineplexChoice < 0 || cineplexChoice > cineplexes.size()) {
+                                    errorMessage = "Error! Please enter a valid input!";
+                                    continue;
+                                }
+
+                                if (cineplexChoice == cineplexes.size() + 1) {
+                                    errorMessage = "";
+                                    return 1;
+                                }
+
+                                Cineplex cineplex = cineplexes.get(cineplexChoice - 1);
+
+                                UIHandler.clearScreen();
+                                System.out.println(errorMessage);
+                                MainView.printBoilerPlate("Configure New Showing Venue Class");
                                 MainView.printMenuContent("""
                                     Enter which showing venue type to be added.
                                     1. Standard Cinema
                                     2. Platinum Cinema
                                     3. IMAX Cinema
+                                    4. Return
                                         """);
-
-                                int newVenueType = InputHandler.intHandler(); 
-                                UIHandler.clearScreen();
-                                System.out.println("Enter the date time for this cinema type");
-                                DateTime showingTime = queryDate();
-                                ArrayList <DateTime> newShowingTimes = new ArrayList<DateTime>();
-                                newShowingTimes.add(showingTime);
-                                
-                                if (newVenueType == 1){
-                                    CinemaClass cinemaClass = CinemaClass.STANDARD;
-                                    ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                                    Cinema c = CinemaManager.createStandardCinema(seats);
-                                    ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
-                                    newCinemaList.add(c);
-                                    MovieScheduleManager.updateMovieSchedule(movie, newCinemaList ,newShowingTimes);
-                                    return 1;
-                                } 
-                                else if (newVenueType == 2){
-                                    CinemaClass cinemaClass = CinemaClass.PLATINUM;
-                                    ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                                    Cinema c = CinemaManager.createPlatinumCinema(seats);
-                                    ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
-                                    newCinemaList.add(c);
-                                    MovieScheduleManager.updateMovieSchedule(movie, newCinemaList ,newShowingTimes);
-                                    return 1;
-                                } 
-                                else if (newVenueType == 3){
-                                    CinemaClass cinemaClass = CinemaClass.IMAX;
-                                    ArrayList <Seat> seats = DatabaseManager.initializeSeatData(cinemaClass);
-                                    Cinema c = CinemaManager.createIMaxCinema(seats);
-                                    ArrayList <Cinema> newCinemaList = new ArrayList<Cinema>();
-                                    newCinemaList.add(c);
-                                    MovieScheduleManager.updateMovieSchedule(movie, newCinemaList ,newShowingTimes);
-                                    return 1;
-                                } 
-                                else {
-                                    errorMessage = "Errpr! Please enter a valid input!";
+                                int newVenueType = InputHandler.intHandler();
+                                if (newVenueType < 0 || newVenueType > CinemaClass.values().length) {
+                                    errorMessage = "Error! Please enter a valid input!";
                                     continue;
                                 }
-                            }   while(true);
 
+                                if (newVenueType == CinemaClass.values().length + 1) {
+                                    errorMessage = "";
+                                    return 1;
+                                }
+
+                                CinemaClass cinemaClass;
+                                ArrayList <DateTime> newShowingTimes = new ArrayList<DateTime>();
+                                
+                                if (newVenueType == 1) {
+                                    cinemaClass = CinemaClass.STANDARD;
+                                } 
+                                else if (newVenueType == 2){
+                                    cinemaClass = CinemaClass.PLATINUM;
+                                } 
+                                else {
+                                    cinemaClass = CinemaClass.IMAX;
+                                } 
+                                ArrayList <Cinema> cinemas = CinemaManager.filterCinemaByClass(cinemaClass, cineplex);
+    
+                                for (int i = 0; i < cinemas.size(); i ++) {
+                                    UIHandler.clearScreen();
+                                    System.out.println(errorMessage);
+                                    MainView.printBoilerPlate("Configure New Showing Time");
+                                    System.out.println("Enter the showing time for " + cinemas.get(i).getUUID());
+                                    DateTime showingTime = queryDate();
+                                    newShowingTimes.add(showingTime);
+                                }
+                                MovieScheduleManager.updateMovieSchedule(movie, cinemas, newShowingTimes);
+                                return 1;
+                            }   while(true);
+                        
+                        default:
+                            errorMessage = "";
+                            return 1;
                     } 
                 } while (true);
-            
-
-            case 10:
-                do {
-                    UIHandler.clearScreen();
-                    MainView.printMenuContent("""
-                        How would you like to configure showing times?
-                        1. Remove showing time
-                        2. Add new showing time
-                    """);
-
-                    choice = InputHandler.intHandler();
-                    if (choice < 1 || choice > 2){
-                        errorMessage = "Error! Please enter a valid input!";
-                        continue;
-                    }
-                    switch(choice){
-                        case 1:
-                            UIHandler.clearScreen();
-                            System.out.println("Enter which showing time is to be removed. (Enter ID number)");
-                            for (int i = 0; i < movieSchedule.getShowingTime().size(); i++){
-                                System.out.println((i+1) + " . " + "Date: " + movieSchedule.getShowingTime().get(i).getYear() + movieSchedule.getShowingTime().get(i).getMonth() + movieSchedule.getShowingTime().get(i).getDate() + " Time: " + movieSchedule.getShowingTime().get(i).getHour() + movieSchedule.getShowingTime().get(i).getMinute());
-                            }
-                            int showingTimeID = InputHandler.intHandler();
-                            if (showingTimeID < 1 || showingTimeID > movieSchedule.getShowingTime().size()){
-                                System.out.println("Invalid showing time.");
-                                return 1;
-                            }
-                            movieSchedule.removeShowingTime(showingTimeID - 1);
-                            movieSchedule.removeShowingVenue(showingTimeID - 1);
-                            System.out.println("Showing time removed.");
-                            DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
-                            return 1;
-
-                        case 2:
-                            UIHandler.clearScreen();
-                            System.out.println("Enter the time to be added.");
-
-                            System.out.println("year:");
-                            int year = InputHandler.intHandler();
-                            System.out.println("month:");
-                            int month = InputHandler.intHandler();
-                            System.out.println("date:");
-                            int date = InputHandler.intHandler();
-                            System.out.println("hour:");
-                            int hour = InputHandler.intHandler();
-                            System.out.println("minute:");
-                            int minute = InputHandler.intHandler();
-                            System.out.println("day:");
-                            int day = InputHandler.intHandler();
-
-                            DateTime newShowingTime = new DateTime(minute, hour, day, date, month, year);
-                            movieSchedule.addShowingTime(newShowingTime);
-                            System.out.println("Showing time added.");
-                            DatabaseManager.saveUpdateToDatabase(movieScheduleUUID, movieSchedule, Database.MOVIE_SCHEDULE);
-                            return 1;
-                    }
-                } while (true);
-            
+    
             default:
                 return 0;
         }
@@ -440,139 +462,159 @@ public class CinemaStaffManager{
 
     public static int configurePrice(int choice){
         double price;
-        switch(choice){
-            case 1:
-                System.out.println("Enter new price for Standard Cinemas:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+        String errorMessage = "";
+
+        do {
+            UIHandler.clearScreen();
+            System.out.println(errorMessage);
+            switch(choice){
+                case 1:
+                    MainView.printBoilerPlate("Configure Standard Cinema Price");
+                    System.out.println("Enter new price for Standard Cinemas:");
+                    price = InputHandler.doubleHandler();
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultStandardCinemaPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultStandardCinemaPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 2:
-                System.out.println("Enter new price for Platinum cinemas:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 2:
+                    MainView.printBoilerPlate("Configure Platinum Cinema Price");
+                    System.out.println("Enter new price for Platinum cinemas:");
+                    price = InputHandler.doubleHandler();
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultPlatinumCinemaPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultPlatinumCinemaPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 3:
-                System.out.println("Enter new price for IMax cinemas:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 3:
+                    MainView.printBoilerPlate("Configure IMAX Cinema Price");
+                    System.out.println("Enter new price for IMAX cinemas:");
+                    price = InputHandler.doubleHandler();
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultIMaxCinemaPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultIMaxCinemaPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 4:
-                System.out.println("Enter new price for seats:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 4:
+                    MainView.printBoilerPlate("Configure Seat Price");
+                    System.out.println("Enter new price for cinema seats:");
+                    price = InputHandler.doubleHandler();
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultSeatPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultSeatPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 5:
-                System.out.println("Enter new price for Blockbuster movies:");
-                price = InputHandler.doubleHandler();    
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 5:
+                    MainView.printBoilerPlate("Configure Blockbuster Movie Price");
+                    System.out.println("Enter new price for Blockbuster Movies:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultBlockbusterMoviePrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 6:
-                System.out.println("Enter new price for 3D movies:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 6:
+                    MainView.printBoilerPlate("Configure 3D Movie Price");
+                    System.out.println("Enter new price for 3D Movies:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefault3DMoviePrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefault3DMoviePrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 7:
-                System.out.println("Enter new price for standard movies:");
-                price = InputHandler.doubleHandler();    
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 7:
+                    MainView.printBoilerPlate("Configure Standard Movie Price");
+                    System.out.println("Enter new price for Standard Movies:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultStandardMoviePrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultStandardMoviePrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 8:
-                System.out.println("Enter new price weightage for children:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 8:
+                    MainView.printBoilerPlate("Configure Child Ticket Price");
+                    System.out.println("Enter new price for Child Ticket:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultChildPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultChildPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 9:
-                System.out.println("Enter new price weightage for students:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 9:
+                    MainView.printBoilerPlate("Configure Student Ticket Price");
+                    System.out.println("Enter new price for Student Ticket:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultStudentPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultStudentPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 10:
-                System.out.println("Enter new price weightage for adults:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 10:
+                    MainView.printBoilerPlate("Configure Adult Ticket Price");
+                    System.out.println("Enter new price for Adult Ticket:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultAdultPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultChildPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 11:
-                System.out.println("Enter new price weightage for senior citizens:");
-                price = InputHandler.doubleHandler();   
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 11:
+                    MainView.printBoilerPlate("Configure Senior Citizen Ticket Price");
+                    System.out.println("Enter new price for Senior Citizen Ticket:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setDefaultSeniorCitizenPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setDefaultSeniorCitizenPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 12:
-                System.out.println("Enter new price weightage for holidays:");
-                price = InputHandler.doubleHandler();
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 12:
+                    MainView.printBoilerPlate("Configure Holiday Ticket Price");
+                    System.out.println("Enter new price for Holiday Ticket:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setHolidayPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setHolidayPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            case 13:
-                System.out.println("Enter new price weightage for weekends:");
-                price = InputHandler.doubleHandler();    
-                if (price < 0){
-                    System.out.println("Price cannot be negative.");
+                case 13:
+                    MainView.printBoilerPlate("Configure Weekend Ticket Price");
+                    System.out.println("Enter new price for Weekend Ticket:");
+                    price = InputHandler.doubleHandler();    
+                    if (price < 0){
+                        errorMessage = "Error! Please enter a valid input!";
+                        continue;
+                    }
+                    Database.PRICES.setWeekendPrice(price);
+                    DatabaseManager.reloadDatabase();
                     return 1;
-                }
-                Database.PRICES.setWeekendPrice(price);
-                DatabaseManager.reloadDatabase();
-                return 0;
-            default:
-                return 1;
-        }
+                default:
+                    return 1;
+            }
+        }   while(true);
     }
 
     public static int configureHoliday(int choice){
@@ -638,18 +680,19 @@ public class CinemaStaffManager{
     }
 
     public static DateTime queryDate(){
-        System.out.println("Minute: ");
-        int minute = InputHandler.intHandler();
-        System.out.println("Hour: ");
-        int hour = InputHandler.intHandler();
-        System.out.println("Day: ");
-        int day = InputHandler.intHandler();
-        System.out.println("Date: ");
-        int date = InputHandler.intHandler();
-        System.out.println("Month: ");
-        int month = InputHandler.intHandler();
-        System.out.println("Year: ");
+        System.out.print("Year: ");
         int year = InputHandler.intHandler();
+        System.out.print("Month: ");
+        int month = InputHandler.intHandler();
+        System.out.print("Date: ");
+        int date = InputHandler.intHandler();
+        System.out.print("Day: ");
+        int day = InputHandler.intHandler();
+        System.out.print("Hour: ");
+        int hour = InputHandler.intHandler();
+        System.out.print("Minute: ");
+        int minute = InputHandler.intHandler();
+        
         DateTime holiday = new DateTime(minute, hour, day, date, month, year);
         return holiday;
     }

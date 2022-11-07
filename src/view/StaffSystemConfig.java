@@ -1,6 +1,7 @@
 package view;
 
 import handler.*;
+import model.CinemaStaff;
 
 public class StaffSystemConfig extends MainView {
     private StaffMovieDetailsView staffMovieDetailsView;
@@ -8,9 +9,11 @@ public class StaffSystemConfig extends MainView {
     private StaffMovieListRankingView staffMovieListRankingView;
     private DatabaseView databaseView;
     private String errorMessage;
+    private CinemaStaff cinemaStaff;
 
-    public StaffSystemConfig() {
+    public StaffSystemConfig(CinemaStaff cinemaStaff) {
         this.errorMessage = "";
+        this.cinemaStaff = cinemaStaff;
     }
     
     public void printMenu() {
@@ -42,7 +45,7 @@ public class StaffSystemConfig extends MainView {
             switch(choice) {
                 case 1:
                     this.errorMessage = "";
-                    this.staffMovieDetailsView = new StaffMovieDetailsView();
+                    this.staffMovieDetailsView = new StaffMovieDetailsView(this.cinemaStaff);
                     this.staffMovieDetailsView.appContent();
                     break;
 

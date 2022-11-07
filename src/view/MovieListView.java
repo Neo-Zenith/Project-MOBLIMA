@@ -12,7 +12,7 @@ public class MovieListView extends MainView {
     private String errorMessage;
 
     public MovieListView(MovieGoer movieGoer) {
-        this.allMovies = MovieManager.getAllMovieList();
+        this.allMovies = MovieManager.getAllMovieList(movieGoer);
         this.movieGoer = movieGoer;
         this.errorMessage = "";
     }
@@ -24,6 +24,7 @@ public class MovieListView extends MainView {
             Movie movie = allMovies.get(i);
             String index = String.format("%02d. ", (i + 1));
             String payload = String.format(index + "%s\n", movie.getMovieTitle());
+            System.out.println(movie.getMovieShowingStatus());
             content = content + payload;
             count = i + 1;
         }

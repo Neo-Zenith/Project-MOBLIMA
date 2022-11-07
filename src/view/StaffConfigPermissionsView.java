@@ -1,8 +1,6 @@
 package view;
 
-import handler.InputHandler;
-import handler.UIHandler;
-import model.MovieGoer;
+import handler.*;
 import controller.CinemaStaffManager;
 
 public class StaffConfigPermissionsView {

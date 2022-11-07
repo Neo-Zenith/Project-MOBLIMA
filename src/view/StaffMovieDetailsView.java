@@ -1,12 +1,9 @@
 package view;
 
-import handler.InputHandler;
-import handler.UIHandler;
 
+import handler.*;
 import java.util.ArrayList;
-
-import controller.MovieManager;
-import database.Database;
+import controller.*;
 import model.*;
 
 public class StaffMovieDetailsView {
@@ -14,9 +11,9 @@ public class StaffMovieDetailsView {
     private ArrayList <Movie> allMovies;
     private String errorMessage;
 
-    public StaffMovieDetailsView() {
+    public StaffMovieDetailsView(CinemaStaff cinemaStaff) {
         this.errorMessage = "";
-        this.allMovies = MovieManager.getAllMovieList();
+        this.allMovies = MovieManager.getAllMovieList(cinemaStaff);
     }
 
     

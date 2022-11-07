@@ -23,7 +23,6 @@ public class BookingHistoryManager {
         goer.addBookingHistory(bookingHistory);
         DatabaseManager.saveUpdateToDatabase(UUID, bookingHistory, Database.BOOKING_HISTORY);
         DatabaseManager.saveUpdateToDatabase(goer.getUUID(), goer, Database.MOVIE_GOER);
-        System.out.println(goer.getBookingHistory().get(0).getMovieTicket().get(0).getMovieToWatch().getMovieTitle());
         return bookingHistory;
     }
 

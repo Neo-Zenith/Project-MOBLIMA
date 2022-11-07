@@ -37,7 +37,7 @@ public class DatabaseManager {
                 """;
         numOfCinemas = 4;
         for (int i = 0; i < numOfCinemas; i++) {
-            cinemas.add(initializeCinemaData());
+            cinemas.add(initializeCinemaData(i % 3));
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
 
@@ -48,10 +48,10 @@ public class DatabaseManager {
             Level 4, AMK Hub
             Singapore 569933
                 """;
-        numOfCinemas = 3;
+        numOfCinemas = 6;
         cinemas = new ArrayList<>();
         for (int i = 0; i < numOfCinemas; i++) {
-            cinemas.add(initializeCinemaData());
+            cinemas.add(initializeCinemaData(i % 3));
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
 
@@ -62,10 +62,10 @@ public class DatabaseManager {
             Level 5, Jem
             Singapore 608549
                 """;
-        numOfCinemas = 4;
+        numOfCinemas = 5;
         cinemas = new ArrayList<>();
         for (int i = 0; i < numOfCinemas; i++) {
-            cinemas.add(initializeCinemaData());
+            cinemas.add(initializeCinemaData(i % 3));
         }
         CineplexManager.createCineplex(cineplexName, numOfCinemas, cinemas, cineplexLocation);
 
@@ -77,12 +77,9 @@ public class DatabaseManager {
      * 
      * @return {@link Cinema} to be passed to Cineplex for initialization
      */
-    public static Cinema initializeCinemaData() {
+    public static Cinema initializeCinemaData(int choice) {
         CinemaClass cinemaClass;
-        ArrayList <Seat> seats;
-
-        Random rand = new Random();
-        int choice = rand.nextInt(3);
+        ArrayList <Seat> seats; 
 
         switch (choice) {
             case 0:

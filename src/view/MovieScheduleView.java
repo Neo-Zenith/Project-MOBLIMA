@@ -1,6 +1,7 @@
 package view;
 
 import model.MovieSchedule;
+import controller.MovieManager;
 import controller.MovieScheduleManager;
 import handler.InputHandler;
 import handler.UIHandler;
@@ -40,28 +41,35 @@ public class MovieScheduleView {
         this.errorMessage = "";
     }
 
-    public void printShowingTimes() {
+    public boolean printShowingTimes() {
         String content = "\n";
 
-        int count = 0;
-        for (int i = 0; i < this.showingTimes.size(); i++) {
-            String index = String.format("%02d. ", i + 1);
-            DateTime showingTime = this.showingTimes.get(i);
-            String payload = String.format(index + "%s\n", showingTime.getTimeNow());
+        if (MovieManager.movieBookable(this.movie)) {
+            int count = 0;
+            for (int i = 0; i < this.showingTimes.size(); i++) {
+                String index = String.format("%02d. ", i + 1);
+                DateTime showingTime = this.showingTimes.get(i);
+                String payload = String.format(index + "%s\n", showingTime.getTimeNow());
+                content = content + payload;
+                count = i + 1;
+            }
+
+            String index = String.format("%02d. ", count + 1);
+            String payload = String.format(index + "Return.");
             content = content + payload;
-            count = i + 1;
+            MainView.printMenuContent(content);
+            return true;
         }
-
-        String index = String.format("%02d. ", count + 1);
-        String payload = String.format(index + "Return.");
-        content = content + payload;
-
-        MainView.printMenuContent(content);
+        else {
+            content += "This movie is currently not available for booking!";
+            MainView.printMenuContent(content);
+            return false;
+        }
     }
 
-    public void printMenu() {
+    public boolean printMenu() {
         MainView.printBoilerPlate("Showing Schedule for " + this.movie.getMovieTitle());
-        this.printShowingTimes();
+        return this.printShowingTimes();
     }
 
     public void appContent() {
@@ -75,25 +83,31 @@ public class MovieScheduleView {
             
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
-            this.printMenu();
-            choice = InputHandler.intHandler();
-            if (choice < 1 || choice > showingTimes.size() + 1) {
-                this.errorMessage = "Error! Please enter a valid input";
-                continue;
-            }
-        
-            if (choice == showingTimes.size() + 1) {
+            if (this.printMenu()) {
+                choice = InputHandler.intHandler();
+                if (choice < 1 || choice > showingTimes.size() + 1) {
+                    this.errorMessage = "Error! Please enter a valid input";
+                    continue;
+                }
+            
+                if (choice == showingTimes.size() + 1) {
+                    this.errorMessage = "";
+                    return;
+                } 
+                else {
+                    int pointer = indexList.get(choice - 1);
+                    this.seatingPlanView = new SeatingPlanView(this.movieSchedule,
+                            this.movieSchedule.getShowingVenues().get(pointer),
+                            this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
+                    this.errorMessage = "";
+                    this.seatingPlanView.appContent();
+                }
+            } else {
+                System.out.println("Press any key to return");
+                InputHandler.stringHandler();
                 this.errorMessage = "";
                 return;
             } 
-            else {
-                int pointer = indexList.get(choice - 1);
-                this.seatingPlanView = new SeatingPlanView(this.movieSchedule,
-                        this.movieSchedule.getShowingVenues().get(pointer),
-                        this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
-                this.errorMessage = "";
-                this.seatingPlanView.appContent();
-            }
         } while (true);
 
     }

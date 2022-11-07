@@ -62,7 +62,7 @@ public class MovieAppView extends MainView {
                         this.errorMessage = "";
                         menu.appContent();
                     } else if (user instanceof CinemaStaff) {
-                        this.staffView = new StaffSystemConfig();
+                        this.staffView = new StaffSystemConfig((CinemaStaff) user);
                         this.errorMessage = "";
                         this.staffView.appContent();
                     } else {

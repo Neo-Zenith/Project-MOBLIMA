@@ -86,7 +86,6 @@ public class MovieManager {
      */
     public static void updateMovieTicketSold(Movie movie, int numOfTickets) {
         int ticket = movie.getMovieTicketsSold();
-        System.out.println(ticket);
         ticket += numOfTickets;
         movie.setMovieTicketsSold(ticket);
         String UUID = movie.getUUID();
@@ -123,8 +122,20 @@ public class MovieManager {
      * Returns all the movies which are in the database
      * @return ArrayList of {@link Movie} instances
      */
-    public static ArrayList <Movie> getAllMovieList() {
-        return Database.getValueList(Database.MOVIE.values());
+    public static ArrayList <Movie> getAllMovieList(Object user) {
+        if (user instanceof CinemaStaff) {
+            return Database.getValueList(Database.MOVIE.values());
+        }
+        else {
+            ArrayList <Movie> filteredMovie = new ArrayList<>();
+            ArrayList <Movie> allMovies = Database.getValueList(Database.MOVIE.values());
+            for (int i = 0; i < allMovies.size(); i ++) {
+                if (allMovies.get(i).getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
+                    filteredMovie.add(allMovies.get(i));
+                }
+            }
+            return filteredMovie;
+        } 
     }
 
 
@@ -177,5 +188,15 @@ public class MovieManager {
             }
         }
         return movies;
+    }
+
+    
+    public static boolean movieBookable(Movie movie) {
+        MovieShowingStatus movieShowingStatus = movie.getMovieShowingStatus();
+        if (movieShowingStatus == MovieShowingStatus.COMING_SOON ||
+            movieShowingStatus == MovieShowingStatus.END_OF_SHOWING) {
+                return false;
+            }
+        return true;
     }
 }

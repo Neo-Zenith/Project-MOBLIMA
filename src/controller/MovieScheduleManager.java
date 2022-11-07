@@ -54,7 +54,7 @@ public class MovieScheduleManager {
 
         for (int i = 0; i < movieSchedules.size(); i++) {
             MovieSchedule movieSchedule = movieSchedules.get(i);
-            if (movieSchedule.getMovieOnShow().getUUID().contains(movieOnShow.getUUID())) {
+            if (movieSchedule.getMovieOnShow().getUUID().equals(movieOnShow.getUUID())) {
                 for (int j = 0; j < showingTime.size(); j ++) {
                     int index1 = movieSchedule.getShowingVenues().indexOf(cinema.get(j));
                     int index2 = movieSchedule.getShowingTime().indexOf(showingTime.get(j));
@@ -63,10 +63,12 @@ public class MovieScheduleManager {
                         movieSchedule.getShowingTime().set(index2, showingTime.get(j));
                     }
                     else {
+
                         movieSchedule.addShowingTime(showingTime.get(j));
                         movieSchedule.addShowingVenue(cinema.get(j));
                     }
                 }
+                DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
                 return movieSchedule;
             }
         }

@@ -1,6 +1,12 @@
 package model;
 
 import java.io.Serializable;
+import java.util.*;
+
+import controller.DatabaseManager;
+import database.Database;
+import model.*;
+import model.enums.*;
 
 public class Prices implements Serializable {
     
@@ -64,6 +70,18 @@ public class Prices implements Serializable {
 
     public void setDefaultStandardCinemaPrice(double defaultStandardCinemaPrice) {
         this.defaultStandardCinemaPrice = defaultStandardCinemaPrice;
+        ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
+        for (int i = 0; i < cineplexs.size(); i ++) {
+            Cineplex cineplex = cineplexs.get(i);
+            for (int j = 0; j < cineplex.getCinemas().size(); i ++) {
+                Cinema cinema = cineplex.getCinemas().get(j);
+                if (cinema.getCinemaClass() == CinemaClass.STANDARD) {
+                    cinema.setCinemaPrice(defaultStandardCinemaPrice);
+                }
+                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+            }
+            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+        }
     }
 
     public void setDefaultIMaxCinemaPrice(double defaultIMaxCinemaPrice) {

@@ -1,12 +1,10 @@
 package view;
 
-import handler.InputHandler;
-import handler.UIHandler;
-import controller.CinemaStaffManager;
+import handler.*;
+import controller.*;
 import model.*;
 
 public class StaffConfigureMovieView {
-    private StaffMovieDetailsView staffMovieDetailsView;
     private Movie movie;
     private String errorMessage;
 
@@ -28,9 +26,8 @@ public class StaffConfigureMovieView {
             6. Movie Director's Name
             7. Movie Synopsis
             8. Movie Duration
-            9. Movie Showing Venues
-            10. Movie Showing Times
-            11. Return.
+            9. Movie Schedule
+            10. Return.
                 """);
     }
 
@@ -43,11 +40,11 @@ public class StaffConfigureMovieView {
             this.printMenu();
             choice = InputHandler.intHandler();
 
-            if (choice == 11) {
+            if (choice == 10) {
                 this.errorMessage = "";
                 return;
             }
-            else if (choice <= 11 && choice >= 1 ) {
+            else if (choice <= 9 && choice >= 1 ) {
                 this.errorMessage = "";
                 CinemaStaffManager.updateExistingMovieDetails(this.movie, choice);
             }
