@@ -48,8 +48,8 @@ public class StaffMovieListRankingView extends MainView {
         if (choice == 1) {
             for (int j = 0; j < length; j++) {
                 index = String.format("%d. ", j + 1);
-                payload = String.format(index + movies.get(j).getMovieTitle() + " [" +
-                                        movies.get(j).getMovieType() + "] - Tickets sold: "
+                payload = String.format(index + movies.get(j).getMovieTitle() + " [ " +
+                                        movies.get(j).getMovieType().getDisplayName() + " ] - Tickets sold: "
                                         + movies.get(j).getMovieTicketsSold() + "\n");
                 content = content + payload;
             }
@@ -59,8 +59,8 @@ public class StaffMovieListRankingView extends MainView {
             for (int j = 0; j < length; j++) {
                 String rating = String.format("%.1f", movies.get(j).getMovieOverallReviewRating());
                 index = String.format("%d. ", j + 1);
-                payload = String.format(index + movies.get(j).getMovieTitle() + " [" +
-                                        movies.get(j).getMovieType() + "] - Overall rating: "
+                payload = String.format(index + movies.get(j).getMovieTitle() + " [ " +
+                                        movies.get(j).getMovieType().getDisplayName() + " ] - Overall rating: "
                                         + rating + "\n");
                 content = content + payload;
             }

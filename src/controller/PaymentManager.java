@@ -89,7 +89,7 @@ public class PaymentManager {
         for (int i = 0; i < holidays.size(); i ++) {
             DateTime holiday = holidays.get(i);
             if (showingDate == holiday.getDate() && showingMonth == holiday.getMonth() && showingYear == holiday.getYear()) {
-                weight += Database.PRICES.getHolidayPrice();
+                weight = Database.PRICES.getHolidayPrice();
             }
         }
 

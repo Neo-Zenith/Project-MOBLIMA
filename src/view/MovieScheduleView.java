@@ -44,7 +44,6 @@ public class MovieScheduleView {
 
     public boolean printShowingTimes() {
         String content = "\n";
-
         if (MovieManager.movieBookable(this.movie)) {
             int count = 0;
             for (int i = 0; i < this.showingTimes.size(); i++) {

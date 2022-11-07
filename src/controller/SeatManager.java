@@ -159,24 +159,25 @@ public class SeatManager {
 
     
     public static boolean validateBooking(Seat seat, boolean booking) {
-        if (seat.getAssignStatus() && booking) {
+        if (seat.getAssignStatus() == booking) {
             return false;
         }
         return true;
     }
 
     
-    public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, Cinema cinema) {
+    public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, Cinema cinema, boolean assign) {
         int index = SeatManager.seatIDConverter(seatID, cinema);
 
         int venueSlot = MovieScheduleManager.getShowingVenueIndex(movieSchedule, cinema);
+        System.out.println(movieSchedule.getSeatingPlan().size());
         ArrayList <Seat> seatingPlan = movieSchedule.getSeatingPlan().get(venueSlot);
 
         Seat seatToBook = seatingPlan.get(index);
         
         if (seatToBook.getSeatType() == SeatType.STANDARD) {
-            if (validateBooking(seatToBook, true)) {
-                seatToBook.setAssignStatus(true);
+            if (validateBooking(seatToBook, assign)) {
+                seatToBook.setAssignStatus(assign);
                 return true;
             }
             else {
@@ -195,9 +196,9 @@ public class SeatManager {
             }
             nextSeat = seatingPlan.get(nextSeatIndex);
 
-            if (validateBooking(seatToBook, true) && validateBooking(nextSeat, true)) {
-                seatToBook.setAssignStatus(true);
-                nextSeat.setAssignStatus(true);
+            if (validateBooking(seatToBook, assign) && validateBooking(nextSeat, assign)) {
+                seatToBook.setAssignStatus(assign);
+                nextSeat.setAssignStatus(assign);
                 return true;
             }
             else {

@@ -72,7 +72,15 @@ public class MovieManager {
             ArrayList <Movie> allMovies = Database.getValueList(Database.MOVIE.values());
             for (int i = 0; i < allMovies.size(); i ++) {
                 if (allMovies.get(i).getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
-                    filteredMovie.add(allMovies.get(i));
+                    boolean flag = false;
+                    for (int j = 0; j < filteredMovie.size(); j ++) {
+                        if (allMovies.get(i).getMovieTitle().equals(filteredMovie.get(j).getMovieTitle())) {
+                            flag = true;
+                        }
+                    }
+                    if (! flag) {
+                        filteredMovie.add(allMovies.get(i));
+                    }
                 }
             }
             return filteredMovie;
@@ -87,7 +95,7 @@ public class MovieManager {
         for (int i = 0; i < movieSchedules.size(); i++) {
             MovieSchedule movieSchedule = movieSchedules.get(i);
             Movie movie = MovieManager.getMovieByUUID(movieSchedule.getMovieOnShow());
-            if (movie.getMovieTitle().equals(movieTitle) && movie.getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
+            if (movie.getMovieTitle().equals(movieTitle) && movie.getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING && movie.getMovieShowingStatus() != MovieShowingStatus.PREVIEW) {
                 movies.add(movie);
             }
         }
@@ -102,6 +110,9 @@ public class MovieManager {
                 Movie movie1 = movies.get(j);
                 Movie movie2 = movies.get(j - 1);
                 if (sortBy.equals("ratings")) {
+                    if (movie1.getMovieReviews().size() <= 1) {
+                        break;
+                    }
                     if (movie1.getMovieOverallReviewRating() > movie2.getMovieOverallReviewRating()) {
                         Collections.swap(movies, j, j - 1);
                     }

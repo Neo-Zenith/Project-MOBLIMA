@@ -72,7 +72,7 @@ public class Prices implements Serializable {
         ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
         for (int i = 0; i < cineplexs.size(); i ++) {
             Cineplex cineplex = cineplexs.get(i);
-            for (int j = 0; j < cineplex.getCinemas().size(); i ++) {
+            for (int j = 0; j < cineplex.getCinemas().size(); j ++) {
                 Cinema cinema = cineplex.getCinemas().get(j);
                 if (cinema.getCinemaClass() == CinemaClass.STANDARD) {
                     cinema.setCinemaPrice(defaultStandardCinemaPrice);

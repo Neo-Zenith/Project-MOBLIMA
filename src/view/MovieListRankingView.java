@@ -78,8 +78,8 @@ public class MovieListRankingView extends MainView {
                     break;
                 }
                 index = String.format("%d. ", j + 1);
-                payload = String.format(index + movies.get(k).getMovieTitle() + " [" +
-                                        movies.get(k).getMovieType() + "] - Tickets sold: "
+                payload = String.format(index + movies.get(k).getMovieTitle() + " [ " +
+                                        movies.get(k).getMovieType().getDisplayName() + " ] - Tickets sold: "
                                         + movies.get(k).getMovieTicketsSold() + "\n");
                 content = content + payload;
                 k ++;
@@ -103,9 +103,14 @@ public class MovieListRankingView extends MainView {
                 }
                 String rating = String.format("%.1f", movies.get(k).getMovieOverallReviewRating());
                 index = String.format("%d. ", j + 1);
-                payload = String.format(index + movies.get(k).getMovieTitle() + " [" +
-                                        movies.get(k).getMovieType() + "] - Overall rating: "
-                                        + rating + "\n");
+                payload = String.format(index + movies.get(k).getMovieTitle() + " [ " +
+                                        movies.get(k).getMovieType().getDisplayName());
+                if (movies.get(k).getMovieReviews().size() <= 1) {
+                    payload += " ] - Overall rating: Not Available\n";
+                }
+                else {
+                    payload += " ] - Overall rating: " + rating + "\n";
+                }
                 content = content + payload;
                 k ++;
             }

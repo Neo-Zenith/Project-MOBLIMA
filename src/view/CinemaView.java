@@ -66,8 +66,8 @@ public class CinemaView extends MainView {
                 this.errorMessage = "";
                 return;
             }
-
-            this.movieScheduleView = new MovieScheduleView(listOfCinemaClass, this.movie, this.movieGoer);
+            ArrayList <Cinema> cinemaList = CinemaManager.filterCinemaByClass(this.existingClass.get(choice-1), cineplex);
+            this.movieScheduleView = new MovieScheduleView(cinemaList, this.movie, this.movieGoer);
             this.errorMessage = "";
             this.movieScheduleView.appContent();
 

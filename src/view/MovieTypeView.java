@@ -25,12 +25,12 @@ public class MovieTypeView extends MainView {
         int count = 0;
         for (int i = 0; i < listOfMovieTypes.size(); i++) {
             Movie movie = listOfMovieTypes.get(i);
-            String index = String.format("%d. ", i + 1);
+            String index = String.format("%02d. ", i + 1);
             String payload = String.format(index + "%s\n", movie.getMovieType().getDisplayName());
             content = content + payload;
             count = i + 1;
         }
-        String index = String.format("%d. ", count + 1);
+        String index = String.format("%02d. ", count + 1);
         String payload = String.format(index + "Quit and return back");
         content = content + payload;
 
@@ -46,6 +46,11 @@ public class MovieTypeView extends MainView {
         int choice = -1;
 
         do {
+            if (MovieMenuView.exit) {
+                this.errorMessage = "";
+                return;
+            }
+            
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             this.printMenu();
@@ -64,10 +69,7 @@ public class MovieTypeView extends MainView {
                 CineplexView cineplex = new CineplexView(listOfMovieTypes.get(choice - 1), this.movieGoer);
                 cineplex.appContent();
             }
-            if (MovieMenuView.exit) {
-                this.errorMessage = "";
-                return;
-            }
+            
         } while (true);
     }
 }

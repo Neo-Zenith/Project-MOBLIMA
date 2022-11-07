@@ -57,6 +57,14 @@ public class MovieSchedule implements Serializable {
         this.seatingPlan = seatingPlan;
     }
 
+    public void addSeatingPlan(ArrayList <Seat> seatingPlan) {
+        this.seatingPlan.add(seatingPlan);
+    }
+
+    public void removeSeatingPlan(int index) {
+        this.getSeatingPlan().remove(index);
+    }
+
     public void setSeatStatus(int venueSlot, Seat seat, boolean assign) {
         ArrayList<Seat> seats = this.seatingPlan.get(venueSlot);
 

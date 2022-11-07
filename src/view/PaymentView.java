@@ -30,10 +30,12 @@ public class PaymentView extends MainView {
         MainView.printBoilerPlate("Payment");
         MainView.printMenuContent("""
 
-                        01.  Card Payment
-                        02.  QRCode
-                        03.  Bank Transaction
-                        04.  Return
+                How would you like to pay?
+
+                01.  Card Payment
+                02.  QRCode
+                03.  Bank Transaction
+                04.  Quit and return back
                 """);
     }
 
@@ -55,7 +57,7 @@ public class PaymentView extends MainView {
                 MainView.printBoilerPlate("Card Payment");
                 this.payment = PaymentManager.createCardPayment(this.transactionID, this.totalMovieTicketPrice);
 
-                System.out.println("Enter Card Number:");
+                System.out.println("Enter your Card Number:");
                 this.referenceID = InputHandler.stringHandler();
                 System.out.println("Enter CCV:");
                 InputHandler.intHandler();

@@ -25,30 +25,45 @@ public class MovieScheduleManager {
     }
 
     
-    public static MovieSchedule updateMovieSchedule(String movieUUID, ArrayList <String> showingVenuesUUID, ArrayList <DateTime> showingTime) {
+    public static MovieSchedule updateMovieSchedule(String movieUUID, ArrayList <String> showingVenuesUUID, ArrayList <DateTime> showingTimes) {
         ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
 
-        for (int i = 0; i < movieSchedules.size(); i++) {
-            MovieSchedule movieSchedule = movieSchedules.get(i);
+        MovieSchedule movieSchedule = movieSchedules.get(0);
+        boolean flag = false;
+        for (int i = 0; i < movieSchedules.size(); i ++) {
+            movieSchedule = movieSchedules.get(i);
             if (movieSchedule.getMovieOnShow().equals(movieUUID)) {
-                for (int j = 0; j < showingTime.size(); j ++) {
-                    int index1 = movieSchedule.getShowingVenues().indexOf(showingVenuesUUID.get(j));
-                    int index2 = movieSchedule.getShowingTime().indexOf(showingTime.get(j));
-                    if (index1 != -1 || index2 != -1) {
-                        movieSchedule.getShowingVenues().set(index1, showingVenuesUUID.get(j));
-                        movieSchedule.getShowingTime().set(index2, showingTime.get(j));
-                    }
-                    else {
-
-                        movieSchedule.addShowingTime(showingTime.get(j));
-                        movieSchedule.addShowingVenue(showingVenuesUUID.get(j));
-                    }
-                }
-                DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
-                return movieSchedule;
+                flag = true;
+                break;
             }
         }
-        return null;
+
+        if (!flag) {
+            return null;
+        }
+
+        for (int i = 0; i < showingVenuesUUID.size(); i ++) {
+            String showingVenueUUID = showingVenuesUUID.get(i);
+            String showingTime = showingTimes.get(i).getTimeNow();
+            boolean match = false;
+            for (int j = 0; j < movieSchedule.getShowingVenues().size(); j ++) {
+                String showingVenueUUID_ = movieSchedule.getShowingVenues().get(j);
+                String showingTime_ = movieSchedule.getShowingTime().get(j).getTimeNow();
+
+                if (showingVenueUUID.equals(showingVenueUUID_) && showingTime.equals(showingTime_)) {
+                    match = true;
+                    break;
+                }
+            }
+            if (match) {
+                continue;
+            }
+            movieSchedule.addShowingVenue(showingVenueUUID);
+            Cinema cinema = CinemaManager.getCinemaByUUID(showingVenueUUID);
+            movieSchedule.addSeatingPlan(cinema.duplicateSeats());
+            movieSchedule.addShowingTime(showingTimes.get(i));
+        }
+        return movieSchedule;
     }
 
     
@@ -68,6 +83,7 @@ public class MovieScheduleManager {
 
 
     public static int getShowingVenueIndex(MovieSchedule movieSchedule, Cinema cinema) {
+        System.out.println(movieSchedule.getShowingVenues().size());
         for (int i = 0; i < movieSchedule.getShowingVenues().size(); i++) {
             if (movieSchedule.getShowingVenues().get(i).equals(cinema.getUUID())) {
                 return i;

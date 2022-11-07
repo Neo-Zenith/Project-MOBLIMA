@@ -2,9 +2,7 @@ package view;
 
 import java.util.*;
 
-import controller.CinemaManager;
-import controller.MovieManager;
-import controller.MovieReviewManager;
+import controller.*;
 import model.*;
 import handler.*;
 import database.*;
@@ -69,9 +67,9 @@ public class MovieBookingHistoryView extends MainView {
             String payload2 = String.format("Transaction ID: %s\n", bookingHistory.getPayment().getTransactionID());
             String payload3 = String.format("Movie Title: %s\n", this.movieTitle.get(i));
             String payload4 = String.format("Cineplex Location:\n%s",
-                    this.cineplexList.get(i).getCineplexLocation());
+                    this.cineplexList.get(i).getCineplexLocation() + "\n");
             String payload5 = String.format("Cinema: %s %s\n", this.cinemaList.get(i).getUUID(),
-                    this.cinemaList.get(i).getCinemaClass());
+                    this.cinemaList.get(i).getCinemaClass().getDisplayName());
             String payload6 = String.format("Showing Time: %s\n\n", showingTime.get(i).getTimeNow());
             content = content + index + payload1 + payload2 + payload3 + payload4 + payload5 + payload6;
             count = i + 1;

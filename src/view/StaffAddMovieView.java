@@ -25,7 +25,7 @@ public class StaffAddMovieView {
 
             1. R
             2. G
-            3. PG13
+            3. PG
             4. PG13
             5. NC16
             6. M18
@@ -35,21 +35,21 @@ public class StaffAddMovieView {
 
     public void printShowingStatus() {
         MainView.printMenuContent("""
-            Enter the showing status
+        Enter the showing status
 
-            1. Coming Soon
-            2. Preview
-            3. Now Showing
+        1. Coming Soon
+        2. Preview
+        3. Now Showing
         """);
     }
 
     public void printMovieType() {
         MainView.printMenuContent("""
-            Enter the movie type
+        Enter the movie type
 
-            1. Standard Movie
-            2. Blockbuster Movie
-            3. 3D Movie
+        1. Standard Movie
+        2. Blockbuster Movie
+        3. 3D Movie
         """);
     }
 
@@ -65,10 +65,10 @@ public class StaffAddMovieView {
 
     public void printCineplex() {
         ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
-        String content = "\nEnter the cineplex showing this movie\n";
+        String content = "\nEnter the cineplex showing this movie\n\n";
 
         for (int i = 0; i < cineplexes.size(); i++){
-            String index = String.format("%02d. ", i + 1);
+            String index = String.format("%02d.\n", i + 1);
             String payload = String.format(index + cineplexes.get(i).getCineplexName() + "\n");
             payload += (cineplexes.get(i).getCineplexLocation() + "\n");
             content += payload;
@@ -135,7 +135,7 @@ public class StaffAddMovieView {
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             this.printMenu();
-            System.out.println("Enter the number of movie cast/casts for " + title);
+            System.out.println("Enter the number of movie cast/casts for " + title + ": ");
             int numberOfCasts = InputHandler.intHandler(); 
             if (numberOfCasts < 2) {
                 this.errorMessage = "Error! The movie must have minimum 2 casts!";
@@ -145,7 +145,7 @@ public class StaffAddMovieView {
                 UIHandler.clearScreen();
                 System.out.println(this.errorMessage);
                 this.printMenu();
-                System.out.println("Enter the name of cast " + (i + 1));
+                System.out.println("Enter the name of cast " + (i + 1) + ": ");
                 String castName = InputHandler.stringHandler();
                 movieCast.add(castName);
             }
@@ -157,14 +157,14 @@ public class StaffAddMovieView {
         UIHandler.clearScreen();
         System.out.println(this.errorMessage);
         this.printMenu();
-        System.out.println("Enter the name of the director for " + title);
+        System.out.println("Enter the name of the director for " + title + ":");
         String director = InputHandler.stringHandler();
         
 
         UIHandler.clearScreen();
         System.out.println(this.errorMessage);
         this.printMenu();
-        System.out.println("Enter the synopsis for " + title);
+        System.out.println("Enter the synopsis for " + title + ": ");
         String synopsis = InputHandler.stringHandler();
         
 

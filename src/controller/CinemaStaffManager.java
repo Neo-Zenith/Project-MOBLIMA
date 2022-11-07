@@ -33,10 +33,10 @@ public class CinemaStaffManager{
             m = MovieManager.createThreeDMovie(title, movieAgeRating, movieShowingStatus, 
                                         movieCast, director, synopsis, duration);
         } else {
-            System.out.println("Invalid choice");
+            System.out.println("here?");
             return;
         }
-        MovieScheduleManager.createMovieSchedule(title, showingVenue, seatingPlan, showingTime);
+        MovieScheduleManager.createMovieSchedule(m.getUUID(), showingVenue, seatingPlan, showingTime);
         System.out.println("Movie added into database");
     }
 
@@ -204,14 +204,21 @@ public class CinemaStaffManager{
                                 MainView.printBoilerPlate("Remove Movie Casts");
                                 String content = "\nSelect the cast to be removed. (Enter Cast Number)\n";
                                 for (int i = 0; i < movie.getMovieCast().size(); i++){
-                                    String payload = String.format("Cast number: %d", (i + 1) + "\t" + movie.getMovieCast().get(i) + "\n");
+                                    String payload = String.format("%02d. ", (i + 1));
+                                    payload += "\t" + movie.getMovieCast().get(i) + "\n";
                                     content = content + payload;
                                 }
+                                String payload = String.format("%02d. ", movie.getMovieCast().size() + 1);
+                                payload += "\tQuit and return back";
+                                content += payload;
                                 MainView.printMenuContent(content);
                                 int castNumber = InputHandler.intHandler();
-                                if (castNumber < 1 || castNumber > movie.getMovieCast().size()){
+                                if (castNumber < 1 || castNumber > movie.getMovieCast().size() + 1){
                                     errorMessage = "Error! Please enter a valid input!";
                                     continue;
+                                }
+                                if (castNumber == movie.getMovieCast().size() + 1) {
+                                    return;
                                 }
                                 movie.getMovieCast().remove(castNumber - 1);
                                 DatabaseManager.saveUpdateToDatabase(movieUUID, movie, Database.MOVIE);
@@ -308,15 +315,16 @@ public class CinemaStaffManager{
                             content += "Quit and return back";
                             MainView.printMenuContent(content);
                             int venueID = InputHandler.intHandler();
-                            if (venueID < 1 || venueID > movieSchedule.getShowingVenues().size()){
+                            if (venueID < 1 || venueID > movieSchedule.getShowingVenues().size() + 1){
                                 errorMessage = "Error! Please enter a valid input!";
                                 continue;
                             }
-                            if (venueID == movieSchedule.getShowingVenues().size()) {
+                            if (venueID == movieSchedule.getShowingVenues().size() + 1) {
                                 return;
                             }
                             movieSchedule.removeShowingVenue(venueID - 1);
                             movieSchedule.removeShowingTime(venueID - 1);
+                            movieSchedule.removeSeatingPlan(venueID - 1);
                             DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
                             return;
 
@@ -339,7 +347,7 @@ public class CinemaStaffManager{
 
                                 MainView.printMenuContent(content);
                                 int cineplexChoice = InputHandler.intHandler();
-                                if (cineplexChoice < 0 || cineplexChoice > cineplexes.size()) {
+                                if (cineplexChoice < 0 || cineplexChoice > cineplexes.size() + 1) {
                                     errorMessage = "Error! Please enter a valid input!";
                                     continue;
                                 }

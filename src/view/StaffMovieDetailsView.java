@@ -5,6 +5,7 @@ import handler.*;
 import java.util.ArrayList;
 import controller.*;
 import model.*;
+import model.enums.MovieType;
 
 public class StaffMovieDetailsView {
     private StaffConfigureMovieView staffConfigureMovieView;
@@ -29,7 +30,14 @@ public class StaffMovieDetailsView {
         for (int i = 0; i < this.allMovies.size(); i++) {
             Movie movie = allMovies.get(i);
             String index = String.format("%02d. ", (i + 1));
-            String payload = String.format(index + "%s\n", movie.getMovieTitle());
+            String payload;
+            if (movie.getMovieType() == MovieType.ThreeD) {
+                payload = String.format(index + "[ %s ]\t\t", movie.getMovieType().getDisplayName());
+            }
+            else {
+                payload = String.format(index + "[ %s ]\t", movie.getMovieType().getDisplayName());
+            }
+            payload += String.format("%s\n", movie.getMovieTitle());
             content = content + payload;
             count = i + 1;
         }

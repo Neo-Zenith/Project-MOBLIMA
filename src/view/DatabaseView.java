@@ -41,6 +41,7 @@ public class DatabaseView extends MainView{
                     DatabaseManager.initializeMovie();
                     DatabaseManager.initializeMovieScheduleData();
                     Database.writeToDatabase();
+                    this.errorMessage = "Data loaded successfully!";
                     break;
                 case 2:
                     this.staffAddMovieView = new StaffAddMovieView();

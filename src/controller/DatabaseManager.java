@@ -162,7 +162,7 @@ public class DatabaseManager {
         for (int i = 0; i < showingVenue.size(); i++) {
             showingVenueUUID.add(showingVenue.get(i).getUUID());
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
-            showingTime.add(new DateTime(00, 14, 6, 21, 11, 2022));
+            showingTime.add(new DateTime(00, 14, 2, 21, 11, 2022));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow.getUUID(), showingVenueUUID, seatingPlan, showingTime);
@@ -179,7 +179,7 @@ public class DatabaseManager {
         for (int i = 0; i < showingVenue.size(); i++) {
             showingVenueUUID.add(showingVenue.get(i).getUUID());
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
-            showingTime.add(new DateTime(00, 13, 4, 22, 12, 2022));
+            showingTime.add(new DateTime(00, 13, 3, 22, 11, 2022));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow.getUUID(), showingVenueUUID, seatingPlan, showingTime);
@@ -196,7 +196,7 @@ public class DatabaseManager {
         for (int i = 0; i < showingVenue.size(); i++) {
             showingVenueUUID.add(showingVenue.get(i).getUUID());
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
-            showingTime.add(new DateTime(30, 12, 4, 25, 1, 2023));
+            showingTime.add(new DateTime(30, 12, 6, 25, 11, 2022));
         }
 
         MovieScheduleManager.createMovieSchedule(movieOnShow.getUUID(), showingVenueUUID, seatingPlan, showingTime);
@@ -222,40 +222,39 @@ public class DatabaseManager {
         double duration;
 
         // Movie1
-        title = "The Conjuring";
-        movieAgeRating = MovieAgeRating.M18;
+        title = "Black Panther: Wakanda Forever (2022)";
+        movieAgeRating = MovieAgeRating.PG13;
         movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
-        movieCast.add("Yeek");
-        movieCast.add("Jerick");
-        director = "LeeJuin";
-        synopsis = "Good";
-        duration = 123.0;
+        movieCast.add("Tenoch Huerta Namor");
+        movieCast.add("Michael B. Jordan");
+        director = "Ryan Coogler";
+        synopsis = "Queen Ramonda, Shuri, M'Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T'Challa's death. As the Wakandans strive to embrace their next chapter, the heroes must band together with Nakia and Everett Ross to forge a new path for their beloved kingdom.";
+        duration = 161;
         MovieManager.createBlockbusterMovie(title, movieAgeRating, movieShowingStatus, 
                                             movieCast, director, synopsis, duration);
 
         // Movie2
-        title = "Zootopia";
-        movieAgeRating = MovieAgeRating.G;
+        title = "Black Panther: Wakanda Forever (2022)";
+        movieAgeRating = MovieAgeRating.PG13;
         movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
-        movieCast = new ArrayList<String>();
-        movieCast.add("Yeek");
-        movieCast.add("Jerick");
-        director = "LeeJuin";
-        synopsis = "Good";
-        duration = 155.0;
+        movieCast.add("Tenoch Huerta Namor");
+        movieCast.add("Michael B. Jordan");
+        director = "Ryan Coogler";
+        synopsis = "Queen Ramonda, Shuri, M'Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T'Challa's death. As the Wakandans strive to embrace their next chapter, the heroes must band together with Nakia and Everett Ross to forge a new path for their beloved kingdom.";
+        duration = 161;
         MovieManager.createThreeDMovie(title, movieAgeRating, movieShowingStatus, 
                                         movieCast, director, synopsis, duration);
 
         // Movie3
-        title = "Spiderman";
-        movieAgeRating = MovieAgeRating.G;
+        title = "The Sacred Riana 2: Bloody Mary (2022)";
+        movieAgeRating = MovieAgeRating.M18;
         movieShowingStatus = MovieShowingStatus.NOW_SHOWING;
         movieCast = new ArrayList<String>();
-        movieCast.add("Yeek");
-        movieCast.add("Jerick");
-        director = "LeeJuin";
-        synopsis = "Good";
-        duration = 155.0;
+        movieCast.add("Brooklyn Alif Rea");
+        movieCast.add("Frisly Indigo");
+        director = "Billy Christian";
+        synopsis = "The disappearance of the Riani Doll makes Riana come to Elodia's dormitory.The dormitory is inhabited by a group of female students, who often perform game rituals using mirrors, namely Bloody Mary. However, this game leads to terror that harms the Elodia students. Riani's missing doll is accused of being the mastermind. Riana, who is unraveling the mystery, is trapped in the midst of the conditions to bring Riani home and find answers to the terror alleged to her beloved doll.";
+        duration = 113;
         MovieManager.createStandardMovie(title, movieAgeRating, movieShowingStatus, 
                                             movieCast, director, synopsis, duration);
         

@@ -34,26 +34,22 @@ public class StaffConfigPermissionsView {
 
             switch (choice) {
                 case 1:
-                    this.errorMessage = "";
-                    System.out.println("Movie goer can no longer view top 5 based on overall ratings.");
+                    this.errorMessage = "Movie goer can no longer view top 5 based on overall ratings.";
                     CinemaStaffManager.optInOut(1, false);
                     break;
 
                 case 2:
-                    this.errorMessage = "";
-                    System.out.println("Movie goer can no longer view top 5 based on movie sales.");
+                    this.errorMessage = "Movie goer can no longer view top 5 based on movie sales.";
                     CinemaStaffManager.optInOut(2, false);
                     break;
 
                 case 3:
-                    this.errorMessage = "";
-                    System.out.println("Movie goer can now view top 5 based on overall ratings.");
+                    this.errorMessage = "Movie goer can now view top 5 based on overall ratings.";
                     CinemaStaffManager.optInOut(1, true);
                     break;
 
                 case 4:
-                    this.errorMessage = "";
-                    System.out.println("Movie goer can now view top 5 based on movie sales.");
+                    this.errorMessage = "Movie goer can now view top 5 based on movie sales.";
                     CinemaStaffManager.optInOut(2, true);
                     break;
 

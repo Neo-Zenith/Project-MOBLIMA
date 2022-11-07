@@ -108,7 +108,7 @@ public class SeatingPlanView {
                     }
                     this.seatBooked = this.seatingPlan.get(index);
 
-                    if (SeatManager.bookSeat(seatID, this.movieSchedule, this.cinema)) {
+                    if (SeatManager.bookSeat(seatID, this.movieSchedule, this.cinema, true)) {
                         // add seatID into seatIDList => add new ticket into bucket list
                         seatIDList.add(seatID);
                         String movieUUID = this.movieSchedule.getMovieOnShow();
@@ -129,6 +129,10 @@ public class SeatingPlanView {
                     // history
 
                     // cinema code is the last 3 characters in cinema UUID
+                    if (this.seatIDList.size() == 0) {
+                        this.errorMessage = "Error! Please book a seat before proceeding to payment!";
+                        continue;
+                    }
                     String cinemaCode = CinemaManager.getCinemaCode(this.cinema);
                     this.paymentView = new PaymentView(cinemaCode, this.totalMovieTicketPrice, this.movieSchedule);
                     this.errorMessage = "";
@@ -152,8 +156,12 @@ public class SeatingPlanView {
 
                 case 3:
                     this.errorMessage = "";
+                    for (int i = 0; i < this.seatIDList.size(); i ++) {
+                        String _seatID = this.seatIDList.get(i);
+                        SeatManager.bookSeat(_seatID, movieSchedule, cinema, false);
+                    }
+                    this.seatIDList = new ArrayList<>();
                     return;
-
             }
         } while (true);
     }
