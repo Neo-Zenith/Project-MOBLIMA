@@ -1,13 +1,9 @@
 package view;
 
-import database.Database;
-import handler.InputHandler;
-import handler.UIHandler;
-import model.Movie;
-import model.MovieGoer;
-import model.MovieSchedule;
-import model.enums.MovieShowingStatus;
-import controller.MovieManager;
+import handler.*;
+import model.*;
+import model.enums.*;
+import controller.*;
 
 import java.util.ArrayList;
 

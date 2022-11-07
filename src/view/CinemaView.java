@@ -4,7 +4,7 @@ import model.*;
 import model.enums.*;
 import controller.*;
 import handler.*;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class CinemaView extends MainView {

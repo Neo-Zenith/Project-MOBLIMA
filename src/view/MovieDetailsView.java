@@ -1,11 +1,9 @@
 package view;
 
 import java.util.*;
-
 import controller.*;
 import model.*;
 import handler.*;
-import database.*;
 
 
 public class MovieDetailsView extends MainView {

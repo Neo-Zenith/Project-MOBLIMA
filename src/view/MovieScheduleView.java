@@ -1,17 +1,10 @@
 package view;
 
-import model.MovieSchedule;
-import controller.CinemaManager;
-import controller.MovieManager;
-import controller.MovieScheduleManager;
-import handler.InputHandler;
-import handler.UIHandler;
-import model.Cinema;
-import model.DateTime;
-import model.Movie;
-import model.MovieGoer;
+import controller.*;
+import handler.*;
+import model.*;
+import java.util.*;
 
-import java.util.ArrayList;
 
 public class MovieScheduleView {
     private Movie movie;

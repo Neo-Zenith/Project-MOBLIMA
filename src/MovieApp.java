@@ -1,7 +1,5 @@
-import handler.InputHandler;
-import handler.UIHandler;
-import view.MainView;
-import view.MovieAppView;
+import handler.*;
+import view.*;
 
 public class MovieApp {
     

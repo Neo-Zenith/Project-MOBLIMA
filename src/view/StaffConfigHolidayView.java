@@ -1,8 +1,8 @@
 package view;
 
-import controller.CinemaStaffManager;
-import handler.InputHandler;
-import handler.UIHandler;
+import controller.*;
+import handler.*;
+
 
 public class StaffConfigHolidayView {
     private String errorMessage;

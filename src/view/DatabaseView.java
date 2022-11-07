@@ -1,9 +1,9 @@
 package view;
 
-import controller.DatabaseManager;
-import database.Database;
-import handler.InputHandler;
-import handler.UIHandler;
+import controller.*;
+import database.*;
+import handler.*;
+
 
 public class DatabaseView extends MainView{
     private StaffAddMovieView staffAddMovieView;

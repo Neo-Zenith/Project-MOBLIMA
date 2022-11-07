@@ -2,9 +2,9 @@ package view;
 
 import model.*;
 import controller.*;
-import database.Database;
+import database.*;
 import handler.*;
-import view.*;
+
 
 public class PaymentView extends MainView {
 

@@ -1,13 +1,12 @@
 package view;
 
-import java.util.ArrayList;
+import java.util.*;
+import controller.*;
+import database.*;
+import handler.*;
+import model.*;
+import model.enums.*;
 
-import controller.MovieGoerManager;
-import database.Database;
-import handler.InputHandler;
-import handler.UIHandler;
-import model.Movie;
-import model.enums.MovieShowingStatus;
 
 public class MovieListRankingView extends MainView {
     private String errorMessage;

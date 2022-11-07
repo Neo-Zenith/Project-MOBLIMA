@@ -1,7 +1,6 @@
 package view;
 
-import handler.InputHandler;
-import handler.UIHandler;
+import handler.*;
 
 public class StaffConfigSettingsView {
     private StaffConfigPriceView staffConfigPriceView;

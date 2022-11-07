@@ -1,7 +1,7 @@
 package view;
 
 import handler.*;
-import controller.CinemaStaffManager;
+import controller.*;
 
 public class StaffConfigPermissionsView {
     private String errorMessage;

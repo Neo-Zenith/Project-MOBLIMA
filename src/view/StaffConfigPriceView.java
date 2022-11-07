@@ -1,8 +1,8 @@
 package view;
 
-import handler.InputHandler;
-import handler.UIHandler;
-import controller.CinemaStaffManager;
+import handler.*;
+import controller.*;
+
 
 public class StaffConfigPriceView {
     private String errorMessage;

@@ -1,7 +1,7 @@
 package view;
 
 import handler.*;
-import model.CinemaStaff;
+import model.*;
 
 public class StaffSystemConfig extends MainView {
     private StaffMovieDetailsView staffMovieDetailsView;

@@ -1,11 +1,10 @@
 package view;
 import java.util.ArrayList;
 
-import controller.MovieGoerManager;
-import database.Database;
-import handler.InputHandler;
-import handler.UIHandler;
-import model.Movie;
+import controller.*;
+import database.*;
+import handler.*;
+import model.*;
 
 public class StaffMovieListRankingView extends MainView {
     private String errorMessage;

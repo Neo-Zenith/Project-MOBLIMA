@@ -3,8 +3,7 @@ package view;
 import model.*;
 import model.enums.*;
 import controller.*;
-import handler.InputHandler;
-import handler.UIHandler;
+import handler.*;
 
 import java.util.*;
 

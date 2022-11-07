@@ -3,8 +3,8 @@ package view;
 import handler.*;
 import model.*;
 import controller.*;
-
 import java.util.*;
+
 
 public class MovieTypeView extends MainView {
     private String movieTitle;

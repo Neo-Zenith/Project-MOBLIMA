@@ -4,6 +4,7 @@ import handler.*;
 import controller.*;
 import model.*;
 
+
 public class StaffConfigureMovieView {
     private Movie movie;
     private String errorMessage;

@@ -1,11 +1,11 @@
 package view;
 
 import java.util.*;
-
 import controller.*;
 import model.*;
 import model.enums.*;
 import handler.*;
+
 
 public class SeatingPlanView {
     private ArrayList<Seat> seatingPlan;

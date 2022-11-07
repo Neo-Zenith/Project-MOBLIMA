@@ -2,10 +2,11 @@ package view;
 
 
 import handler.*;
-import java.util.ArrayList;
+import java.util.*;
 import controller.*;
 import model.*;
-import model.enums.MovieType;
+import model.enums.*;
+
 
 public class StaffMovieDetailsView {
     private StaffConfigureMovieView staffConfigureMovieView;

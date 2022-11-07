@@ -2,7 +2,6 @@ package view;
 
 import handler.*;
 import model.*;
-import model.MovieGoer;
 
 public class MovieMenuView {
     public static boolean exit = false;
