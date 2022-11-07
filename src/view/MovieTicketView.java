@@ -1,6 +1,7 @@
 package view;
 
 import model.*;
+import model.enums.*;
 import controller.*;
 import handler.InputHandler;
 import handler.UIHandler;
@@ -30,18 +31,20 @@ public class MovieTicketView {
     public void printMovieTickets() {
 
         // uncomment this after getCineplexByCinema() is created
-        Cineplex targetCineplex = CineplexManager.getCineplexByCinema(this.movieTicketList.get(0).getShowingVenue());
+        Cinema _cinema = CinemaManager.getCinemaByUUID(this.movieTicketList.get(0).getShowingVenue());
+        System.out.println(this.movieTicketList.get(0).getShowingVenue());
+        Cineplex targetCineplex = CineplexManager.getCineplexByCinema(_cinema);
 
         // we assume that all ticket has the same Cinema, Movie and DateTime, but
         // different Seat (seatID)
-        Movie movie = this.movieTicketList.get(0).getMovieToWatch();
-        Cinema cinema = this.movieTicketList.get(0).getShowingVenue();
+        Movie movie = MovieManager.getMovieByUUID(this.movieTicketList.get(0).getMovieToWatch());
+        Cinema cinema = CinemaManager.getCinemaByUUID(this.movieTicketList.get(0).getShowingVenue());
         DateTime dateTime = this.movieTicketList.get(0).getShowTime();
 
         String movieName = movie.getMovieTitle();
-        String movieType = movie.getMovieType().toString();
+        MovieType movieType = movie.getMovieType();
         String cineplex = targetCineplex.getCineplexName();
-        String cinemaClass = cinema.getCinemaClass().toString();
+        CinemaClass cinemaClass = cinema.getCinemaClass();
         String cinemaId = cinema.getUUID();
         int date = dateTime.getDate();
         int month = dateTime.getMonth();
@@ -63,14 +66,14 @@ public class MovieTicketView {
             System.out.println("             MOVIE TICKET " + (i + 1));
             System.out.println("___________________________________");
             System.out.println("Movie Name: " + movieName);
-            System.out.println("Movie Type: " + movieType);
+            System.out.println("Movie Type: " + movieType.getDisplayName());
             System.out.println("Cineplex: " + cineplex);
-            System.out.println("Cinema Class: " + cinemaClass);
+            System.out.println("Cinema Class: " + cinemaClass.getDisplayName());
             System.out.println("Cinema ID: " + cinemaId); // Cinema uuid -> Cinema Hall Number (ex. Hall 3)
             System.out.println("Showing Date: " + date + "/" + month + "/" + year);
-            System.out.println("Showing Time: " + hour + ":" + minute);
+            System.out.println("Showing Time: " + String.format("%02d", hour) + ":" + String.format("%02d", minute));
             System.out.println("Seat ID: " + this.seatID.get(i)); // seat uuid -> seat ID
-            System.out.println("Price ($)/ ticket: " + pricePerMovieTicket);
+            System.out.println("Price ($)/ ticket: " + String.format("%.2f", pricePerMovieTicket));
             System.out.println("____________________________________");
             System.out.println("                                    ");
             System.out.println("          Enjoy Your Movie!         ");

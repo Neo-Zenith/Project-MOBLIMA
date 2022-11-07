@@ -5,7 +5,6 @@ import java.util.*;
 
 import controller.DatabaseManager;
 import database.Database;
-import model.*;
 import model.enums.*;
 
 public class Prices implements Serializable {
@@ -86,10 +85,34 @@ public class Prices implements Serializable {
 
     public void setDefaultIMaxCinemaPrice(double defaultIMaxCinemaPrice) {
         this.defaultIMaxCinemaPrice = defaultIMaxCinemaPrice;
+        ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
+        for (int i = 0; i < cineplexs.size(); i ++) {
+            Cineplex cineplex = cineplexs.get(i);
+            for (int j = 0; j < cineplex.getCinemas().size(); j ++) {
+                Cinema cinema = cineplex.getCinemas().get(j);
+                if (cinema.getCinemaClass() == CinemaClass.IMAX) {
+                    cinema.setCinemaPrice(defaultStandardCinemaPrice);
+                }
+                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+            }
+            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+        }
     }
 
     public void setDefaultPlatinumCinemaPrice(double defaultPlatinumCinemaPrice) {
         this.defaultPlatinumCinemaPrice = defaultPlatinumCinemaPrice;
+        ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
+        for (int i = 0; i < cineplexs.size(); i ++) {
+            Cineplex cineplex = cineplexs.get(i);
+            for (int j = 0; j < cineplex.getCinemas().size(); j ++) {
+                Cinema cinema = cineplex.getCinemas().get(j);
+                if (cinema.getCinemaClass() == CinemaClass.PLATINUM) {
+                    cinema.setCinemaPrice(defaultStandardCinemaPrice);
+                }
+                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+            }
+            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+        }
     }
 
     public double getDefaultSeatPrice() {
@@ -98,62 +121,142 @@ public class Prices implements Serializable {
 
     public void setDefaultSeatPrice(double defaultSeatPrice) {
         this.defaultSeatPrice = defaultSeatPrice;
+        ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
+        for (int i = 0; i < cineplexs.size(); i ++) {
+            Cineplex cineplex = cineplexs.get(i);
+            for (int j = 0; j < cineplex.getCinemas().size(); j ++) {
+                Cinema cinema = cineplex.getCinemas().get(j);
+                for (int k = 0; k < cinema.getSeats().size(); k ++) {
+                    Seat seat = cinema.getSeats().get(k);
+                    seat.setSeatPrice(defaultSeatPrice);
+                    DatabaseManager.saveUpdateToDatabase(seat.getUUID(), seat, Database.SEAT);
+                }
+                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+            }
+            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+        }
     }
+
 
     public double getDefaultBlockbusterMoviePrice() {
         return this.defaultBlockbusterMoviePrice;
     }
 
+
     public double getDefault3DMoviePrice() {
         return this.default3DMoviePrice;
     }
+
 
     public double getDefaultStandardMoviePrice() {
         return this.defaultStandardMoviePrice;
     }
 
+
     public void setDefaultBlockbusterMoviePrice(double defaultBlockbusterMoviePrice) {
         this.defaultBlockbusterMoviePrice = defaultBlockbusterMoviePrice;
+        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        for (int i = 0; i < movies.size(); i ++) {
+            Movie movie = movies.get(i);
+            if (movie.getMovieType() == MovieType.Blockbuster) {
+                movie.setMoviePrice(defaultBlockbusterMoviePrice);
+                DatabaseManager.saveUpdateToDatabase(movie.getUUID(), movie, Database.MOVIE);
+            }
+        }
     }
 
     public void setDefault3DMoviePrice(double default3DMoviePrice) {
         this.default3DMoviePrice = default3DMoviePrice;
+        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        for (int i = 0; i < movies.size(); i ++) {
+            Movie movie = movies.get(i);
+            if (movie.getMovieType() == MovieType.ThreeD) {
+                movie.setMoviePrice(defaultBlockbusterMoviePrice);
+                DatabaseManager.saveUpdateToDatabase(movie.getUUID(), movie, Database.MOVIE);
+            }
+        }
     }
+
 
     public void setDefaultStandardMoviePrice(double defaultStandardMoviePrice) {
         this.defaultStandardMoviePrice = defaultStandardMoviePrice;
+        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        for (int i = 0; i < movies.size(); i ++) {
+            Movie movie = movies.get(i);
+            if (movie.getMovieType() == MovieType.Standard) {
+                movie.setMoviePrice(defaultBlockbusterMoviePrice);
+                DatabaseManager.saveUpdateToDatabase(movie.getUUID(), movie, Database.MOVIE);
+            }
+        }
     }
+
 
     public double getDefaultChildPrice() {
         return this.defaultChildPrice;
     }
 
+
     public double getDefaultStudentPrice() {
         return this.defaultStudentPrice;
     }
+
 
     public double getDefaultAdultPrice() {
         return this.defaultAdultPrice;
     }
 
+
     public double getDefaultSeniorCitizenPrice() {
         return this.defaultSeniorCitizenPrice;
     }
 
+
     public void setDefaultChildPrice(double defaultChildPrice) {
         this.defaultChildPrice = defaultChildPrice;
+        ArrayList <MovieGoer> movieGoers = Database.getValueList(Database.MOVIE_GOER.values());
+        for (int i = 0; i < movieGoers.size(); i ++) {
+            MovieGoer movieGoer = movieGoers.get(i);
+            if (movieGoer.getMovieGoerAge() == MovieGoerAge.Child) {
+                movieGoer.setGoerPrice(defaultChildPrice);
+                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+            }
+        }
     }
 
     public void setDefaultStudentPrice(double defaultStudentPrice) {
         this.defaultStudentPrice = defaultStudentPrice;
+        ArrayList <MovieGoer> movieGoers = Database.getValueList(Database.MOVIE_GOER.values());
+        for (int i = 0; i < movieGoers.size(); i ++) {
+            MovieGoer movieGoer = movieGoers.get(i);
+            if (movieGoer.getMovieGoerAge() == MovieGoerAge.Student) {
+                movieGoer.setGoerPrice(defaultChildPrice);
+                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+            }
+        }
     }
 
     public void setDefaultAdultPrice(double defaultAdultPrice) {
         this.defaultAdultPrice = defaultAdultPrice;
+        ArrayList <MovieGoer> movieGoers = Database.getValueList(Database.MOVIE_GOER.values());
+        for (int i = 0; i < movieGoers.size(); i ++) {
+            MovieGoer movieGoer = movieGoers.get(i);
+            if (movieGoer.getMovieGoerAge() == MovieGoerAge.Adult) {
+                movieGoer.setGoerPrice(defaultChildPrice);
+                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+            }
+        }
     }
 
     public void setDefaultSeniorCitizenPrice(double defaultSeniorCitizenPrice) {
         this.defaultSeniorCitizenPrice = defaultSeniorCitizenPrice;
+        ArrayList <MovieGoer> movieGoers = Database.getValueList(Database.MOVIE_GOER.values());
+        for (int i = 0; i < movieGoers.size(); i ++) {
+            MovieGoer movieGoer = movieGoers.get(i);
+            if (movieGoer.getMovieGoerAge() == MovieGoerAge.SeniorCitizen) {
+                movieGoer.setGoerPrice(defaultChildPrice);
+                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+            }
+        }
     }
 
     public double getHolidayPrice() {

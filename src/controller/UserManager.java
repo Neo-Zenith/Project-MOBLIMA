@@ -2,10 +2,9 @@ package controller;
 
 import model.enums.*;
 import model.*;
-
 import database.Database;
+import java.util.*;
 
-import java.util.ArrayList;
 
 public class UserManager {
     
@@ -32,7 +31,6 @@ public class UserManager {
     public static boolean checkUniqueUser(String username) {
         ArrayList <CinemaStaff> cinemaStaffList = Database.getValueList(Database.CINEMA_STAFF.values());
         ArrayList <MovieGoer> movieGoerList = Database.getValueList(Database.MOVIE_GOER.values());
-
         for (int i = 0; i < cinemaStaffList.size(); i ++) {
             CinemaStaff cinemaStaff = cinemaStaffList.get(i);
 
@@ -40,7 +38,6 @@ public class UserManager {
                 return false;
             }
         }
-
         for (int i = 0; i < movieGoerList.size(); i ++) {
             MovieGoer movieGoer = movieGoerList.get(i);
 
@@ -48,35 +45,28 @@ public class UserManager {
                 return false;
             }
         }
-
         return true;
     }
 
 
-    public static MovieGoer register(MovieGoerAge age, String name, String username, 
-                                    String password, String email, String mobileNum) {
+    public static MovieGoer register(MovieGoerAge age, String name, String username,  String password, String email, String mobileNum) {
 
         if (checkUniqueUser(username)) {
             switch(age) {
                 case Adult:
-                    return MovieGoerManager.createGoerAdult(name, email, mobileNum, username, 
-                                                            password);
+                    return MovieGoerManager.createGoerAdult(name, email, mobileNum, username, password);
                 
                 case Student:
-                    return MovieGoerManager.createGoerStudent(name, email, mobileNum, username, 
-                                                                password);
+                    return MovieGoerManager.createGoerStudent(name, email, mobileNum, username, password);
                 
                 case SeniorCitizen:
-                    return MovieGoerManager.createGoerSeniorCitizen(name, email, mobileNum, 
-                                                                    username, password);
+                    return MovieGoerManager.createGoerSeniorCitizen(name, email, mobileNum, username, password);
                 
                 case Child:
-                    return MovieGoerManager.createGoerStudent(name, email, mobileNum, username, 
-                                                            password);
+                    return MovieGoerManager.createGoerStudent(name, email, mobileNum, username,  password);
                 
                 default:
-                    return MovieGoerManager.createGoerAdult(name, email, mobileNum, username, 
-                                                            password);
+                    return MovieGoerManager.createGoerAdult(name, email, mobileNum, username, password);
             }
         }
         else {

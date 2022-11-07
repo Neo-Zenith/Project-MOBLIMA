@@ -18,14 +18,16 @@ public class MovieMenuView {
 
     public void printMenu() {
         MainView.printBoilerPlate("Main Menu");
-        MainView.printMenuContent("""
+        MainView.printMenuContent(String.format("""
 
+                Welcome to MOBLIMA! %s
+                
                 01. List Movies
                 02. Search Movie
                 03. View Booking History
                 04. List Top 5 Movies
                 05. Logout
-                """);
+                """, this.movieGoer.getUsername()));
     }
 
     public void appContent() {

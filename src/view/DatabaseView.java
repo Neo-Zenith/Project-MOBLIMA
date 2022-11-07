@@ -17,10 +17,12 @@ public class DatabaseView extends MainView{
         MainView.printBoilerPlate("Database");
         MainView.printMenuContent("""
 
-                01. Load initial data into database.
-                02. Add new movies into database.
-                03. Reset database.
-                04. Return back.
+                Welcome to the Database! What would you like to do?
+
+                01. Load initial data into database
+                02. Add new movies into database
+                03. Reset database
+                04. Quit and return back
                 """);
     }
 

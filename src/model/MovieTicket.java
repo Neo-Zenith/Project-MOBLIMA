@@ -6,20 +6,17 @@ public class MovieTicket implements Serializable{
 
     private String UUID;
     private String seatID;
-    private Movie movieToWatch;
+    private String movieUUID;
     private DateTime showTime;
-    private Seat bookedSeat;
-    private Cinema showingVenue;
+    private String cinemaUUID;
     private final static long serialVersionUID = 14L;
 
-    public MovieTicket(String UUID, Movie movieToWatch, DateTime showTime, Seat bookedSeat, Cinema cinema,
-            String seatID) {
+    public MovieTicket(String UUID, String movieUUID, DateTime showTime, String seatID, String cinemaUUID) {
         this.setUUID(UUID);
         this.setSeatID(seatID);
-        this.setMovieToWatch(movieToWatch);
+        this.setMovieToWatch(movieUUID);
         this.setShowTime(showTime);
-        this.setBookedSeat(bookedSeat);
-        this.setShowingVenue(cinema);
+        this.setShowingVenue(cinemaUUID);
     }
 
     public String getUUID() {
@@ -30,12 +27,12 @@ public class MovieTicket implements Serializable{
         this.UUID = UUID;
     }
 
-    public Movie getMovieToWatch() {
-        return this.movieToWatch;
+    public String getMovieToWatch() {
+        return this.movieUUID;
     }
 
-    public void setMovieToWatch(Movie movieToWatch) {
-        this.movieToWatch = movieToWatch;
+    public void setMovieToWatch(String movieToWatch) {
+        this.movieUUID = movieToWatch;
     }
 
     public DateTime getShowTime() {
@@ -46,20 +43,12 @@ public class MovieTicket implements Serializable{
         this.showTime = showTime;
     }
 
-    public Seat getBookedSeat() {
-        return this.bookedSeat;
+    public String getShowingVenue() {
+        return this.cinemaUUID;
     }
 
-    public void setBookedSeat(Seat bookedSeat) {
-        this.bookedSeat = bookedSeat;
-    }
-
-    public Cinema getShowingVenue() {
-        return this.showingVenue;
-    }
-
-    public void setShowingVenue(Cinema showingVenue) {
-        this.showingVenue = showingVenue;
+    public void setShowingVenue(String showingVenue) {
+        this.cinemaUUID = showingVenue;
     }
 
     public String getSeatID() {

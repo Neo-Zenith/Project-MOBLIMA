@@ -19,13 +19,14 @@ public class StaffSystemConfig extends MainView {
     public void printMenu() {
         MainView.printBoilerPlate("Staff Module");
         MainView.printMenuContent("""
+            
                 Select a function to be executed.
 
-                1. Configure movie details
-                2. Configure system settings
-                3. Configure Database
-                4. List Top 5
-                5. Logout
+                01. Configure movie details
+                02. Configure system settings
+                03. Configure Database
+                04. List Top 5
+                05. Logout
                 """);
         }
     

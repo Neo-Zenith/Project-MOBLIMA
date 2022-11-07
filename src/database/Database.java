@@ -133,6 +133,9 @@ public class Database {
         if (!readData(ModelType.PERMISSION)) {
             System.out.println("Error! Reading of data " + ModelType.PERMISSION + " failed");
         }
+        if (!readData(ModelType.HOLIDAY)) {
+            System.out.println("Error! Reading of data " + ModelType.HOLIDAY + " failed");
+        }
 
         ArrayList <CinemaStaff> currentStaff = Database.getValueList(Database.CINEMA_STAFF.values());
         if (currentStaff.size() == 0) {

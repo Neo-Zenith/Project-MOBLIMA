@@ -18,9 +18,11 @@ public class StaffMovieListRankingView extends MainView {
         MainView.printBoilerPlate("Staff Rank Top 5");
         MainView.printMenuContent("""
 
-            1. Rank by ticket sales
-            2. Rank by overall reviewers' ratings
-            3. Return
+            How would you like to rank the movies in terms of?
+
+            01. Rank by ticket sales
+            02. Rank by overall reviewers' ratings
+            03. Quit and return back
             """);
     }
 

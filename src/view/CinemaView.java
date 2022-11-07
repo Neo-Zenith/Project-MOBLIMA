@@ -40,7 +40,7 @@ public class CinemaView extends MainView {
             }
         }
         String index = String.format("%02d. ", count);
-        String payload = String.format(index + "Return.");
+        String payload = String.format(index + "Quit and return back");
         content = content + payload;
 
         MainView.printMenuContent(content);

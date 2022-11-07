@@ -4,18 +4,14 @@ import model.*;
 import model.enums.*;
 import database.*;
 import handler.*;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class CinemaManager {
 
     public CinemaManager() {}
 
-    /**
-     * Method to create a {@link PlatinumCinema} instance and save to {@link Database}
-     * @param seats is the {@link Seat} instances within the {@link Cinema}
-     * @return {@link Cinema} instance which was created
-     */
+
     public static Cinema createPlatinumCinema(ArrayList <Seat> seats) {
         String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new PlatinumCinema(UUID, seats, Database.platinumNumOfRow, Database.platinumNumOfSeatsPerRow * Database.platinumNumOfRow);
@@ -24,11 +20,6 @@ public class CinemaManager {
     }
 
 
-    /**
-     * Method to create a {@link StandardCinema} instance and save to {@link Database}
-     * @param seats is the {@link Seat} instances within the {@link Cinema}
-     * @return {@link Cinema} instance which was created
-     */
     public static Cinema createStandardCinema(ArrayList <Seat> seats) {
         String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new StandardCinema(UUID, seats, Database.numOfRows, Database.totalNumOfSeats);
@@ -36,12 +27,7 @@ public class CinemaManager {
         return cinema;
     }
 
-    
-    /**
-     * Method to create a {@link IMaxCinema} instance and save to {@link Database}
-     * @param seats is the {@link Seat} instances within the {@link Cinema}
-     * @return {@link Cinema} instance which was created
-     */
+   
     public static Cinema createIMaxCinema(ArrayList <Seat> seats) {
         String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
         Cinema cinema = new IMaxCinema(UUID, seats, Database.numOfRows, Database.totalNumOfSeats);
@@ -50,13 +36,6 @@ public class CinemaManager {
     }
 
 
-    /**
-     * Method to obtain a filtered list of {@link Cinema} instances of a {@link Cineplex}
-     * that fulfills the {@link CinemaClass} requirement
-     * @param cinemaClass is the requirement that the filtered list of {@link Cinema} instances must meet
-     * @param cineplex is the the target cineplex
-     * @return ArrayList of {@link Cinema} instances that satisfy the requirement
-     */
     public static ArrayList <Cinema> filterCinemaByClass(CinemaClass cinemaClass, Cineplex cineplex) {
         ArrayList <Cinema> filteredCinemas = new ArrayList<>();
         ArrayList <Cinema> cinemas = cineplex.getCinemas();
@@ -71,24 +50,17 @@ public class CinemaManager {
     }
 
 
-    /**
-     * Returns a filtered list of {@link Cinema} which are in {@code cineplex} and are showing
-     * {@code movie}
-     * @param cineplex  is the {@link Cineplex} which the filtered {@link Cinema} must be in
-     * @param movie     is the {@link Movie} which the filtered {@link Cinema} must show
-     * @return          ArrayList of {@link Cinema} instances which satisfies the filter requirements
-     */
     public static ArrayList <Cinema> filterCinemaByCineplexMovie(Cineplex cineplex, Movie movie) {
         ArrayList <Cinema> filteredCinemas = new ArrayList<>();
         ArrayList <Cinema> cineplexCinemas = cineplex.getCinemas();
-        MovieSchedule movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
-        ArrayList <Cinema> showingVenues = movieSchedule.getShowingVenues();
+        MovieSchedule movieSchedule = MovieScheduleManager.getMovieScheduleByMovie(movie);
+        ArrayList <String> showingVenuesUUID = movieSchedule.getShowingVenues();
             
         for (int i = 0; i < cineplexCinemas.size(); i ++) {
             Cinema cineplexCinema = cineplexCinemas.get(i);
-            for (int j = 0; j < showingVenues.size(); j ++) {
-                Cinema showingVenue = showingVenues.get(j);
-                if (cineplexCinema.getUUID().equals(showingVenue.getUUID())) {
+            for (int j = 0; j < showingVenuesUUID.size(); j ++) {
+                String showingVenueUUID = showingVenuesUUID.get(j);
+                if (cineplexCinema.getUUID().equals(showingVenueUUID)) {
                     filteredCinemas.add(cineplexCinema);
                 }
             }
@@ -96,9 +68,23 @@ public class CinemaManager {
         return filteredCinemas;
     }
 
+
     public static String getCinemaCode(Cinema cinema) {
         String UUID = cinema.getUUID();
         int length = UUID.length();
         return UUID.substring(length - 3);
+    }
+
+    
+    public static Cinema getCinemaByUUID(String cinemaUUID) {
+        ArrayList <Cinema> cinemas = Database.getValueList(Database.CINEMA.values());
+
+        for (int i = 0; i < cinemas.size(); i ++) {
+            Cinema cinema = cinemas.get(i);
+            if (cinema.getUUID().equals(cinemaUUID)) {
+                return cinema;
+            }
+        }
+        return null;
     }
 }

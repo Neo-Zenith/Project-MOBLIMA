@@ -101,4 +101,6 @@ public abstract class MovieGoer implements Serializable {
     public abstract MovieGoerAge getMovieGoerAge();
 
     public abstract double getGoerPrice();
+
+    public abstract void setGoerPrice(double price);
 }

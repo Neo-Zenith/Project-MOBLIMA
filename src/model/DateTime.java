@@ -126,4 +126,21 @@ public class DateTime implements Serializable {
 
         return timeNow;
     }
+
+    public static int getCurrentYear() {
+        return Calendar.YEAR;
+    }
+
+    public static int getCurrentMonth() {
+        return Calendar.MONTH;
+    }
+
+    public static int getCurrentDay() {
+        return Calendar.DAY_OF_WEEK;
+    }
+
+    public static int getCurrentDate() {
+        return Calendar.DATE;
+    }
+
 }

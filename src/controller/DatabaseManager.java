@@ -11,9 +11,7 @@ public class DatabaseManager {
     public DatabaseManager() {
     }
 
-    /**
-     * Initializes dummy data for cinplexes.
-     */
+    
     public static void initializeCineplexData() {
         ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
 
@@ -72,11 +70,7 @@ public class DatabaseManager {
         System.out.println("Cineplex data loaded successfully!");
     }
 
-    /**
-     * Initializes dummy data for cinemas.
-     * 
-     * @return {@link Cinema} to be passed to Cineplex for initialization
-     */
+    
     public static Cinema initializeCinemaData(int choice) {
         CinemaClass cinemaClass;
         ArrayList <Seat> seats; 
@@ -102,12 +96,7 @@ public class DatabaseManager {
         return null;
     }
 
-    /**
-     * Initializes dummy data for seats
-     * 
-     * @return ArrayList of {@link Seat} to be passed to {@link Cinema} for
-     *         initialization
-     */
+    
     public static ArrayList <Seat> initializeSeatData(CinemaClass cinemaClass) {
         int numOfSeatsPerRow;
         ArrayList <Seat> seats = new ArrayList<>();
@@ -153,6 +142,7 @@ public class DatabaseManager {
 
         Movie movieOnShow;
         ArrayList <Cinema> showingVenue;
+        ArrayList <String> showingVenueUUID;
         ArrayList <ArrayList <Seat>> seatingPlan = new ArrayList<ArrayList<Seat>>();
         ArrayList <DateTime> showingTime = new ArrayList<DateTime>();
         CinemaClass cinemaClass;
@@ -166,14 +156,16 @@ public class DatabaseManager {
         cinemaClass = CinemaClass.PLATINUM;
         cineplex = cineplexes.get(0);
         showingVenue = new ArrayList<>();
+        showingVenueUUID = new ArrayList<>();
         seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
         for (int i = 0; i < showingVenue.size(); i++) {
+            showingVenueUUID.add(showingVenue.get(i).getUUID());
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
             showingTime.add(new DateTime(00, 14, 6, 21, 11, 2022));
         }
 
-        MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
+        MovieScheduleManager.createMovieSchedule(movieOnShow.getUUID(), showingVenueUUID, seatingPlan, showingTime);
 
         // Data 2
         showingTime = new ArrayList<>();
@@ -181,14 +173,16 @@ public class DatabaseManager {
         cinemaClass = CinemaClass.STANDARD;
         cineplex = cineplexes.get(2);
         showingVenue = new ArrayList<>();
+        showingVenueUUID = new ArrayList<>();
         seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
         for (int i = 0; i < showingVenue.size(); i++) {
+            showingVenueUUID.add(showingVenue.get(i).getUUID());
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
             showingTime.add(new DateTime(00, 13, 4, 22, 12, 2022));
         }
 
-        MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
+        MovieScheduleManager.createMovieSchedule(movieOnShow.getUUID(), showingVenueUUID, seatingPlan, showingTime);
 
         // Data 3  
         showingTime = new ArrayList<>();
@@ -196,16 +190,19 @@ public class DatabaseManager {
         cinemaClass = CinemaClass.IMAX;
         cineplex = cineplexes.get(1);
         showingVenue = new ArrayList<>();
+        showingVenueUUID = new ArrayList<>();
         seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
         for (int i = 0; i < showingVenue.size(); i++) {
+            showingVenueUUID.add(showingVenue.get(i).getUUID());
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
             showingTime.add(new DateTime(30, 12, 4, 25, 1, 2023));
         }
 
-        MovieScheduleManager.createMovieSchedule(movieOnShow, showingVenue, seatingPlan, showingTime);
+        MovieScheduleManager.createMovieSchedule(movieOnShow.getUUID(), showingVenueUUID, seatingPlan, showingTime);
         System.out.println("Movie Schedule data loaded successfully!");
     }
+
 
     public static void initializeMovie() {
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
@@ -302,9 +299,11 @@ public class DatabaseManager {
         DatabaseManager.reloadDatabase();
     }
 
+
     public static void resetDatabase() {
         Database.resetDatabase();
     }
+
 
     public static void reloadDatabase() {
         Database.writeToDatabase();

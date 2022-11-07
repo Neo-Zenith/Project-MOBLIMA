@@ -6,6 +6,7 @@ import handler.UIHandler;
 import model.Movie;
 import model.MovieGoer;
 import model.MovieSchedule;
+import model.enums.MovieShowingStatus;
 import controller.MovieManager;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class MovieSearchView extends MainView {
 
             ArrayList <Movie> movies = MovieManager.getMovieList(movieTitle);
             
-            if (movies.size() != 0) {
+            if (movies.size() != 0 && movies.get(0).getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
                 this.errorMessage = "";
                 MovieDetailsView detailsView = new MovieDetailsView(movieTitle, movieGoer);
                 detailsView.appContent();

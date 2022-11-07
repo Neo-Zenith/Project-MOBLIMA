@@ -22,18 +22,20 @@ public class StaffConfigPriceView {
                 03. User Age Group
                 04. Seat
                 05. Special Dates (Weekends/Holidays)
-                06. Back
+                06. Quit and return back
                 """);
     }
 
     public void printMovieTypePrice() {
         MainView.printBoilerPlate("Configure Movie Type Pricing");
         MainView.printMenuContent("""
+
             How would you like to configure Movie Type pricings?
 
-            1. Configure Standard Movie Price
-            2. Configure BlockbusterMoviePrice
-            3. Configure 3D Movie Price
+            01. Configure Standard Movie Price
+            02. Configure BlockbusterMoviePrice
+            03. Configure 3D Movie Price
+            04. Quit and return back
                 """);
     }
 
@@ -42,9 +44,10 @@ public class StaffConfigPriceView {
         MainView.printMenuContent("""
             How would you like to configure Cinema Class pricings?
 
-            1. Configure Standard Cinema Price
-            2. Configure IMAX Cinema Price
-            3. Configure Platinum Cinema Price
+            01. Configure Standard Cinema Price
+            02. Configure IMAX Cinema Price
+            03. Configure Platinum Cinema Price
+            04. Quit and return back
                 """);
     }
 
@@ -53,10 +56,11 @@ public class StaffConfigPriceView {
         MainView.printMenuContent("""
             How would you like to configure Age Group pricings?
 
-            1. Configure Child Ticket Price
-            2. Configure Student Ticket Price
-            3. Configure Adult Ticket Price
-            4. Configure Senior Citizen Ticket Price
+            01. Configure Child Ticket Price
+            02. Configure Student Ticket Price
+            03. Configure Adult Ticket Price
+            04. Configure Senior Citizen Ticket Price
+            05. Quit and return back
                 """);
     }
 
@@ -65,8 +69,9 @@ public class StaffConfigPriceView {
         MainView.printMenuContent("""
             How would you like to configure Special Dates pricings?
 
-            1. Configure Holiday Ticket Price
-            2. Configure Weekend Ticket Price
+            01. Configure Holiday Ticket Price
+            02. Configure Weekend Ticket Price
+            03. Quit and return back
                 """);
     }
 
@@ -97,6 +102,9 @@ public class StaffConfigPriceView {
                             CinemaStaffManager.configurePrice(6);
                             break;
                         } 
+                        else if (movieTypeChoice == 4) {  
+                            return;
+                        } 
                         else {
                             this.errorMessage = "Error! Please enter a valid input!";
                             continue;
@@ -119,6 +127,8 @@ public class StaffConfigPriceView {
                         } else if (cinemaChoice == 3) {
                             CinemaStaffManager.configurePrice(2);
                             break;
+                        } else if (cinemaChoice == 4) {  
+                            return;
                         } else {
                             this.errorMessage = "Error! Please enter a valid input!";
                             continue;
@@ -145,6 +155,8 @@ public class StaffConfigPriceView {
                         } else if (ageChoice == 4) {
                             CinemaStaffManager.configurePrice(11);
                             break;
+                        } else if (ageChoice == 5) {  
+                            return;
                         } else {
                             this.errorMessage = "Error! Please enter a valid input!";
                             continue;
@@ -168,6 +180,8 @@ public class StaffConfigPriceView {
                         } else if (specialDatePrice == 2) {
                             CinemaStaffManager.configurePrice(13);
                             break; 
+                        } else if (specialDatePrice == 3) {
+                            return;
                         } else {
                             this.errorMessage = "Error! Please enter a valid input!";
                             continue;

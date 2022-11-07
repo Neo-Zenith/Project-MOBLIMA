@@ -18,18 +18,17 @@ public class MovieListView extends MainView {
     }
 
     public void printMovieList() {
-        String content = "\n";
+        String content = "\nHere are the list of movies available: \n\n";
         int count = 0;
         for (int i = 0; i < this.allMovies.size(); i++) {
             Movie movie = allMovies.get(i);
             String index = String.format("%02d. ", (i + 1));
             String payload = String.format(index + "%s\n", movie.getMovieTitle());
-            System.out.println(movie.getMovieShowingStatus());
             content = content + payload;
             count = i + 1;
         }
         String index = String.format("%02d. ", (count + 1));
-        String payload = String.format(index + "Return.\n");
+        String payload = String.format(index + "Quit and return back\n");
         content = content + payload;
 
         MainView.printMenuContent(content);

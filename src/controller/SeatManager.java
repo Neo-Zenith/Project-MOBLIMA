@@ -11,12 +11,7 @@ public class SeatManager {
 
     public SeatManager() {}
 
-    /**
-     * Method to instantiate a CoupleSeat instance and save to database
-     * @param seatType {@link SeatType} of the seat, uses {@code SeatType.COUPLE}
-     * @param seatPrice price weight of the seat
-     * @return {@link Seat} object that was created
-     */
+    
     public static Seat createCoupleSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new CoupleSeat(UUID);
@@ -24,12 +19,7 @@ public class SeatManager {
         return seat;
     }
 
-    /**
-     * Method to instantiate a StandardSeat instance and save to database
-     * @param seatType {@link SeatType} of the seat, uses {@code SeatType.STANDARD}
-     * @param seatPrice price weight of the seat
-     * @return {@link Seat} object that was created
-     */
+    
     public static Seat createStandardSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new StandardSeat(UUID);
@@ -147,12 +137,7 @@ public class SeatManager {
                 """);  
     }
 
-    /**
-     * Helper function to translate UI-presented seat ID into back-end seat ID for processing
-     * bookings
-     * @param seatID the UI-presented seatID
-     * @return {@code int} back-end seatID
-     */
+    
     public static int seatIDConverter(String seatID, Cinema cinema) {
         int totalNumOfSeatsPerRow;
         if (cinema.getCinemaClass() == CinemaClass.PLATINUM) {
@@ -172,12 +157,7 @@ public class SeatManager {
         return convertedSeatID;
     }
 
-    /**
-     * Helper function to validate if the booking/unbooking can be processed
-     * @param seat the seat to be booked/unbooked
-     * @param booking {@code true} if booking; {@code false} if unbooking
-     * @return {@code true} if it can be processed; {@code false} otherwise
-     */
+    
     public static boolean validateBooking(Seat seat, boolean booking) {
         if (seat.getAssignStatus() && booking) {
             return false;
@@ -185,13 +165,7 @@ public class SeatManager {
         return true;
     }
 
-    /**
-     * Method to book seat for a specific schedule.
-     * @param seatID    the seatID of the seat to be booked
-     * @param movieSchedule     the {@link MovieSchedule} instance where the booking is made
-     * @param cinema    the {@link Cinema} instance where the movie will be showed at
-     * @return {@code true} if booking is successful; {@code false} otherwise
-     */
+    
     public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, Cinema cinema) {
         int index = SeatManager.seatIDConverter(seatID, cinema);
 
@@ -236,5 +210,18 @@ public class SeatManager {
     public static Seat getSeatBySeatID(String seatID, ArrayList <Seat> seatingPlan, Cinema cinema) {
         int index = SeatManager.seatIDConverter(seatID, cinema);
         return seatingPlan.get(index);
+    }
+
+    
+    public static Seat getSeatByUUID(String seatUUID) {
+        ArrayList <Seat> seats = Database.getValueList(Database.SEAT.values());
+
+        for (int i = 0; i < seats.size(); i ++) {
+            Seat seat = seats.get(i);
+            if (seat.getUUID().equals(seatUUID)) {
+                return seat;
+            }
+        }
+        return null;
     }
 }

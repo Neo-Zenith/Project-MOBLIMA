@@ -2,6 +2,8 @@ package view;
 
 import java.util.*;
 
+import controller.CinemaManager;
+import controller.MovieManager;
 import controller.MovieReviewManager;
 import model.*;
 import handler.*;
@@ -30,15 +32,17 @@ public class MovieBookingHistoryView extends MainView {
             for (int i = 0; i < this.bookingHistories.size(); i++) {
                 BookingHistory history = bookingHistories.get(i);
                 MovieTicket ticket = history.getMovieTicket().get(0);
-                this.movieTitle.add(ticket.getMovieToWatch().getMovieTitle());
+                Movie movie = MovieManager.getMovieByUUID(ticket.getMovieToWatch());
+                this.movieTitle.add(movie.getMovieTitle());
                 this.showingTime.add(ticket.getShowTime());
-                this.cinemaList.add(ticket.getShowingVenue());
+                Cinema cinema = CinemaManager.getCinemaByUUID(ticket.getShowingVenue());
+                this.cinemaList.add(cinema);
                 ArrayList<String> IDList = new ArrayList<String>();
                 for (int j = 0; j < history.getMovieTicket().size(); j++) {
                     IDList.add(history.getMovieTicket().get(j).getSeatID());
                 }
                 this.seatIDList.add(IDList);
-                String cinemaUUID = ticket.getShowingVenue().getUUID();
+                String cinemaUUID = ticket.getShowingVenue();
                 for (int j = 0; j < cineplexes.size(); j++) {
                     Cineplex cineplex = cineplexes.get(j);
                     for (int k = 0; k < cineplex.getCinemas().size(); k++) {
@@ -73,7 +77,7 @@ public class MovieBookingHistoryView extends MainView {
             count = i + 1;
         }
         String index = String.format("%02d. ", (count + 1));
-        String payload = String.format(index + "Return.\n");
+        String payload = String.format(index + "Quit and return back\n");
         content = content + payload;
         MainView.printMenuContent(content);
     }
@@ -100,8 +104,9 @@ public class MovieBookingHistoryView extends MainView {
                 this.errorMessage = "";
                 return;
             } else {
+                Movie movie = MovieManager.getMovieByUUID(this.bookingHistories.get(choice - 1).getMovieTicket().get(0).getMovieToWatch());
                 MovieTicketView ticketView = new MovieTicketView(this.seatIDList.get(choice - 1),
-                        this.bookingHistories.get(choice - 1).getMovieTicket().get(0).getMovieToWatch(),
+                        movie,
                         this.showingTime.get(choice - 1), this.cinemaList.get(choice - 1),
                         this.cinemaList.get(choice - 1).getSeats(),
                         this.bookingHistories.get(choice - 1).getPayment().getMovieTicketPrice());

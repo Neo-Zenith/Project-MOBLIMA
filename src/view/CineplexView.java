@@ -26,15 +26,15 @@ public class CineplexView extends MainView {
         int count = 0;
         for (int i = 0; i < cineplexes.size(); i ++) {
             Cineplex cineplex = cineplexes.get(i);
-            String index = String.format("%d. ", i + 1);
+            String index = String.format("%02d. ", i + 1);
             String payload = String.format(index + "%s\n", cineplex.getCineplexName());
             payload += String.format("%s\n", cineplex.getCineplexLocation());
             
             content = content + payload;
             count = i + 1;
         }
-        String index = String.format("%d. ", count + 1); 
-        String payload = String.format(index + "Return.");
+        String index = String.format("%02d. ", count + 1); 
+        String payload = String.format(index + "Quit and return back");
         content = content + payload;
 
         MainView.printMenuContent(content);

@@ -2,44 +2,53 @@ package view;
 
 import controller.CinemaStaffManager;
 import handler.InputHandler;
+import handler.UIHandler;
 
 public class StaffConfigHolidayView {
-    private StaffConfigSettingsView staffConfigSettingsView;
+    private String errorMessage;
+
+    public StaffConfigHolidayView() {
+        this.errorMessage = "";
+    }
 
     public void printMenu() {
-        System.out.println("====================================");
-        MainView.printBoilerPlate("""
-                How would you like to configure holidays.
+        MainView.printBoilerPlate("Configure Holiday Dates");
+        MainView.printMenuContent("""
+
+                How would you like to configure holidays?
+
                 01. Add holiday
                 02. Delete holiday
-                03. Back
+                03. Quit and return back
                 """);
-        System.out.println("====================================");
     }
 
     public void appContent() {
         int choice = -1;
         do {
+            UIHandler.clearScreen();
+            System.out.println(this.errorMessage);
             this.printMenu();
             choice = InputHandler.intHandler();
             switch (choice) {
                 case 1:
+                    this.errorMessage = "";
                     CinemaStaffManager.configureHoliday(choice);
                     break;
 
                 case 2:
+                    this.errorMessage = "";
                     CinemaStaffManager.configureHoliday(choice);
                     break;
 
                 case 3:
-                    this.staffConfigSettingsView = new StaffConfigSettingsView();
-                    this.staffConfigSettingsView.appContent();
-                    break;
+                    this.errorMessage = "";
+                    return;
 
                 default:
-                    System.out.println("Invalid choice");
-                    break;
+                    this.errorMessage = "Error! Please enter a valid input!";
+                    continue;
             }
-        } while (choice != 3);
+        } while (true);
     }
 }

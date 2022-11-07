@@ -3,11 +3,9 @@ package view;
 import java.util.*;
 
 import controller.*;
-import database.Database;
 import model.*;
 import model.enums.*;
 import handler.*;
-import view.*;
 
 public class SeatingPlanView {
     private ArrayList<Seat> seatingPlan;
@@ -26,8 +24,7 @@ public class SeatingPlanView {
     private double currentMovieTicketPrice;
     private double totalMovieTicketPrice;
 
-    public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList<Seat> seatingPlan,
-            MovieGoer movieGoer) {
+    public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList<Seat> seatingPlan, MovieGoer movieGoer) {
         this.seatingPlan = seatingPlan;
         this.cinema = cinema;
         this.movieSchedule = movieSchedule;
@@ -49,16 +46,20 @@ public class SeatingPlanView {
     }
 
     public void printMenu() {
+        Movie movie = MovieManager.getMovieByUUID(this.movieSchedule.getMovieOnShow());
         MainView.printBoilerPlate("Seat Booking");
         System.out.println("Cinema ID: " + this.cinema.getUUID());
-        System.out.println("Movie Showing: " + this.movieSchedule.getMovieOnShow().getMovieTitle());
+        System.out.println("Movie Showing: " + movie.getMovieTitle());
         System.out.println("Showing Time: " + this.showingTime.getTimeNow());
         this.printSeatingPlan();
         this.printSeatInCart();
         MainView.printMenuContent("""
-                01. Add Seat into Booking Cart.
-                02. Check Out and Proceed To Payment.
-                03. Return back.
+
+                Select from the following actions: 
+                
+                01. Add Seat into Booking Cart
+                02. Check Out and Proceed To Payment
+                03. Quit and return back
                 """);
     }
 
@@ -110,14 +111,12 @@ public class SeatingPlanView {
                     if (SeatManager.bookSeat(seatID, this.movieSchedule, this.cinema)) {
                         // add seatID into seatIDList => add new ticket into bucket list
                         seatIDList.add(seatID);
+                        String movieUUID = this.movieSchedule.getMovieOnShow();
                         if (this.seatBooked.getSeatType() == SeatType.STANDARD) {
-                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.cinema,
-                                    this.movieSchedule, this.movieGoer, this.seatBooked);
+                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer, this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime);
                         } else {
-                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.cinema,
-                                    this.movieSchedule, this.movieGoer, this.seatBooked) * 2;
+                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer, this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime) * 2;
                         }
-
                         this.totalMovieTicketPrice += this.currentMovieTicketPrice;
                         this.errorMessage = "Booking has been made!";
                     } else {
@@ -136,7 +135,7 @@ public class SeatingPlanView {
                     this.paymentView.appContent();
                     if (MovieMenuView.exit) {
                         this.paymentCreated = this.paymentView.getPayment();
-                        Movie movie = this.movieSchedule.getMovieOnShow();
+                        Movie movie = MovieManager.getMovieByUUID(this.movieSchedule.getMovieOnShow());
                         this.movieTicketView = new MovieTicketView(this.seatIDList, movie, this.showingTime,
                                 this.cinema,
                                 this.seatingPlan, this.totalMovieTicketPrice);
@@ -155,9 +154,6 @@ public class SeatingPlanView {
                     this.errorMessage = "";
                     return;
 
-            }
-            if (MovieMenuView.exit) {
-                return;
             }
         } while (true);
     }

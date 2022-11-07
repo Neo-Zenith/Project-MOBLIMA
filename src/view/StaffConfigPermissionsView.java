@@ -13,7 +13,7 @@ public class StaffConfigPermissionsView {
     public void printMenu() {
         MainView.printBoilerPlate("Configure User Permissions");
         MainView.printMenuContent("""
-                How would you like to configure movie goer permissions.
+                How would you like to configure movie goer permissions?
 
                 01. Opt out list by overall ratings permission
                 02. Opt out list by movie sales permission

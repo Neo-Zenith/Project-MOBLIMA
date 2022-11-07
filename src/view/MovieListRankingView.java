@@ -7,6 +7,7 @@ import database.Database;
 import handler.InputHandler;
 import handler.UIHandler;
 import model.Movie;
+import model.enums.MovieShowingStatus;
 
 public class MovieListRankingView extends MainView {
     private String errorMessage;
@@ -19,6 +20,8 @@ public class MovieListRankingView extends MainView {
         MainView.printBoilerPlate("Rank Top 5");
         MainView.printMenuContent("""
 
+                How would you like to rank the movies in terms of?
+                
                 01. Rank by ticket sales
                 02. Rank by overall reviewers' ratings
                 03. Return
@@ -58,24 +61,53 @@ public class MovieListRankingView extends MainView {
     
         int length = (movies.size() > 5) ? 5 : movies.size();
 
+        int k = 0;
         if (choice == 1) {
             for (int j = 0; j < length; j++) {
+                do {
+                    if (k == movies.size()) {
+                        break;
+                    }
+                    Movie movie = movies.get(k);
+                    if (movie.getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
+                        break;
+                    }
+                    k ++;
+                }   while(true); 
+                if (k == movies.size()) {
+                    break;
+                }
                 index = String.format("%d. ", j + 1);
-                payload = String.format(index + movies.get(j).getMovieTitle() + " [" +
-                                        movies.get(j).getMovieType() + "] - Tickets sold: "
-                                        + movies.get(j).getMovieTicketsSold() + "\n");
+                payload = String.format(index + movies.get(k).getMovieTitle() + " [" +
+                                        movies.get(k).getMovieType() + "] - Tickets sold: "
+                                        + movies.get(k).getMovieTicketsSold() + "\n");
                 content = content + payload;
+                k ++;
             }
 
         } 
         else {
             for (int j = 0; j < length; j++) {
-                String rating = String.format("%.1f", movies.get(j).getMovieOverallReviewRating());
+                do {
+                    if (k == movies.size()) {
+                        break;
+                    }
+                    Movie movie = movies.get(k);
+                    if (movie.getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
+                        break;
+                    }
+                    k ++;
+                }   while(true);
+                if (k == movies.size()) {
+                    break;
+                }
+                String rating = String.format("%.1f", movies.get(k).getMovieOverallReviewRating());
                 index = String.format("%d. ", j + 1);
-                payload = String.format(index + movies.get(j).getMovieTitle() + " [" +
-                                        movies.get(j).getMovieType() + "] - Overall rating: "
+                payload = String.format(index + movies.get(k).getMovieTitle() + " [" +
+                                        movies.get(k).getMovieType() + "] - Overall rating: "
                                         + rating + "\n");
                 content = content + payload;
+                k ++;
             }
         }
         MainView.printMenuContent(content);

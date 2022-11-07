@@ -16,17 +16,18 @@ public class StaffConfigureMovieView {
     public void printMenu() {
         MainView.printBoilerPlate("Configure Setting for " + this.movie.getMovieTitle());
         MainView.printMenuContent("""
+            
             Select the detail to be configured.
 
-            1. Movie Title
-            2. Movie Type
-            3. Age Rating
-            4. Showing Status
-            5. Cast Member's Names
-            6. Movie Director's Name
-            7. Movie Synopsis
-            8. Movie Duration
-            9. Movie Schedule
+            01. Movie Title
+            02. Movie Type
+            03. Age Rating
+            04. Showing Status
+            05. Cast Member's Names
+            06. Movie Director's Name
+            07. Movie Synopsis
+            08. Movie Duration
+            09. Movie Schedule
             10. Return.
                 """);
     }

@@ -24,7 +24,7 @@ public class StaffMovieDetailsView {
 
 
     public void printMovieList() {
-        String content = "\n";
+        String content = "\nHere are the movies available:\n\n";
         int count = 0;
         for (int i = 0; i < this.allMovies.size(); i++) {
             Movie movie = allMovies.get(i);
@@ -34,7 +34,7 @@ public class StaffMovieDetailsView {
             count = i + 1;
         }
         String index = String.format("%02d. ", (count + 1));
-        String payload = String.format(index + "Return.\n");
+        String payload = String.format(index + "Quit and return back\n");
         content = content + payload;
 
         MainView.printMenuContent(content);

@@ -17,7 +17,7 @@ public class SeniorCitizen extends MovieGoer {
         return this.age;
     }
 
-    public void setPrice(double price) {
+    public void setGoerPrice(double price) {
         this.price = price;
     }
 

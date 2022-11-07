@@ -6,17 +6,17 @@ import java.util.ArrayList;
 public class MovieSchedule implements Serializable {
 
     private String UUID;
-    private Movie movieOnShow;
-    private ArrayList <Cinema> showingVenue;
+    private String movieUUID;
+    private ArrayList <String> showingVenueUUID;
     private ArrayList <ArrayList <Seat>> seatingPlan;
     private ArrayList <DateTime> showingTime;
     private static final long serialVersionUID = 5L;
 
-    public MovieSchedule(String UUID, Movie movieOnShow, ArrayList <Cinema> showingVenue, 
+    public MovieSchedule(String UUID, String movieUUID, ArrayList <String> showingVenueUUID, 
                         ArrayList <ArrayList <Seat>> seatingPlan, ArrayList <DateTime> showingTime) {
             this.setUUID(UUID);
-            this.setMovieOnShow(movieOnShow);
-            this.setShowingVenues(showingVenue);
+            this.setMovieOnShow(movieUUID);
+            this.setShowingVenues(showingVenueUUID);
             this.setSeatingPlan(seatingPlan);
             this.setShowingTime(showingTime);
     }
@@ -29,24 +29,24 @@ public class MovieSchedule implements Serializable {
         this.UUID = UUID;
     }
 
-    public Movie getMovieOnShow() {
-        return this.movieOnShow;
+    public String getMovieOnShow() {
+        return this.movieUUID;
     }
 
-    public void setMovieOnShow(Movie movieOnShow) {
-        this.movieOnShow = movieOnShow;
+    public void setMovieOnShow(String movieUUID) {
+        this.movieUUID = movieUUID;
     }
 
-    public ArrayList<Cinema> getShowingVenues() {
-        return this.showingVenue;
+    public ArrayList<String> getShowingVenues() {
+        return this.showingVenueUUID;
     }
 
-    public void setShowingVenues(ArrayList<Cinema> showingVenue) {
-        this.showingVenue = showingVenue;
+    public void setShowingVenues(ArrayList<String> showingVenueUUID) {
+        this.showingVenueUUID = showingVenueUUID;
     }
 
-    public void addShowingVenue(Cinema cinema) {
-        this.showingVenue.add(cinema);
+    public void addShowingVenue(String cinemaUUID) {
+        this.showingVenueUUID.add(cinemaUUID);
     }
 
     public ArrayList<ArrayList<Seat>> getSeatingPlan() {

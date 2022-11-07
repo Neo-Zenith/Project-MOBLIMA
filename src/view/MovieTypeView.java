@@ -31,7 +31,7 @@ public class MovieTypeView extends MainView {
             count = i + 1;
         }
         String index = String.format("%d. ", count + 1);
-        String payload = String.format(index + "Return.");
+        String payload = String.format(index + "Quit and return back");
         content = content + payload;
 
         MainView.printMenuContent(content);

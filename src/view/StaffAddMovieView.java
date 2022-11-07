@@ -198,6 +198,7 @@ public class StaffAddMovieView {
         
         
         ArrayList <Cinema> showingVenue;
+        ArrayList <String> showingVenueUUID = new ArrayList<>();
         ArrayList <ArrayList <Seat>> seatingPlan = new ArrayList<ArrayList<Seat>>();
         ArrayList <DateTime> showingTime = new ArrayList<DateTime>();
         CinemaClass cinemaClass;
@@ -241,6 +242,7 @@ public class StaffAddMovieView {
         seatingPlan = new ArrayList<>();
         showingVenue.addAll(CinemaManager.filterCinemaByClass(cinemaClass, cineplex));
         for (int i = 0; i < showingVenue.size(); i++) {
+            showingVenueUUID.add(showingVenue.get(i).getUUID());
             seatingPlan.add(showingVenue.get(i).duplicateSeats());
         }
 
@@ -255,7 +257,7 @@ public class StaffAddMovieView {
         }        
         
         CinemaStaffManager.movieAdder(title, movieAgeRating, movieShowingStatus, movieCast, director,
-                                    synopsis, duration, movieTypeChoice, showingVenue, seatingPlan, showingTime);
+                                    synopsis, duration, movieTypeChoice, showingVenueUUID, seatingPlan, showingTime);
     }
 
     

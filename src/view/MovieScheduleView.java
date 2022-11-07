@@ -1,6 +1,7 @@
 package view;
 
 import model.MovieSchedule;
+import controller.CinemaManager;
 import controller.MovieManager;
 import controller.MovieScheduleManager;
 import handler.InputHandler;
@@ -26,13 +27,13 @@ public class MovieScheduleView {
     public MovieScheduleView(ArrayList<Cinema> cinemaList, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cinemaList = cinemaList;
-        this.movieSchedule = MovieScheduleManager.filterMovieSchedulesByMovie(movie);
+        this.movieSchedule = MovieScheduleManager.getMovieScheduleByMovie(movie);
         this.movieGoer = movieGoer;
         indexList = new ArrayList<Integer>();
         showingTimes = new ArrayList<DateTime>();
         for (int j = 0; j < movieSchedule.getShowingVenues().size(); j++) {
             for (int i = 0; i < cinemaList.size(); i++) {
-                if (movieSchedule.getShowingVenues().get(j).getUUID().equals(cinemaList.get(i).getUUID())) {
+                if (movieSchedule.getShowingVenues().get(j).equals(cinemaList.get(i).getUUID())) {
                     indexList.add(j);
                     showingTimes.add(movieSchedule.getShowingTime().get(j));
                 }
@@ -55,7 +56,7 @@ public class MovieScheduleView {
             }
 
             String index = String.format("%02d. ", count + 1);
-            String payload = String.format(index + "Return.");
+            String payload = String.format(index + "Quit and return back");
             content = content + payload;
             MainView.printMenuContent(content);
             return true;
@@ -96,9 +97,9 @@ public class MovieScheduleView {
                 } 
                 else {
                     int pointer = indexList.get(choice - 1);
+                    Cinema cinema = CinemaManager.getCinemaByUUID(this.movieSchedule.getShowingVenues().get(pointer));
                     this.seatingPlanView = new SeatingPlanView(this.movieSchedule,
-                            this.movieSchedule.getShowingVenues().get(pointer),
-                            this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
+                            cinema, this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
                     this.errorMessage = "";
                     this.seatingPlanView.appContent();
                 }

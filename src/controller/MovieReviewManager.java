@@ -9,14 +9,7 @@ public class MovieReviewManager {
     
     public MovieReviewManager() {}
 
-    /**
-     * Creates a {@link MovieReview} instance and save to {@Link Database}
-     * @param movieGoer is the movie goer who writes the review
-     * @param movie is the movie the review belongs to
-     * @param review is the review description
-     * @param movieReviewRating is the rating
-     * @return {@MovieReview} instance created
-     */
+    
     public MovieReview createMovieReview(MovieGoer movieGoer, Movie movie, String review, double movieReviewRating) {
         String UUID = String.format("MR%04d", DatabaseHandler.generateUUID(Database.MOVIE_REVIEW));
         String goerUUID = movieGoer.getUUID();
