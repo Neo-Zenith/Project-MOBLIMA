@@ -5,13 +5,21 @@ import src.database.*;
 import src.model.*;
 import src.model.enums.*;
 
-
+/**
+ * Controller class for handling all logics related to the database
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class DatabaseManager {
 
-    public DatabaseManager() {
-    }
+    /**
+     * Constructor
+     */
+    public DatabaseManager() {}
 
-    
+    /**
+     * Method to load initial cineplex data into database
+     */
     public static void initializeCineplexData() {
         ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
 
@@ -70,7 +78,11 @@ public class DatabaseManager {
         System.out.println("Cineplex data loaded successfully!");
     }
 
-    
+    /**
+     * Method to load inital cinema data into database
+     * @param choice is the choice of {@link CinemaClass} to be initialized
+     * @return {@link Cinema} instance created
+     */
     public static Cinema initializeCinemaData(int choice) {
         CinemaClass cinemaClass;
         ArrayList <Seat> seats; 
@@ -96,7 +108,11 @@ public class DatabaseManager {
         return null;
     }
 
-    
+    /**
+     * Method to initialize the initial seat data into database
+     * @param cinemaClass is the {@Link CinemaClass} of the cinema the seats belong to
+     * @return ArrayList of {@link Seat} instances created
+     */
     public static ArrayList <Seat> initializeSeatData(CinemaClass cinemaClass) {
         int numOfSeatsPerRow;
         ArrayList <Seat> seats = new ArrayList<>();
@@ -130,7 +146,9 @@ public class DatabaseManager {
         return seats;
     }
 
-
+    /**
+     * Method to initialize the initial movie schedule data into database
+     */
     public static void initializeMovieScheduleData() {
         ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
 
@@ -203,7 +221,9 @@ public class DatabaseManager {
         System.out.println("Movie Schedule data loaded successfully!");
     }
 
-
+    /**
+     * Method to initialize the initial movie data into database
+     */
     public static void initializeMovie() {
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
 
@@ -261,7 +281,9 @@ public class DatabaseManager {
         System.out.println("Movie data loaded successfully!");
     }
 
-
+    /**
+     * Method to initialize the initial cinema staff data into database
+     */
     public static void initalizeCinemaStaff() {
         ArrayList <CinemaStaff> cinemaStaffs = Database.getValueList(Database.CINEMA_STAFF.values());
 
@@ -292,18 +314,29 @@ public class DatabaseManager {
         System.out.println("Price data loaded successfully!");
     }   
     
-
+    /**
+     * Generic helper function to save written changes into the database
+     * @param <K> is the generic form for key
+     * @param <V> is the generic form for value
+     * @param UUID is the unique ID of the object to be updated
+     * @param object is the object to be updated
+     * @param data is the HashMap database to be updated
+     */
     public static <K, V> void saveUpdateToDatabase(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);
         DatabaseManager.reloadDatabase();
     }
 
-
+    /**
+     * Helper function to reset the database
+     */
     public static void resetDatabase() {
         Database.resetDatabase();
     }
 
-
+    /**
+     * Helper function to reload the database. Useful upon saved changes
+     */
     public static void reloadDatabase() {
         Database.writeToDatabase();
         Database.remountDatabase();

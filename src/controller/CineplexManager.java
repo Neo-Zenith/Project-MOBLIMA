@@ -5,11 +5,26 @@ import src.model.*;
 import src.database.*;
 import src.handler.*;
 
-
+/**
+ * Controller class for Cineplex which handles all logic related to Cineplex
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class CineplexManager {
     
+    /**
+     * Constructor
+     */
     public CineplexManager() {}
 
+    /**
+     * Method to create a cineplex and save to database
+     * @param cineplexName is the name of the cineplex
+     * @param numOfCinemas is the number of cinemas in the cineplex
+     * @param cinemas is all the {@link Cinema} instances in the cineplex
+     * @param cineplexLocation is the location of the cineplex
+     * @return The {@link Cineplex} created
+     */
     public static Cineplex createCineplex(String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas, String cineplexLocation) {
         String UUID = String.format("CP%04d", DatabaseHandler.generateUUID(Database.CINEPLEX));
         Cineplex cineplex = new Cineplex(UUID, cineplexName, numOfCinemas, cinemas, cineplexLocation);
@@ -17,7 +32,11 @@ public class CineplexManager {
         return cineplex;
     }
 
-
+    /**
+     * Method to retrieve a cineplex by the query cinema
+     * @param targetCinema is the cinema to query cineplex for
+     * @return The {@link Cineplex} instance containing the target cinema
+     */
     public static Cineplex getCineplexByCinema(Cinema targetCinema) {
         ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
 
@@ -33,7 +52,11 @@ public class CineplexManager {
         return null;
     }
 
-
+    /**
+     * Method to filter a list of cineplexes by the movie showing
+     * @param movie is the movie showing to query cineplex for
+     * @return ArrayList of {@link Cineplex} instances which are showing the queried movie
+     */
     public static ArrayList<Cineplex> filterCineplexesByMovie(Movie movie) {
         ArrayList <Cineplex> cineplexes = new ArrayList<>();
         MovieSchedule movieSchedule = MovieScheduleManager.getMovieScheduleByMovie(movie);
@@ -44,7 +67,11 @@ public class CineplexManager {
         return finalCineplexes;
     }
 
-
+    /**
+     * Method to filter cineplexes by queried movie schedule
+     * @param movieSchedule is the movie schedule to query the cineplex for
+     * @return ArrayList of filtered {@link Cineplex} instances which have cinemas contained in the queried movie schedule
+     */
     public static ArrayList <Cineplex> filterCineplexesByMovieSchedule(MovieSchedule movieSchedule) {
         ArrayList <Cineplex> cineplexes = new ArrayList<>();
         ArrayList <Cineplex> allCineplexes = Database.getValueList(Database.CINEPLEX.values());

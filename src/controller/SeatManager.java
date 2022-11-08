@@ -7,11 +7,20 @@ import src.handler.*;
 import src.model.*;
 import src.model.enums.*;
 
+/**
+ * Controller class for handling all logic related to Seat class
+ */
 public class SeatManager {
 
+    /**
+     * Constructor
+     */
     public SeatManager() {}
 
-    
+    /**
+     * Method to create a {@link CoupleSeat} and save to database
+     * @return The created {@link CoupleSeat} instace.
+     */
     public static Seat createCoupleSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new CoupleSeat(UUID);
@@ -19,7 +28,10 @@ public class SeatManager {
         return seat;
     }
 
-    
+    /**
+     * Method to create a {@link StandardSeat} and save to database
+     * @return The created {@link StandardSeat} instace.
+     */
     public static Seat createStandardSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new StandardSeat(UUID);
@@ -27,7 +39,10 @@ public class SeatManager {
         return seat;
     }
 
-
+    /**
+     * Method to print the floor map of a standard cinema (non-platinum)
+     * @param seatingPlan is the seating plan to be printed
+     */
     public static void printStandardCinemaFloorMap(ArrayList <Seat> seatingPlan) {
         int totalNumOfSeatsPerRow = Database.totalNumOfSeats / Database.numOfRows;
         int index = 0;
@@ -91,7 +106,10 @@ public class SeatManager {
                 """);
     }
 
-
+    /**
+     * Method to print the floor map of a platinum cinema
+     * @param seatingPlan is the seating plan to be printed
+     */
     public static void printPlatinumCinemaFloorMap(ArrayList <Seat> seatingPlan) {
         int totalNumOfSeatsPerRow = Database.platinumNumOfSeatsPerRow;
         int numOfRows = Database.platinumNumOfRow;
@@ -137,7 +155,12 @@ public class SeatManager {
                 """);  
     }
 
-    
+    /**
+     * Method to convert the front-end displayed seat ID (i.e. A1, B3, etc.) into back-end seatID for processing
+     * @param seatID is the front-end displayed seat ID
+     * @param cinema is the cinema chosen by the MovieGoer
+     * @return The back-end convereted seatID
+     */
     public static int seatIDConverter(String seatID, Cinema cinema) {
         int totalNumOfSeatsPerRow;
         if (cinema.getCinemaClass() == CinemaClass.PLATINUM) {
@@ -157,7 +180,12 @@ public class SeatManager {
         return convertedSeatID;
     }
 
-    
+    /**
+     * Helper function to verify that the act of booking/unbooking is legitimate
+     * @param seat is the {@link Seat} instance to be booked/unbooked
+     * @param booking is the booking status {@code true} to represent book and {@code false} to represent unbook
+     * @return {@code true} if the act is legitimate, {@code false} otherwise
+     */
     public static boolean validateBooking(Seat seat, boolean booking) {
         if (seat.getAssignStatus() == booking) {
             return false;
@@ -165,7 +193,14 @@ public class SeatManager {
         return true;
     }
 
-    
+    /**
+     * Method to book/unbook seat
+     * @param seatID is the front-end displayed seat ID
+     * @param movieSchedule is the {@link MovieSchedule} instance of the movie
+     * @param cinema is the {@link Cinema} instance the MovieGoer chosen
+     * @param assign {@code true} if booking, otherwise {@code false}
+     * @return {@code true} if booking/unbooking is successful, {@code false} otherwise
+     */
     public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, Cinema cinema, boolean assign) {
         int index = SeatManager.seatIDConverter(seatID, cinema);
 
@@ -207,13 +242,23 @@ public class SeatManager {
         }
     }
 
-
+    /**
+     * Method to obtain {@link Seat} instance by the front-end displayed seat ID
+     * @param seatID is the front-end displayed seat ID
+     * @param seatingPlan is the seating plan that the Movie Goer chosen
+     * @param cinema is the {@link Cinema} that the Movie Goer chosen
+     * @return The {@link Seat} instance
+     */
     public static Seat getSeatBySeatID(String seatID, ArrayList <Seat> seatingPlan, Cinema cinema) {
         int index = SeatManager.seatIDConverter(seatID, cinema);
         return seatingPlan.get(index);
     }
 
-    
+    /**
+     * Method to retrieve {@link Seat} instance by its UUID
+     * @param seatUUID The target seat's UUID
+     * @return The target seat
+     */
     public static Seat getSeatByUUID(String seatUUID) {
         ArrayList <Seat> seats = Database.getValueList(Database.SEAT.values());
 
