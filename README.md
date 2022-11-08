@@ -4,13 +4,14 @@
 ```
 ~
 ├── bin                   # Executiable files
-├── doc                   # Documentation (Java doc & UML class diagrams)
+├── doc                   # Documentation
 ├── src                   # Source code
 |    ├── controller       # Control classes
 |    ├── database         # Database 
 |    ├── handler          # Helper functions
 |    ├── model            # Entity classes
-|    └── view             # Boundary classes
+|    ├── view             # Boundary classes
+├    └── MovieApp.java    # MOBLIMA App
 ├── .gitignore
 └── README.md
 ```
