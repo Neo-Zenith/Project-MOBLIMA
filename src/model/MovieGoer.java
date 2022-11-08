@@ -1,8 +1,8 @@
-package model;
+package src.model;
 
 import java.io.Serializable;
 import java.util.*;
-import model.enums.*;
+import src.model.enums.*;
 
 public abstract class MovieGoer implements Serializable {
     private String name;

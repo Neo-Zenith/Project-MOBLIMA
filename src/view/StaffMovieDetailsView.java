@@ -1,11 +1,11 @@
-package view;
+package src.view;
 
 
-import handler.*;
+import src.handler.*;
 import java.util.*;
-import controller.*;
-import model.*;
-import model.enums.*;
+import src.controller.*;
+import src.model.*;
+import src.model.enums.*;
 
 
 public class StaffMovieDetailsView {

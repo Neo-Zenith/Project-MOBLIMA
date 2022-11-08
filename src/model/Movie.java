@@ -1,11 +1,9 @@
-package model;
+package src.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import model.enums.MovieAgeRating;
-import model.enums.MovieType;
-import model.enums.MovieShowingStatus;
+import src.model.enums.*;
 
 public abstract class Movie implements Serializable {
 	private String UUID;

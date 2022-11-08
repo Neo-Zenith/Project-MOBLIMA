@@ -1,9 +1,9 @@
-package controller;
+package src.controller;
 
 import java.util.*;
-import model.*;
-import database.*;
-import handler.*;
+import src.model.*;
+import src.database.*;
+import src.handler.*;
 
 
 public class CineplexManager {

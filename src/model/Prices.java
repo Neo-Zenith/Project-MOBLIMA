@@ -1,11 +1,11 @@
-package model;
+package src.model;
 
 import java.io.Serializable;
 import java.util.*;
 
-import controller.DatabaseManager;
-import database.Database;
-import model.enums.*;
+import src.controller.*;
+import src.database.*;
+import src.model.enums.*;
 
 public class Prices implements Serializable {
     

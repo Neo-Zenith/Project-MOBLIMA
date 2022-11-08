@@ -1,7 +1,7 @@
-package view;
+package src.view;
 
-import controller.*;
-import handler.*;
+import src.controller.*;
+import src.handler.*;
 
 
 public class StaffConfigHolidayView {

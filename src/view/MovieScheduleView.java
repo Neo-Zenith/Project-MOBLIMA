@@ -1,8 +1,8 @@
-package view;
+package src.view;
 
-import controller.*;
-import handler.*;
-import model.*;
+import src.controller.*;
+import src.handler.*;
+import src.model.*;
 import java.util.*;
 
 

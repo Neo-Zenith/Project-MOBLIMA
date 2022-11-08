@@ -1,9 +1,9 @@
-package view;
+package src.view;
 
-import handler.*;
-import model.*;
-import model.enums.*;
-import controller.*;
+import src.handler.*;
+import src.model.*;
+import src.model.enums.*;
+import src.controller.*;
 
 import java.util.ArrayList;
 

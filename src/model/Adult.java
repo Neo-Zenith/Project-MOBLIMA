@@ -1,7 +1,7 @@
-package model;
+package src.model;
 
-import database.Database;
-import model.enums.MovieGoerAge;
+import src.database.Database;
+import src.model.enums.MovieGoerAge;
 
 public class Adult extends MovieGoer {
     private MovieGoerAge age;

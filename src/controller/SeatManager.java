@@ -1,11 +1,11 @@
-package controller;
+package src.controller;
 
 import java.util.ArrayList;
 
-import database.*;
-import handler.*;
-import model.*;
-import model.enums.*;
+import src.database.*;
+import src.handler.*;
+import src.model.*;
+import src.model.enums.*;
 
 public class SeatManager {
 

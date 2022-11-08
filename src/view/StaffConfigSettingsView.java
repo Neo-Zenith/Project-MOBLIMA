@@ -1,6 +1,6 @@
-package view;
+package src.view;
 
-import handler.*;
+import src.handler.*;
 
 public class StaffConfigSettingsView {
     private StaffConfigPriceView staffConfigPriceView;

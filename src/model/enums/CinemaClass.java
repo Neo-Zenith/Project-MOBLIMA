@@ -1,4 +1,4 @@
-package model.enums;
+package src.model.enums;
 
 public enum CinemaClass {
     

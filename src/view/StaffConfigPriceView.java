@@ -1,7 +1,7 @@
-package view;
+package src.view;
 
-import handler.*;
-import controller.*;
+import src.handler.*;
+import src.controller.*;
 
 
 public class StaffConfigPriceView {

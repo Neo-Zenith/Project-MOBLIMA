@@ -1,9 +1,9 @@
-package view;
+package src.view;
 
 import java.util.*;
-import controller.*;
-import model.*;
-import handler.*;
+import src.controller.*;
+import src.model.*;
+import src.handler.*;
 
 public class MovieDetailsView extends MainView {
     private String movieTitle;

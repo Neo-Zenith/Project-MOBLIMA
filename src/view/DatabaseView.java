@@ -1,8 +1,8 @@
-package view;
+package src.view;
 
-import controller.*;
-import database.*;
-import handler.*;
+import src.controller.*;
+import src.database.*;
+import src.handler.*;
 
 
 public class DatabaseView extends MainView{

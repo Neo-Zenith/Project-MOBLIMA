@@ -1,9 +1,9 @@
-package database;
+package src.database;
 
 import java.io.*;
 import java.util.*;
-import controller.*;
-import model.*;
+import src.controller.*;
+import src.model.*;
 
 
 public class Database {

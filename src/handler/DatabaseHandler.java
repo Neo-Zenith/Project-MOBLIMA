@@ -1,4 +1,4 @@
-package handler;
+package src.handler;
 
 import java.util.HashMap;
 

@@ -1,10 +1,11 @@
-package view;
-import java.util.ArrayList;
+package src.view;
 
-import controller.*;
-import database.*;
-import handler.*;
-import model.*;
+
+import java.util.*;
+import src.controller.*;
+import src.database.*;
+import src.handler.*;
+import src.model.*;
 
 public class StaffMovieListRankingView extends MainView {
     private String errorMessage;

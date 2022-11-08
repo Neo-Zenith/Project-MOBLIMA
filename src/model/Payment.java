@@ -1,8 +1,8 @@
-package model;
+package src.model;
 
 import java.io.Serializable;
 
-import model.enums.PaymentType;
+import src.model.enums.*;
 
 public abstract class Payment implements Serializable {
     private String UUID;

@@ -1,9 +1,9 @@
-package controller;
+package src.controller;
 
 import java.util.*;
-import database.*;
-import model.*;
-import model.enums.*;
+import src.database.*;
+import src.model.*;
+import src.model.enums.*;
 
 
 public class DatabaseManager {

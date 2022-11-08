@@ -1,10 +1,10 @@
-package controller;
+package src.controller;
 
 import java.util.*;
-import model.*;
-import model.enums.*;
-import handler.*;
-import database.*;
+import src.model.*;
+import src.model.enums.*;
+import src.handler.*;
+import src.database.*;
 
 public class MovieManager {
 

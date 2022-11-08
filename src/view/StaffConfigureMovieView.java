@@ -1,8 +1,8 @@
-package view;
+package src.view;
 
-import handler.*;
-import controller.*;
-import model.*;
+import src.handler.*;
+import src.controller.*;
+import src.model.*;
 
 
 public class StaffConfigureMovieView {

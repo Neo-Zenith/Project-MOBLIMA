@@ -1,7 +1,7 @@
-package model;
+package src.model;
 
-import database.*;
-import model.enums.*;
+import src.database.*;
+import src.model.enums.*;
 
 
 public class Child extends MovieGoer {

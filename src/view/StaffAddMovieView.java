@@ -1,10 +1,10 @@
-package view;
+package src.view;
 
-import handler.*;
-import model.enums.*;
-import model.*;
-import controller.*;
-import database.*;
+import src.handler.*;
+import src.model.enums.*;
+import src.model.*;
+import src.controller.*;
+import src.database.*;
 import java.util.*;
 
 

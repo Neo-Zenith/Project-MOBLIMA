@@ -1,6 +1,6 @@
-package model;
+package src.model;
 
-import model.enums.PaymentType;
+import src.model.enums.*;
 
 public class QRCodePayment extends Payment{
     private PaymentType paymentType;

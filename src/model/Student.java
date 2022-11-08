@@ -1,7 +1,7 @@
-package model;
+package src.model;
 
-import database.Database;
-import model.enums.MovieGoerAge;
+import src.database.*;
+import src.model.enums.*;
 
 public class Student extends MovieGoer {
     private MovieGoerAge age;

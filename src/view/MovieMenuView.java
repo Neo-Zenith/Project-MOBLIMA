@@ -1,7 +1,7 @@
-package view;
+package src.view;
 
-import handler.*;
-import model.*;
+import src.handler.*;
+import src.model.*;
 
 public class MovieMenuView {
     public static boolean exit = false;

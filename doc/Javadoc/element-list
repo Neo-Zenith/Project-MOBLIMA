@@ -1,1 +1,6 @@
-model
+src
+src.controller
+src.database
+src.handler
+src.model
+src.view

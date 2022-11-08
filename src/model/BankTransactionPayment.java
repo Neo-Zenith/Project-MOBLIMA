@@ -1,6 +1,6 @@
-package model;
+package src.model;
 
-import model.enums.PaymentType;
+import src.model.enums.PaymentType;
 
 public class BankTransactionPayment extends Payment{
     private PaymentType paymentType;

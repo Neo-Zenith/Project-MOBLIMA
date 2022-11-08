@@ -34,7 +34,6 @@ hs_err_pid*
 tmp/*
 
 .DS_STORE
-bin/*
 
 *.dat
 *.dat

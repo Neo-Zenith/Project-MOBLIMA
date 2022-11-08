@@ -1,8 +1,8 @@
-package model;
+package src.model;
 
 import java.util.*;
-import database.Database;
-import model.enums.*;
+import src.database.Database;
+import src.model.enums.*;
 
 public class BlockbusterMovie extends Movie {
     private MovieType type;

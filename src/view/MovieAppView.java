@@ -1,10 +1,10 @@
-package view;
+package src.view;
 
-import database.*;
-import handler.*;
-import model.*;
-import model.enums.*;
-import controller.*;
+import src.database.*;
+import src.handler.*;
+import src.model.*;
+import src.model.enums.*;
+import src.controller.*;
 
 public class MovieAppView extends MainView {
     private StaffSystemConfig staffView;

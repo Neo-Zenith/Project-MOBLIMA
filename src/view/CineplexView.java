@@ -1,9 +1,9 @@
-package view;
+package src.view;
 
 import java.util.*;
-import model.*;
-import controller.*;
-import handler.*;
+import src.model.*;
+import src.controller.*;
+import src.handler.*;
 
 
 public class CineplexView extends MainView {

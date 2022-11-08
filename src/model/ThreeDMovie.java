@@ -1,8 +1,8 @@
-package model;
+package src.model;
 
-import model.enums.*;
+import src.model.enums.*;
 import java.util.*;
-import database.*;
+import src.database.*;
 
 public class ThreeDMovie extends Movie {
     private MovieType type;

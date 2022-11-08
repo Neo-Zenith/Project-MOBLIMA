@@ -1,7 +1,7 @@
-package model;
+package src.model;
 
 import java.io.Serializable;
-import model.enums.*;
+import src.model.enums.*;
 
 
 /**

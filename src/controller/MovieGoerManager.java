@@ -1,9 +1,9 @@
-package controller;
+package src.controller;
 
 import java.util.*;
-import database.*;
-import model.*;
-import handler.*;
+import src.database.*;
+import src.model.*;
+import src.handler.*;
 
 public class MovieGoerManager {
 

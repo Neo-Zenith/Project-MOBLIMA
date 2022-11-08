@@ -1,8 +1,8 @@
-package controller;
+package src.controller;
 
-import database.Database;
-import handler.*;
-import model.*;
+import src.database.Database;
+import src.handler.*;
+import src.model.*;
 
 
 public class MovieReviewManager {

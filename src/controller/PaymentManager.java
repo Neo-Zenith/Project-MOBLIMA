@@ -1,9 +1,9 @@
-package controller;
+package src.controller;
 
-import database.*;
-import handler.*;
-import model.*;
-import model.enums.*;
+import src.database.*;
+import src.handler.*;
+import src.model.*;
+import src.model.enums.*;
 import java.util.*;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime; 

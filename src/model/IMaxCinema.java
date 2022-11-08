@@ -1,8 +1,8 @@
-package model;
+package src.model;
 
 import java.util.ArrayList;
-import model.enums.*;
-import database.*;
+import src.model.enums.*;
+import src.database.*;
 
 /**
  * @author Lee Juin

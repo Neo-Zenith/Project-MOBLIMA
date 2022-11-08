@@ -1,11 +1,11 @@
-package view;
+package src.view;
 
 import java.util.*;
-import controller.*;
-import database.*;
-import handler.*;
-import model.*;
-import model.enums.*;
+import src.controller.*;
+import src.database.*;
+import src.handler.*;
+import src.model.*;
+import src.model.enums.*;
 
 
 public class MovieListRankingView extends MainView {

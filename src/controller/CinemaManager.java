@@ -1,9 +1,9 @@
-package controller;
+package src.controller;
 
-import model.*;
-import model.enums.*;
-import database.*;
-import handler.*;
+import src.model.*;
+import src.model.enums.*;
+import src.database.*;
+import src.handler.*;
 import java.util.*;
 
 

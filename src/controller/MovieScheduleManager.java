@@ -1,8 +1,8 @@
-package controller;
+package src.controller;
 
-import model.*;
-import database.*;
-import handler.*;
+import src.model.*;
+import src.database.*;
+import src.handler.*;
 import java.util.*;
 
 

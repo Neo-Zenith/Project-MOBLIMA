@@ -1,9 +1,9 @@
-package view;
+package src.view;
 
-import model.*;
-import controller.*;
-import database.*;
-import handler.*;
+import src.model.*;
+import src.controller.*;
+import src.database.*;
+import src.handler.*;
 
 
 public class PaymentView extends MainView {

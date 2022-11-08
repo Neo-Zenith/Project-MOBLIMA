@@ -1,9 +1,9 @@
-package controller;
+package src.controller;
 
 import java.util.*;
-import database.*;
-import handler.*;
-import model.*;
+import src.database.*;
+import src.handler.*;
+import src.model.*;
 
 
 public class BookingHistoryManager {

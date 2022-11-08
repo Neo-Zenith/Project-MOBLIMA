@@ -1,7 +1,7 @@
-package model;
+package src.model;
 
-import model.enums.*;
-import database.*;
+import src.model.enums.*;
+import src.database.*;
 
 /**
  * @author Lee Juin

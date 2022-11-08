@@ -1,10 +1,10 @@
-package view;
+package src.view;
 
 import java.util.*;
-import controller.*;
-import model.*;
-import handler.*;
-import database.*;
+import src.controller.*;
+import src.model.*;
+import src.handler.*;
+import src.database.*;
 
 public class MovieBookingHistoryView extends MainView {
     private ArrayList<BookingHistory> bookingHistories;

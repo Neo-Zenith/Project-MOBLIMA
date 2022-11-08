@@ -1,10 +1,10 @@
-package view;
+package src.view;
 
 import java.util.*;
-import controller.*;
-import model.*;
-import model.enums.*;
-import handler.*;
+import src.controller.*;
+import src.model.*;
+import src.model.enums.*;
+import src.handler.*;
 
 
 public class SeatingPlanView {
