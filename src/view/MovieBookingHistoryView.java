@@ -7,15 +7,43 @@ import src.handler.*;
 import src.database.*;
 
 public class MovieBookingHistoryView extends MainView {
+    /**
+     * ArrayList of {@link BookingHistory} objects
+     */
     private ArrayList<BookingHistory> bookingHistories;
+    /**
+     * ArrayList of movie titles as string
+     */
     private ArrayList<String> movieTitle;
+    /**
+     * ArrayList of {@link DateTime} objects as showingTime
+     */
     private ArrayList<DateTime> showingTime;
+    /**
+     * ArrayList of {@link Cinema} objects
+     */
     private ArrayList<Cinema> cinemaList;
+    /**
+     * ArrayList of {@link Cineplex} objects
+     */
     private ArrayList<Cineplex> cineplexList;
+    /**
+     * ArrayList of an ArrayList of seatIDs as string
+     */
     private ArrayList<ArrayList<String>> seatIDList;
+    /**
+     * MovieGoer object {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a new MovieBookingHistoryView with the movieGoer attributes
+     * @param movieGoer {@link MovieGoer}
+     */
     public MovieBookingHistoryView(MovieGoer movieGoer) {
         ArrayList<Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
         this.bookingHistories = movieGoer.getBookingHistory();
@@ -56,6 +84,9 @@ public class MovieBookingHistoryView extends MainView {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print the booking history of the movieGoer from an ArrayList
+     */
     public void printBookingHistories() {
         String content = "";
         int count = 0;
@@ -79,11 +110,17 @@ public class MovieBookingHistoryView extends MainView {
         MainView.printMenuContent(content);
     }
 
+    /**
+     * Method to print the boiler plate and calls printBookingHistories
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Booking Histories");
         this.printBookingHistories();
     }
 
+    /**
+     * Method to take in choice of user and prints the particular movie ticket using MovieTicketView
+     */
     public void appContent() {
         int choice = -1;
 

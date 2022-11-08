@@ -7,13 +7,25 @@ import src.model.enums.*;
 import src.controller.*;
 
 public class MovieAppView extends MainView {
+    /**
+     * StaffSystemConfig view
+     */
     private StaffSystemConfig staffView;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a new MovieAppView with an empty error message
+     */
     public MovieAppView() {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print the boiler plate and displays the choices of the user
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Welcome to MOBLIMA!");
         MainView.printMenuContent("""
@@ -24,6 +36,9 @@ public class MovieAppView extends MainView {
                 """);
     }
 
+    /**
+     * Method to print the boiler plate and displays the choices of the user to select their age group
+     */
     public void printAgeGroup() {
         MainView.printBoilerPlate("What is your age group?");
         MainView.printMenuContent("""
@@ -35,6 +50,12 @@ public class MovieAppView extends MainView {
                 """);
     }
 
+    /**
+     * Method to take in choice of user and allows user to login or register
+     * Login requires user to enter username and password to be verified
+     * Register requires user to enter unique username and password
+     * Other details like age group, name, email, mobile will be used to create a new movieGoer
+     */
     public void appContent() {
         int choice = -1;
         Database db = new Database();

@@ -7,16 +7,46 @@ import java.util.*;
 
 
 public class MovieScheduleView {
+    /**
+     * MovieGoer object {@link Movie}
+     */
     private Movie movie;
+    /**
+     * ArrayList of {@link Cinema} objects
+     */
     private ArrayList<Cinema> cinemaList;
+    /**
+     * MovieSchedule object {@link MovieSchedule}
+     */
     private MovieSchedule movieSchedule;
-    private int num = 0;
+    /**
+     * MovieGoer object {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+    /**
+     * ArrayList of {@link Datetime} objects as showingTime
+     */
     private ArrayList<DateTime> showingTimes;
+    /**
+     * ArrayList of integer for indexes
+     */
     private ArrayList<Integer> indexList;
+    /**
+     * SeatingPlanView
+     */
     private SeatingPlanView seatingPlanView;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a new MovieScheduleView with ArrayList of cinemas, movie, moviegoer
+     * Stores the index of the showingVenues that match the list of cinemas showing the movie and its type
+     * @param cinemaList ArrayList of cinemas showing the movie title and type {@link Cinema}
+     * @param movie Movie title {@link Movie}
+     * @param movieGoer {@link MovieGoer}
+     */
     public MovieScheduleView(ArrayList<Cinema> cinemaList, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cinemaList = cinemaList;
@@ -35,6 +65,10 @@ public class MovieScheduleView {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print out the showingTimes of the movie if it is bookable
+     * @return if the movie is available for booking or not 
+     */
     public boolean printShowingTimes() {
         String content = "\n";
         if (MovieManager.movieBookable(this.movie)) {
@@ -60,11 +94,19 @@ public class MovieScheduleView {
         }
     }
 
+    /**
+     * Method to print the boiler plate and calls printShowingTimes
+     * @return if the movie is available for booking or not
+     */
     public boolean printMenu() {
         MainView.printBoilerPlate("Showing Schedule for " + this.movie.getMovieTitle());
         return this.printShowingTimes();
     }
 
+    /**
+     * Method to call printMenu and takes in the choice of the user to 
+     * display the seatingPlanView using the showingTime chosen by the user at that cinema
+     */
     public void appContent() {
         int choice = -1;
 

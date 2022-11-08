@@ -2,26 +2,40 @@ package src.view;
 
 import src.handler.*;
 import src.model.*;
-import src.model.enums.*;
 import src.controller.*;
 
 import java.util.ArrayList;
 
 public class MovieSearchView extends MainView {
-    private String movieTitle;
+    /**
+     * MovieGoer object {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Createsa a new MovieSearchView with movieGoer
+     * @param movieGoer {@link MovieGoer}
+     */
     public MovieSearchView(MovieGoer movieGoer) {
         this.movieGoer = movieGoer;
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print the boiler plate and menu content
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Search Movie");
         MainView.printMenuContent("Search for a movie (Press 1 to exit)");
     }
 
+    /**
+     * Method to take in the choice of the user and calls MovieDetailsView if the movieTitle is available
+     */
     public void appContent() {
         String movieTitle;
 

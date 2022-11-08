@@ -4,16 +4,35 @@ import src.model.*;
 import src.model.enums.*;
 import src.controller.*;
 import src.handler.*;
-
 import java.util.*;
 
 public class MovieTicketView {
-
+    /**
+     * ArrayList of {@link MovieTicket} objects
+     */
     private ArrayList<MovieTicket> movieTicketList;
+    /**
+     * ArrayList of seatIDs as string
+     */
     private ArrayList<String> seatID;
+    /**
+     * Total movie ticket price for all seats chosen for the movie
+     */
     private double totalMovieTicketPrice;
+    /**
+     * Movie object of the movieTicket {@link Movie}
+     */
     private Movie movie;
 
+    /**
+     * Creates a new MovieTicket View and a new movieTicketList as an attribute
+     * @param seatID ArrayList of seatID as string
+     * @param movie {@link Movie}
+     * @param showingTime {@link DateTime}
+     * @param cinema {@link Cinema}
+     * @param seatingPlan ArrayList of {@link Seat}
+     * @param totalMovieTicketPrice Total movie ticekt price of all the seats chosen
+     */
     public MovieTicketView(ArrayList<String> seatID, Movie movie, DateTime showingTime, Cinema cinema,
             ArrayList<Seat> seatingPlan, double totalMovieTicketPrice) {
         this.seatID = seatID;
@@ -23,10 +42,18 @@ public class MovieTicketView {
                 totalMovieTicketPrice);
     }
 
+    /**
+     * Gets the ArrayList of movieTickets
+     * @return ArrayList of {@link MovieTicket}
+     */
     public ArrayList<MovieTicket> getMovieTickets() {
         return this.movieTicketList;
     }
 
+    /**
+     * Method that prints out the movie tickets purchased with information such as:
+     * movieName, movieType, cineplex, cinemaClass, cinemaID, showingTime, price of a movieTicket
+     */
     public void printMovieTickets() {
 
         // uncomment this after getCineplexByCinema() is created

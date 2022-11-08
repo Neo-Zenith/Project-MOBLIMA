@@ -7,14 +7,38 @@ import src.handler.*;
 
 
 public class PaymentView extends MainView {
-
+    /**
+     * Payment object {@link Payment}
+     */
     private Payment payment;
+    /**
+     * MovieSchedule object {@link MovieSchedule}
+     */
     private MovieSchedule movieSchedule;
+    /**
+     * Payment transactionID as string
+     */
     private String transactionID;
+    /**
+     * Total movie ticket price for all seats chosen for the movie
+     */
     private double totalMovieTicketPrice;
+    /**
+     * ReferenceID as string
+     */
     private String referenceID;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a PaymentView with the cinemaCode, movieSchedule and totalMovieTicketPrice
+     * Generates a transactionID based on the cinemaCode
+     * @param cinemaCode string of the cinema chosen
+     * @param totalMovieTicketPrice Total movie ticket price for all seats chosen for the movie
+     * @param movieSchedule schedule chosen for the movie type
+     */
     public PaymentView(String cinemaCode, double totalMovieTicketPrice, MovieSchedule movieSchedule) {
         this.totalMovieTicketPrice = totalMovieTicketPrice;
         this.transactionID = PaymentManager.generateTransactionId(cinemaCode);
@@ -22,10 +46,17 @@ public class PaymentView extends MainView {
         this.errorMessage = "";
     }
 
+    /**
+     * Gets the payment object
+     * @return {@link Payment} object
+     */
     public Payment getPayment() {
         return this.payment;
     }
 
+    /**
+     * Method that prints boiler plate and displays the choices that the user has to pay
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Payment");
         MainView.printMenuContent("""
@@ -39,6 +70,10 @@ public class PaymentView extends MainView {
                 """);
     }
 
+    /**
+     * Method that takes in the choice of the payment method, and requires user to key in relevant payment details
+     * User will be prompted to re-enter information if int or String keyed in is invalid
+     */
     public void appContent() {
 
         // generate Transaction ID at the moment a new Payment is created.
@@ -95,6 +130,9 @@ public class PaymentView extends MainView {
         }
     }
 
+    /**
+     * Method that prints out details of a successful payment
+     */
     public void printPaymentSuccessful() {
         System.out.println("");
         System.out.println("Payment Processing...");
@@ -104,6 +142,10 @@ public class PaymentView extends MainView {
         System.out.println("");
     }
 
+    /**
+     * Method that prints out receipt containing paymentID, transactionID, paymentMethod, MovieTicketPrice
+     * @param paymentMethod String of Card Payment, QR Code or Bank Transaction
+     */
     public void printReceipt(String paymentMethod) {
         // can add more criteria to be printed
         System.out.println("====================================");

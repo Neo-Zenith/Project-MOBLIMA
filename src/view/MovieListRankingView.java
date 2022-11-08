@@ -9,12 +9,21 @@ import src.model.enums.*;
 
 
 public class MovieListRankingView extends MainView {
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a new MovieListRankingView with an empty errorMessage
+     */
     public MovieListRankingView() {
         this.errorMessage = "";
     }
 
+    /**
+     * Prints the boiler plate and displays the choices of the user
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Rank Top 5");
         MainView.printMenuContent("""
@@ -27,6 +36,12 @@ public class MovieListRankingView extends MainView {
                 """);
     }
 
+    /**
+     * Method to call rankTop5 based on choice and prints ranking
+     * Showing movies will be displayed with higher priority over End of show movies 
+     * @param choice choice of the user to rank movies by ticket sales or overall rating
+     * The choice should be 1 or 2
+     */
     public void printTop5(int choice) {
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
         String content = "\n";
@@ -119,6 +134,9 @@ public class MovieListRankingView extends MainView {
         InputHandler.stringHandler();
     }
 
+    /**
+     * Method to take in choice of user as input for printing of ranking
+     */
     public void appContent() {
         int choice = -1;
         do {

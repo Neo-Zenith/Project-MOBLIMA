@@ -7,16 +7,33 @@ import src.handler.*;
 
 
 public class MovieListView extends MainView {
+    /**
+     * ArrayList of {@link Movie} objects
+     */
     private ArrayList<Movie> allMovies;
+    /**
+     * MovieGoer object {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a new MovieListView with the movieGoer
+     * Constructs the list of movies available 
+     * @param movieGoer {@link MovieGoer}
+     */
     public MovieListView(MovieGoer movieGoer) {
         this.allMovies = MovieManager.getAllMovieList(movieGoer);
         this.movieGoer = movieGoer;
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print out the title of the list of available movies
+     */
     public void printMovieList() {
         String content = "\nHere are the list of movies available: \n\n";
         int count = 0;
@@ -33,12 +50,18 @@ public class MovieListView extends MainView {
 
         MainView.printMenuContent(content);
     }
-
+    
+    /**
+     * Method to print the boiler plate and calls printMovieList
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Available Movies");
         this.printMovieList();
     }
 
+    /**
+     * Method to take in choice of user to display corresponding details of the movie using MovieDetailsView
+     */
     public void appContent() {
         int choice = -1;
         String movieTitle;

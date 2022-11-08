@@ -7,11 +7,28 @@ import src.controller.*;
 import java.util.*;
 
 public class MovieTypeView extends MainView {
+    /**
+     * Title of the movie
+     */
     private String movieTitle;
+    /**
+     * ArrayList of {@link Movie}
+     */
     private ArrayList<Movie> listOfMovieTypes;
+    /**
+     * MovieGoer object {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a MovieTypeView with the movieTitle and the movieGoer
+     * @param movieTitle title of the movie chosen
+     * @param movieGoer {@link MovieGoer}
+     */
     public MovieTypeView(String movieTitle, MovieGoer movieGoer) {
         this.movieTitle = movieTitle;
         this.listOfMovieTypes = new ArrayList<>();
@@ -25,6 +42,9 @@ public class MovieTypeView extends MainView {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print the movie type matching the movieTitle and calls printMenuContent
+     */
     public void printMovieType() {
         String content = "\n";
 
@@ -43,11 +63,18 @@ public class MovieTypeView extends MainView {
         MainView.printMenuContent(content);
     }
 
+    /**
+     * Method to print boiler plate and calls printMovieType
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Movie Type for " + this.movieTitle);
         this.printMovieType();
     }
 
+    /**
+     * Method to call printMenu and accept user choice if the movie is available
+     * Creates a CineplexView based on the movieType chosen
+     */
     public void appContent() {
         int choice = -1;
 

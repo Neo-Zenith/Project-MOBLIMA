@@ -4,17 +4,37 @@ import src.handler.*;
 import src.model.*;
 
 public class MovieMenuView {
+    /**
+     * Static variable to return to MovieMenuView after successful payment
+     */
     public static boolean exit = false;
+    /**
+     * MovieListView to be displayed
+     */
     private MovieListView movieListView;
+    /**
+     * MovieGoer object {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
 
+    /**
+     * Creates a new MovieMenuView with the movieGoer
+     * Constructs the MovieListView
+     * @param movieGoer {@link MovieGoer}
+     */
     public MovieMenuView(MovieGoer movieGoer) {
         this.movieGoer = movieGoer;
         this.movieListView = new MovieListView(this.movieGoer);
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print the boiler plate and displays the choices of the user
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Main Menu");
         MainView.printMenuContent(String.format("""
@@ -29,6 +49,11 @@ public class MovieMenuView {
                 """, this.movieGoer.getUsername()));
     }
 
+    /**
+     * Method to take in the choice of the user and creates a corresponding view
+     * Available choices for MovieListView, MovieSearchView, MovieBookingHistoryView, MovieListRankingView
+     * Sets exit boolean to false if it is true
+     */
     public void appContent() {
         int choice = -1;
 

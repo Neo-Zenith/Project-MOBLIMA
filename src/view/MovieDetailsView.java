@@ -6,14 +6,40 @@ import src.model.*;
 import src.handler.*;
 
 public class MovieDetailsView extends MainView {
+    /**
+     * Title of the movie
+     */
     private String movieTitle;
+    /**
+     * Synopsis of the movie
+     */
     private String synopsis;
+    /**
+     * ArrayList of {@link MovieReview} objects
+     */
     private ArrayList<MovieReview> pastReviews;
+    /**
+     * MovieGoer objects {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
+    /**
+     * ArrayList of the different types of {@link Movie} objects
+     */
     private ArrayList<Movie> listOfMovieTypes;
+    /**
+     * totalOverallReviewRating of the Movie
+     */
     private double totalOverallReviewRating;
 
+    /**
+     * Creates a new MovieDetailsView with the title and movieGoer
+     * @param title title of the movie
+     * @param movieGoer movieGoer accessing the view
+     */
     public MovieDetailsView(String title, MovieGoer movieGoer) {
         this.movieTitle = title;
         this.movieGoer = movieGoer;
@@ -31,6 +57,10 @@ public class MovieDetailsView extends MainView {
         this.totalOverallReviewRating /= this.listOfMovieTypes.size();
     }
 
+    /**
+     * Method to print out the basic details of the movie: Director, Cast, Movie Type
+     * Overall rating will be printed if available
+     */
     public void printMovieDetails() {
         System.out.println("Movie Director: " + this.listOfMovieTypes.get(0).getMovieDirector());
         if (this.pastReviews.size() < 2) {
@@ -58,6 +88,9 @@ public class MovieDetailsView extends MainView {
 
     }
 
+    /**
+     * Method to print the boiler plate, movie details and display the choices of the user
+     */
     public void printMenu() {
         MainView.printBoilerPlate(this.movieTitle);
         this.printMovieDetails();
@@ -73,6 +106,10 @@ public class MovieDetailsView extends MainView {
                 """);
     }
 
+    /**
+     * Method to print out further details of the movie: Synopsis, Past Reviews
+     * User will be able to add reviews and view the different types of the movie for booking
+     */
     public void appContent() {
         int choice = -1;
 
@@ -119,6 +156,9 @@ public class MovieDetailsView extends MainView {
         } while (true);
     }
 
+    /**
+     * Method to print the synopsis of the movie
+     */
     public void printSynopsis() {
         MainView.printBoilerPlate("Synopsis of " + this.movieTitle);
         MainView.printMenuContent(this.synopsis);
@@ -126,6 +166,10 @@ public class MovieDetailsView extends MainView {
         InputHandler.stringHandler();
     }
 
+    /**
+     * Method that will print each of the reviews and ratings 
+     * Reviews will not be displayed if number of reviews is less than 2
+     */
     public void printPastReviews() {
         MainView.printBoilerPlate("Past Reviews of " + this.movieTitle);
 
@@ -147,6 +191,9 @@ public class MovieDetailsView extends MainView {
         InputHandler.stringHandler();
     }
 
+    /**
+     * Method to take in the review and rating of the user for createMovieReview
+     */
     public void printAddReview() {
         String errorMessage = "";
         Movie movie;
@@ -186,6 +233,9 @@ public class MovieDetailsView extends MainView {
         manager.createMovieReview(this.movieGoer, movie, review, rating);
     }
 
+    /**
+     * Method to print out the different movie types available for the movie
+     */
     public void printMovieType() {
         String content = "\nSelect the movie type: \n\n";
 
