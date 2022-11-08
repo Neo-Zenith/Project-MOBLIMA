@@ -3,6 +3,7 @@
 ## 📁 Folder Structure
 ```
 ~
+├── .vscode               # Settings for source path
 ├── bin                   # Executiable files
 ├── doc                   # Documentation
 ├── src                   # Source code
