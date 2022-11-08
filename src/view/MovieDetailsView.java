@@ -5,14 +5,13 @@ import controller.*;
 import model.*;
 import handler.*;
 
-
 public class MovieDetailsView extends MainView {
     private String movieTitle;
     private String synopsis;
     private ArrayList<MovieReview> pastReviews;
     private MovieGoer movieGoer;
     private String errorMessage;
-    private ArrayList <Movie> listOfMovieTypes;
+    private ArrayList<Movie> listOfMovieTypes;
     private double totalOverallReviewRating;
 
     public MovieDetailsView(String title, MovieGoer movieGoer) {
@@ -20,10 +19,11 @@ public class MovieDetailsView extends MainView {
         this.movieGoer = movieGoer;
         this.errorMessage = "";
         this.listOfMovieTypes = MovieManager.getMovieList(movieTitle);
+
         this.synopsis = this.listOfMovieTypes.get(0).getMovieSynopsis();
         this.pastReviews = new ArrayList<>();
         this.totalOverallReviewRating = 0;
-        for (int i = 0; i < this.listOfMovieTypes.size(); i ++) {
+        for (int i = 0; i < this.listOfMovieTypes.size(); i++) {
             Movie movie = this.listOfMovieTypes.get(i);
             this.pastReviews.addAll(movie.getMovieReviews());
             this.totalOverallReviewRating += movie.getMovieOverallReviewRating();
@@ -39,12 +39,23 @@ public class MovieDetailsView extends MainView {
             String rating = String.format("%.2f", this.totalOverallReviewRating);
             System.out.println("Overall Rating: " + rating);
         }
+
         System.out.print("Movie Cast: ");
         for (int j = 0; j < this.listOfMovieTypes.get(0).getMovieCast().size(); j++) {
             System.out.print(this.listOfMovieTypes.get(0).getMovieCast().get(j));
             System.out.print(", ");
         }
         System.out.println("...");
+        System.out.print("Movie Type: ");
+        for (int i = 0; i < this.listOfMovieTypes.size(); i++) {
+            System.out.print(this.listOfMovieTypes.get(i).getMovieType() + " ("
+                    + this.listOfMovieTypes.get(i).getMovieShowingStatus() + ")");
+            if (i != this.listOfMovieTypes.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("");
+
     }
 
     public void printMenu() {
@@ -52,8 +63,8 @@ public class MovieDetailsView extends MainView {
         this.printMovieDetails();
         MainView.printMenuContent("""
 
-                Select an option to view further information about the movie: 
-                
+                Select an option to view further information about the movie:
+
                 01. View Synopsis
                 02. View Past Reviews
                 03. Booking Query
@@ -91,7 +102,8 @@ public class MovieDetailsView extends MainView {
                     this.printPastReviews();
                     break;
                 case 3:
-                    MovieTypeView typeView = new MovieTypeView(this.listOfMovieTypes.get(0).getMovieTitle(), this.movieGoer);
+                    MovieTypeView typeView = new MovieTypeView(this.listOfMovieTypes.get(0).getMovieTitle(),
+                            this.movieGoer);
                     this.errorMessage = "";
                     typeView.appContent();
                     break;
@@ -155,8 +167,8 @@ public class MovieDetailsView extends MainView {
             }
             movie = this.listOfMovieTypes.get(choice - 1);
             break;
-        }   while(true);
-        
+        } while (true);
+
         System.out.println("Give a review for the movie: ");
         String review = InputHandler.stringHandler();
         System.out.println("Give a rating for the movie: (0-5)");
@@ -173,7 +185,6 @@ public class MovieDetailsView extends MainView {
         MovieReviewManager manager = new MovieReviewManager();
         manager.createMovieReview(this.movieGoer, movie, review, rating);
     }
-
 
     public void printMovieType() {
         String content = "\nSelect the movie type: \n\n";

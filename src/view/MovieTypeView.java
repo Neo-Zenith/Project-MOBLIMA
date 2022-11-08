@@ -2,9 +2,9 @@ package view;
 
 import handler.*;
 import model.*;
+import model.enums.MovieShowingStatus;
 import controller.*;
 import java.util.*;
-
 
 public class MovieTypeView extends MainView {
     private String movieTitle;
@@ -14,7 +14,13 @@ public class MovieTypeView extends MainView {
 
     public MovieTypeView(String movieTitle, MovieGoer movieGoer) {
         this.movieTitle = movieTitle;
-        this.listOfMovieTypes = MovieManager.getMovieList(movieTitle);
+        this.listOfMovieTypes = new ArrayList<>();
+        ArrayList<Movie> allMovieTypes = MovieManager.getMovieList(movieTitle);
+        for (int i = 0; i < allMovieTypes.size(); i++) {
+            if (allMovieTypes.get(i).getMovieShowingStatus() != MovieShowingStatus.COMING_SOON) {
+                this.listOfMovieTypes.add(allMovieTypes.get(i));
+            }
+        }
         this.movieGoer = movieGoer;
         this.errorMessage = "";
     }
@@ -50,7 +56,13 @@ public class MovieTypeView extends MainView {
                 this.errorMessage = "";
                 return;
             }
-            
+            if (this.listOfMovieTypes.size() == 0) {
+                MainView.printMenuContent("This movie is currently not available!");
+                System.out.println("Press any key to return: ");
+                InputHandler.stringHandler();
+                return;
+            }
+
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             this.printMenu();
@@ -63,13 +75,12 @@ public class MovieTypeView extends MainView {
             if (choice == this.listOfMovieTypes.size() + 1) {
                 this.errorMessage = "";
                 return;
-            } 
-            else {
+            } else {
                 this.errorMessage = "";
                 CineplexView cineplex = new CineplexView(listOfMovieTypes.get(choice - 1), this.movieGoer);
                 cineplex.appContent();
             }
-            
+
         } while (true);
     }
 }

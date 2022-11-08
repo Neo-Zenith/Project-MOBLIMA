@@ -40,18 +40,17 @@ public class MovieSearchView extends MainView {
                 return;
             }
 
-            ArrayList <Movie> movies = MovieManager.getMovieList(movieTitle);
-            
-            if (movies.size() != 0 && movies.get(0).getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
+            ArrayList<Movie> movies = MovieManager.getAllMovieList(this.movieGoer);
+
+            if (movies.size() != 0) {
                 this.errorMessage = "";
                 MovieDetailsView detailsView = new MovieDetailsView(movieTitle, movieGoer);
                 detailsView.appContent();
-            } 
-            else {
+            } else {
                 this.errorMessage = "Error! The searched movie is not available!";
                 continue;
             }
 
-        }   while (true);
+        } while (true);
     }
 }
