@@ -28,6 +28,10 @@ public class MovieScheduleManager {
     public static MovieSchedule updateMovieSchedule(String movieUUID, ArrayList <String> showingVenuesUUID, ArrayList <DateTime> showingTimes) {
         ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
 
+        if (movieSchedules.size() == 0) {
+            return null;
+        }
+        
         MovieSchedule movieSchedule = movieSchedules.get(0);
         boolean flag = false;
         for (int i = 0; i < movieSchedules.size(); i ++) {
