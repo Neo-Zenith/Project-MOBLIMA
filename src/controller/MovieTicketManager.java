@@ -5,7 +5,6 @@ import src.handler.*;
 import src.database.*;
 import java.util.*;
 
-
 public class MovieTicketManager {
 
     public MovieTicketManager() {}

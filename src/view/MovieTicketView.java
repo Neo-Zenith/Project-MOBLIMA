@@ -64,7 +64,6 @@ public class MovieTicketView {
      */
     public void printMovieTickets() {
 
-        // uncomment this after getCineplexByCinema() is created
         Cinema _cinema = CinemaManager.getCinemaByUUID(this.movieTicketList.get(0).getShowingVenue());
         System.out.println(this.movieTicketList.get(0).getShowingVenue());
         Cineplex targetCineplex = CineplexManager.getCineplexByCinema(_cinema);
