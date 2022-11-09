@@ -7,7 +7,11 @@ import src.handler.*;
 import src.model.*;
 import src.model.enums.*;
 
-
+/**
+ * View for movie goer to choose the ranking format of top 5 movies
+ * @author Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class MovieListRankingView extends MainView {
     /**
      * Error message of the view

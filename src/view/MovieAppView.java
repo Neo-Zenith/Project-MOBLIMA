@@ -6,11 +6,17 @@ import src.model.*;
 import src.model.enums.*;
 import src.controller.*;
 
+/**
+ * View for the movie goer and cinema staff before register or login
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class MovieAppView extends MainView {
     /**
      * StaffSystemConfig view
      */
     private StaffSystemConfig staffView;
+    
     /**
      * Error message of the view
      */

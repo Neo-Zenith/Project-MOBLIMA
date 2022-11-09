@@ -6,24 +6,94 @@ import src.model.*;
 import src.model.enums.*;
 import src.handler.*;
 
-
+/**
+ * View for movie goer of the seating plan of the movie at that cinema
+ * @author Lee Juin, Yeek Sheng
+ * @version 1.0
+ */
 public class SeatingPlanView {
+    /**
+     * ArrayList of {@link Seat} in the cinema
+     */
     private ArrayList<Seat> seatingPlan;
+
+    /**
+     * Showing time of the movie scheduled {@link DateTime}
+     */
     private DateTime showingTime;
+
+    /**
+     * Cinema showing the movie {@link Cinema}
+     */
     private Cinema cinema;
+
+    /**
+     * Schedule of the movie {@link MovieSchedule}
+     */
     private MovieSchedule movieSchedule;
+
+    /**
+     * MovieGoer object {@link MovieGoer}
+     */
     private MovieGoer movieGoer;
+
+    /**
+     * Payment View {@link PaymentView}
+     */
     private PaymentView paymentView;
+
+    /**
+     * Payment object {@link Payment}
+     */
     private Payment paymentCreated;
+
+    /**
+     * MovieTicket view {@link MovieTicketView}
+     */
     private MovieTicketView movieTicketView;
+
+    /**
+     * ArrayList of {@link MovieTicket} objects
+     */
     private ArrayList<MovieTicket> movieTicketListCreated;
+
+    /**
+     * Seat object chosen {@link Seat}
+     */
     private Seat seatBooked;
+
+    /**
+     * Booking History of the movieGoer {@link BookingHistory}
+     */
     private BookingHistory bookingHistoryCreated;
+
+    /**
+     * Error Message of the view
+     */
     private String errorMessage;
+
+    /**
+     * ArrayList of seatID as String
+     */
     private ArrayList<String> seatIDList;
+
+    /**
+     * Current movie ticket price of one ticket
+     */
     private double currentMovieTicketPrice;
+
+    /**
+     * Total movie ticket price of all tickets chosen
+     */
     private double totalMovieTicketPrice;
 
+    /**
+     * Creates a new SeatingPlanView with chosen movieSchedule, cinema, showingPlan and the movieGoer
+     * @param movieSchedule movieSchedule chosen {@link MovieSchedule}
+     * @param cinema cinema chosen {@link Cinema}
+     * @param seatingPlan ArrayList of {@link Seat} objects
+     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
+     */
     public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList<Seat> seatingPlan, MovieGoer movieGoer) {
         this.seatingPlan = seatingPlan;
         this.cinema = cinema;
@@ -37,6 +107,9 @@ public class SeatingPlanView {
         this.totalMovieTicketPrice = 0;
     }
 
+    /**
+     * Method to print out the floor map of the cinema choice to display the seats
+     */
     public void printSeatingPlan() {
         if (this.cinema.getCinemaClass() == CinemaClass.PLATINUM) {
             SeatManager.printPlatinumCinemaFloorMap(this.seatingPlan);
@@ -45,6 +118,10 @@ public class SeatingPlanView {
         }
     }
 
+    /**
+     * Method to print the boiler plate and displays the choice that the user has
+     * Displays the cinemaID, movieTitle, showingTime, seatingPlan, seats in cart currently
+     */
     public void printMenu() {
         Movie movie = MovieManager.getMovieByUUID(this.movieSchedule.getMovieOnShow());
         MainView.printBoilerPlate("Seat Booking");
@@ -63,6 +140,9 @@ public class SeatingPlanView {
                 """);
     }
 
+    /**
+     * Method to print the seatID and price of the seats chosen by the movieGoer
+     */
     public void printSeatInCart() {
         String content = "\nSeat in cart: \n";
 
@@ -79,6 +159,11 @@ public class SeatingPlanView {
         MainView.printMenuContent(content);
     }
 
+    /**
+     * Method to take in the choice of the user for the booking of a new seat
+     * Creates a PaymentView from the current cinema and schedule with total price of MovieTickets
+     * Creates a MovieTicketView from the seatIDs chosen at this cinema and schedule
+     */
     public void appContent() {
         int choice = -1;
 

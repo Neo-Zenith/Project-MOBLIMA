@@ -3,19 +3,27 @@ package src.view;
 import src.handler.*;
 import src.model.*;
 
+/**
+ * View for movie goer after successful login or register
+ * @author Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class MovieMenuView {
     /**
      * Static variable to return to MovieMenuView after successful payment
      */
     public static boolean exit = false;
+
     /**
      * MovieListView to be displayed
      */
     private MovieListView movieListView;
+
     /**
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
+    
     /**
      * Error message of the view
      */
@@ -24,7 +32,7 @@ public class MovieMenuView {
     /**
      * Creates a new MovieMenuView with the movieGoer
      * Constructs the MovieListView
-     * @param movieGoer {@link MovieGoer}
+     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieMenuView(MovieGoer movieGoer) {
         this.movieGoer = movieGoer;

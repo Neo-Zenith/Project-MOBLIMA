@@ -6,19 +6,27 @@ import src.controller.*;
 import src.handler.*;
 import java.util.*;
 
+/**
+ * View for movie goer to view the movie tickets after successful payment
+ * @author Lee Juin, Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class MovieTicketView {
     /**
      * ArrayList of {@link MovieTicket} objects
      */
     private ArrayList<MovieTicket> movieTicketList;
+
     /**
      * ArrayList of seatIDs as string
      */
     private ArrayList<String> seatID;
+
     /**
      * Total movie ticket price for all seats chosen for the movie
      */
     private double totalMovieTicketPrice;
+    
     /**
      * Movie object of the movieTicket {@link Movie}
      */
@@ -27,9 +35,9 @@ public class MovieTicketView {
     /**
      * Creates a new MovieTicket View and a new movieTicketList as an attribute
      * @param seatID ArrayList of seatID as string
-     * @param movie {@link Movie}
-     * @param showingTime {@link DateTime}
-     * @param cinema {@link Cinema}
+     * @param movie movie object {@link Movie}
+     * @param showingTime showing time chosen {@link DateTime}
+     * @param cinema cinema chosen {@link Cinema}
      * @param seatingPlan ArrayList of {@link Seat}
      * @param totalMovieTicketPrice Total movie ticekt price of all the seats chosen
      */

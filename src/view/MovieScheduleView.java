@@ -5,36 +5,47 @@ import src.handler.*;
 import src.model.*;
 import java.util.*;
 
-
+/**
+ * View for movie goer to view the schedules of the movie for its type
+ * @author Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class MovieScheduleView {
     /**
      * MovieGoer object {@link Movie}
      */
     private Movie movie;
+
     /**
      * ArrayList of {@link Cinema} objects
      */
     private ArrayList<Cinema> cinemaList;
+
     /**
      * MovieSchedule object {@link MovieSchedule}
      */
     private MovieSchedule movieSchedule;
+
     /**
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
+
     /**
      * ArrayList of {@link Datetime} objects as showingTime
      */
     private ArrayList<DateTime> showingTimes;
+
     /**
      * ArrayList of integer for indexes
      */
     private ArrayList<Integer> indexList;
+
     /**
      * SeatingPlanView
      */
     private SeatingPlanView seatingPlanView;
+    
     /**
      * Error message of the view
      */
@@ -45,7 +56,7 @@ public class MovieScheduleView {
      * Stores the index of the showingVenues that match the list of cinemas showing the movie and its type
      * @param cinemaList ArrayList of cinemas showing the movie title and type {@link Cinema}
      * @param movie Movie title {@link Movie}
-     * @param movieGoer {@link MovieGoer}
+     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieScheduleView(ArrayList<Cinema> cinemaList, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;

@@ -3,14 +3,19 @@ package src.view;
 import src.handler.*;
 import src.model.*;
 import src.controller.*;
-
 import java.util.ArrayList;
 
+/**
+ * View for movie goer to search for a particular movie title
+ * @author Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class MovieSearchView extends MainView {
     /**
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
+    
     /**
      * Error message of the view
      */
@@ -18,7 +23,7 @@ public class MovieSearchView extends MainView {
 
     /**
      * Creates a a new MovieSearchView with movieGoer
-     * @param movieGoer {@link MovieGoer}
+     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieSearchView(MovieGoer movieGoer) {
         this.movieGoer = movieGoer;

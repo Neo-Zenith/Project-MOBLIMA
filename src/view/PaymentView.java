@@ -5,28 +5,37 @@ import src.controller.*;
 import src.database.*;
 import src.handler.*;
 
-
+/**
+ * View for movie goer after selecting the seats for purchase
+ * @author Lee Juin, Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class PaymentView extends MainView {
     /**
      * Payment object {@link Payment}
      */
     private Payment payment;
+
     /**
      * MovieSchedule object {@link MovieSchedule}
      */
     private MovieSchedule movieSchedule;
+
     /**
      * Payment transactionID as string
      */
     private String transactionID;
+
     /**
      * Total movie ticket price for all seats chosen for the movie
      */
     private double totalMovieTicketPrice;
+
     /**
      * ReferenceID as string
      */
     private String referenceID;
+    
     /**
      * Error message of the view
      */

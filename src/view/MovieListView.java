@@ -5,16 +5,22 @@ import src.model.*;
 import src.controller.*;
 import src.handler.*;
 
-
+/**
+ * View for movie goer to view the list of movies
+ * @author Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class MovieListView extends MainView {
     /**
      * ArrayList of {@link Movie} objects
      */
     private ArrayList<Movie> allMovies;
+
     /**
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
+    
     /**
      * Error message of the view
      */
@@ -23,7 +29,7 @@ public class MovieListView extends MainView {
     /**
      * Creates a new MovieListView with the movieGoer
      * Constructs the list of movies available 
-     * @param movieGoer {@link MovieGoer}
+     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieListView(MovieGoer movieGoer) {
         this.allMovies = MovieManager.getAllMovieList(movieGoer);

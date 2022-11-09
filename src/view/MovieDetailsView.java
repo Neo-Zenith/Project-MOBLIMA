@@ -5,31 +5,42 @@ import src.controller.*;
 import src.model.*;
 import src.handler.*;
 
+/**
+ * View for movie goer to view the details of the movie
+ * @author Yeek Sheng, Jerick
+ * @version 1.0
+ */
 public class MovieDetailsView extends MainView {
     /**
      * Title of the movie
      */
     private String movieTitle;
+
     /**
      * Synopsis of the movie
      */
     private String synopsis;
+
     /**
      * ArrayList of {@link MovieReview} objects
      */
     private ArrayList<MovieReview> pastReviews;
+
     /**
      * MovieGoer objects {@link MovieGoer}
      */
     private MovieGoer movieGoer;
+
     /**
      * Error message of the view
      */
     private String errorMessage;
+
     /**
      * ArrayList of the different types of {@link Movie} objects
      */
     private ArrayList<Movie> listOfMovieTypes;
+    
     /**
      * totalOverallReviewRating of the Movie
      */
