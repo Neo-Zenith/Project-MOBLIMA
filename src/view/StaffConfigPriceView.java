@@ -4,7 +4,7 @@ import src.handler.*;
 import src.controller.*;
 
 /**
- * View for cinema staffs to configure {@link Prices}
+ * View for cinema staffs to configure prices
  * @author Jonathan Ng
  * @version 1.0
  */

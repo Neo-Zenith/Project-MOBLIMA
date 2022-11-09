@@ -38,16 +38,16 @@ public class StandardSeat extends Seat {
     }
 
     /**
-     * Gets the {@Link SeatType} of the seat
-     * @return The {@Link SeatType} of the seat
+     * Gets the {@link SeatType} of the seat
+     * @return The {@link SeatType} of the seat
      */
     public SeatType getSeatType() {
         return this.seatType;
     }
 
     /**
-     * Sets the {@Link SeatType} of the seat
-     * @param seatType is the {@Link SeatType} of the seat
+     * Sets the {@link SeatType} of the seat
+     * @param seatType is the {@link SeatType} of the seat
      */
     public void setSeatType(SeatType seatType) {
         this.seatType = seatType;

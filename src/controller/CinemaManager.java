@@ -24,7 +24,7 @@ public class CinemaManager {
      * Method to create a {@link PlatinumCinema} instance and save to database
      * 
      * @param seats is all the {@link Seat} instances in the cinema
-     * @return The created {Cinema} object
+     * @return The created {@link Cinema} object
      */
     public static Cinema createPlatinumCinema(ArrayList<Seat> seats) {
         String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
@@ -38,7 +38,7 @@ public class CinemaManager {
      * Method to create a {@link StandardCinema} instance and save to database
      * 
      * @param seats is all the {@link Seat} instances in the cinema
-     * @return The created {Cinema} object
+     * @return The created {@link Cinema} object
      */
     public static Cinema createStandardCinema(ArrayList<Seat> seats) {
         String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));
@@ -51,7 +51,7 @@ public class CinemaManager {
      * Method to create a {@link IMaxCinema} instance and save to database
      * 
      * @param seats is all the {@link Seat} instances in the cinema
-     * @return The created {Cinema} object
+     * @return The created {@link Cinema} object
      */
     public static Cinema createIMaxCinema(ArrayList<Seat> seats) {
         String UUID = String.format("CN%04d", DatabaseHandler.generateUUID(Database.CINEMA));

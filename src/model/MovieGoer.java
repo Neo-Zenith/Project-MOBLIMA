@@ -197,7 +197,7 @@ public abstract class MovieGoer implements Serializable {
     /**
      * Sets all the {@link BookingHistory} made by the Movie Goer
      * 
-     * @param bookingHistory is the ArrayList of {@link BookingHisotry} to be set
+     * @param bookingHistory is the ArrayList of {@link BookingHistory} to be set
      */
     public void setBookingHistory(ArrayList<BookingHistory> bookingHistory) {
         this.bookingHistory = bookingHistory;

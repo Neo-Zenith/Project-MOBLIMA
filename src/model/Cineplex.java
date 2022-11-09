@@ -80,16 +80,16 @@ public class Cineplex implements Comparable, Serializable{
     }
 
     /**
-     * Gets all the {@Link Cinema} instances in the cineplex
-     * @return ArrayList of {@Link Cinema} instances in the cineplex
+     * Gets all the {@link Cinema} instances in the cineplex
+     * @return ArrayList of {@link Cinema} instances in the cineplex
      */
     public ArrayList <Cinema> getCinemas() {
         return this.cinemas;
     }
 
     /**
-     * Sets all the {@Link Cinema} instances in the cineplex
-     * @param cinemas is the {@Link Cinema} instances to be set
+     * Sets all the {@link Cinema} instances in the cineplex
+     * @param cinemas is the {@link Cinema} instances to be set
      */
     public void setCinemas(ArrayList <Cinema> cinemas) {
         this.cinemas = cinemas;

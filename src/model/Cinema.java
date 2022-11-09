@@ -21,7 +21,7 @@ public abstract class Cinema implements Comparable, Serializable {
      * Constructor for Cinema class
      * 
      * @param UUID            is the unique ID in the database
-     * @param seats           is all the {@Link Seat} instances in the cinema
+     * @param seats           is all the {@link Seat} instances in the cinema
      * @param numOfRows       is the total number of rows in the cinema
      * @param totalNumOfSeats is the total number of seats in the cinema
      */
@@ -62,14 +62,14 @@ public abstract class Cinema implements Comparable, Serializable {
     /**
      * Sets the class of the cinema
      * 
-     * @param cinemaClass is the {@Link CinemaClass} to be set
+     * @param cinemaClass is the {@link CinemaClass} to be set
      */
     public void setCinemaClass(CinemaClass cinemaClass) {
         this.cinemaClass = cinemaClass;
     }
 
     /**
-     * Gets all the {@Link Seat} instances in the cinema
+     * Gets all the {@link Seat} instances in the cinema
      * 
      * @return ArrayList of {@link Seat}
      */
@@ -89,9 +89,9 @@ public abstract class Cinema implements Comparable, Serializable {
     }
 
     /**
-     * Sets all the {@Link Seat} instances in the cinema
+     * Sets all the {@link Seat} instances in the cinema
      * 
-     * @param seats is the ArrayList of {@Link Seat} instances to be set
+     * @param seats is the ArrayList of {@link Seat} instances to be set
      */
     public void setSeats(ArrayList<Seat> seats) {
         this.seats = seats;
@@ -100,7 +100,7 @@ public abstract class Cinema implements Comparable, Serializable {
     /**
      * Method to add a seat into the cinema
      * 
-     * @param seat is the {@Link Seat} instance to be added
+     * @param seat is the {@link Seat} instance to be added
      */
     public void addSeat(Seat seat) {
         this.seats.add(seat);
