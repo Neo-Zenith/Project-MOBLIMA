@@ -3,6 +3,10 @@ package src.model;
 import java.io.Serializable;
 import java.util.Calendar;
 
+/**
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class DateTime implements Serializable {
     private int minute;
     private int hour;
@@ -12,6 +16,15 @@ public class DateTime implements Serializable {
     private int year;
     private static final long serialVersionUID = 7L;
 
+    /**
+     * Constructor for DateTime class
+     * @param minute is the minute of the Time
+     * @param hour is the hour of the Time
+     * @param day is the day of the Date (1. Sunday 2. Monday 3. Tuesday 4. Wednesday 5. Thursday 6. Friday 7. Saturday)
+     * @param date is the date of the Date
+     * @param month is the month of the Date
+     * @param year is the year of the Date
+     */
     public DateTime(int minute, int hour, int day, int date, int month, int year) {
         this.minute = minute;
         this.hour = hour;
@@ -21,6 +34,9 @@ public class DateTime implements Serializable {
         this.year = year;
     }
 
+    /**
+     * Constructor for DateTime class
+     */
     public DateTime() {
         this.minute = Calendar.MINUTE;
         this.hour = Calendar.HOUR;
@@ -30,30 +46,57 @@ public class DateTime implements Serializable {
         this.year = Calendar.YEAR;
     }
 
+    /**
+     * Gets the minute of the Time 
+     * @return Minute of the Time
+     */
     public int getMinute() {
         return this.minute;
     }
 
+    /**
+     * Gets the hour of the Time
+     * @return Hour of the Time
+     */
     public int getHour() {
         return this.hour;
     }
 
+    /**
+     * Gets the date of the Date
+     * @return Date of the Date
+     */
     public int getDate() {
         return this.date;
     }
 
+    /**
+     * Gets the Day of the Date 
+     * @return Day of the Date
+     */
     public int getDay() {
         return this.day;
     }
 
+    /**
+     * Gets the Month of the Date
+     * @return Month of the Date
+     */
     public int getMonth() {
         return this.month;
     }
 
+    /**
+     * Gets the Year of the Date
+     * @return Year of the Date
+     */
     public int getYear() {
         return this.year;
     }
 
+    /**
+     * Method to print out the date and the time
+     */
     public void printTime() {
         System.out.print(this.getDate() + "/");
         System.out.print(this.getMonth() + "/");
@@ -88,7 +131,10 @@ public class DateTime implements Serializable {
         System.out.println(String.format("%02d", this.getHour()) + String.format("%02d", this.getMinute()));
     }
 
-
+    /**
+     * Formats a string of the current time
+     * @return String of the current time
+     */
     public String getTimeNow() {
         String timeNow = "";
         timeNow += this.getDate() + "/";
@@ -127,18 +173,34 @@ public class DateTime implements Serializable {
         return timeNow;
     }
 
+    /**
+     * Gets the current year
+     * @return Year of the current year
+     */
     public static int getCurrentYear() {
         return Calendar.YEAR;
     }
 
+    /**
+     * Gets the current month
+     * @return Month of the current month
+     */
     public static int getCurrentMonth() {
         return Calendar.MONTH;
     }
 
+    /**
+     * Gets the current day
+     * @return Day of the current Day
+     */
     public static int getCurrentDay() {
         return Calendar.DAY_OF_WEEK;
     }
 
+    /**
+     * Gets the current date
+     * @return Date of the current date
+     */
     public static int getCurrentDate() {
         return Calendar.DATE;
     }

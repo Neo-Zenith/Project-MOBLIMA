@@ -2,16 +2,43 @@ package src.view;
 
 import src.handler.*;
 
+/**
+ * View for staffs to select which system setting is to be configured
+ * System settings include movie ticket pricings, holidays and movie goer permissions
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class StaffConfigSettingsView {
+    /**
+     * StaffConfigPriceView to be displayed
+     */
     private StaffConfigPriceView staffConfigPriceView;
+    
+    /**
+     * StaffConfigHolidayView to be displayed
+     */
     private StaffConfigHolidayView staffConfigHolidayView;
+    
+    /**
+     * StaffConfigPermissionsView to be displayed
+     */
     private StaffConfigPermissionsView staffConfigPermissionsView;
+    
+    /**
+     * Error message of this view
+     */
     private String errorMessage;
 
+    /** 
+     * Constructor
+     */
     public StaffConfigSettingsView() {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print the boiler plate
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Configure System Settings");
         MainView.printMenuContent("""
@@ -25,6 +52,10 @@ public class StaffConfigSettingsView {
                 """);
     }
 
+    /**
+     * Method to call printMenu and queries the cinema staff on which system setting is to be configured
+     * Upon successful choice, cinema staff will be redirected to either StaffConfigPriceView to configure price, StaffConfigHolidayView to configure holidays, StaffConfigPermissionsView to configure movie goer permissions
+     */
     public void appContent() {
         int choice = -1;
 

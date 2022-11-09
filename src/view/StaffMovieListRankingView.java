@@ -7,13 +7,27 @@ import src.database.*;
 import src.handler.*;
 import src.model.*;
 
+/**
+ * View for cinema staffs to view the top five ranked movies based on ticket sales or overall review ratings
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class StaffMovieListRankingView extends MainView {
+    /**
+     * Error message of view
+     */
     private String errorMessage;
 
+    /**
+     * Constructor for StaffMovieListRankingView
+     */
     public StaffMovieListRankingView() {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print boiler plate
+     */
     public void printMenu(){
         MainView.printBoilerPlate("Staff Rank Top 5");
         MainView.printMenuContent("""
@@ -26,6 +40,10 @@ public class StaffMovieListRankingView extends MainView {
             """);
     }
 
+    /**
+     * Method to print top five movies for cinema staff based on either ticket sales or overall review ratings 
+     * @param choice choice made by cinema staff whether to view rank by ticket sales or overall ratings
+     */
     public void printTop5(int choice) {
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
         String content = "\n";
@@ -70,6 +88,9 @@ public class StaffMovieListRankingView extends MainView {
         InputHandler.stringHandler();
     }
     
+    /**
+     * Method to get cinema staff's choice and to call printTop5 method 
+     */
     public void appContent(){
         int choice = -1;
         do {

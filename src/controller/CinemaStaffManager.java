@@ -7,11 +7,26 @@ import src.handler.*;
 import src.view.*;
 import java.util.*;
 
+/**
+ * Controller class for handling all logic related to cinema staff
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 
 public class CinemaStaffManager{
 
+    /**
+     * Constructor
+     */
     public CinemaStaffManager(){}
 
+    /**
+     * Method to create cinema staff instance and save it to database
+     * @param name is the name of the cinema staff
+     * @param password is the password of the cinema staff's account used during login
+     * @param username is the username of the cinema staff's account used during login
+     * @return The created {@link CinemaStaff} object
+     */
 
     public static CinemaStaff createCinemaStaff(String name, String password, String username){
         String UUID = String.format("SF%04d", DatabaseHandler.generateUUID(Database.CINEMA_STAFF));
@@ -20,7 +35,21 @@ public class CinemaStaffManager{
         return cinemaStaff;
     }
 
-
+    /**
+     * Method to add a new {@link Movie} into the database and schedule it into the movie scheduler {@link MovieSchedule}
+     * @param title is the title of the new movie
+     * @param movieAgeRating is the age rating of the new movie
+     * @param movieShowingStatus is the new showing status of the new movie
+     * @param movieCast is all the cast members of the new movie
+     * @param director is the name of the director of the new movie
+     * @param synopsis is the synopsis of the new movie
+     * @param duration is the length of the new movie
+     * @param movieTypeChoice is the choice of the new movie type 
+     * @param showingVenue is all the showing venues of the new movie
+     * @param seatingPlan is all the seating plan of the cinema corresponding to the cinema type
+     * @param showingTime is all the showing times of the movie
+     * 
+     */
     public static void movieAdder(String title, MovieAgeRating movieAgeRating, MovieShowingStatus movieShowingStatus, ArrayList<String> movieCast, String director, String synopsis, double duration, int movieTypeChoice, ArrayList<String> showingVenue,  ArrayList<ArrayList<Seat>> seatingPlan, ArrayList<DateTime> showingTime){
         Movie m;
         if (movieTypeChoice == 1){
@@ -41,6 +70,11 @@ public class CinemaStaffManager{
     }
 
 
+    /**
+     * Method to update the details for existing movies in the database
+     * @param movie is the movie in consideration 
+     * @param detail is the particular detail that is to be updated. Cinema staffs are able to configure 1. Movie Title 2. Movie Type 3. Age Rating 4. Showing Status 5. Name of movie casts 6. Name of movie director 7. Synopsis 8. Duration of movie 9. Movie Schedule (Showing venue and Showing time)
+     */
     public static void updateExistingMovieDetails(Movie movie, int detail){
         String movieUUID = movie.getUUID();
         String errorMessage = "";
@@ -415,6 +449,10 @@ public class CinemaStaffManager{
         }
     }
 
+    /**
+     * Method for cinema staffs to configure the {@link Prices} for various flat prices and rates and updates the database 
+     * @param choice is the choice of which price to configure
+     */
 
     public static void configurePrice(int choice){
         double price;
@@ -573,6 +611,11 @@ public class CinemaStaffManager{
         }   while (true);
     }
 
+    /**
+     * Method for cinema staffs to configure the ArrayList of holidays in the database
+     * @param choice is the choice of whether to add a new holiday or to remove an existing holiday
+     * @return Integer flag whether the configuration is successful or not
+     */
 
     public static int configureHoliday(int choice){
         DateTime holiday;   
@@ -645,7 +688,10 @@ public class CinemaStaffManager{
         }   while(true);
     }
         
-    
+    /**
+     * Method to print out the holidays on the holidays ArrayList
+     * @param content is the contents to be printed out
+     */
     public static void printHolidayList(String content){
         for (int i = 0; i < Database.holidays.size(); i++){
             DateTime holiday = Database.holidays.get(i);
@@ -659,7 +705,10 @@ public class CinemaStaffManager{
         MainView.printMenuContent(content);
     }
 
-
+    /**
+     * Method to query and create a new date 
+     * @return {@link DateTime} object of the queried date
+     */
     public static DateTime queryDate(){
         System.out.print("Year: ");
         int year = InputHandler.intHandler();
@@ -674,11 +723,15 @@ public class CinemaStaffManager{
         System.out.print("Minute: ");
         int minute = InputHandler.intHandler();
         
-        DateTime holiday = new DateTime(minute, hour, day, date, month, year);
-        return holiday;
+        DateTime dateTime = new DateTime(minute, hour, day, date, month, year);
+        return dateTime;
     }
 
-    
+    /**
+     * Method to opt in/out the permissions of movie goers from viewing the list of top five  
+     * @param choice is the choice whether to opt in/out based on overall ratings or based on movie sales
+     * @param optInOut is the choice whether to opt in or opt out
+     */
     public static void optInOut(int choice, boolean optInOut){
         if (choice == 1) {
             Database.PERMISSION.setOverallRatingsPermission(optInOut);

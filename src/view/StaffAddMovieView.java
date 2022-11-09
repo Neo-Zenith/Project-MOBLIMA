@@ -7,18 +7,34 @@ import src.controller.*;
 import src.database.*;
 import java.util.*;
 
-
+/**
+ * View for cinema staff to add a new movie into the database
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class StaffAddMovieView {
+    /**
+     * Error message of this view
+     */
     private String errorMessage;
 
+    /**
+     * Constructor
+     */
     public StaffAddMovieView() {
         this.errorMessage = "";
     }
 
+    /**
+     * Prints the boiler plate
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Add New Movies");
     }
 
+    /**
+     * Prints the boiler plate for query of Movie Age Rating
+     */
     public void printAgeRating() {
         MainView.printMenuContent("""
             Enter the Age Rating
@@ -33,6 +49,9 @@ public class StaffAddMovieView {
                 """);
     }
 
+    /**
+     * Prints the boiler plate for query of Movie Showing Status
+     */
     public void printShowingStatus() {
         MainView.printMenuContent("""
         Enter the showing status
@@ -43,6 +62,9 @@ public class StaffAddMovieView {
         """);
     }
 
+    /**
+     * Prints the boiler plate for query of Movie Type
+     */
     public void printMovieType() {
         MainView.printMenuContent("""
         Enter the movie type
@@ -53,6 +75,9 @@ public class StaffAddMovieView {
         """);
     }
 
+    /**
+     * Prints the boiler plate for query of Cinema Class
+     */
     public void printCinemaClass() {
         MainView.printMenuContent("""
             Enter the cinema class for this movie
@@ -63,6 +88,9 @@ public class StaffAddMovieView {
                 """);
     }
 
+    /**
+     * Prints the Cineplexes showing the new movie
+     */
     public void printCineplex() {
         ArrayList <Cineplex> cineplexes = Database.getValueList(Database.CINEPLEX.values());
         String content = "\nEnter the cineplex showing this movie\n\n";
@@ -77,17 +105,28 @@ public class StaffAddMovieView {
         MainView.printMenuContent(content);
     }
 
+    /**
+     * Prints the showing time for the new movie 
+     * @param showingVenue is the {@link Cinema} that are showing the movie
+     */
     public void printShowingTime(Cinema showingVenue) {
         String content = "\n" + "Showing Time for " + showingVenue.getUUID() + "\n";
         MainView.printMenuContent(content);
     }
 
+    /**
+     * Method to call printMenu and addNewMovie
+     */
     public void appContent(){
         UIHandler.clearScreen();
         this.printMenu();
         this.addNewMovie();
     }
 
+    /**
+     * Method to add new movies into the database
+     * Upon all successful choices of movie details, movieAdder under CinemaStaffManager is called and a new movie is added into the database
+     */
     public void addNewMovie(){
         MovieAgeRating movieAgeRating;
         MovieShowingStatus movieShowingStatus;

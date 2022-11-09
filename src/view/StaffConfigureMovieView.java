@@ -4,16 +4,34 @@ import src.handler.*;
 import src.controller.*;
 import src.model.*;
 
-
+/**
+ * View for the cinema staff to configure specific detail of the movie selected from StaffMovieDetailsView 
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class StaffConfigureMovieView {
+    /**
+     * Movie {@link Movie} object}
+     */
     private Movie movie;
+    
+    /**
+     * Error message of this view
+     */
     private String errorMessage;
 
+    /**
+     * Constructor for StaffConfigureMovieView
+     * @param movie is the movie selected by cinema staff under StaffMovieDetailsView
+     */
     public StaffConfigureMovieView(Movie movie) {
         this.movie = movie;
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print boiler plate
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Configure Setting for " + this.movie.getMovieTitle());
         MainView.printMenuContent("""
@@ -33,6 +51,10 @@ public class StaffConfigureMovieView {
                 """);
     }
 
+    /**
+     * Method to call print Menu, queries cinema staff for the detail to be configured 
+     * Calls updateExistingMovieDetails under CinemaStaffManager
+     */
     public void appContent(){
         int choice = -1;
 

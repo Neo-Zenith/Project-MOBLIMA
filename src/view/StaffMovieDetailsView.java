@@ -7,24 +7,44 @@ import src.controller.*;
 import src.model.*;
 import src.model.enums.*;
 
-
+/**
+ * View for staff to view the list of movies
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class StaffMovieDetailsView {
     private StaffConfigureMovieView staffConfigureMovieView;
+    /**
+     * ArrayList of {@link Movie} objects
+     */
     private ArrayList <Movie> allMovies;
+    
+    /**
+     * Error of this view
+     */
     private String errorMessage;
 
+    /**
+     * Constructor for StaffMovieDetailsView
+     * @param cinemaStaff
+     */
     public StaffMovieDetailsView(CinemaStaff cinemaStaff) {
         this.errorMessage = "";
         this.allMovies = MovieManager.getAllMovieList(cinemaStaff);
     }
 
-    
+    /**
+     * Method to print boiler plate and calls printMovieList
+     */
     public void printMenu() {
         MainView.printBoilerPlate("List of Movies");
         this.printMovieList();
     }
 
 
+    /**
+     * Method to print all the movies available
+     */
     public void printMovieList() {
         String content = "\nHere are the movies available:\n\n";
         int count = 0;
@@ -49,7 +69,10 @@ public class StaffMovieDetailsView {
         MainView.printMenuContent(content);
     }
 
-
+    /**
+     * Method to call printMenu and obtains the index of the movie
+     * Passes a movie object to the staffConfigureMovieView upon successful choice selected 
+     */
     public void appContent(){
         int choice = -1;
 

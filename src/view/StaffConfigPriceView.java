@@ -3,14 +3,27 @@ package src.view;
 import src.handler.*;
 import src.controller.*;
 
-
+/**
+ * View for cinema staffs to configure {@link Prices}
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class StaffConfigPriceView {
+    /**
+     * Error message of this view
+     */
     private String errorMessage;
 
+    /**
+     * Constructor
+     */
     public StaffConfigPriceView() {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print boiler plate for price configuration menu
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Price Configuration");
         MainView.printMenuContent("""
@@ -26,6 +39,9 @@ public class StaffConfigPriceView {
                 """);
     }
 
+    /**
+     * Method to print boiler plate for movie type pricing menu
+     */
     public void printMovieTypePrice() {
         MainView.printBoilerPlate("Configure Movie Type Pricing");
         MainView.printMenuContent("""
@@ -39,6 +55,10 @@ public class StaffConfigPriceView {
                 """);
     }
 
+    
+    /**
+     * Method to print boiler plate for cinema class pricing menu
+     */
     public void printCinemaClassPrice() {
         MainView.printBoilerPlate("Configure Cinema Class Pricing");
         MainView.printMenuContent("""
@@ -51,6 +71,9 @@ public class StaffConfigPriceView {
                 """);
     }
 
+    /**
+     * Method to print boiler plate for age group class pricing menu
+     */
     public void printAgeGroupPrice() {
         MainView.printBoilerPlate("Configure Age Group Pricing");
         MainView.printMenuContent("""
@@ -64,6 +87,9 @@ public class StaffConfigPriceView {
                 """);
     }
 
+    /**
+     * Method to print boiler plate for special dates pricing menu
+     */
     public void printSpecialDatePrice() {
         MainView.printBoilerPlate("Configure Special Dates Pricing");
         MainView.printMenuContent("""
@@ -75,6 +101,11 @@ public class StaffConfigPriceView {
                 """);
     }
 
+    /**
+     * Method that calls printMenu and queries for the price type that is to be configured
+     * Upon successful price type selected, it calls the relevant boiler plate and queries for the specific price under the price type to be configured
+     * Upon successful choice, the chosen price in the database will be updated using configurePrice method by the CinemaStaffManager
+     */
     public void appContent() {
         int choice = -1;
 

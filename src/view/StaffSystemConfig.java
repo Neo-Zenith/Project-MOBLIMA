@@ -3,19 +3,57 @@ package src.view;
 import src.handler.*;
 import src.model.*;
 
+/**
+ * View for the initial cinema staff module upon successful login
+ * @author Jonathan Ng
+ * @version 1.0
+ */
+
 public class StaffSystemConfig extends MainView {
+    
+    /**
+     * StaffMovieDetailsView to be displayed
+     */
     private StaffMovieDetailsView staffMovieDetailsView;
+    
+    /**
+     * StaffConfigSettings to be displayed
+     */
     private StaffConfigSettingsView staffConfigSettingsView;
+    
+    /**
+     * StaffMovieListRankingView to be displayed
+     */
     private StaffMovieListRankingView staffMovieListRankingView;
+    
+    /**
+     * DatabaseView to be displayed
+     */
     private DatabaseView databaseView;
+    
+    /**
+     * Error message of the view
+     */
     private String errorMessage;
+    
+    /**
+     * Cinema Staff {@link CinemaStaff} object
+     */
     private CinemaStaff cinemaStaff;
 
+
+    /**
+     * Constructor for the StaffSystemConfig module
+     * @param cinemaStaff {@link CinemaStaff}
+     */
     public StaffSystemConfig(CinemaStaff cinemaStaff) {
         this.errorMessage = "";
         this.cinemaStaff = cinemaStaff;
     }
     
+    /**
+     * Method to print boiler plate for the staff system module
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Staff Module");
         MainView.printMenuContent("""
@@ -30,6 +68,10 @@ public class StaffSystemConfig extends MainView {
                 """);
         }
     
+    /**
+     * Method to call printMenu and accepts cinema staffs' input of what function is to be executed
+     * Navigates to different views based on the choice of the cinema staff upon successful choice
+     */
     public void appContent(){
         int choice = -1;
 

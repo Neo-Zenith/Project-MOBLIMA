@@ -3,13 +3,27 @@ package src.view;
 import src.handler.*;
 import src.controller.*;
 
+/**
+ * View for cinema staffs to configure movie goer's permissions to view top 5 movies
+ * @author Jonathan Ng
+ * @version 1.0
+ */
 public class StaffConfigPermissionsView {
+    /**
+     * Error message of this view
+     */
     private String errorMessage;
 
+    /**
+     * Constructor 
+     */
     public StaffConfigPermissionsView() {
         this.errorMessage = "";
     }
 
+    /**
+     * Method to print boiler plate
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Configure User Permissions");
         MainView.printMenuContent("""
@@ -23,6 +37,10 @@ public class StaffConfigPermissionsView {
                 """);
     }
 
+    /**
+     * Method to call printMenu 
+     * Upon successful choice, optInOut under CinemaStaffManager will be called and the movieGoer's permissions will be updated and saved into the database
+     */
     public void appContent() {
         int choice = -1;
 

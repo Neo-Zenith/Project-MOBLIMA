@@ -17,7 +17,7 @@ public class MovieSearchView extends MainView {
     private String errorMessage;
 
     /**
-     * Createsa a new MovieSearchView with movieGoer
+     * Creates a a new MovieSearchView with movieGoer
      * @param movieGoer {@link MovieGoer}
      */
     public MovieSearchView(MovieGoer movieGoer) {
