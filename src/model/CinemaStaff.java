@@ -2,6 +2,7 @@ package src.model;
 
 import java.io.Serializable;
 /**
+ * The class that handles the data of Cinema Staff
  * @author Jonathan Ng
  * @version 1.0
  */
