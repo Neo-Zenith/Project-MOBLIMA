@@ -36,12 +36,14 @@ public class DatabaseView extends MainView{
 
             switch (choice) {
                 case 1:
+                    System.out.println("Loading... Please wait.");
                     DatabaseManager.initializePrices();
-                    DatabaseManager.initializeCineplexData();
-                    DatabaseManager.initializeMovie();
-                    DatabaseManager.initializeMovieScheduleData();
-                    Database.writeToDatabase();
-                    this.errorMessage = "Data loaded successfully!";
+                    if (DatabaseManager.initializeCineplexData() && DatabaseManager.initializeMovie() && DatabaseManager.initializeMovieScheduleData()) {
+                        this.errorMessage = "Data loaded successfully!";
+                    }
+                    else {
+                        this.errorMessage = "Existing data in the database. Only price data are resetted!";
+                    }
                     break;
                 case 2:
                     this.staffAddMovieView = new StaffAddMovieView();

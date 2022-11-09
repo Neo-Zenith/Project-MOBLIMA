@@ -24,7 +24,7 @@ public class SeatManager {
     public static Seat createCoupleSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new CoupleSeat(UUID);
-        DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
+        DatabaseManager.saveUpdateToBuffer(UUID, seat, Database.SEAT);
         return seat;
     }
 
@@ -35,7 +35,7 @@ public class SeatManager {
     public static Seat createStandardSeat() {
         String UUID = String.format("ST%04d", DatabaseHandler.generateUUID(Database.SEAT));
         Seat seat = new StandardSeat(UUID);
-        DatabaseManager.saveUpdateToDatabase(UUID, seat, Database.SEAT);
+        DatabaseManager.saveUpdateToBuffer(UUID, seat, Database.SEAT);
         return seat;
     }
 

@@ -77,9 +77,9 @@ public class Prices implements Serializable {
                 if (cinema.getCinemaClass() == CinemaClass.STANDARD) {
                     cinema.setCinemaPrice(defaultStandardCinemaPrice);
                 }
-                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+                DatabaseManager.saveUpdateToBuffer(cinema.getUUID(), cinema, Database.CINEMA);
             }
-            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+            DatabaseManager.saveUpdateToBuffer(cineplex.getUUID(), cineplex, Database.CINEPLEX);
         }
     }
 
@@ -93,9 +93,9 @@ public class Prices implements Serializable {
                 if (cinema.getCinemaClass() == CinemaClass.IMAX) {
                     cinema.setCinemaPrice(defaultStandardCinemaPrice);
                 }
-                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+                DatabaseManager.saveUpdateToBuffer(cinema.getUUID(), cinema, Database.CINEMA);
             }
-            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+            DatabaseManager.saveUpdateToBuffer(cineplex.getUUID(), cineplex, Database.CINEPLEX);
         }
     }
 
@@ -109,9 +109,9 @@ public class Prices implements Serializable {
                 if (cinema.getCinemaClass() == CinemaClass.PLATINUM) {
                     cinema.setCinemaPrice(defaultStandardCinemaPrice);
                 }
-                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+                DatabaseManager.saveUpdateToBuffer(cinema.getUUID(), cinema, Database.CINEMA);
             }
-            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+            DatabaseManager.saveUpdateToBuffer(cineplex.getUUID(), cineplex, Database.CINEPLEX);
         }
     }
 
@@ -129,11 +129,11 @@ public class Prices implements Serializable {
                 for (int k = 0; k < cinema.getSeats().size(); k ++) {
                     Seat seat = cinema.getSeats().get(k);
                     seat.setSeatPrice(defaultSeatPrice);
-                    DatabaseManager.saveUpdateToDatabase(seat.getUUID(), seat, Database.SEAT);
+                    DatabaseManager.saveUpdateToBuffer(seat.getUUID(), seat, Database.SEAT);
                 }
-                DatabaseManager.saveUpdateToDatabase(cinema.getUUID(), cinema, Database.CINEMA);
+                DatabaseManager.saveUpdateToBuffer(cinema.getUUID(), cinema, Database.CINEMA);
             }
-            DatabaseManager.saveUpdateToDatabase(cineplex.getUUID(), cineplex, Database.CINEPLEX);
+            DatabaseManager.saveUpdateToBuffer(cineplex.getUUID(), cineplex, Database.CINEPLEX);
         }
     }
 
@@ -160,7 +160,7 @@ public class Prices implements Serializable {
             Movie movie = movies.get(i);
             if (movie.getMovieType() == MovieType.Blockbuster) {
                 movie.setMoviePrice(defaultBlockbusterMoviePrice);
-                DatabaseManager.saveUpdateToDatabase(movie.getUUID(), movie, Database.MOVIE);
+                DatabaseManager.saveUpdateToBuffer(movie.getUUID(), movie, Database.MOVIE);
             }
         }
     }
@@ -172,7 +172,7 @@ public class Prices implements Serializable {
             Movie movie = movies.get(i);
             if (movie.getMovieType() == MovieType.ThreeD) {
                 movie.setMoviePrice(defaultBlockbusterMoviePrice);
-                DatabaseManager.saveUpdateToDatabase(movie.getUUID(), movie, Database.MOVIE);
+                DatabaseManager.saveUpdateToBuffer(movie.getUUID(), movie, Database.MOVIE);
             }
         }
     }
@@ -185,7 +185,7 @@ public class Prices implements Serializable {
             Movie movie = movies.get(i);
             if (movie.getMovieType() == MovieType.Standard) {
                 movie.setMoviePrice(defaultBlockbusterMoviePrice);
-                DatabaseManager.saveUpdateToDatabase(movie.getUUID(), movie, Database.MOVIE);
+                DatabaseManager.saveUpdateToBuffer(movie.getUUID(), movie, Database.MOVIE);
             }
         }
     }
@@ -218,7 +218,7 @@ public class Prices implements Serializable {
             MovieGoer movieGoer = movieGoers.get(i);
             if (movieGoer.getMovieGoerAge() == MovieGoerAge.Child) {
                 movieGoer.setGoerPrice(defaultChildPrice);
-                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+                DatabaseManager.saveUpdateToBuffer(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
             }
         }
     }
@@ -230,7 +230,7 @@ public class Prices implements Serializable {
             MovieGoer movieGoer = movieGoers.get(i);
             if (movieGoer.getMovieGoerAge() == MovieGoerAge.Student) {
                 movieGoer.setGoerPrice(defaultChildPrice);
-                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+                DatabaseManager.saveUpdateToBuffer(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
             }
         }
     }
@@ -242,7 +242,7 @@ public class Prices implements Serializable {
             MovieGoer movieGoer = movieGoers.get(i);
             if (movieGoer.getMovieGoerAge() == MovieGoerAge.Adult) {
                 movieGoer.setGoerPrice(defaultChildPrice);
-                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+                DatabaseManager.saveUpdateToBuffer(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
             }
         }
     }
@@ -254,7 +254,7 @@ public class Prices implements Serializable {
             MovieGoer movieGoer = movieGoers.get(i);
             if (movieGoer.getMovieGoerAge() == MovieGoerAge.SeniorCitizen) {
                 movieGoer.setGoerPrice(defaultChildPrice);
-                DatabaseManager.saveUpdateToDatabase(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
+                DatabaseManager.saveUpdateToBuffer(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
             }
         }
     }
