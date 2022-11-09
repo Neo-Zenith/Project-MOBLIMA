@@ -39,13 +39,13 @@ public abstract class Seat implements Serializable{
     }
 
     /**
-     * Gets the {@Link SeatType} of the seat
+     * Gets the {@link SeatType} of the seat
      * @return The {@link SeatType} of the seat
      */
     public abstract SeatType getSeatType();
 
     /**
-     * Sets the {@Link SeatType} of the seat
+     * Sets the {@link SeatType} of the seat
      * @param seatType is the {@link SeatType} of the seat
      */
     public abstract void setSeatType(SeatType seatType);

@@ -5,7 +5,14 @@ import java.util.*;
 import src.controller.*;
 import src.model.*;
 
-
+/**
+ * The database of the application.
+ * A buffer in the form of HashMap is used for handling intermediary data transfers.
+ * DAT files are used for storing persistent data.
+ * This class is equipped with functions to facilitate the read and write between program, buffer and the DAT database.
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class Database {
     /**
      * Cineplex Model in database
@@ -77,12 +84,31 @@ public class Database {
      */
     public static int numOfCoupleRows = 4;
 
+    /**
+     * All the holidays
+     */
     public static ArrayList <DateTime> holidays = new ArrayList<>();
+
+    /**
+     * All the price weights of cinema class, movie goer age, seat type, movie type
+     */
     public static Prices PRICES = new Prices();
+
+    /**
+     * All the permissions of a movie goer
+     */
     public static Permission PERMISSION = new Permission();
 
+    /**
+     * Pre-defined variables for the number of rows of seats in a platinum cinema
+     */
     public static int platinumNumOfRow = 4;
+
+    /**
+     * Pre-defined variables for the number of seats per row in a platinum cinema
+     */
     public static int platinumNumOfSeatsPerRow = 6;
+
     /**
      * Root path to the database
      */
@@ -93,6 +119,10 @@ public class Database {
      */
     private static String extension = ".dat";
 
+    /**
+     * Constructor for database.
+     * Call this when startup to load all data from DAT into HashMap buffer
+     */
     public Database() {
         if (!readData(ModelType.CINEPLEX)) {
             System.out.println("Error! Reading of data " + ModelType.CINEPLEX + " failed!");
@@ -145,7 +175,7 @@ public class Database {
 
     /**
      * Method to read serialized data from database file
-     * @param modelType
+     * @param modelType is the model to be read
      * @return {@code true} if read is successful; {@code false} otherwise
      */
     public static boolean readData(ModelType modelType) {
@@ -211,7 +241,7 @@ public class Database {
 
     /**
      * Method to write serialized data into database file
-     * @param modelType
+     * @param modelType is the model to be written
      * @return {@code true} if write is successful; {@code false} otherwise
      */
     public static boolean writeData(ModelType modelType) {

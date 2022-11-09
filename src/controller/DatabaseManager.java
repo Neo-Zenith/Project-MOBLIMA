@@ -108,7 +108,7 @@ public class DatabaseManager {
 
     /**
      * Method to initialize the initial seat data into database
-     * @param cinemaClass is the {@Link CinemaClass} of the cinema the seats belong to
+     * @param cinemaClass is the {@link CinemaClass} of the cinema the seats belong to
      * @return ArrayList of {@link Seat} instances created
      */
     public static ArrayList <Seat> initializeSeatData(CinemaClass cinemaClass) {
@@ -146,6 +146,7 @@ public class DatabaseManager {
 
     /**
      * Method to initialize the initial movie schedule data into database
+     * @return {@code true} if initialization is successful, {@code false} otherwise
      */
     public static boolean initializeMovieScheduleData() {
         ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
@@ -219,6 +220,7 @@ public class DatabaseManager {
 
     /**
      * Method to initialize the initial movie data into database
+     * @return {@code true} if initialization is successful, {@code false} otherwise
      */
     public static boolean initializeMovie() {
         ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
@@ -277,6 +279,7 @@ public class DatabaseManager {
 
     /**
      * Method to initialize the initial cinema staff data into database
+     * @return {@code true} if initialization is successful, {@code false} otherwise
      */
     public static boolean initalizeCinemaStaff() {
         ArrayList <CinemaStaff> cinemaStaffs = Database.getValueList(Database.CINEMA_STAFF.values());
@@ -293,7 +296,9 @@ public class DatabaseManager {
         return true;
     }
 
-
+    /**
+     * Method to initialize the default prices
+     */
     public static void initializePrices() {
         Prices prices = new Prices(2,30,3,
         4,3,

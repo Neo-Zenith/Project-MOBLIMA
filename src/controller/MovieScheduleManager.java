@@ -5,12 +5,26 @@ import src.database.*;
 import src.handler.*;
 import java.util.*;
 
-
+/**
+ * Controller for handling all logic related to {@link MovieSchedule} class
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class MovieScheduleManager {
 
+    /**
+     * Constructor
+     */
     public MovieScheduleManager() {}
 
-    
+    /**
+     * Method to create a {@link MovieSchedule} and save to database
+     * @param movieUUID is the unique ID of the movie to be shown
+     * @param showingVenuesUUID is the unique ID of all the cinemas showing the movie
+     * @param seatingPlan is the copy of the seating plan of all the cinemas showing the movie
+     * @param showingTime is all the scheduled time to show the movie for each corresponding showing venue
+     * @return The created {@link MovieSchedule} instance
+     */
     public static MovieSchedule createMovieSchedule(String movieUUID, ArrayList <String> showingVenuesUUID, ArrayList <ArrayList <Seat>> seatingPlan, ArrayList <DateTime> showingTime) {
 
         MovieSchedule movieSchedule = updateMovieSchedule(movieUUID, showingVenuesUUID, showingTime); 
@@ -24,7 +38,13 @@ public class MovieScheduleManager {
         return movieSchedule;
     }
 
-    
+    /**
+     * Method to update a {@link MovieSchedule}
+     * @param movieUUID is the movie of which the schedule needs to be updated
+     * @param showingVenuesUUID is all the showing venues to be added/updated
+     * @param showingTimes is all the showing time corresponding to the venues to be added/updated
+     * @return The updated {@link MovieSchedule}
+     */
     public static MovieSchedule updateMovieSchedule(String movieUUID, ArrayList <String> showingVenuesUUID, ArrayList <DateTime> showingTimes) {
         ArrayList <MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
 
@@ -70,7 +90,11 @@ public class MovieScheduleManager {
         return movieSchedule;
     }
 
-    
+    /**
+     * Method to retrieve a movie schedule by the queried movie
+     * @param movie is the target movie
+     * @return The {@link MovieSchedule} instance queried
+     */
     public static MovieSchedule getMovieScheduleByMovie(Movie movie) {
         ArrayList<MovieSchedule> movieSchedules = Database.getValueList(Database.MOVIE_SCHEDULE.values());
 
@@ -85,7 +109,12 @@ public class MovieScheduleManager {
         return null;
     }
 
-
+    /**
+     * Refactored method to obtain the index of a showing venue in a schedule
+     * @param movieSchedule is the target movie schedule 
+     * @param cinema is the target showing venue
+     * @return The index of the showing venue in the movie schedule
+     */
     public static int getShowingVenueIndex(MovieSchedule movieSchedule, Cinema cinema) {
         System.out.println(movieSchedule.getShowingVenues().size());
         for (int i = 0; i < movieSchedule.getShowingVenues().size(); i++) {
@@ -96,7 +125,10 @@ public class MovieScheduleManager {
         return -1;
     }
 
-
+    /**
+     * Refactored method to reset a movie schedule.
+     * @param movieSchedule is the movie schedule to be resetted
+     */
     public static void resetMovieSchedule(MovieSchedule movieSchedule) {
         String movieScheduleUUID = movieSchedule.getUUID();
         ArrayList <String> resetShowingVenues = new ArrayList<>();

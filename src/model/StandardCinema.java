@@ -15,7 +15,7 @@ public class StandardCinema extends Cinema {
      * Constructor for StandardCinema class
      * 
      * @param UUID            is the unique ID in the database
-     * @param seats           is all the {@Link Seat} instances in the cinema
+     * @param seats           is all the {@link Seat} instances in the cinema
      * @param numOfRows       is the total number of rows in the cinema
      * @param totalNumOfSeats is the total number of seats in the cinema
      */

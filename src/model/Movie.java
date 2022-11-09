@@ -250,7 +250,7 @@ public abstract class Movie implements Serializable {
 	/**
 	 * Adds new review to the movie
 	 * 
-	 * @param {@link MovieReview} is movie review to be added
+	 * @param movieReview is movie review to be added
 	 */
 	public void addMovieReview(MovieReview movieReview) {
 		this.movieReviews.add(movieReview);
@@ -268,7 +268,7 @@ public abstract class Movie implements Serializable {
 	/**
 	 * Set the age rating of the movie
 	 * 
-	 * @param {@link MovieAgeRating} is age rating of the movie to be set
+	 * @param movieAgeRating is age rating of the movie to be set
 	 */
 	public void setMovieAgeRating(MovieAgeRating movieAgeRating) {
 		this.movieAgeRating = movieAgeRating;
