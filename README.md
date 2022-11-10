@@ -24,7 +24,7 @@ At the root directory, to compile all ```.java``` files:
 javac src/MovieApp.java -d bin
 ```
 
-At the root directory, to start the application:
+At the root directory, to start the application in development:
 ```
 cd bin
 java src.MovieApp
@@ -35,4 +35,15 @@ At the root directory, to convert all Javadoc into HTML documentation:
 javadoc src src.controller src.database src.handler src.model src.view -d doc/Javadoc -author -version -noqualifier all
 ```
 
+At the root directory, to archive all ```.class``` files into a single ```.jar``` file:
+```
+cd bin
+jar cvf MovieApp.jar * 
+```
+
+At the root directory, to run the archived ```.jar``` file:
+```
+cd bin
+java -cp MovieApp.jar src.MovieApp
+```
 
