@@ -19,6 +19,7 @@ public class DatabaseManager {
 
     /**
      * Method to load initial cineplex data into database
+     * @return {@code true} if initialization is successful, {@code false} otherwise
      */
     public static boolean initializeCineplexData() {
         ArrayList <Cineplex> cineplexs = Database.getValueList(Database.CINEPLEX.values());
@@ -339,6 +340,11 @@ public class DatabaseManager {
     /**
      * Similar to saveUpdateToDatabase, except save to buffer instead.
      * Useful for updating large data
+     * @param <K> is the generic form for key
+     * @param <V> is the generic form for value
+     * @param UUID is the unique ID of the object to be updated
+     * @param object is the object to be updated
+     * @param data is the HashMap database to be updated
      */
     public static <K, V> void saveUpdateToBuffer(K UUID, V object, HashMap <K, V> data) {
         data.put(UUID, object);

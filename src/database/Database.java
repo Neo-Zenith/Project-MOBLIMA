@@ -59,7 +59,7 @@ public class Database {
      */
     public static HashMap<String, MovieReview> MOVIE_REVIEW = new HashMap<String, MovieReview>();
 
-    /*
+    /**
      * Cinema Staff in database
      */
     public static HashMap<String, CinemaStaff> CINEMA_STAFF = new HashMap<String, CinemaStaff>();
@@ -411,6 +411,7 @@ public class Database {
     /**
      * Method to return an ArrayList of HashMap values for the collection {@code valueSet}
      * @param valueSet a HashMap values collection
+     * @param <V> generic form for value
      * @return ArrayList of {@code Value} containing HashMap values
      */
     public static <V> ArrayList <V> getValueList(Collection valueSet) {

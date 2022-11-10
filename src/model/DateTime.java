@@ -4,15 +4,40 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
+ * DateTime class
  * @author Jonathan Ng
  * @version 1.0
  */
 public class DateTime implements Serializable {
+
+    /**
+     * Minute of the instance 
+     */
     private int minute;
+
+    /**
+     * Hour of the instance in 24 hours format
+     */
     private int hour;
+
+    /**
+     * Day of week of the instance
+     */
     private int day;
+
+    /**
+     * Date of year of the instance
+     */
     private int date;
+
+    /**
+     * Month of the instance
+     */
     private int month;
+
+    /**
+     * Year of the instance
+     */
     private int year;
     private static final long serialVersionUID = 7L;
 

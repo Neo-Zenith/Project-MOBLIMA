@@ -11,6 +11,12 @@ import java.util.*;
  * @version 1.0
  */
 public class UserManager {
+
+    /**
+     * Constructor
+     */
+    public UserManager() {}
+
     /**
      * Method to perform simple login by verifying the user's username and password entered according to the database
      * @param username is the username of the user

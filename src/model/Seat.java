@@ -5,11 +5,20 @@ import src.model.enums.*;
 
 
 /**
+ * Abtract seat class
  * @author Lee Juin
  * @version 1.0
  */
 public abstract class Seat implements Serializable{
+
+    /**
+     * The unique ID of a seat instance
+     */
     private String UUID;
+
+    /**
+     * Flag to store whether the seat is occupied or not
+     */
     private boolean isAssigned;
     private static final long serialVersionUID = 3L;
     

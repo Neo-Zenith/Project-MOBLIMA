@@ -26,7 +26,7 @@ public class StaffMovieDetailsView {
 
     /**
      * Constructor for StaffMovieDetailsView
-     * @param cinemaStaff
+     * @param cinemaStaff is the cinema staff accessing this page
      */
     public StaffMovieDetailsView(CinemaStaff cinemaStaff) {
         this.errorMessage = "";

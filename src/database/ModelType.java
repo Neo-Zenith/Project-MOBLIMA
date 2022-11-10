@@ -8,21 +8,73 @@ package src.database;
 public enum ModelType {
     
     /**
-     * All the models presented in the application and their respective file name
+     * Cineplex enum and its file name
      */
     CINEPLEX("Cineplex"),
+
+    /**
+     * Cinema enum and its file name
+     */
     CINEMA("Cinema"),
+
+    /**
+     * Seat enum and its file name
+     */
     SEAT("Seat"),
+
+    /**
+     * MovieSchedule enum and its file name
+     */
     MOVIE_SCHEDULE("MovieSchedule"),
+
+    /**
+     * BookingHistory enum and its file name
+     */
     BOOKING_HISTORY("BookingHistory"),
+
+    /**
+     * MovieGoer enum and its file name
+     */
     MOVIE_GOER("MovieGoer"),
+
+    /**
+     * Movie enum and its file name
+     */
     MOVIE("Movie"),
+
+    /**
+     * MovieReview enum and its file name
+     */
     MOVIE_REVIEW("MovieReview"),
+
+    /**
+     * CinemaStaff enum and its file name
+     */
     CINEMA_STAFF("CinemaStaff"),
+
+    /**
+     * Holiday enum and its file name
+     */
     HOLIDAY("Holiday"),
+
+    /**
+     * Prices enum and its file name
+     */
     PRICES("Prices"),
+
+    /**
+     * MovieTicket enum and its file name
+     */
     MOVIE_TICKET("MovieTicket"),
+
+    /**
+     * Payment enum and its file name
+     */
     PAYMENT("Payment"),
+
+    /**
+     * Permission enum and its file name
+     */
     PERMISSION("Permission");
 
     /**

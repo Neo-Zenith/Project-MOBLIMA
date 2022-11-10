@@ -2,12 +2,19 @@ package src.handler;
 
 import java.util.HashMap;
 
+import src.database.Database;
+
 /**
  * General helper functions for handling database
  * @author Lee Juin
  * @version 1.0
  */
 public class DatabaseHandler {
+    
+    /**
+     * Constructor
+     */
+    public DatabaseHandler() {};
     
     /**
      * Generic function to generate unique UUID for different database

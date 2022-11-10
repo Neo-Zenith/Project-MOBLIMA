@@ -8,6 +8,11 @@ package src.handler;
 public class UIHandler {
 
     /**
+     * Constructor
+     */
+    public UIHandler() {}
+
+    /**
      * Method to clear the old content screen for better UI experiences
      */
     public static void clearScreen() {

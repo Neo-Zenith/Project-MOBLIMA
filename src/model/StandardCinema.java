@@ -5,10 +5,15 @@ import src.database.*;
 import src.model.enums.*;
 
 /**
+ * Standard cinema class
  * @author Lee Juin
  * @version 1.0
  */
 public class StandardCinema extends Cinema {
+
+    /**
+     * The price weight of the cinema class
+     */
     private double cinemaPrice;
 
     /**

@@ -4,11 +4,20 @@ import src.model.enums.*;
 import src.database.*;
 
 /**
+ * Couple seat class
  * @author Lee Juin
  * @version 1.0
  */
 public class CoupleSeat extends Seat {
+
+    /**
+     * The price weight of the seat
+     */
     private double seatPrice;
+
+    /**
+     * The {@link SeatType} of the seat
+     */
     private SeatType seatType;
 
     /**

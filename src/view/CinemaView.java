@@ -6,7 +6,11 @@ import src.controller.*;
 import src.handler.*;
 import java.util.*;
 
-
+/**
+ * View class for handling all UI related to {@link Cinema}
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class CinemaView extends MainView {
     private Movie movie;
     private Cineplex cineplex;
@@ -16,6 +20,12 @@ public class CinemaView extends MainView {
     private ArrayList <CinemaClass> existingClass;
     private String errorMessage;
 
+    /**
+     * Constructor
+     * @param cineplex is the cineplex for the cinema to be viewed
+     * @param movie is the movie selected by the Movie Goer
+     * @param movieGoer is the target Movie Goer
+     */
     public CinemaView(Cineplex cineplex, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cineplex = cineplex;
@@ -24,6 +34,9 @@ public class CinemaView extends MainView {
         this.errorMessage = "";
     }
 
+    /**
+     * Front-end handler to handle the printing of the different types of cinema showing the movie selected
+     */
     public void printCinemas() {
         this.existingClass = new ArrayList<CinemaClass>();
         String content = "\n";
@@ -46,11 +59,17 @@ public class CinemaView extends MainView {
         MainView.printMenuContent(content);
     }
 
+    /**
+     * Standard function to print the menu for user to choose the next action
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Cinemas Showing " + this.movie.getMovieTitle());
         this.printCinemas();
     }
 
+    /**
+     * Main content of the UI
+     */
     public void appContent() {
         int choice = -1;
         do {
@@ -76,6 +95,5 @@ public class CinemaView extends MainView {
                 return;
             }
         }   while (true);
-
     }
 }

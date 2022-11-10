@@ -5,10 +5,15 @@ import src.model.enums.*;
 import src.database.*;
 
 /**
+ * IMAX cinema class
  * @author Lee Juin
  * @version 1.0
  */
 public class IMaxCinema extends Cinema{
+
+    /**
+     * The price weight of the cinema class
+     */
     private double cinemaPrice;
     
     /**

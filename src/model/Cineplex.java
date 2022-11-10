@@ -4,14 +4,35 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
+ * Cineplex class
  * @author Lee Juin
  * @version 1.0
  */
 public class Cineplex implements Comparable, Serializable{
+
+    /**
+     * The unique ID of a cineplex instance
+     */
     private String UUID;
+
+    /**
+     * The name of the cineplex
+     */
     private String cineplexName;
+
+    /**
+     * The location of the cineplex
+     */
     private String cineplexLocation;
+
+    /**
+     * The total number of cinemas in the cineplex
+     */
     private int numOfCinemas;
+
+    /**
+     * All the {@link Cinema} instances in a cineplex
+     */
     private ArrayList <Cinema> cinemas;
     private static final long serialVersionUID = 2L;
 

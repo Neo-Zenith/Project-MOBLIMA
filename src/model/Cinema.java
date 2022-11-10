@@ -5,15 +5,35 @@ import java.io.Serializable;
 import src.model.enums.*;
 
 /**
+ * Cinema abstract class
  * @author Lee Juin
  * @version 1.0
  */
 public abstract class Cinema implements Comparable, Serializable {
 
+    /**
+     * Unique ID of a cinema instance
+     */
     private String UUID;
+
+    /**
+     * The {@link CinemaClass} of a cinema
+     */
     private CinemaClass cinemaClass;
+
+    /**
+     * All the {@link Seat} instances in a cinema
+     */
     private ArrayList<Seat> seats;
+
+    /**
+     * The total number of rows of seats in a cinema
+     */
     private int numOfRows;
+
+    /**
+     * The total number of seats in a cinema
+     */
     private int totalNumOfSeats;
     private static final long serialVersionUID = 1L;
 

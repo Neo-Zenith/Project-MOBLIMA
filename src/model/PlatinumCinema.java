@@ -5,10 +5,15 @@ import src.database.*;
 import src.model.enums.*;
 
 /**
+ * Platinum cinema class
  * @author Lee Juin
  * @version 1.0
  */
 public class PlatinumCinema extends Cinema{
+
+    /**
+     * The price weight of the cinema class
+     */
     private double cinemaPrice;
     
     /**

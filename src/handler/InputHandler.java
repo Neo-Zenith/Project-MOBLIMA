@@ -8,8 +8,16 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class InputHandler {
+    /**
+     * Scanner for reading inputs
+     */
     private static Scanner scanner = new Scanner(System.in);
     
+    /**
+     * Constructor
+     */
+    public InputHandler() {}
+
     /**
      * Helper function to read an integer
      * @return {@code -1} if the input is invalid, otherwise returns the integer read

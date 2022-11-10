@@ -2,8 +2,18 @@ package src.handler;
 
 import java.util.ArrayList;
 
+/**
+ * Collection of helper functions to deal with exceptions
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class ExceptionHandler {
     
+    /**
+     * Constructor
+     */
+    public ExceptionHandler() {}
+
     /**
      * Handler to handle potential situation of type mismatch.
      * i.e., system expects an int but got a {@code String} instead

@@ -4,15 +4,25 @@ import src.controller.*;
 import src.database.*;
 import src.handler.*;
 
-
+/**
+ * View class for handling all UI related to {@link Database}
+ * @author Lee Juin
+ * @version 1.0
+ */
 public class DatabaseView extends MainView{
     private StaffAddMovieView staffAddMovieView;
     private String errorMessage;
 
+    /**
+     * Constructor
+     */
     public DatabaseView() {
         this.errorMessage = "";
     }
     
+    /**
+     * Standard function to print the menu for user to choose the next action
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Database");
         MainView.printMenuContent("""
@@ -26,6 +36,9 @@ public class DatabaseView extends MainView{
                 """);
     }
 
+    /**
+     * Main content of the UI
+     */
     public void appContent() {
         int choice = -1;
         do {

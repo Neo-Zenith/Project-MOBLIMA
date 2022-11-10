@@ -7,12 +7,25 @@ import java.io.Serializable;
  * @version 1.0
  */
 public class CinemaStaff implements Serializable{
+
     /**
-     * 
+     * Unique ID of a cinema staff in the database
      */
     private String UUID;
+
+    /**
+     * Name of the cinema staff
+     */
     private String name;
+
+    /**
+     * Password of the cinema staff account
+     */
     private String password;
+
+    /**
+     * Username of the cinema staff account
+     */
     private String username;
     private static final long serialVersionUID = 11L;
 

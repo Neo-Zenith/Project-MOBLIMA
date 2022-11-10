@@ -5,7 +5,9 @@ import src.model.*;
 import src.controller.*;
 import src.handler.*;
 
-
+/**
+ * View class for handling all the UI related to {@link Cineplex}
+ */
 public class CineplexView extends MainView {
     private Movie movie;
     private ArrayList <Cineplex> cineplexes;
@@ -13,6 +15,11 @@ public class CineplexView extends MainView {
     private MovieGoer movieGoer;
     private String errorMessage;
 
+    /**
+     * Constructor
+     * @param movie is the movie selected by the Movie Goer
+     * @param movieGoer is the target Movie Goer
+     */
     public CineplexView(Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
         this.cineplexes = CineplexManager.filterCineplexesByMovie(this.movie);
@@ -20,7 +27,9 @@ public class CineplexView extends MainView {
         this.errorMessage = "";
     }
 
-
+    /**
+     * Method to print the cineplexes which are showing the movie selected by the user
+     */
     public void printCineplex() {
         String content = "";
         int count = 0;
@@ -40,12 +49,17 @@ public class CineplexView extends MainView {
         MainView.printMenuContent(content);
     }
 
+    /**
+     * Standard function to print the menu for user to choose the next action
+     */
     public void printMenu() {
         MainView.printBoilerPlate("Cineplexes showing " + this.movie.getMovieTitle());
         this.printCineplex();
     }
 
-
+    /**
+     * Main content of the UI
+     */
     public void appContent() {
         int choice = -1;
 
