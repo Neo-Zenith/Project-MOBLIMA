@@ -185,7 +185,7 @@ public class Prices implements Serializable {
             for (int j = 0; j < cineplex.getCinemas().size(); j ++) {
                 Cinema cinema = cineplex.getCinemas().get(j);
                 if (cinema.getCinemaClass() == CinemaClass.IMAX) {
-                    cinema.setCinemaPrice(defaultStandardCinemaPrice);
+                    cinema.setCinemaPrice(defaultIMaxCinemaPrice);
                 }
                 DatabaseManager.saveUpdateToBuffer(cinema.getUUID(), cinema, Database.CINEMA);
             }
@@ -205,7 +205,7 @@ public class Prices implements Serializable {
             for (int j = 0; j < cineplex.getCinemas().size(); j ++) {
                 Cinema cinema = cineplex.getCinemas().get(j);
                 if (cinema.getCinemaClass() == CinemaClass.PLATINUM) {
-                    cinema.setCinemaPrice(defaultStandardCinemaPrice);
+                    cinema.setCinemaPrice(defaultPlatinumCinemaPrice);
                 }
                 DatabaseManager.saveUpdateToBuffer(cinema.getUUID(), cinema, Database.CINEMA);
             }
@@ -293,7 +293,7 @@ public class Prices implements Serializable {
         for (int i = 0; i < movies.size(); i ++) {
             Movie movie = movies.get(i);
             if (movie.getMovieType() == MovieType.ThreeD) {
-                movie.setMoviePrice(defaultBlockbusterMoviePrice);
+                movie.setMoviePrice(default3DMoviePrice);
                 DatabaseManager.saveUpdateToBuffer(movie.getUUID(), movie, Database.MOVIE);
             }
         }
@@ -309,7 +309,7 @@ public class Prices implements Serializable {
         for (int i = 0; i < movies.size(); i ++) {
             Movie movie = movies.get(i);
             if (movie.getMovieType() == MovieType.Standard) {
-                movie.setMoviePrice(defaultBlockbusterMoviePrice);
+                movie.setMoviePrice(defaultStandardMoviePrice);
                 DatabaseManager.saveUpdateToBuffer(movie.getUUID(), movie, Database.MOVIE);
             }
         }
@@ -373,7 +373,7 @@ public class Prices implements Serializable {
         for (int i = 0; i < movieGoers.size(); i ++) {
             MovieGoer movieGoer = movieGoers.get(i);
             if (movieGoer.getMovieGoerAge() == MovieGoerAge.Student) {
-                movieGoer.setGoerPrice(defaultChildPrice);
+                movieGoer.setGoerPrice(defaultStudentPrice);
                 DatabaseManager.saveUpdateToBuffer(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
             }
         }
@@ -389,7 +389,7 @@ public class Prices implements Serializable {
         for (int i = 0; i < movieGoers.size(); i ++) {
             MovieGoer movieGoer = movieGoers.get(i);
             if (movieGoer.getMovieGoerAge() == MovieGoerAge.Adult) {
-                movieGoer.setGoerPrice(defaultChildPrice);
+                movieGoer.setGoerPrice(defaultAdultPrice);
                 DatabaseManager.saveUpdateToBuffer(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
             }
         }
@@ -405,7 +405,7 @@ public class Prices implements Serializable {
         for (int i = 0; i < movieGoers.size(); i ++) {
             MovieGoer movieGoer = movieGoers.get(i);
             if (movieGoer.getMovieGoerAge() == MovieGoerAge.SeniorCitizen) {
-                movieGoer.setGoerPrice(defaultChildPrice);
+                movieGoer.setGoerPrice(defaultSeniorCitizenPrice);
                 DatabaseManager.saveUpdateToBuffer(movieGoer.getUUID(), movieGoer, Database.MOVIE_GOER);
             }
         }
