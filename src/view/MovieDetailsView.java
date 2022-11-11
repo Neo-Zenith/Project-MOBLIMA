@@ -91,8 +91,8 @@ public class MovieDetailsView extends MainView {
         System.out.println("...");
         System.out.print("Movie Type: ");
         for (int i = 0; i < this.listOfMovieTypes.size(); i++) {
-            System.out.print(this.listOfMovieTypes.get(i).getMovieType() + " ("
-                    + this.listOfMovieTypes.get(i).getMovieShowingStatus() + ")");
+            System.out.print(this.listOfMovieTypes.get(i).getMovieType().getDisplayName() + " ("
+                    + this.listOfMovieTypes.get(i).getMovieShowingStatus().getDisplayName() + ")");
             if (i != this.listOfMovieTypes.size() - 1) {
                 System.out.print(", ");
             }
