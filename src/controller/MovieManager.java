@@ -189,10 +189,7 @@ public class MovieManager {
                 Movie movie1 = movies.get(j);
                 Movie movie2 = movies.get(j - 1);
                 if (sortBy.equals("ratings")) {
-                    if (movie1.getMovieReviews().size() <= 1) {
-                        break;
-                    }
-                    if (movie1.getMovieOverallReviewRating() > movie2.getMovieOverallReviewRating()) {
+                    if (movie1.getMovieOverallReviewRating() > movie2.getMovieOverallReviewRating() || movie2.getMovieReviews().size() <= 1) {
                         Collections.swap(movies, j, j - 1);
                     } else {
                         break;
