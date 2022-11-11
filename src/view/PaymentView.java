@@ -173,7 +173,7 @@ public class PaymentView extends MainView {
         System.out.println("====================================");
 
         MovieMenuView.exit = true;
-        System.out.println("(Press any key to return back to Main Menu)");
+        System.out.println("Press any key to print your movie ticket(s)");
         InputHandler.stringHandler();
     }
 }

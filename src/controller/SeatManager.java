@@ -275,4 +275,20 @@ public class SeatManager {
         }
         return null;
     }
+
+    public static String getNextSeatID(String seatID, Cinema cinema) {
+        String ind = seatID.substring(1);
+        int index = Integer.parseInt(ind);
+
+        if (index % 2 == 0) {
+            index = index - 1;
+        } else {
+            index = index + 1;
+        }
+
+        String id = String.format("%s", seatID.substring(0, 1));
+        id += String.format("%d", index);
+        System.out.println(id);
+        return id;
+    }
 }

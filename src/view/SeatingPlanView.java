@@ -213,6 +213,7 @@ public class SeatingPlanView {
                             this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer,
                                     this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime);
                         } else {
+                            seatIDList.add(SeatManager.getNextSeatID(seatID, cinema));
                             this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer,
                                     this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime) * 2;
                         }
