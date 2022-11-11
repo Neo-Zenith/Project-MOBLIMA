@@ -9,7 +9,7 @@ import src.model.*;
  * @version 1.0
  */
 
-public class StaffSystemConfig extends MainView {
+public class StaffSystemConfigView extends MainView {
     
     /**
      * StaffMovieDetailsView to be displayed
@@ -46,7 +46,7 @@ public class StaffSystemConfig extends MainView {
      * Constructor for the StaffSystemConfig module
      * @param cinemaStaff {@link CinemaStaff}
      */
-    public StaffSystemConfig(CinemaStaff cinemaStaff) {
+    public StaffSystemConfigView(CinemaStaff cinemaStaff) {
         this.errorMessage = "";
         this.cinemaStaff = cinemaStaff;
     }
