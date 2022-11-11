@@ -7,6 +7,7 @@ import src.handler.*;
 
 /**
  * View for movie goer to view the details of the movie
+ * 
  * @author Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -40,7 +41,7 @@ public class MovieDetailsView extends MainView {
      * ArrayList of the different types of {@link Movie} objects
      */
     private ArrayList<Movie> listOfMovieTypes;
-    
+
     /**
      * totalOverallReviewRating of the Movie
      */
@@ -48,7 +49,8 @@ public class MovieDetailsView extends MainView {
 
     /**
      * Creates a new MovieDetailsView with the title and movieGoer
-     * @param title title of the movie
+     * 
+     * @param title     title of the movie
      * @param movieGoer movieGoer accessing the view
      */
     public MovieDetailsView(String title, MovieGoer movieGoer) {
@@ -56,7 +58,6 @@ public class MovieDetailsView extends MainView {
         this.movieGoer = movieGoer;
         this.errorMessage = "";
         this.listOfMovieTypes = MovieManager.getMovieList(movieTitle);
-
         this.synopsis = this.listOfMovieTypes.get(0).getMovieSynopsis();
         this.pastReviews = new ArrayList<>();
         this.totalOverallReviewRating = 0;
@@ -69,7 +70,8 @@ public class MovieDetailsView extends MainView {
     }
 
     /**
-     * Method to print out the basic details of the movie: Director, Cast, Movie Type
+     * Method to print out the basic details of the movie: Director, Cast, Movie
+     * Type
      * Overall rating will be printed if available
      */
     public void printMovieDetails() {
@@ -100,7 +102,8 @@ public class MovieDetailsView extends MainView {
     }
 
     /**
-     * Method to print the boiler plate, movie details and display the choices of the user
+     * Method to print the boiler plate, movie details and display the choices of
+     * the user
      */
     public void printMenu() {
         MainView.printBoilerPlate(this.movieTitle);
@@ -119,7 +122,8 @@ public class MovieDetailsView extends MainView {
 
     /**
      * Method to print out further details of the movie: Synopsis, Past Reviews
-     * User will be able to add reviews and view the different types of the movie for booking
+     * User will be able to add reviews and view the different types of the movie
+     * for booking
      */
     public void appContent() {
         int choice = -1;
@@ -178,7 +182,7 @@ public class MovieDetailsView extends MainView {
     }
 
     /**
-     * Method that will print each of the reviews and ratings 
+     * Method that will print each of the reviews and ratings
      * Reviews will not be displayed if number of reviews is less than 2
      */
     public void printPastReviews() {

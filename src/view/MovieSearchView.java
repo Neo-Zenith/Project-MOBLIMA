@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * View for movie goer to search for a particular movie title
+ * 
  * @author Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -15,7 +16,7 @@ public class MovieSearchView extends MainView {
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
-    
+
     /**
      * Error message of the view
      */
@@ -23,6 +24,7 @@ public class MovieSearchView extends MainView {
 
     /**
      * Creates a a new MovieSearchView with movieGoer
+     * 
      * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieSearchView(MovieGoer movieGoer) {
@@ -39,7 +41,8 @@ public class MovieSearchView extends MainView {
     }
 
     /**
-     * Method to take in the choice of the user and calls MovieDetailsView if the movieTitle is available
+     * Method to take in the choice of the user and calls MovieDetailsView if the
+     * movieTitle is available
      */
     public void appContent() {
         String movieTitle;
@@ -59,7 +62,7 @@ public class MovieSearchView extends MainView {
                 return;
             }
 
-            ArrayList<Movie> movies = MovieManager.getAllMovieList(this.movieGoer);
+            ArrayList<Movie> movies = MovieManager.getMovieList(movieTitle);
 
             if (movies.size() != 0) {
                 this.errorMessage = "";

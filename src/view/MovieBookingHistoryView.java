@@ -8,6 +8,7 @@ import src.database.*;
 
 /**
  * View for movie goer to access their movie booking history
+ * 
  * @author Yeek Sheng
  * @version 1.0
  */
@@ -46,7 +47,7 @@ public class MovieBookingHistoryView extends MainView {
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
-    
+
     /**
      * Error message of the view
      */
@@ -54,6 +55,7 @@ public class MovieBookingHistoryView extends MainView {
 
     /**
      * Creates a new MovieBookingHistoryView with the movieGoer attributes
+     * 
      * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieBookingHistoryView(MovieGoer movieGoer) {
@@ -92,7 +94,6 @@ public class MovieBookingHistoryView extends MainView {
                 }
             }
         }
-        System.out.println("pass2");
         this.errorMessage = "";
     }
 
@@ -109,7 +110,7 @@ public class MovieBookingHistoryView extends MainView {
             String payload2 = String.format("Transaction ID: %s\n", bookingHistory.getPayment().getTransactionID());
             String payload3 = String.format("Movie Title: %s\n", this.movieTitle.get(i));
             String payload4 = String.format("Cineplex Location:\n%s",
-                    this.cineplexList.get(i).getCineplexLocation() + "\n");
+                    this.cineplexList.get(i).getCineplexLocation());
             String payload5 = String.format("Cinema: %s %s\n", this.cinemaList.get(i).getUUID(),
                     this.cinemaList.get(i).getCinemaClass().getDisplayName());
             String payload6 = String.format("Showing Time: %s\n\n", showingTime.get(i).getTimeNow());
@@ -131,7 +132,8 @@ public class MovieBookingHistoryView extends MainView {
     }
 
     /**
-     * Method to take in choice of user and prints the particular movie ticket using MovieTicketView
+     * Method to take in choice of user and prints the particular movie ticket using
+     * MovieTicketView
      */
     public void appContent() {
         int choice = -1;
@@ -150,7 +152,8 @@ public class MovieBookingHistoryView extends MainView {
                 this.errorMessage = "";
                 return;
             } else {
-                Movie movie = MovieManager.getMovieByUUID(this.bookingHistories.get(choice - 1).getMovieTicket().get(0).getMovieToWatch());
+                Movie movie = MovieManager.getMovieByUUID(
+                        this.bookingHistories.get(choice - 1).getMovieTicket().get(0).getMovieToWatch());
                 MovieTicketView ticketView = new MovieTicketView(this.seatIDList.get(choice - 1),
                         movie,
                         this.showingTime.get(choice - 1), this.cinemaList.get(choice - 1),
