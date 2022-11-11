@@ -82,7 +82,7 @@ public class MovieDetailsView extends MainView {
             String rating = String.format("%.2f", this.totalOverallReviewRating);
             System.out.println("Overall Rating: " + rating);
         }
-
+        System.out.println("Movie Age Rating: " + this.listOfMovieTypes.get(0).getMovieAgeRating().getDisplayName());
         System.out.print("Movie Cast: ");
         for (int j = 0; j < this.listOfMovieTypes.get(0).getMovieCast().size(); j++) {
             System.out.print(this.listOfMovieTypes.get(0).getMovieCast().get(j));
