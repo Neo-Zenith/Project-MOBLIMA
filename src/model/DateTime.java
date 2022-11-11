@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * DateTime class
+ * The Class that handles the data of Date and Time
+ * 
  * @author Jonathan Ng
  * @version 1.0
  */
 public class DateTime implements Serializable {
 
     /**
-     * Minute of the instance 
+     * Minute of the instance
      */
     private int minute;
 
@@ -43,12 +44,14 @@ public class DateTime implements Serializable {
 
     /**
      * Constructor for DateTime class
+     * 
      * @param minute is the minute of the Time
-     * @param hour is the hour of the Time
-     * @param day is the day of the Date (1. Sunday 2. Monday 3. Tuesday 4. Wednesday 5. Thursday 6. Friday 7. Saturday)
-     * @param date is the date of the Date
-     * @param month is the month of the Date
-     * @param year is the year of the Date
+     * @param hour   is the hour of the Time
+     * @param day    is the day of the Date (1. Sunday 2. Monday 3. Tuesday 4.
+     *               Wednesday 5. Thursday 6. Friday 7. Saturday)
+     * @param date   is the date of the Date
+     * @param month  is the month of the Date
+     * @param year   is the year of the Date
      */
     public DateTime(int minute, int hour, int day, int date, int month, int year) {
         this.minute = minute;
@@ -72,7 +75,8 @@ public class DateTime implements Serializable {
     }
 
     /**
-     * Gets the minute of the Time 
+     * Gets the minute of the Time
+     * 
      * @return Minute of the Time
      */
     public int getMinute() {
@@ -81,6 +85,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the hour of the Time
+     * 
      * @return Hour of the Time
      */
     public int getHour() {
@@ -89,6 +94,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the date of the Date
+     * 
      * @return Date of the Date
      */
     public int getDate() {
@@ -96,7 +102,8 @@ public class DateTime implements Serializable {
     }
 
     /**
-     * Gets the Day of the Date 
+     * Gets the Day of the Date
+     * 
      * @return Day of the Date
      */
     public int getDay() {
@@ -105,6 +112,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the Month of the Date
+     * 
      * @return Month of the Date
      */
     public int getMonth() {
@@ -113,6 +121,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the Year of the Date
+     * 
      * @return Year of the Date
      */
     public int getYear() {
@@ -158,6 +167,7 @@ public class DateTime implements Serializable {
 
     /**
      * Formats a string of the current time
+     * 
      * @return String of the current time
      */
     public String getTimeNow() {
@@ -168,7 +178,7 @@ public class DateTime implements Serializable {
 
         switch (this.day) {
             case 1:
-               timeNow += "Sunday  ";
+                timeNow += "Sunday  ";
                 break;
             case 2:
                 timeNow += "Monday  ";
@@ -200,9 +210,10 @@ public class DateTime implements Serializable {
 
     /**
      * Formats a string of the holiday date time
+     * 
      * @return String of the current holiday date time
      */
-    public String getHolidayTimeNow(){
+    public String getHolidayTimeNow() {
         String holidayTimeNow = " ";
         holidayTimeNow += this.getDate() + "/";
         holidayTimeNow += this.getMonth() + "/";
@@ -213,6 +224,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the current year
+     * 
      * @return Year of the current year
      */
     public static int getCurrentYear() {
@@ -221,6 +233,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the current month
+     * 
      * @return Month of the current month
      */
     public static int getCurrentMonth() {
@@ -229,6 +242,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the current day
+     * 
      * @return Day of the current Day
      */
     public static int getCurrentDay() {
@@ -237,6 +251,7 @@ public class DateTime implements Serializable {
 
     /**
      * Gets the current date
+     * 
      * @return Date of the current date
      */
     public static int getCurrentDate() {

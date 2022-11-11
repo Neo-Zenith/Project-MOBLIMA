@@ -1,6 +1,5 @@
 package src.view;
 
-
 import src.handler.*;
 import java.util.*;
 import src.controller.*;
@@ -9,6 +8,7 @@ import src.model.enums.*;
 
 /**
  * View for staff to view the list of movies
+ * 
  * @author Jonathan Ng
  * @version 1.0
  */
@@ -17,8 +17,8 @@ public class StaffMovieDetailsView {
     /**
      * ArrayList of {@link Movie} objects
      */
-    private ArrayList <Movie> allMovies;
-    
+    private ArrayList<Movie> allMovies;
+
     /**
      * Error of this view
      */
@@ -26,6 +26,7 @@ public class StaffMovieDetailsView {
 
     /**
      * Constructor for StaffMovieDetailsView
+     * 
      * @param cinemaStaff is the cinema staff accessing this page
      */
     public StaffMovieDetailsView(CinemaStaff cinemaStaff) {
@@ -41,7 +42,6 @@ public class StaffMovieDetailsView {
         this.printMovieList();
     }
 
-
     /**
      * Method to print all the movies available
      */
@@ -54,8 +54,7 @@ public class StaffMovieDetailsView {
             String payload;
             if (movie.getMovieType() == MovieType.ThreeD) {
                 payload = String.format(index + "[ %s ]\t\t", movie.getMovieType().getDisplayName());
-            }
-            else {
+            } else {
                 payload = String.format(index + "[ %s ]\t", movie.getMovieType().getDisplayName());
             }
             payload += String.format("%s\n", movie.getMovieTitle());
@@ -71,9 +70,10 @@ public class StaffMovieDetailsView {
 
     /**
      * Method to call printMenu and obtains the index of the movie
-     * Passes a movie object to the staffConfigureMovieView upon successful choice selected 
+     * Passes a movie object to the staffConfigureMovieView upon successful choice
+     * selected
      */
-    public void appContent(){
+    public void appContent() {
         int choice = -1;
 
         do {
@@ -85,15 +85,14 @@ public class StaffMovieDetailsView {
                 this.errorMessage = "Error! Please enter a valid input!";
                 continue;
             }
-            if (choice == this.allMovies.size() + 1){
+            if (choice == this.allMovies.size() + 1) {
                 this.errorMessage = "";
                 return;
-            }
-            else {
+            } else {
                 Movie movie = this.allMovies.get(choice - 1);
                 this.staffConfigureMovieView = new StaffConfigureMovieView(movie);
                 this.staffConfigureMovieView.appContent();
             }
-        }   while (true);
+        } while (true);
     }
 }

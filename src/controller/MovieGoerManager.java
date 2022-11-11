@@ -6,7 +6,7 @@ import src.model.*;
 import src.handler.*;
 
 /**
- * Controller class for handling all logic related to Movie Goer
+ * Controller class for handling all logic related to {@link MovieGoer}
  * 
  * @author Jerick, Yeek Sheng
  * @version 1.0

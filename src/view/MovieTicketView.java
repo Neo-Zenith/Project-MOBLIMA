@@ -8,6 +8,7 @@ import java.util.*;
 
 /**
  * View for movie goer to view the movie tickets after successful payment
+ * 
  * @author Lee Juin, Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -26,7 +27,7 @@ public class MovieTicketView {
      * Total movie ticket price for all seats chosen for the movie
      */
     private double totalMovieTicketPrice;
-    
+
     /**
      * Movie object of the movieTicket {@link Movie}
      */
@@ -34,11 +35,12 @@ public class MovieTicketView {
 
     /**
      * Creates a new MovieTicket View and a new movieTicketList as an attribute
-     * @param seatID ArrayList of seatID as string
-     * @param movie movie object {@link Movie}
-     * @param showingTime showing time chosen {@link DateTime}
-     * @param cinema cinema chosen {@link Cinema}
-     * @param seatingPlan ArrayList of {@link Seat}
+     * 
+     * @param seatID                ArrayList of seatID as string
+     * @param movie                 movie object {@link Movie}
+     * @param showingTime           showing time chosen {@link DateTime}
+     * @param cinema                cinema chosen {@link Cinema}
+     * @param seatingPlan           ArrayList of {@link Seat}
      * @param totalMovieTicketPrice Total movie ticekt price of all the seats chosen
      */
     public MovieTicketView(ArrayList<String> seatID, Movie movie, DateTime showingTime, Cinema cinema,
@@ -52,6 +54,7 @@ public class MovieTicketView {
 
     /**
      * Gets the ArrayList of movieTickets
+     * 
      * @return ArrayList of {@link MovieTicket}
      */
     public ArrayList<MovieTicket> getMovieTickets() {
@@ -60,7 +63,8 @@ public class MovieTicketView {
 
     /**
      * Method that prints out the movie tickets purchased with information such as:
-     * movieName, movieType, cineplex, cinemaClass, cinemaID, showingTime, price of a movieTicket
+     * movieName, movieType, cineplex, cinemaClass, cinemaID, showingTime, price of
+     * a movieTicket
      */
     public void printMovieTickets() {
 

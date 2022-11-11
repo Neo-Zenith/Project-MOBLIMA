@@ -3,14 +3,14 @@ package src.model;
 import src.model.enums.PaymentType;
 
 /**
- * The Class inherited from the Superclass {@link Payment} 
+ * The Class inherited from the Superclass {@link Payment}
  * that handles the data of Bank Transaction Payment
  * 
  * @author Ci Hui
  * @version 1.0
  */
 
-public class BankTransactionPayment extends Payment{
+public class BankTransactionPayment extends Payment {
     /**
      * {@link PaymentType} of the Bank Transaction Payment
      */
@@ -24,10 +24,11 @@ public class BankTransactionPayment extends Payment{
     /**
      * Constructor for BankTransactionPayment Class
      * 
-     * @param UUID              is the unique ID in the database
-     * @param paymentType       is the {@link PaymentType} of the Bank Transaction Payment
-     * @param transactionID     is the Transaction ID of the Bank Transaction Payment
-     * @param movieTicketPrice  is the price of the Movie Tickets
+     * @param UUID             is the unique ID in the database
+     * @param paymentType      is the {@link PaymentType} of the Bank Transaction
+     *                         Payment
+     * @param transactionID    is the Transaction ID of the Bank Transaction Payment
+     * @param movieTicketPrice is the price of the Movie Tickets
      */
     public BankTransactionPayment(String UUID, PaymentType paymentType, String transactionID, double movieTicketPrice) {
         super(UUID, transactionID);
@@ -47,7 +48,8 @@ public class BankTransactionPayment extends Payment{
     /**
      * Sets the {@link PaymentType} of the Bank Transaction Payment
      * 
-     * @param paymentType is the {@link PaymentType} of the Bank Transaction Payment to be set
+     * @param paymentType is the {@link PaymentType} of the Bank Transaction Payment
+     *                    to be set
      */
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
@@ -61,7 +63,7 @@ public class BankTransactionPayment extends Payment{
     public double getMovieTicketPrice() {
         return this.movieTicketPrice;
     }
-    
+
     /**
      * Sets the price of the Movie Tickets
      * 

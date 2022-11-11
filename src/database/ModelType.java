@@ -2,11 +2,12 @@ package src.database;
 
 /**
  * Enumeration class for handling conversion from database file to HashMap
+ * 
  * @author Lee Juin
  * @version 1.0
  */
 public enum ModelType {
-    
+
     /**
      * Cineplex enum and its file name
      */
@@ -84,6 +85,7 @@ public enum ModelType {
 
     /**
      * Private constructor
+     * 
      * @param fileName is the file name to be used for the model
      */
     private ModelType(String fileName) {
@@ -92,6 +94,7 @@ public enum ModelType {
 
     /**
      * Gets the file name of the model
+     * 
      * @return The file name of the model
      */
     public String getFileName() {

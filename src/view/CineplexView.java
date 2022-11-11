@@ -7,17 +7,21 @@ import src.handler.*;
 
 /**
  * View class for handling all the UI related to {@link Cineplex}
+ * 
+ * @author Lee Juin, Jerick
+ * @version 1.0
  */
 public class CineplexView extends MainView {
     private Movie movie;
-    private ArrayList <Cineplex> cineplexes;
+    private ArrayList<Cineplex> cineplexes;
     private CinemaView cinemaView;
     private MovieGoer movieGoer;
     private String errorMessage;
 
     /**
      * Constructor
-     * @param movie is the movie selected by the Movie Goer
+     * 
+     * @param movie     is the movie selected by the Movie Goer
      * @param movieGoer is the target Movie Goer
      */
     public CineplexView(Movie movie, MovieGoer movieGoer) {
@@ -28,21 +32,22 @@ public class CineplexView extends MainView {
     }
 
     /**
-     * Method to print the cineplexes which are showing the movie selected by the user
+     * Method to print the cineplexes which are showing the movie selected by the
+     * user
      */
     public void printCineplex() {
         String content = "";
         int count = 0;
-        for (int i = 0; i < cineplexes.size(); i ++) {
+        for (int i = 0; i < cineplexes.size(); i++) {
             Cineplex cineplex = cineplexes.get(i);
             String index = String.format("%02d. ", i + 1);
             String payload = String.format(index + "%s\n", cineplex.getCineplexName());
             payload += String.format("%s\n", cineplex.getCineplexLocation());
-            
+
             content = content + payload;
             count = i + 1;
         }
-        String index = String.format("%02d. ", count + 1); 
+        String index = String.format("%02d. ", count + 1);
         String payload = String.format(index + "Quit and return back");
         content = content + payload;
 
@@ -79,13 +84,12 @@ public class CineplexView extends MainView {
             this.cinemaView = new CinemaView(cineplexes.get(choice - 1), this.movie, this.movieGoer);
             this.errorMessage = "";
             this.cinemaView.appContent();
-            
+
             if (MovieMenuView.exit) {
                 this.errorMessage = "";
                 return;
             }
 
-        }   while (true);
+        } while (true);
     }
 }
-

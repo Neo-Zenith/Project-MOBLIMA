@@ -8,7 +8,10 @@ import src.model.*;
 import src.model.enums.*;
 
 /**
- * Controller class for handling all logic related to Seat class
+ * Controller class for handling all logic related to {@link Seat}
+ * 
+ * @author Lee Juin
+ * @version 1.0
  */
 public class SeatManager {
 
@@ -208,7 +211,8 @@ public class SeatManager {
      * @return {@code true} if booking/unbooking is successful, {@code false}
      *         otherwise
      */
-    public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, ArrayList <Seat> seatingPlan, Cinema cinema, boolean assign) {
+    public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, ArrayList<Seat> seatingPlan,
+            Cinema cinema, boolean assign) {
         int index = SeatManager.seatIDConverter(seatID, cinema);
         Seat seatToBook = seatingPlan.get(index);
 

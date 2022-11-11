@@ -5,7 +5,9 @@ import src.database.*;
 import src.model.enums.*;
 
 /**
- * Standard cinema class
+ * The Class inherited from the Superclass {@link Cinema} that handles the data
+ * of Standard Cinema
+ * 
  * @author Lee Juin
  * @version 1.0
  */

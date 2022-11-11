@@ -5,7 +5,8 @@ import java.util.*;
 import src.database.*;
 
 /**
- * The Class that handles the data of Three D movie
+ * The Class inherited from the Superclass {@link Movie} that handles the data
+ * of Three D Movie
  * 
  * @author Jerick, Yeek Sheng
  * @version 1.0

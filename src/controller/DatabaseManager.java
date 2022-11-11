@@ -6,7 +6,7 @@ import src.model.*;
 import src.model.enums.*;
 
 /**
- * Controller class for handling all logics related to the database
+ * Controller class for handling all logics related to the {@link Database}
  * 
  * @author Lee Juin
  * @version 1.0

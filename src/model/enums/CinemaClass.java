@@ -1,12 +1,13 @@
 package src.model.enums;
 
 /**
- * Enumeration class for Cinema 
+ * Enumeration class for Cinema
+ * 
  * @author Lee Juin
  * @version 1.0
  */
 public enum CinemaClass {
-    
+
     STANDARD("Standard Cinema"),
     PLATINUM("Platinum Movie Suite"),
     IMAX("IMAX Cinema Experience");
@@ -15,6 +16,7 @@ public enum CinemaClass {
 
     /**
      * Private constructor
+     * 
      * @param display is the display name to be shown
      */
     private CinemaClass(String display) {
@@ -23,6 +25,7 @@ public enum CinemaClass {
 
     /**
      * Method to obtain the display name of a enumeration
+     * 
      * @return The display name of a enumeration
      */
     public String getDisplayName() {

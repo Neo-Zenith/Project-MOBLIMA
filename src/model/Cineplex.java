@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Cineplex class
+ * The Class that handles the data of Cineplex
+ * 
  * @author Lee Juin
  * @version 1.0
  */
-public class Cineplex implements Comparable, Serializable{
+public class Cineplex implements Comparable, Serializable {
 
     /**
      * The unique ID of a cineplex instance
@@ -33,18 +34,20 @@ public class Cineplex implements Comparable, Serializable{
     /**
      * All the {@link Cinema} instances in a cineplex
      */
-    private ArrayList <Cinema> cinemas;
+    private ArrayList<Cinema> cinemas;
     private static final long serialVersionUID = 2L;
 
     /**
      * Constructor for Cineplex class
-     * @param UUID is the unique ID in the database
-     * @param cineplexName is the name of the cinplex
-     * @param numOfCinemas is the total number of cinemas in the cineplex
-     * @param cinemas is all the {@link Cinema} instances in the cineplex
+     * 
+     * @param UUID             is the unique ID in the database
+     * @param cineplexName     is the name of the cinplex
+     * @param numOfCinemas     is the total number of cinemas in the cineplex
+     * @param cinemas          is all the {@link Cinema} instances in the cineplex
      * @param cineplexLocation is the location of the cineplex
      */
-    public Cineplex(String UUID, String cineplexName, int numOfCinemas, ArrayList <Cinema> cinemas, String cineplexLocation) {
+    public Cineplex(String UUID, String cineplexName, int numOfCinemas, ArrayList<Cinema> cinemas,
+            String cineplexLocation) {
         this.setUUID(UUID);
         this.setCineplexName(cineplexName);
         this.setNumOfCinemas(numOfCinemas);
@@ -54,6 +57,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Gets the unique ID of the cineplex
+     * 
      * @return The unique ID of the cineplex
      */
     public String getUUID() {
@@ -62,6 +66,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Sets the unique ID of the cineplex
+     * 
      * @param UUID is the unique ID of the cineplex
      */
     public void setUUID(String UUID) {
@@ -70,6 +75,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Gets the name of the cineplex
+     * 
      * @return The name of the cineplex
      */
     public String getCineplexName() {
@@ -78,6 +84,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Sets the name of the cineplex
+     * 
      * @param cineplexName is the name of the cineplex
      */
     public void setCineplexName(String cineplexName) {
@@ -86,6 +93,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Gets the total number of cinemas in the cineplex
+     * 
      * @return The total number of cinemas in the cineplex
      */
     public int getNumOfCinemas() {
@@ -94,6 +102,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Sets the total number of cinemas in the cineplex
+     * 
      * @param numOfCinemas is the total number of cinemas in the cineplex
      */
     public void setNumOfCinemas(int numOfCinemas) {
@@ -102,35 +111,40 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Gets all the {@link Cinema} instances in the cineplex
+     * 
      * @return ArrayList of {@link Cinema} instances in the cineplex
      */
-    public ArrayList <Cinema> getCinemas() {
+    public ArrayList<Cinema> getCinemas() {
         return this.cinemas;
     }
 
     /**
      * Sets all the {@link Cinema} instances in the cineplex
+     * 
      * @param cinemas is the {@link Cinema} instances to be set
      */
-    public void setCinemas(ArrayList <Cinema> cinemas) {
+    public void setCinemas(ArrayList<Cinema> cinemas) {
         this.cinemas = cinemas;
     }
 
     /**
      * Method to add a cinema into the cineplex
+     * 
      * @param cinema is the cinema to be added
      */
     public void addCinema(Cinema cinema) {
         this.cinemas.add(cinema);
-        this.numOfCinemas ++;
+        this.numOfCinemas++;
     }
 
     /**
      * Method to compare between cineplexes, sorted by UUID
+     * 
      * @param object is the cineplex to be compared to
-     * @return More than zero if object is lower priority, equal to zero if equal priority, less than zero if object is higher priority
+     * @return More than zero if object is lower priority, equal to zero if equal
+     *         priority, less than zero if object is higher priority
      */
-    @Override 
+    @Override
     public int compareTo(Object object) {
         Cineplex cineplex = (Cineplex) object;
         return this.getUUID().compareTo(cineplex.getUUID());
@@ -138,6 +152,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Gets the location of the cineplex
+     * 
      * @return The location of the cineplex
      */
     public String getCineplexLocation() {
@@ -146,6 +161,7 @@ public class Cineplex implements Comparable, Serializable{
 
     /**
      * Sets the location of the cineplex
+     * 
      * @param cineplexLocation is the location of the cineplex
      */
     public void setCineplexLocation(String cineplexLocation) {

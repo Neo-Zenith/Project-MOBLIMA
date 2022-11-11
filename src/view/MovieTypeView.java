@@ -8,6 +8,7 @@ import java.util.*;
 
 /**
  * View for movie goer to view the different movie types for the movie title
+ * 
  * @author Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -26,7 +27,7 @@ public class MovieTypeView extends MainView {
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
-    
+
     /**
      * Error message of the view
      */
@@ -34,8 +35,9 @@ public class MovieTypeView extends MainView {
 
     /**
      * Creates a MovieTypeView with the movieTitle and the movieGoer
+     * 
      * @param movieTitle title of the movie chosen
-     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
+     * @param movieGoer  movieGoer accessing the view {@link MovieGoer}
      */
     public MovieTypeView(String movieTitle, MovieGoer movieGoer) {
         this.movieTitle = movieTitle;
@@ -51,7 +53,8 @@ public class MovieTypeView extends MainView {
     }
 
     /**
-     * Method to print the movie type matching the movieTitle and calls printMenuContent
+     * Method to print the movie type matching the movieTitle and calls
+     * printMenuContent
      */
     public void printMovieType() {
         String content = "\n";

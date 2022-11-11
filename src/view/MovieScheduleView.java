@@ -7,6 +7,7 @@ import java.util.*;
 
 /**
  * View for movie goer to view the schedules of the movie for its type
+ * 
  * @author Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -45,7 +46,7 @@ public class MovieScheduleView {
      * SeatingPlanView
      */
     private SeatingPlanView seatingPlanView;
-    
+
     /**
      * Error message of the view
      */
@@ -53,10 +54,13 @@ public class MovieScheduleView {
 
     /**
      * Creates a new MovieScheduleView with ArrayList of cinemas, movie, moviegoer
-     * Stores the index of the showingVenues that match the list of cinemas showing the movie and its type
-     * @param cinemaList ArrayList of cinemas showing the movie title and type {@link Cinema}
-     * @param movie Movie title {@link Movie}
-     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
+     * Stores the index of the showingVenues that match the list of cinemas showing
+     * the movie and its type
+     * 
+     * @param cinemaList ArrayList of cinemas showing the movie title and type
+     *                   {@link Cinema}
+     * @param movie      Movie title {@link Movie}
+     * @param movieGoer  movieGoer accessing the view {@link MovieGoer}
      */
     public MovieScheduleView(ArrayList<Cinema> cinemaList, Movie movie, MovieGoer movieGoer) {
         this.movie = movie;
@@ -78,7 +82,8 @@ public class MovieScheduleView {
 
     /**
      * Method to print out the showingTimes of the movie if it is bookable
-     * @return if the movie is available for booking or not 
+     * 
+     * @return if the movie is available for booking or not
      */
     public boolean printShowingTimes() {
         String content = "\n";
@@ -97,8 +102,7 @@ public class MovieScheduleView {
             content = content + payload;
             MainView.printMenuContent(content);
             return true;
-        }
-        else {
+        } else {
             content += "This movie is currently not available for booking!";
             MainView.printMenuContent(content);
             return false;
@@ -107,6 +111,7 @@ public class MovieScheduleView {
 
     /**
      * Method to print the boiler plate and calls printShowingTimes
+     * 
      * @return if the movie is available for booking or not
      */
     public boolean printMenu() {
@@ -115,8 +120,9 @@ public class MovieScheduleView {
     }
 
     /**
-     * Method to call printMenu and takes in the choice of the user to 
-     * display the seatingPlanView using the showingTime chosen by the user at that cinema
+     * Method to call printMenu and takes in the choice of the user to
+     * display the seatingPlanView using the showingTime chosen by the user at that
+     * cinema
      */
     public void appContent() {
         int choice = -1;
@@ -126,7 +132,7 @@ public class MovieScheduleView {
                 this.errorMessage = "";
                 return;
             }
-            
+
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             if (this.printMenu()) {
@@ -135,12 +141,11 @@ public class MovieScheduleView {
                     this.errorMessage = "Error! Please enter a valid input";
                     continue;
                 }
-            
+
                 if (choice == showingTimes.size() + 1) {
                     this.errorMessage = "";
                     return;
-                } 
-                else {
+                } else {
                     int pointer = indexList.get(choice - 1);
                     DateTime showTime = this.movieSchedule.getShowingTime().get(pointer);
                     Cinema cinema = CinemaManager.getCinemaByUUID(this.movieSchedule.getShowingVenues().get(pointer));
@@ -154,7 +159,7 @@ public class MovieScheduleView {
                 InputHandler.stringHandler();
                 this.errorMessage = "";
                 return;
-            } 
+            }
         } while (true);
 
     }

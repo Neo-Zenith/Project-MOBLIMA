@@ -5,7 +5,8 @@ import src.database.Database;
 import src.model.enums.*;
 
 /**
- * The Class that handles the data of Blockbuster Movie
+ * The Class inherited from the Superclass {@link Movie} that handles the data
+ * of Blockbuster Movie
  * 
  * @author Jerick, Yeek Sheng
  * @version 1.0

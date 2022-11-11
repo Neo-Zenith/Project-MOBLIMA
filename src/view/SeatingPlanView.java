@@ -88,7 +88,6 @@ public class SeatingPlanView {
      */
     private double totalMovieTicketPrice;
 
-
     /**
      * Creates a new SeatingPlanView with chosen movieSchedule, cinema, showingPlan
      * and the movieGoer

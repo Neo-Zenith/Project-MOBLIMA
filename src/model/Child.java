@@ -4,7 +4,8 @@ import src.database.*;
 import src.model.enums.*;
 
 /**
- * The Class that handles the data of Child Movie Goer
+ * The Class inherited from the Superclass {@link MovieGoer} that handles the
+ * data of Child
  * 
  * @author Jerick, Yeek Sheng
  * @version 1.0

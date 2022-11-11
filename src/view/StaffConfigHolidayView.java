@@ -4,7 +4,9 @@ import src.controller.*;
 import src.handler.*;
 
 /**
- * View for cinema staff to add or delete the holiday from the holidays ArrayList in the database
+ * View for cinema staff to add or delete the holiday from the holidays
+ * ArrayList in the database
+ * 
  * @author Jonathan Ng
  * @version 1.0
  */
@@ -38,7 +40,8 @@ public class StaffConfigHolidayView {
 
     /**
      * Method to call printMenu
-     * Upon successful choice, configureHoliday under CinemaStaffManager will be called and the holiday will be added/deleted and the database will be updated
+     * Upon successful choice, configureHoliday under CinemaStaffManager will be
+     * called and the holiday will be added/deleted and the database will be updated
      */
     public void appContent() {
         int choice = -1;

@@ -30,9 +30,9 @@ public abstract class Payment implements Serializable {
     /**
      * Constructor for Payment class
      * 
-     * @param UUID           is the unique ID in the database
-     * @param transactionID  is the Transaction ID of the Payment
-     */    
+     * @param UUID          is the unique ID in the database
+     * @param transactionID is the Transaction ID of the Payment
+     */
     public Payment(String UUID, String transactionID) {
         this.setUUID(UUID);
         this.setTransactionID(transactionID);
@@ -101,4 +101,4 @@ public abstract class Payment implements Serializable {
      * @param movieTicketPrice is the price of the Movie Ticket to be set
      */
     public abstract void setMovieTicketPrice(double movieTicketPrice);
-}   
+}
