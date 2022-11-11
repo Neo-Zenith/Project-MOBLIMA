@@ -206,6 +206,7 @@ public class SeatManager {
      * 
      * @param seatID        is the front-end displayed seat ID
      * @param movieSchedule is the {@link MovieSchedule} instance of the movie
+     * @param seatingPlan   is the seating plan selected by the user
      * @param cinema        is the {@link Cinema} instance the MovieGoer chosen
      * @param assign        {@code true} if booking, otherwise {@code false}
      * @return {@code true} if booking/unbooking is successful, {@code false}
@@ -275,6 +276,12 @@ public class SeatManager {
         return null;
     }
 
+    /**
+     * Method to get the next seat's ID for couple seat
+     * @param seatID is the current seat's ID
+     * @param cinema is the target cinema
+     * @return The next seat's ID
+     */
     public static String getNextSeatID(String seatID, Cinema cinema) {
         String ind = seatID.substring(1);
         int index = Integer.parseInt(ind);

@@ -7,7 +7,7 @@ import src.handler.*;
 
 /**
  * Controller class for Cineplex which handles all logic related to
- * {@link Cienplex}
+ * {@link Cineplex}
  * 
  * @author Lee Juin
  * @version 1.0
