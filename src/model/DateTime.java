@@ -199,6 +199,19 @@ public class DateTime implements Serializable {
     }
 
     /**
+     * Formats a string of the holiday date time
+     * @return String of the current holiday date time
+     */
+    public String getHolidayTimeNow(){
+        String holidayTimeNow = " ";
+        holidayTimeNow += this.getDate() + "/";
+        holidayTimeNow += this.getMonth() + "/";
+        holidayTimeNow += this.getYear() + "  ";
+
+        return holidayTimeNow;
+    }
+
+    /**
      * Gets the current year
      * @return Year of the current year
      */

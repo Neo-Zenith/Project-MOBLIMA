@@ -628,7 +628,7 @@ public class CinemaStaffManager{
                     System.out.println(errorMessage);
                     MainView.printBoilerPlate("Configure Holiday");
                     System.out.println("Enter a holiday date time to be added: ");
-                    holiday = queryDate();
+                    holiday = queryHoliday();
                     
                     boolean flag = false;
                     for (int i = 0; i < Database.holidays.size(); i++){
@@ -696,7 +696,7 @@ public class CinemaStaffManager{
         for (int i = 0; i < Database.holidays.size(); i++){
             DateTime holiday = Database.holidays.get(i);
             String index = String.format("%02d. ", i + 1);
-            String payload = String.format(index + holiday.getTimeNow() + "\n");
+            String payload = String.format(index + holiday.getHolidayTimeNow() + "\n");
             content += payload;
         }
         String index = String.format("%02d. ", Database.holidays.size() + 1);
@@ -725,6 +725,22 @@ public class CinemaStaffManager{
         
         DateTime dateTime = new DateTime(minute, hour, day, date, month, year);
         return dateTime;
+    }
+
+
+    /**
+     * Method to query and create a new holiday 
+     * @return {@link DateTime} object of the queried date
+     */
+    public static DateTime queryHoliday(){
+        System.out.print("Year: ");
+        int year = InputHandler.intHandler();
+        System.out.print("Month: ");
+        int month = InputHandler.intHandler();
+        System.out.print("Date: ");
+        int date = InputHandler.intHandler();
+        DateTime holiday = new DateTime(0, 0, 0, date, month, year);
+        return holiday;
     }
 
     /**

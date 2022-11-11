@@ -107,10 +107,10 @@ public class MovieGoerManager {
      */
     public static ArrayList<Movie> rankTop5(String choice, ArrayList<Movie> movies, boolean staff) {
         if (!staff) {
-            if (choice == "ticket" && !Database.PERMISSION.getOverallRatingsPermission()) {
+            if (choice == "ticket" && !Database.PERMISSION.getMovieSalesPermission()) {
                 return null;
             }
-            if (choice == "ratings" && !Database.PERMISSION.getMovieSalesPermission()) {
+            if (choice == "ratings" && !Database.PERMISSION.getOverallRatingsPermission()) {
                 return null;
             }
         }
