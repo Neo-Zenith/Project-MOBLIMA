@@ -93,6 +93,7 @@ public class SeatingPlanView {
      * and the movieGoer
      * 
      * @param movieSchedule movieSchedule chosen {@link MovieSchedule}
+     * @param showTime      show time of the movie
      * @param cinema        cinema chosen {@link Cinema}
      * @param seatingPlan   ArrayList of {@link Seat} objects
      * @param movieGoer     movieGoer accessing the view {@link MovieGoer}
