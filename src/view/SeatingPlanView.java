@@ -8,6 +8,7 @@ import src.handler.*;
 
 /**
  * View for movie goer of the seating plan of the movie at that cinema
+ * 
  * @author Lee Juin, Yeek Sheng
  * @version 1.0
  */
@@ -88,13 +89,16 @@ public class SeatingPlanView {
     private double totalMovieTicketPrice;
 
     /**
-     * Creates a new SeatingPlanView with chosen movieSchedule, cinema, showingPlan and the movieGoer
+     * Creates a new SeatingPlanView with chosen movieSchedule, cinema, showingPlan
+     * and the movieGoer
+     * 
      * @param movieSchedule movieSchedule chosen {@link MovieSchedule}
-     * @param cinema cinema chosen {@link Cinema}
-     * @param seatingPlan ArrayList of {@link Seat} objects
-     * @param movieGoer movieGoer accessing the view {@link MovieGoer}
+     * @param cinema        cinema chosen {@link Cinema}
+     * @param seatingPlan   ArrayList of {@link Seat} objects
+     * @param movieGoer     movieGoer accessing the view {@link MovieGoer}
      */
-    public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList<Seat> seatingPlan, MovieGoer movieGoer) {
+    public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList<Seat> seatingPlan,
+            MovieGoer movieGoer) {
         this.seatingPlan = seatingPlan;
         this.cinema = cinema;
         this.movieSchedule = movieSchedule;
@@ -112,15 +116,20 @@ public class SeatingPlanView {
      */
     public void printSeatingPlan() {
         if (this.cinema.getCinemaClass() == CinemaClass.PLATINUM) {
+            System.out.println("");
+            System.out.println("");
             SeatManager.printPlatinumCinemaFloorMap(this.seatingPlan);
         } else {
+            System.out.println("");
+            System.out.println("");
             SeatManager.printStandardCinemaFloorMap(this.seatingPlan);
         }
     }
 
     /**
      * Method to print the boiler plate and displays the choice that the user has
-     * Displays the cinemaID, movieTitle, showingTime, seatingPlan, seats in cart currently
+     * Displays the cinemaID, movieTitle, showingTime, seatingPlan, seats in cart
+     * currently
      */
     public void printMenu() {
         Movie movie = MovieManager.getMovieByUUID(this.movieSchedule.getMovieOnShow());
@@ -132,8 +141,8 @@ public class SeatingPlanView {
         this.printSeatInCart();
         MainView.printMenuContent("""
 
-                Select from the following actions: 
-                
+                Select from the following actions:
+
                 01. Add Seat into Booking Cart
                 02. Check Out and Proceed To Payment
                 03. Quit and return back
@@ -161,7 +170,8 @@ public class SeatingPlanView {
 
     /**
      * Method to take in the choice of the user for the booking of a new seat
-     * Creates a PaymentView from the current cinema and schedule with total price of MovieTickets
+     * Creates a PaymentView from the current cinema and schedule with total price
+     * of MovieTickets
      * Creates a MovieTicketView from the seatIDs chosen at this cinema and schedule
      */
     public void appContent() {
@@ -172,7 +182,7 @@ public class SeatingPlanView {
                 this.errorMessage = "";
                 return;
             }
-            
+
             UIHandler.clearScreen();
             System.out.println(this.errorMessage);
             this.printMenu();
@@ -184,6 +194,8 @@ public class SeatingPlanView {
             switch (choice) {
                 case 1:
                     UIHandler.clearScreen();
+                    System.out.println(this.errorMessage);
+                    this.printMenu();
                     System.out.println("Enter the seat ID to be booked: ");
                     String seatID = InputHandler.stringHandler();
                     int index = SeatManager.seatIDConverter(seatID, this.cinema);
@@ -198,9 +210,11 @@ public class SeatingPlanView {
                         seatIDList.add(seatID);
                         String movieUUID = this.movieSchedule.getMovieOnShow();
                         if (this.seatBooked.getSeatType() == SeatType.STANDARD) {
-                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer, this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime);
+                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer,
+                                    this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime);
                         } else {
-                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer, this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime) * 2;
+                            this.currentMovieTicketPrice = PaymentManager.calculateMovieTicketPrice(this.movieGoer,
+                                    this.cinema.getUUID(), movieUUID, this.seatBooked.getUUID(), this.showingTime) * 2;
                         }
                         this.totalMovieTicketPrice += this.currentMovieTicketPrice;
                         this.errorMessage = "Booking has been made!";
@@ -241,7 +255,7 @@ public class SeatingPlanView {
 
                 case 3:
                     this.errorMessage = "";
-                    for (int i = 0; i < this.seatIDList.size(); i ++) {
+                    for (int i = 0; i < this.seatIDList.size(); i++) {
                         String _seatID = this.seatIDList.get(i);
                         SeatManager.bookSeat(_seatID, movieSchedule, cinema, false);
                     }

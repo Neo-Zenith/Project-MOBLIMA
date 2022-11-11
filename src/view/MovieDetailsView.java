@@ -231,8 +231,15 @@ public class MovieDetailsView extends MainView {
             break;
         } while (true);
 
+        UIHandler.clearScreen();
+        System.out.println(errorMessage);
+        MainView.printBoilerPlate("Adding Reviews for " + this.movieTitle);
         System.out.println("Give a review for the movie: ");
         String review = InputHandler.stringHandler();
+
+        UIHandler.clearScreen();
+        System.out.println(errorMessage);
+        MainView.printBoilerPlate("Adding Reviews for " + this.movieTitle);
         System.out.println("Give a rating for the movie: (0-5)");
         double rating = InputHandler.doubleHandler();
         while (rating < 0 || rating > 5) {
