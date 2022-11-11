@@ -142,8 +142,9 @@ public class MovieScheduleView {
                 } 
                 else {
                     int pointer = indexList.get(choice - 1);
+                    DateTime showTime = this.movieSchedule.getShowingTime().get(pointer);
                     Cinema cinema = CinemaManager.getCinemaByUUID(this.movieSchedule.getShowingVenues().get(pointer));
-                    this.seatingPlanView = new SeatingPlanView(this.movieSchedule,
+                    this.seatingPlanView = new SeatingPlanView(this.movieSchedule, showTime,
                             cinema, this.movieSchedule.getSeatingPlan().get(pointer), this.movieGoer);
                     this.errorMessage = "";
                     this.seatingPlanView.appContent();

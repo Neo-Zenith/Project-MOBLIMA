@@ -88,6 +88,7 @@ public class SeatingPlanView {
      */
     private double totalMovieTicketPrice;
 
+
     /**
      * Creates a new SeatingPlanView with chosen movieSchedule, cinema, showingPlan
      * and the movieGoer
@@ -97,15 +98,14 @@ public class SeatingPlanView {
      * @param seatingPlan   ArrayList of {@link Seat} objects
      * @param movieGoer     movieGoer accessing the view {@link MovieGoer}
      */
-    public SeatingPlanView(MovieSchedule movieSchedule, Cinema cinema, ArrayList<Seat> seatingPlan,
+    public SeatingPlanView(MovieSchedule movieSchedule, DateTime showTime, Cinema cinema, ArrayList<Seat> seatingPlan,
             MovieGoer movieGoer) {
         this.seatingPlan = seatingPlan;
         this.cinema = cinema;
         this.movieSchedule = movieSchedule;
         this.movieGoer = movieGoer;
         this.errorMessage = "";
-        int index = MovieScheduleManager.getShowingVenueIndex(movieSchedule, cinema);
-        this.showingTime = this.movieSchedule.getShowingTime().get(index);
+        this.showingTime = showTime;
         this.seatIDList = new ArrayList<>();
         this.currentMovieTicketPrice = 0;
         this.totalMovieTicketPrice = 0;
@@ -132,6 +132,7 @@ public class SeatingPlanView {
      * currently
      */
     public void printMenu() {
+        System.out.println(this.cinema.getUUID());
         Movie movie = MovieManager.getMovieByUUID(this.movieSchedule.getMovieOnShow());
         MainView.printBoilerPlate("Seat Booking");
         System.out.println("Cinema ID: " + this.cinema.getUUID());
@@ -205,7 +206,7 @@ public class SeatingPlanView {
                     }
                     this.seatBooked = this.seatingPlan.get(index);
 
-                    if (SeatManager.bookSeat(seatID, this.movieSchedule, this.cinema, true)) {
+                    if (SeatManager.bookSeat(seatID, this.movieSchedule, this.seatingPlan, this.cinema, true)) {
                         // add seatID into seatIDList => add new ticket into bucket list
                         seatIDList.add(seatID);
                         String movieUUID = this.movieSchedule.getMovieOnShow();
@@ -258,7 +259,7 @@ public class SeatingPlanView {
                     this.errorMessage = "";
                     for (int i = 0; i < this.seatIDList.size(); i++) {
                         String _seatID = this.seatIDList.get(i);
-                        SeatManager.bookSeat(_seatID, movieSchedule, cinema, false);
+                        SeatManager.bookSeat(_seatID, movieSchedule, this.seatingPlan, cinema, false);
                     }
                     this.seatIDList = new ArrayList<>();
                     return;

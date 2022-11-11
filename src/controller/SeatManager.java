@@ -208,13 +208,8 @@ public class SeatManager {
      * @return {@code true} if booking/unbooking is successful, {@code false}
      *         otherwise
      */
-    public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, Cinema cinema, boolean assign) {
+    public static boolean bookSeat(String seatID, MovieSchedule movieSchedule, ArrayList <Seat> seatingPlan, Cinema cinema, boolean assign) {
         int index = SeatManager.seatIDConverter(seatID, cinema);
-
-        int venueSlot = MovieScheduleManager.getShowingVenueIndex(movieSchedule, cinema);
-        System.out.println(movieSchedule.getSeatingPlan().size());
-        ArrayList<Seat> seatingPlan = movieSchedule.getSeatingPlan().get(venueSlot);
-
         Seat seatToBook = seatingPlan.get(index);
 
         if (seatToBook.getSeatType() == SeatType.STANDARD) {

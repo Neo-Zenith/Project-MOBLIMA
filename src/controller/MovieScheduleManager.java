@@ -110,22 +110,6 @@ public class MovieScheduleManager {
     }
 
     /**
-     * Refactored method to obtain the index of a showing venue in a schedule
-     * @param movieSchedule is the target movie schedule 
-     * @param cinema is the target showing venue
-     * @return The index of the showing venue in the movie schedule
-     */
-    public static int getShowingVenueIndex(MovieSchedule movieSchedule, Cinema cinema) {
-        System.out.println(movieSchedule.getShowingVenues().size());
-        for (int i = 0; i < movieSchedule.getShowingVenues().size(); i++) {
-            if (movieSchedule.getShowingVenues().get(i).equals(cinema.getUUID())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * Refactored method to reset a movie schedule.
      * @param movieSchedule is the movie schedule to be resetted
      */
