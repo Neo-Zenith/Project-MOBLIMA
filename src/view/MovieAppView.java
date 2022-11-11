@@ -8,6 +8,7 @@ import src.controller.*;
 
 /**
  * View for the movie goer and cinema staff before register or login
+ * 
  * @author Lee Juin
  * @version 1.0
  */
@@ -16,7 +17,7 @@ public class MovieAppView extends MainView {
      * StaffSystemConfig view
      */
     private StaffSystemConfigView staffView;
-    
+
     /**
      * Error message of the view
      */
@@ -33,6 +34,7 @@ public class MovieAppView extends MainView {
      * Method to print the boiler plate and displays the choices of the user
      */
     public void printMenu() {
+
         MainView.printBoilerPlate("Welcome to MOBLIMA!");
         MainView.printMenuContent("""
 
@@ -43,7 +45,8 @@ public class MovieAppView extends MainView {
     }
 
     /**
-     * Method to print the boiler plate and displays the choices of the user to select their age group
+     * Method to print the boiler plate and displays the choices of the user to
+     * select their age group
      */
     public void printAgeGroup() {
         MainView.printBoilerPlate("What is your age group?");
@@ -60,7 +63,8 @@ public class MovieAppView extends MainView {
      * Method to take in choice of user and allows user to login or register
      * Login requires user to enter username and password to be verified
      * Register requires user to enter unique username and password
-     * Other details like age group, name, email, mobile will be used to create a new movieGoer
+     * Other details like age group, name, email, mobile will be used to create a
+     * new movieGoer
      */
     public void appContent() {
         int choice = -1;

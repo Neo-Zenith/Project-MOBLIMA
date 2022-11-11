@@ -6,10 +6,11 @@ import src.handler.*;
 
 /**
  * View class for handling all UI related to {@link Database}
+ * 
  * @author Lee Juin
  * @version 1.0
  */
-public class DatabaseView extends MainView{
+public class DatabaseView extends MainView {
     private StaffAddMovieView staffAddMovieView;
     private String errorMessage;
 
@@ -19,7 +20,7 @@ public class DatabaseView extends MainView{
     public DatabaseView() {
         this.errorMessage = "";
     }
-    
+
     /**
      * Standard function to print the menu for user to choose the next action
      */
@@ -51,10 +52,11 @@ public class DatabaseView extends MainView{
                 case 1:
                     System.out.println("Loading... Please wait.");
                     DatabaseManager.initializePrices();
-                    if (DatabaseManager.initializeCineplexData() && DatabaseManager.initializeMovie() && DatabaseManager.initializeMovieScheduleData()) {
+                    if (DatabaseManager.initializeCineplexData() && DatabaseManager.initializeMovie()
+                            && DatabaseManager.initializeMovieScheduleData()
+                            && DatabaseManager.initalizeCinemaStaff()) {
                         this.errorMessage = "Data loaded successfully!";
-                    }
-                    else {
+                    } else {
                         this.errorMessage = "Existing data in the database. Only price data are resetted!";
                     }
                     break;
