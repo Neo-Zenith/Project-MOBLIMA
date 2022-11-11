@@ -4,7 +4,9 @@ import src.handler.*;
 import src.controller.*;
 
 /**
- * View for cinema staffs to configure movie goer's permissions to view top 5 movies
+ * View for cinema staffs to configure movie goer's permissions to view top 5
+ * movies
+ * 
  * @author Jonathan Ng
  * @version 1.0
  */
@@ -15,7 +17,7 @@ public class StaffConfigPermissionsView {
     private String errorMessage;
 
     /**
-     * Constructor 
+     * Constructor
      */
     public StaffConfigPermissionsView() {
         this.errorMessage = "";
@@ -38,8 +40,9 @@ public class StaffConfigPermissionsView {
     }
 
     /**
-     * Method to call printMenu 
-     * Upon successful choice, optInOut under CinemaStaffManager will be called and the movieGoer's permissions will be updated and saved into the database
+     * Method to call printMenu
+     * Upon successful choice, optInOut under CinemaStaffManager will be called and
+     * the movieGoer's permissions will be updated and saved into the database
      */
     public void appContent() {
         int choice = -1;
@@ -79,6 +82,6 @@ public class StaffConfigPermissionsView {
                     this.errorMessage = "Error! Please enter a valid input!";
                     continue;
             }
-        }   while (true);
+        } while (true);
     }
 }

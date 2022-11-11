@@ -4,7 +4,9 @@ import src.model.enums.*;
 import src.database.*;
 
 /**
- * Standard seat class
+ * The Class inherited from the Superclass {@link Seat} that handles the data of
+ * Standard Seat
+ * 
  * @author Lee Juin
  * @version 1.0
  */
@@ -22,6 +24,7 @@ public class StandardSeat extends Seat {
 
     /**
      * Constructor for StandardSeat class
+     * 
      * @param UUID is the unique ID in the database
      */
     public StandardSeat(String UUID) {
@@ -32,6 +35,7 @@ public class StandardSeat extends Seat {
 
     /**
      * Sets the price weight of the seat
+     * 
      * @param seatPrice is the price weight of the seat
      */
     public void setSeatPrice(double seatPrice) {
@@ -40,6 +44,7 @@ public class StandardSeat extends Seat {
 
     /**
      * Gets the price weight of the seat
+     * 
      * @return The price weight of the seat
      */
     public double getSeatPrice() {
@@ -48,6 +53,7 @@ public class StandardSeat extends Seat {
 
     /**
      * Gets the {@link SeatType} of the seat
+     * 
      * @return The {@link SeatType} of the seat
      */
     public SeatType getSeatType() {
@@ -56,6 +62,7 @@ public class StandardSeat extends Seat {
 
     /**
      * Sets the {@link SeatType} of the seat
+     * 
      * @param seatType is the {@link SeatType} of the seat
      */
     public void setSeatType(SeatType seatType) {

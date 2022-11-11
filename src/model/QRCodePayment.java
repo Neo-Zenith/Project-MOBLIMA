@@ -3,14 +3,14 @@ package src.model;
 import src.model.enums.*;
 
 /**
- * The Class inherited from the Superclass {@link Payment} 
+ * The Class inherited from the Superclass {@link Payment}
  * that handles the data of QR Code Payment
  * 
  * @author Ci Hui
  * @version 1.0
  */
 
-public class QRCodePayment extends Payment{
+public class QRCodePayment extends Payment {
     /**
      * {@link PaymentType} of the QR Code Payment
      */
@@ -24,10 +24,10 @@ public class QRCodePayment extends Payment{
     /**
      * Constructor for QRCodePayment Class
      * 
-     * @param UUID              is the unique ID in the database
-     * @param paymentType       is the {@link PaymentType} of the QR Code Payment
-     * @param transactionID     is the Transaction ID of the QR Code Payment
-     * @param movieTicketPrice  is the price of the Movie Tickets
+     * @param UUID             is the unique ID in the database
+     * @param paymentType      is the {@link PaymentType} of the QR Code Payment
+     * @param transactionID    is the Transaction ID of the QR Code Payment
+     * @param movieTicketPrice is the price of the Movie Tickets
      */
     public QRCodePayment(String UUID, PaymentType paymentType, String transactionID, double movieTicketPrice) {
         super(UUID, transactionID);
@@ -47,7 +47,8 @@ public class QRCodePayment extends Payment{
     /**
      * Sets the {@link PaymentType} of the QR Code Payment
      * 
-     * @param paymentType is the {@link PaymentType} of the QR Code Payment to be set
+     * @param paymentType is the {@link PaymentType} of the QR Code Payment to be
+     *                    set
      */
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
@@ -61,7 +62,7 @@ public class QRCodePayment extends Payment{
     public double getMovieTicketPrice() {
         return this.movieTicketPrice;
     }
-    
+
     /**
      * Sets the price of the Movie Tickets
      * 

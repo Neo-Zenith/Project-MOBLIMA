@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Ci Hui
  * @version 1.0
  */
-public class MovieTicket implements Serializable{
+public class MovieTicket implements Serializable {
 
     /**
      * Unique ID of the Movie Ticket
@@ -43,11 +43,11 @@ public class MovieTicket implements Serializable{
     /**
      * Constructor for the MovieTicket Class
      * 
-     * @param UUID          is the unique ID in the database
-     * @param movieUUID     is the unique ID of the chosen Movie
-     * @param showTime      is the Showing Time of the chosen Movie
-     * @param seatID        is the Seat ID chosen
-     * @param cinemaUUID    is the unique ID of the chosen Cinema
+     * @param UUID       is the unique ID in the database
+     * @param movieUUID  is the unique ID of the chosen Movie
+     * @param showTime   is the Showing Time of the chosen Movie
+     * @param seatID     is the Seat ID chosen
+     * @param cinemaUUID is the unique ID of the chosen Cinema
      */
     public MovieTicket(String UUID, String movieUUID, DateTime showTime, String seatID, String cinemaUUID) {
         this.setUUID(UUID);
@@ -123,7 +123,8 @@ public class MovieTicket implements Serializable{
     /**
      * Sets the unique ID of the chosen Cinema where the Moive is going to show
      * 
-     * @param showingVenue is the unique ID of the chosen Cinema where the Moive is going to show
+     * @param showingVenue is the unique ID of the chosen Cinema where the Moive is
+     *                     going to show
      */
     public void setShowingVenue(String showingVenue) {
         this.cinemaUUID = showingVenue;

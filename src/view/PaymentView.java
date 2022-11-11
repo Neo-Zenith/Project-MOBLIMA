@@ -7,6 +7,7 @@ import src.handler.*;
 
 /**
  * View for movie goer after selecting the seats for purchase
+ * 
  * @author Lee Juin, Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -35,18 +36,21 @@ public class PaymentView extends MainView {
      * ReferenceID as string
      */
     private String referenceID;
-    
+
     /**
      * Error message of the view
      */
     private String errorMessage;
 
     /**
-     * Creates a PaymentView with the cinemaCode, movieSchedule and totalMovieTicketPrice
+     * Creates a PaymentView with the cinemaCode, movieSchedule and
+     * totalMovieTicketPrice
      * Generates a transactionID based on the cinemaCode
-     * @param cinemaCode string of the cinema chosen
-     * @param totalMovieTicketPrice Total movie ticket price for all seats chosen for the movie
-     * @param movieSchedule schedule chosen for the movie type
+     * 
+     * @param cinemaCode            string of the cinema chosen
+     * @param totalMovieTicketPrice Total movie ticket price for all seats chosen
+     *                              for the movie
+     * @param movieSchedule         schedule chosen for the movie type
      */
     public PaymentView(String cinemaCode, double totalMovieTicketPrice, MovieSchedule movieSchedule) {
         this.totalMovieTicketPrice = totalMovieTicketPrice;
@@ -57,6 +61,7 @@ public class PaymentView extends MainView {
 
     /**
      * Gets the payment object
+     * 
      * @return {@link Payment} object
      */
     public Payment getPayment() {
@@ -64,7 +69,8 @@ public class PaymentView extends MainView {
     }
 
     /**
-     * Method that prints boiler plate and displays the choices that the user has to pay
+     * Method that prints boiler plate and displays the choices that the user has to
+     * pay
      */
     public void printMenu() {
         MainView.printBoilerPlate("Payment");
@@ -80,8 +86,10 @@ public class PaymentView extends MainView {
     }
 
     /**
-     * Method that takes in the choice of the payment method, and requires user to key in relevant payment details
-     * User will be prompted to re-enter information if int or String keyed in is invalid
+     * Method that takes in the choice of the payment method, and requires user to
+     * key in relevant payment details
+     * User will be prompted to re-enter information if int or String keyed in is
+     * invalid
      */
     public void appContent() {
 
@@ -94,7 +102,7 @@ public class PaymentView extends MainView {
         this.printMenu();
         choice = InputHandler.intHandler();
 
-        switch(choice){
+        switch (choice) {
             case 1:
                 UIHandler.clearScreen();
                 System.out.println(this.errorMessage);
@@ -128,10 +136,11 @@ public class PaymentView extends MainView {
                 UIHandler.clearScreen();
                 System.out.println(this.errorMessage);
                 MainView.printBoilerPlate("Bank Transaction");
-                this.payment = PaymentManager.createBankTransactioPayment(this.transactionID, this.totalMovieTicketPrice);
+                this.payment = PaymentManager.createBankTransactioPayment(this.transactionID,
+                        this.totalMovieTicketPrice);
 
                 System.out.println("Enter Bank Account Number:");
-                this.referenceID = InputHandler.stringHandler();    
+                this.referenceID = InputHandler.stringHandler();
                 printPaymentSuccessful();
                 printReceipt("Bank Transaction");
                 DatabaseManager.saveUpdateToDatabase(movieSchedule.getUUID(), movieSchedule, Database.MOVIE_SCHEDULE);
@@ -152,7 +161,9 @@ public class PaymentView extends MainView {
     }
 
     /**
-     * Method that prints out receipt containing paymentID, transactionID, paymentMethod, MovieTicketPrice
+     * Method that prints out receipt containing paymentID, transactionID,
+     * paymentMethod, MovieTicketPrice
+     * 
      * @param paymentMethod String of Card Payment, QR Code or Bank Transaction
      */
     public void printReceipt(String paymentMethod) {

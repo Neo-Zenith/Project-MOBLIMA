@@ -7,7 +7,7 @@ import src.handler.*;
 import java.util.*;
 
 /**
- * Controller class for handling all logic related to Cinema
+ * Controller class for handling all logic related to {@link Cinema}
  * 
  * @author Lee Juin
  * @version 1.0

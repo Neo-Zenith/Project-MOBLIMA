@@ -2,11 +2,12 @@ package src.model.enums;
 
 /**
  * Enumeration class for the class Seat
+ * 
  * @author Lee Juin
  * @version 1.0
  */
 public enum SeatType {
-    
+
     STANDARD("Standard Seat"),
     COUPLE("Couple Seat");
 
@@ -14,6 +15,7 @@ public enum SeatType {
 
     /**
      * Private constructor
+     * 
      * @param display is the display name to be shown
      */
     private SeatType(String display) {
@@ -22,6 +24,7 @@ public enum SeatType {
 
     /**
      * Method to obtain the display name of a enumeration
+     * 
      * @return The display name of a enumeration
      */
     public String getDisplayName() {

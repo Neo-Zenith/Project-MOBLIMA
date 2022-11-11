@@ -9,6 +9,7 @@ import src.model.enums.*;
 
 /**
  * View for movie goer to choose the ranking format of top 5 movies
+ * 
  * @author Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -33,7 +34,7 @@ public class MovieListRankingView extends MainView {
         MainView.printMenuContent("""
 
                 How would you like to rank the movies in terms of?
-                
+
                 01. Rank by ticket sales
                 02. Rank by overall reviewers' ratings
                 03. Return
@@ -42,12 +43,14 @@ public class MovieListRankingView extends MainView {
 
     /**
      * Method to call rankTop5 based on choice and prints ranking
-     * Showing movies will be displayed with higher priority over End of show movies 
-     * @param choice choice of the user to rank movies by ticket sales or overall rating
-     * The choice should be 1 or 2
+     * Showing movies will be displayed with higher priority over End of show movies
+     * 
+     * @param choice choice of the user to rank movies by ticket sales or overall
+     *               rating
+     *               The choice should be 1 or 2
      */
     public void printTop5(int choice) {
-        ArrayList <Movie> movies = Database.getValueList(Database.MOVIE.values());
+        ArrayList<Movie> movies = Database.getValueList(Database.MOVIE.values());
         String content = "\n";
         String payload;
         String index;
@@ -76,7 +79,7 @@ public class MovieListRankingView extends MainView {
                 }
                 break;
         }
-    
+
         int length = (movies.size() > 5) ? 5 : movies.size();
 
         int k = 0;
@@ -90,21 +93,20 @@ public class MovieListRankingView extends MainView {
                     if (movie.getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
                         break;
                     }
-                    k ++;
-                }   while(true); 
+                    k++;
+                } while (true);
                 if (k == movies.size()) {
                     break;
                 }
                 index = String.format("%d. ", j + 1);
                 payload = String.format(index + movies.get(k).getMovieTitle() + " [ " +
-                                        movies.get(k).getMovieType().getDisplayName() + " ] - Tickets sold: "
-                                        + movies.get(k).getMovieTicketsSold() + "\n");
+                        movies.get(k).getMovieType().getDisplayName() + " ] - Tickets sold: "
+                        + movies.get(k).getMovieTicketsSold() + "\n");
                 content = content + payload;
-                k ++;
+                k++;
             }
 
-        } 
-        else {
+        } else {
             for (int j = 0; j < length; j++) {
                 do {
                     if (k == movies.size()) {
@@ -114,23 +116,22 @@ public class MovieListRankingView extends MainView {
                     if (movie.getMovieShowingStatus() != MovieShowingStatus.END_OF_SHOWING) {
                         break;
                     }
-                    k ++;
-                }   while(true);
+                    k++;
+                } while (true);
                 if (k == movies.size()) {
                     break;
                 }
                 String rating = String.format("%.1f", movies.get(k).getMovieOverallReviewRating());
                 index = String.format("%d. ", j + 1);
                 payload = String.format(index + movies.get(k).getMovieTitle() + " [ " +
-                                        movies.get(k).getMovieType().getDisplayName());
+                        movies.get(k).getMovieType().getDisplayName());
                 if (movies.get(k).getMovieReviews().size() <= 1) {
                     payload += " ] - Overall rating: Not Available\n";
-                }
-                else {
+                } else {
                     payload += " ] - Overall rating: " + rating + "\n";
                 }
                 content = content + payload;
-                k ++;
+                k++;
             }
         }
         MainView.printMenuContent(content);
@@ -158,7 +159,7 @@ public class MovieListRankingView extends MainView {
             }
             UIHandler.clearScreen();
             this.printTop5(choice);
-            
+
         } while (true);
     }
 }

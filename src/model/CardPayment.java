@@ -3,14 +3,14 @@ package src.model;
 import src.model.enums.PaymentType;
 
 /**
- * The Class inherited from the Superclass {@link Payment} 
+ * The Class inherited from the Superclass {@link Payment}
  * that handles the data of Card Payment
  * 
  * @author Ci Hui
  * @version 1.0
  */
 
-public class CardPayment extends Payment{
+public class CardPayment extends Payment {
     /**
      * {@link PaymentType} of the Card Payment
      */
@@ -24,10 +24,10 @@ public class CardPayment extends Payment{
     /**
      * Constructor for CardPayment Class
      * 
-     * @param UUID              is the unique ID in the database
-     * @param paymentType       is the {@link PaymentType} of the Card Payment
-     * @param transactionID     is the Transaction ID of the Card Payment
-     * @param movieTicketPrice  is the price of the Movie Tickets
+     * @param UUID             is the unique ID in the database
+     * @param paymentType      is the {@link PaymentType} of the Card Payment
+     * @param transactionID    is the Transaction ID of the Card Payment
+     * @param movieTicketPrice is the price of the Movie Tickets
      */
     public CardPayment(String UUID, PaymentType paymentType, String transactionID, double movieTicketPrice) {
         super(UUID, transactionID);
@@ -61,7 +61,7 @@ public class CardPayment extends Payment{
     public double getMovieTicketPrice() {
         return this.movieTicketPrice;
     }
-    
+
     /**
      * Sets the price of the Movie Tickets
      * 

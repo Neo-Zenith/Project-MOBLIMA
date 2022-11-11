@@ -34,9 +34,10 @@ public class BookingHistory implements Serializable {
     /**
      * Constructor for the BookingHistory Class
      * 
-     * @param UUID          is the unique ID in the database
-     * @param movieTicket   is the {@link MovieTicket} booked by the MovieGoer
-     * @param payment       is the {@link Payment} made my the MovieGoer for the Booking
+     * @param UUID        is the unique ID in the database
+     * @param movieTicket is the {@link MovieTicket} booked by the MovieGoer
+     * @param payment     is the {@link Payment} made my the MovieGoer for the
+     *                    Booking
      */
     public BookingHistory(String UUID, ArrayList<MovieTicket> movieTicket, Payment payment) {
         this.setMovieTicket(movieTicket);
@@ -46,7 +47,7 @@ public class BookingHistory implements Serializable {
 
     /**
      * Gets the unique ID of the Booking History
-     *  
+     * 
      * @return the unique ID of the Booking History
      */
     public String getUUID() {
@@ -74,7 +75,8 @@ public class BookingHistory implements Serializable {
     /**
      * Sets the ArrayList of {@link MovieTicket} to be booked by the MovieGoer
      * 
-     * @param movieTicket is the ArrayList of {@link MovieTicket} to be booked by the MovieGoer
+     * @param movieTicket is the ArrayList of {@link MovieTicket} to be booked by
+     *                    the MovieGoer
      */
     public void setMovieTicket(ArrayList<MovieTicket> movieTicket) {
         this.movieTicket = movieTicket;
@@ -92,7 +94,8 @@ public class BookingHistory implements Serializable {
     /**
      * set the {@link Payment} to be made by the MovieGoer for the Booking
      * 
-     * @param payment is the {@link Payment} to be made by the MovieGoer for the Booking
+     * @param payment is the {@link Payment} to be made by the MovieGoer for the
+     *                Booking
      */
     public void setPayment(Payment payment) {
         this.payment = payment;

@@ -7,7 +7,7 @@ import src.handler.*;
 import src.database.*;
 
 /**
- * Controller class for handling all logic related to Movie
+ * Controller class for handling all logic related to {@link Movie}
  * 
  * @author Jerick, Yeek Sheng
  * @version 1.0
@@ -189,7 +189,8 @@ public class MovieManager {
                 Movie movie1 = movies.get(j);
                 Movie movie2 = movies.get(j - 1);
                 if (sortBy.equals("ratings")) {
-                    if (movie1.getMovieOverallReviewRating() > movie2.getMovieOverallReviewRating() || movie2.getMovieReviews().size() <= 1) {
+                    if (movie1.getMovieOverallReviewRating() > movie2.getMovieOverallReviewRating()
+                            || movie2.getMovieReviews().size() <= 1) {
                         Collections.swap(movies, j, j - 1);
                     } else {
                         break;

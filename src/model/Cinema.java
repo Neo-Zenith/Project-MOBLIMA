@@ -5,7 +5,8 @@ import java.io.Serializable;
 import src.model.enums.*;
 
 /**
- * Cinema abstract class
+ * The Class that handles the data of Cinema
+ * 
  * @author Lee Juin
  * @version 1.0
  */

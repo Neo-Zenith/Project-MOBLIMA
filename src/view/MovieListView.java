@@ -7,6 +7,7 @@ import src.handler.*;
 
 /**
  * View for movie goer to view the list of movies
+ * 
  * @author Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -20,7 +21,7 @@ public class MovieListView extends MainView {
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
-    
+
     /**
      * Error message of the view
      */
@@ -28,7 +29,8 @@ public class MovieListView extends MainView {
 
     /**
      * Creates a new MovieListView with the movieGoer
-     * Constructs the list of movies available 
+     * Constructs the list of movies available
+     * 
      * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieListView(MovieGoer movieGoer) {
@@ -56,7 +58,7 @@ public class MovieListView extends MainView {
 
         MainView.printMenuContent(content);
     }
-    
+
     /**
      * Method to print the boiler plate and calls printMovieList
      */
@@ -66,7 +68,8 @@ public class MovieListView extends MainView {
     }
 
     /**
-     * Method to take in choice of user to display corresponding details of the movie using MovieDetailsView
+     * Method to take in choice of user to display corresponding details of the
+     * movie using MovieDetailsView
      */
     public void appContent() {
         int choice = -1;
@@ -85,8 +88,7 @@ public class MovieListView extends MainView {
             if (choice == (allMovies.size() + 1)) {
                 this.errorMessage = "";
                 return;
-            } 
-            else {
+            } else {
                 movieTitle = allMovies.get(choice - 1).getMovieTitle();
                 MovieDetailsView detailsview = new MovieDetailsView(movieTitle, this.movieGoer);
                 this.errorMessage = "";
@@ -97,7 +99,7 @@ public class MovieListView extends MainView {
                 return;
             }
 
-        }   while (true);
+        } while (true);
     }
 
 }

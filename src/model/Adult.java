@@ -4,7 +4,8 @@ import src.database.Database;
 import src.model.enums.MovieGoerAge;
 
 /**
- * The Class that handles the data of Adult Movie Goer
+ * The Class inherited from the Superclass {@link MovieGoer} that handles the
+ * data of Adult
  * 
  * @author Jerick, Yeek Sheng
  * @version 1.0

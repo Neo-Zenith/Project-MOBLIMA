@@ -5,6 +5,7 @@ import src.model.*;
 
 /**
  * View for movie goer after successful login or register
+ * 
  * @author Yeek Sheng, Jerick
  * @version 1.0
  */
@@ -23,7 +24,7 @@ public class MovieMenuView {
      * MovieGoer object {@link MovieGoer}
      */
     private MovieGoer movieGoer;
-    
+
     /**
      * Error message of the view
      */
@@ -32,6 +33,7 @@ public class MovieMenuView {
     /**
      * Creates a new MovieMenuView with the movieGoer
      * Constructs the MovieListView
+     * 
      * @param movieGoer movieGoer accessing the view {@link MovieGoer}
      */
     public MovieMenuView(MovieGoer movieGoer) {
@@ -48,7 +50,7 @@ public class MovieMenuView {
         MainView.printMenuContent(String.format("""
 
                 Welcome to MOBLIMA! %s
-                
+
                 01. List Movies
                 02. Search Movie
                 03. View Booking History
@@ -59,7 +61,8 @@ public class MovieMenuView {
 
     /**
      * Method to take in the choice of the user and creates a corresponding view
-     * Available choices for MovieListView, MovieSearchView, MovieBookingHistoryView, MovieListRankingView
+     * Available choices for MovieListView, MovieSearchView,
+     * MovieBookingHistoryView, MovieListRankingView
      * Sets exit boolean to false if it is true
      */
     public void appContent() {
@@ -82,7 +85,7 @@ public class MovieMenuView {
                     break;
                 case 3:
                     MovieBookingHistoryView bookingView = new MovieBookingHistoryView(this.movieGoer);
-                    bookingView.appContent();                    
+                    bookingView.appContent();
                     break;
                 case 4:
                     MovieListRankingView rank = new MovieListRankingView();
@@ -99,6 +102,6 @@ public class MovieMenuView {
                 MovieMenuView.exit = false;
             }
 
-        }   while (true);
+        } while (true);
     }
 }

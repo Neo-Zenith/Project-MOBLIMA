@@ -8,7 +8,8 @@ import java.util.*;
 
 /**
  * View class for handling all UI related to {@link Cinema}
- * @author Lee Juin
+ * 
+ * @author Lee Juin, Jerick
  * @version 1.0
  */
 public class CinemaView extends MainView {
@@ -17,13 +18,14 @@ public class CinemaView extends MainView {
     private ArrayList<Cinema> listOfCinemaClass;
     private MovieScheduleView movieScheduleView;
     private MovieGoer movieGoer;
-    private ArrayList <CinemaClass> existingClass;
+    private ArrayList<CinemaClass> existingClass;
     private String errorMessage;
 
     /**
      * Constructor
-     * @param cineplex is the cineplex for the cinema to be viewed
-     * @param movie is the movie selected by the Movie Goer
+     * 
+     * @param cineplex  is the cineplex for the cinema to be viewed
+     * @param movie     is the movie selected by the Movie Goer
      * @param movieGoer is the target Movie Goer
      */
     public CinemaView(Cineplex cineplex, Movie movie, MovieGoer movieGoer) {
@@ -35,7 +37,8 @@ public class CinemaView extends MainView {
     }
 
     /**
-     * Front-end handler to handle the printing of the different types of cinema showing the movie selected
+     * Front-end handler to handle the printing of the different types of cinema
+     * showing the movie selected
      */
     public void printCinemas() {
         this.existingClass = new ArrayList<CinemaClass>();
@@ -44,12 +47,12 @@ public class CinemaView extends MainView {
         int count = 1;
         for (int i = 0; i < this.listOfCinemaClass.size(); i++) {
             Cinema cinema = this.listOfCinemaClass.get(i);
-            if (! existingClass.contains(cinema.getCinemaClass())) {
+            if (!existingClass.contains(cinema.getCinemaClass())) {
                 existingClass.add(cinema.getCinemaClass());
                 String index = String.format("%02d. ", count);
                 String payload = String.format(index + "%s\n", cinema.getCinemaClass().getDisplayName());
                 content = content + payload;
-                count ++;
+                count++;
             }
         }
         String index = String.format("%02d. ", count);
@@ -85,7 +88,8 @@ public class CinemaView extends MainView {
                 this.errorMessage = "";
                 return;
             }
-            ArrayList <Cinema> cinemaList = CinemaManager.filterCinemaByClass(this.existingClass.get(choice-1), cineplex);
+            ArrayList<Cinema> cinemaList = CinemaManager.filterCinemaByClass(this.existingClass.get(choice - 1),
+                    cineplex);
             this.movieScheduleView = new MovieScheduleView(cinemaList, this.movie, this.movieGoer);
             this.errorMessage = "";
             this.movieScheduleView.appContent();
@@ -94,6 +98,6 @@ public class CinemaView extends MainView {
                 this.errorMessage = "";
                 return;
             }
-        }   while (true);
+        } while (true);
     }
 }

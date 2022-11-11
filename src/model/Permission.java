@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Stores and modifies all {@link MovieGoer} permissions
+ * 
  * @author Lee Juin
  * @version 1.0
  */
@@ -29,6 +30,7 @@ public class Permission implements Serializable {
 
     /**
      * Gets the permission to view the top 5 movies by overall ratings
+     * 
      * @return {@code true} if permission granted, {@code false} otherwise
      */
     public boolean getMovieSalesPermission() {
@@ -37,6 +39,7 @@ public class Permission implements Serializable {
 
     /**
      * Sets the permission to view the top 5 movies by movie ratings
+     * 
      * @param permission {@code true} if permission granted, {@code false} otherwise
      */
     public void setMovieSalesPermission(boolean permission) {
@@ -45,6 +48,7 @@ public class Permission implements Serializable {
 
     /**
      * Gets the permission to view the top 5 movies by movie ticket sales
+     * 
      * @return {@code true} if permission granted, {@code false} otherwise
      */
     public boolean getOverallRatingsPermission() {
@@ -53,6 +57,7 @@ public class Permission implements Serializable {
 
     /**
      * Sets the permission to view the top 5 movies by movie ticket sales
+     * 
      * @param permission {@code true} if permission granted, {@code false} otherwise
      */
     public void setOverallRatingsPermission(boolean permission) {

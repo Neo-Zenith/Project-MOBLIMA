@@ -5,7 +5,8 @@ import src.database.Database;
 import src.model.enums.*;
 
 /**
- * The Class which handles the data of Standard Movie
+ * The Class inherited from the Superclass {@link Movie} that handles the data
+ * of Standard Movie
  * 
  * @author Jerick, Yeek Sheng
  * @version 1.0
