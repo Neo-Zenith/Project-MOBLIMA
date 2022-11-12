@@ -13,7 +13,7 @@
 |    ├── handler          # Helper functions
 |    ├── model            # Entity classes
 |    ├── view             # Boundary classes
-├    └── MovieApp.java    # MOBLIMA App
+|    └── MovieApp.java    # MOBLIMA App
 ├── .gitignore
 └── README.md
 ```
