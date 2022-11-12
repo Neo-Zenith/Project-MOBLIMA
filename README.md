@@ -43,7 +43,7 @@ cd bin
 jar cvf MovieApp.jar * 
 ```
 
-At the root directory, to run the archived ```.jar``` file:
+At the root directory, to run the built file:
 ```
 cd bin
 java -cp MovieApp.jar src.MovieApp
