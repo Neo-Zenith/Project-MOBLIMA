@@ -8,8 +8,19 @@ package src.model.enums;
  */
 public enum CinemaClass {
 
+    /**
+     * Standard cinema
+     */
     STANDARD("Standard Cinema"),
+
+    /**
+     * Platinum cinema
+     */
     PLATINUM("Platinum Movie Suite"),
+
+    /**
+     * IMAX cinema
+     */
     IMAX("IMAX Cinema Experience");
 
     private final String display;

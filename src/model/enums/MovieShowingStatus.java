@@ -8,11 +8,30 @@ package src.model.enums;
  */
 
 public enum MovieShowingStatus {
+
+    /**
+     * Coming soon movie status
+     */
     COMING_SOON("Coming Soon"),
+
+    /**
+     * Preview movie status
+     */
     PREVIEW("Preview"),
+
+    /**
+     * Now Showing movie status
+     */
     NOW_SHOWING("Now Showing"),
+
+    /**
+     * End of showing movie status
+     */
     END_OF_SHOWING("End of Showing");
 
+    /**
+     * The name of the enum class
+     */
     private final String display;
 
     /**

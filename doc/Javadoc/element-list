@@ -3,4 +3,5 @@ src.controller
 src.database
 src.handler
 src.model
+src.model.enums
 src.view

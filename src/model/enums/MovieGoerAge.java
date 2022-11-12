@@ -8,8 +8,23 @@ package src.model.enums;
  */
 
 public enum MovieGoerAge {
+    /**
+     * Adult age group
+     */
     Adult,
+
+    /**
+     * Senior citizen age group
+     */
     SeniorCitizen,
+
+    /**
+     * Student age group
+     */
     Student,
+
+    /**
+     * Child age group
+     */
     Child;
 }

@@ -8,9 +8,19 @@ package src.model.enums;
  */
 public enum SeatType {
 
+    /**
+     * Standard seat
+     */
     STANDARD("Standard Seat"),
+
+    /**
+     * Couple seat
+     */
     COUPLE("Couple Seat");
 
+    /**
+     * The name of the enum class
+     */
     private final String display;
 
     /**

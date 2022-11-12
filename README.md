@@ -32,7 +32,7 @@ java src.MovieApp
 
 At the root directory, to convert all Javadoc into HTML documentation:
 ```
-javadoc src src.controller src.database src.handler src.model src.view -d doc/Javadoc -author -version -noqualifier all
+javadoc src src.controller src.database src.handler src.model src.model.enums src.view -d doc/Javadoc -author -version -noqualifier all
 ```
 
 

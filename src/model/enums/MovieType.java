@@ -8,10 +8,24 @@ package src.model.enums;
  */
 
 public enum MovieType {
+    /**
+     * Standard movie
+     */
     Standard("Standard"),
+
+    /**
+     * Blockbuster movie
+     */
     Blockbuster("Blockbuster"),
+
+    /**
+     * 3D movie
+     */
     ThreeD("3D");
 
+    /**
+     * The name of the enum class
+     */
     private final String display;
 
     /**
