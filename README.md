@@ -53,13 +53,13 @@ You may wish to reset the dataase to remove all existing data.
 
 
 ## 🖊️ Contributors
-* Lee Juin [@Neo-Zenith](github.com/Neo-Zenith)
-* Oi Yeek Sheng [@Yeek020407](github.com/Neo-Zenith)
-* Ng Hong Jin, Jonathan [@jonathannghj](github.com/jonathannghj)
-* Jerick Lim Kai Zheng [@jlkz](github.com/jlkz)
-* Lee Ci Hui [@perfectsquare123](github.com/perfectsquare123)
+* Lee Juin [@Neo-Zenith](https://github.com/Neo-Zenith)
+* Oi Yeek Sheng [@Yeek020407](https://github.com/Neo-Zenith)
+* Ng Hong Jin, Jonathan [@jonathannghj](https://github.com/jonathannghj)
+* Jerick Lim Kai Zheng [@jlkz](https://github.com/jlkz)
+* Lee Ci Hui [@perfectsquare123](https://github.com/perfectsquare123)
 
 
 ## 📄 Documentation
-* [Live Javadoc](moblima.vercel.app)
+* [Live Javadoc](https://moblima.vercel.app)
 * HTML files under ```doc/Javadoc```
