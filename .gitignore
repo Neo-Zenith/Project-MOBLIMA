@@ -33,3 +33,8 @@ tmp/*
 
 *.dat
 *.dat
+*.vpp
+*.png
+*.jpg
+*.docx
+*.pdf
